@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	    <script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/wechat/js/rights/rights.js" ></script>
+		
+	</head>
+	<body class="bg">
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>权益详情</span>
+		</div>
+		<#include "../include/menue.html">
+		<input type="hidden" value="${projectId}" id="projectId" />
+		<div class="banner">
+			<img src="/themes/theme_default/cf/wechat/img/rights_detail_banner.png" class="banner-img"/>
+		</div>
+		<div class="rights-detail-content" >
+			<div class="right-col" id="rigthsData" v-repeat='right in rights.list'>
+			<input type="hidden" v-attr="value:right.id"  name="ruleId"/>
+				 <h1  v-if="0!==right.money" ><span>{{right.name}}（&yen;<font v-text="right.money"></font>）</span></h1>
+				 <h3><span v-text="right.ruleNum"></span>位支持</h3>
+				 <div class="right-col-content">
+					 <p v-text="right.content" class="ellipsis"></p>
+					 <button>选定</button>
+				 </div>
+			</div>
+		</div>
+		<div class="blank"></div>
+		<div class="rights-btn">
+			<div class="rights-left-btn support">立即支持<span class="cash"></span></div>
+			<div class="rights-right-btn point">关注</div>
+		</div>
+	</body>
+</html>

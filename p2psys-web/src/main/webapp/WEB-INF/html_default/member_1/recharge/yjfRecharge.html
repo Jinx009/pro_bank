@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>易极付充值...</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>易极付充值跳转中...,请您不要关闭页面</div>
+    <form action="${yjf.url}" method="post" id="frm1" >
+    	service：<input id="service" name="service" value="${yjf.service}"  />
+    	partnerId：<input id="partnerId" name="partnerId" value="${yjf.partnerId}"  />
+    	orderNo：<input id="orderNo" name="orderNo" value="${yjf.orderNo}"  />
+    	sign：<input id="sign" name="sign" value="${yjf.sign}"  />
+    	signType：<input id="signType" name="signType" value="${yjf.signType}"  />
+    	returnUrl：<input id="returnUrl" name="returnUrl" value="${yjf.returnUrl}"  />
+    	notifyUrl：<input id="notifyUrl" name="notifyUrl" value="${yjf.notifyUrl}"  />
+    	userId：<input id="userId" name="userId" value="${yjf.userId}"  />
+    	depositAmount：<input id="depositAmount" name="depositAmount" value="${yjf.depositAmount}"  />
+    	tradeBizProductCode：<input id="tradeBizProductCode" name="tradeBizProductCode" value="${yjf.tradeBizProductCode}"  />
+    	tradeMerchantId：<input id="tradeMerchantId" name="tradeMerchantId" value="${yjf.tradeMerchantId}"  />
+		<input type="submit" value="提交" />
+    </form>
+    <script type="text/javascript">
+    	//document.getElementById("frm1").submit();  
+    </script>
+   
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/borrowConfig/borrowConfigEdit.html',"修改成功！","修改失败！");
+	});
+</script>
+<form id="form"  method="post">
+<div class="borrowForm" style="border-top:none;">
+    <ul>
+    	<li><span>编号：</span><input type="text" name="id" value="${borrowConfig.id!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="3"/><font  color="red" size="4">*</font></li>
+    	<li><span>标识：</span><input type="text" name="cname" value="${borrowConfig.cname!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>名称：</span><input type="text" name="name"  value="${borrowConfig.name!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最大投标额：</span><input type="text" name="mostAccount" value="${borrowConfig.mostAccount!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最小投标额：</span><input type="text" name="lowestAccount" value="${borrowConfig.lowestAccount!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最大年利率：</span><input type="text" name="mostApr" value="${borrowConfig.mostApr!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最小年利率：</span><input type="text" name="lowestApr" value="${borrowConfig.lowestApr!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最大奖励比率：</span><input type="text" name="mostAwardApr" value="${borrowConfig.mostAwardApr!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>最小奖励比率：</span><input type="text" name="lowestAwardApr" value="${borrowConfig.lowestAwardApr!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>是否跳过初审：</span><select name="isTrail" id="isTrail">
+				<option value="1" <#if isTrail==1>selected="selected"</#if>>是</option>
+				<option value="0" <#if isTrail==0>selected="selected"</#if>>否</option>
+			</select></li>
+    	<li><span>是否跳过复审：</span><select name="isReview" id="isReview">
+				<option value="1" <#if isReview==1>selected="selected"</#if>>是</option>
+				<option value="0" <#if isReview==0>selected="selected"</#if>>否</option>
+			</select></li>
+		<li><span>是否启用：：</span><select name="enable" id="enable">
+				<option value="1" <#if isEnable==1>selected="selected"</#if>>是</option>
+				<option value="0" <#if isEnable==0>selected="selected"</#if>>否</option>
+			</select></li>
+    	<li><span>认证条件：</span><input type="text" name="identify" value="${borrowConfig.identify!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>借款管理费：</span><input type="text" name="manageFee" value="${borrowConfig.manageFee!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    	<li><span>日借款管理费：</span><input type="text" name="dayManageFee" value="${borrowConfig.dayManageFee!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font></li>
+    </ul>
+    <div class="borrowFormMuti"><span>性质：</span><textarea name="nature" class="easyui-validatebox borrowFormTextarea" data-options="required: false,validType:'maxLength[100]'" >${borrowConfig.nature!}</textarea></div>
+    <div class="borrowFormMuti"><span>描述：</span><textarea name=remark class="easyui-validatebox borrowFormTextarea" data-options="required: false,validType:'maxLength[500]'">${borrowConfig.remark!}</textarea></div>
+</div>
+</form>

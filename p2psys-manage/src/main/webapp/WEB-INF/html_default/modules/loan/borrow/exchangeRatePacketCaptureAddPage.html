@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrow/exchangeRatePacketCaptureAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">标名：</label>
+		     <div class="ipt">
+		     	<input type="text" name="borrowName" class="easyui-validatebox" data-options="required: true" maxlength="100"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">中间价汇率：</label>
+		     <div class="ipt">
+		     	<input type="text" name="cashPurchasePrice" class="easyui-validatebox" autocomplete="off" data-options="required: true" maxlength="100"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		<label class="lab">添加时间：</label>
+		<div class="ipt">
+			<input type="text" name="addTime" size="25" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" class="searchTime">
+		</div>
+	</form>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width; height=device-height;" name="viewport">
+		<link href="/themes/theme_default/media/css/zcStyle.css" rel="stylesheet">
+		<title>众筹支付</title>
+	</head>
+	<body>
+	<input type="hidden" value="${userName}" id="userName"/>
+	<input type="hidden" value="${tel}" id="tel"/>
+		<!--header	start-->
+		<div id="header">
+			<div id="head_info">
+				<div class="clearfix head_top">
+					<div class="float_left">
+						<a href="/"><div class="logo"></div></a>
+						<span class="navChild"><a href="/aboutUs/siteIntro.html">关于我们</a></span>
+						<span class="navChild"><a href="/crowdfunding/index.html?id=2">我要投资</a></span>
+						<span class="navChild"><a href="/member/main.html">我的账户</a></span>
+						<span class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+						<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+					</div>
+					<div class="float_right">
+						<span class="loginStatus">
+							<span class="welcomePhone">欢迎您，131****9876</span>
+							<a href="${webroot}/user/logout.html">退出</a>
+							<a class="guide" href="/crowdfunding/index.html">在e800Bank投资</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--header	end-->
+		<!--payError	start-->
+		<div class="paySuccess" style="display:block;">
+			<div class="payTop"> 
+				<div class="paytopmiddle">
+					<div class="payStatus"><img src="/themes/theme_default/images/raise/payError.png"/></div>
+					<div class="payError">
+						<p >支付失败</p>
+					</div>	
+				</div>
+			</div>
+			<div class="payBottom">
+				<p>支付失败原因：</p>
+				<p>${error}</p>
+			</div>
+		</div>
+		<a href="javascript:history.back(-1);"><div class="back"><div class="payBack" >返回</div></div></a>
+		<!--payError	end-->
+		<div class="blank">
+		</div>
+		<#include "../include/raise_footer.html">
+		<script type="text/javascript">
+			$(function(){
+				var userName = $("#userName").val();
+				var tel = $("#tel").val();
+				var tel_l = tel.substring(0,3);
+				var tel_r = tel.substring(7,11);
+				$(".welcomePhone").html("欢迎您，"+tel_l+"****"+tel_r);
+			})
+		</script>
+	</body>
+</html>

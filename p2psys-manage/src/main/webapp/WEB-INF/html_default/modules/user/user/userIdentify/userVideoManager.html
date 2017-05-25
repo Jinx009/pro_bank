@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>实名认证</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  480;
+	var winHeight = 500;
+	var editTitle = "视频认证审核";
+	var editUrl =  "/modules/user/user/userIdentify/userVideoVerifyPage.html";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userVideoList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '编号', width: 50, fixed:true,checkbox : false},
+			{ field: 'userName', title: '用户名', width: 80, checkbox : false},
+			{ field: 'realName', title: '真实姓名', width: 60, sortable:false },
+			{ field: 'videoStatus', title: '状态', width: 100,fixed:true, sortable:false, 
+				formatter: function(value,row,index){
+					if (value == 0){
+						return "未认证";
+					} else if(value == 1){
+						return "认证通过";
+					}else if(value == 2){
+						return "待审核";
+					}else if(value == -1){
+						return "认证未通过";
+					}
+					return "";
+				}	
+			},
+			  {	field : 'action',
+				title : '操作',
+				width :50,
+				fixed:true,
+				formatter : function(value, row, index) {
+					var str = '';
+					if(row.videoStatus == 2){
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">审核</a>';
+					}
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			loadFilter: function(data){
+				$.each(data.rows,function(index,row){
+					if(row.userIdentify){
+						row.id=row.userIdentify.id;
+						row.videoStatus=row.userIdentify.videoStatus;
+						row.videoVerifyTime=row.userIdentify.videoVerifyTime;
+					}
+					if(row.userCache){
+						row.sex=row.userCache.sex;
+					}
+				}); 
+				return data;
+			},
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder=" 输入用户名/真实姓名/证件号码进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

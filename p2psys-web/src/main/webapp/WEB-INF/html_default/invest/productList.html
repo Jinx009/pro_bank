@@ -1,0 +1,118 @@
+<#macro trunct name>
+	<#assign length=name?length>
+	<#if length&gt;15>
+		${name[0..15]}
+	<#else>
+		${name}
+	</#if>
+</#macro>
+
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+	<div class="products-banner">
+		<div class="products-title">
+			<h1>精心选择，为您推荐</h1>
+			<p>800Bank为您推荐最优质的理财产品，只为给您选择最合适的理财方式。</p>
+		</div>
+		<div class="products-line">了解我们提供的产品</div>
+		<div class="products-tab">
+		<a class="in-left" href="/" style="display:none;width:215px;"></a>
+		<ul class="clearfix" id="productFlagTitle">
+			<!-- <a href="javascript:void(0)" class="a1 active">现金管理产品</a>
+			<a href="javascript:void(0)" class="a2">海外投资产品</a>
+			<a href="javascript:void(0)" class="a3">浮动收益类产品</a>
+			<a href="javascript:void(0)" class="a4">固定收益类产品</a> -->
+			<!--<a href="javascript:void(0)" class="a5">债权转让</a>-->
+		</ul>
+		<a class="in-right" href="/invest/productList.html" style="width:100px;display:none;color:#fff;">在800Bank投资</a>
+	</div>
+	</div>
+	
+	<div id="productFlagList">
+	
+		<!-- <div class="products-con-border" id="products1">
+			<div class="products-con clearfix">
+				<div class="products-left"><img src="/themes/theme_default/images/products-1.png" width="125"></div>
+				<div class="products-right">
+					<div class="products-right-title">现金管理产品</div>
+					<div class="clearfix products-right-con">
+						<p>
+							低门槛也有稳收益，金钱永不眠。随时预约赎回，资金流动好安排。
+						</p>
+						<a href="${webroot}/ppfund/index.html">我要投资</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="products-con-border" id="products2">
+			<div class="products-con clearfix">
+				<div class="products-left"><img src="/themes/theme_default/images/products-2.png" width="125"></div>
+				<div class="products-right">
+					<div class="products-right-title">海外投资产品</div>
+					<div class="clearfix products-right-con">
+						<p>
+							人民币也能海外投资，分散投资风险，不仅有稳定投资回报，更会享受海外投资超额收益，获益全球经济新周期。 
+						</p>
+						<a href="/invest/estate.html">我要投资</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="products-con-border" id="products3">
+			<div class="products-con clearfix">
+				<div class="products-left"><img src="/themes/theme_default/images/products-3.png" width="125"></div>
+				<div class="products-right">
+					<div class="products-right-title">浮动收益类产品</div>
+					<div class="clearfix products-right-con">
+						<p>
+							精妙投资优选产品，浮动收益从来都是聪明的投资人的首选！
+						</p>
+						<a href="/invest/entrust.html">我要投资</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="products-con-border" id="products4">
+			<div class="products-con clearfix">
+				<div class="products-left"><img src="/themes/theme_default/images/products-4.png" width="125"></div>
+				<div class="products-right">
+					<div class="products-right-title">固定收益类产品</div>
+					<div class="clearfix products-right-con">
+						<p>
+							安心投资明星产品，稳健高收益，为您的资金保驾护航。
+						</p>
+						<a href="${webroot}/invest/index.html">我要投资</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<!--<div class="products-con-border" style="border:0;" id="products5">
+		<div class="products-con clearfix">
+			<div class="products-left"><img src="/themes/theme_default/images/products-5.png"></div>
+			<div class="products-right">
+				<div class="products-right-title">债权转让</div>
+				<div class="clearfix products-right-con">
+					<p>
+						对话高陈栏目是我平台理财人与“高陈”两位专家进行对话的栏目 ，通过这样的栏目对话形式，让理财人能更能深入的了解宏观的经济分析知识。
+					</p>
+					<a href="">我要申购</a>
+				</div>
+			</div>
+		</div>
+	</div>-->
+	</div>
+	<script>
+	seajs.use("${webroot}${theme_dir}/media/js/productList");
+	</script>
+	<#include "../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,79 @@
+ <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8ed4547d64b13d365d0b73967f9cec38";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+$(function(){
+	// 导航颜色修改
+$("#foot_nav_my_a").css("color","#326eaf").find("svg").css({"fill":"#326eaf","stroke-width":"0"});
+	$(".account_right").click(function(){
+		$(".right_list").toggle();
+	});
+})
+/**
+ * 开启弹窗
+ */
+function showError()
+{
+	//$("#success_div").show();
+	document.getElementById("success_div").style.display="block";
+}
+/**
+ * 关闭弹窗
+ */
+function hideError()
+{
+	location.href = "/nb/wechat/cash/newCash.html";
+}
+</script>
+ <div class="foot-blank"></div>    
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+<!-- 底部导航 -->

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>800Bank</title>
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/base.css">
+    <link rel="stylesheet" href="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.min.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/beinvited.css">
+    <script src="/themes/theme_default/dist/jquery.js"></script>
+    <script src="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.jquery.min.js"></script>
+    <script src="/plugins/layer.mobile-v1.6/layer.m.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/data_protocol.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/beinvited.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?8ed4547d64b13d365d0b73967f9cec38";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    wx.config({
+        debug: false,
+        appId: '${appId}',
+        timestamp: ${timestamp},
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'hideMenuItems',
+            'hideAllNonBaseMenuItem',
+            'hideOptionMenu'
+        ]
+    });
+
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage'],
+            success: function(res) {
+                wx.hideMenuItems({
+                    menuList: ['menuItem:share:qq', 'menuItem:share:QZone', 'menuItem:share:weiboApp',
+                        'menuItem:copyUrl', 'menuItem:openWithQQBrowser', 'menuItem:originPage',
+                        'menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                        'menuItem:share:timeline'
+                    ]
+                });
+            }
+        });
+    });
+
+    wx.error(function(res) {});
+    </script>
+</head>
+
+<body>
+    <!-- <div class="header">
+        <div class="wrap">
+            <a href=""><img src="/themes/theme_default/nb/wechat/images/logo.png" alt=""></a>
+            <span>属于您的财富管家</span>
+        </div>
+    </div> -->
+
+<!-- 黄色条状物 -->
+    <div class="yellow-bar">
+        <a href="javascript:;">
+            <img src="/themes/theme_default/nb/wechat/images/800bank_white.png" alt="">
+            <span>专业的互联网财富管理平台</span>
+        </a>
+    </div>
+
+    <!-- 轮播图开始 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图结束 -->
+    <div class="bar">
+        <a href="javascript:;"><img src="/themes/theme_default/nb/wechat/images/bar-invited.png" alt=""></a>
+    </div>
+    <form action="" id="invest">
+        <div class="login">
+            <span class="tips">*注册成功后自动与当前微信账号绑定</span>
+            <input type="tel" class="invest-input" id="tel" name="tel" placeholder="手机号&nbsp;请输入手机号">
+            <input type="password" class="invest-input" id="pwd" name="tel" placeholder="密码&nbsp;（至少8位数字与字母组合">
+        </div>
+        <div class="code">
+            <span class="tips">*设置密码后可在网页登录</span>
+            <input type="text" class="invest-input" id="couponCode" value="${promotCode}" name="couponCode" placeholder="邀请码（可为空）">
+            <div class="send-yzm">
+                <div class="in-box">
+                    <input type="text" class="invest-input" id="yzm" name="yzm" placeholder="验证码">
+                </div>
+                <button type="button" id="send-msg">发送验证码</button>
+            </div>
+            <div class="protocol">
+                <input type="checkbox" class="invest-chekbox" id="agree" name="agree" checked> 阅读并同意
+                <a href="javascript:;" id="service_protocol">《服务协议》</a>
+                <a href="javascript:;" id="risk_provision">《风险条款》</a>
+            </div>
+        </div>
+        <div class="submit-button">
+            <button type="button" id="confirm">确认绑定</button>
+            <button type="button" id="login">已有账号登录</button>
+        </div>
+    </form>
+</body>
+
+</html>

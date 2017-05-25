@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>上传资料审核</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  600;
+	var winHeight = 520;
+	var editTitle = "审核证明资料";
+	var editUrl =  "/modules/user/user/certification/certificationVerifyPage.html";
+	var showHtml = "sfdsa";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'certificationApplyList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '编号', width: 50, fixed:true,checkbox : false},
+			{ field: 'userName', title: '用户名', width: 90, fixed:true,checkbox : false},
+			{ field: 'realName', title: '真实姓名', width: 90, fixed:true,sortable:false },
+			{ field: 'score', title: '评分', width: 90, fixed:true,sortable:false },
+			{ field: 'typeName', title: '资料类型', width: 100, sortable:false},
+			{ field: 'addTime', title: '上传时间', width: 120, sortable:false,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			},
+			{ field: 'verifyRemark', title: '审核备注', width: 100, sortable:false },
+			{ field: 'status', title: '状态', width: 80, fixed:true,sortable:false, 
+				formatter: function(value,row,index){
+					if (value==0){
+						return "待审核";
+					} else if (value==1) {
+						return "审核通过";
+					} else {
+						return "审核未通过";
+					}
+				}	
+			},
+			{ field: 'verifyTime', title: '审核时间', width: 130, sortable:false, 
+ 				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}	
+ 			},
+ 			{ field : 'userInfo',
+                title : '个人信息',
+                width :75,
+                align:'center',
+                fixed:true,
+                formatter : function(value, row, index) {
+                	if (row.city == null) {
+                		return "<font color='red'>未填写</font>";
+                	} 
+                	//婚姻状况
+                	var maritalStatus=row.maritalStatus;
+                	if(maritalStatus==0){
+                		maritalStatus = "未婚";
+                	}else if(maritalStatus==1){
+                		maritalStatus = "已婚";
+                	}else if(maritalStatus==2){
+                		maritalStatus = "离异";
+                	}else if(maritalStatus==3){
+                		maritalStatus = "丧偶";
+                	}
+                	//学历
+                	var education=row.education;
+                	if(education==1){
+                		education = "小学";
+                	}else if(education==2){
+                		education = "初中";
+                	}else if(education==3){
+                		education = "高中";
+                	}else if(education==4){
+                		education = "中专";
+                	}else if(education==5){
+                		education = "大专";
+                	}else if(education==6){
+                		education = "本科";
+                	}else if(education==7){
+                		education = "硕士";
+                	}else if(education==8){
+                		education = "博士";
+                	}else if(education==9){
+                		education = "其他";
+                	}
+                	//车产
+                	var carStatus=row.carStatus;
+                	if(carStatus==0){
+                		carStatus = "没有";
+                	}else if(carStatus==1){
+                		carStatus = "有";
+                	}
+                	//工作年限
+                	var workExperience = row.workExperience;
+                	if(workExperience==1){
+                		workExperience = "0-3年";
+                	}else if(workExperience==2){
+                		workExperience = "3-5年";
+                	}else if(workExperience==3){
+                		workExperience = "5-8年";
+                	}else if(workExperience==4){
+                		workExperience = "8年以上";
+                	}
+                	//房产
+                	var houseStatus=row.houseStatus;
+                	if(houseStatus==0){
+                		houseStatus = "没有";
+                	}else if(houseStatus==1){
+                		houseStatus = "有";
+                	}
+                	//收入范围
+                	var monthIncomeRange = row.monthIncomeRange;
+                	if(monthIncomeRange==1){
+                		monthIncomeRange = "3000元以下";
+                	}else if(monthIncomeRange==2){
+                		monthIncomeRange = "3000-5000元";
+                	}else if(monthIncomeRange==3){
+                		monthIncomeRange = "5000-8000元";
+                	}else if(monthIncomeRange==4){
+                		monthIncomeRange = "8000-10000元";
+                	}else if(monthIncomeRange==5){
+                		monthIncomeRange = "10000-13000元";
+                	}else if(monthIncomeRange==6){
+                		monthIncomeRange = "13000-15000元";
+                	}else if(monthIncomeRange==7){
+                		monthIncomeRange = "15000-20000元";
+                	}else if(monthIncomeRange==8){
+                		monthIncomeRange = "20000元以上";
+                	}
+                	var content  = '<a href="javascript:void(0);" class="showInfo">查看<i class="iconfont">&#xe639;</i></a><div class="showPersonInfoDiv"><div class="showPersonInfo"><em></em><h2>借款个人信息</h2><ul><li><span>用户名：</span>'+row.userName+'</li><li><span>真实姓名：</span>'+row.realName+'</li><li><span>生&nbsp;&nbsp;&nbsp;&nbsp;日：</span>'+getLocalTime(row.birthday,3)+'</li><li><span>婚姻状况：</span>'+maritalStatus+'</li><li><span>学&nbsp;&nbsp;&nbsp;&nbsp;历：</span>'+education+'</li><li><span>户籍城市：</span>'+row.province+row.city+'</li><li><span>车&nbsp;&nbsp;&nbsp;&nbsp;产：</span>'+carStatus+'</li><li><span>工作年限：</span>'+workExperience+'</li><li><span>房&nbsp;&nbsp;&nbsp;&nbsp;产：</span>'+houseStatus+'</li><li><span>收入范围：</span>'+monthIncomeRange+'</li></ul></div></div>' ;
+                    return content ;
+                }
+            },
+			  {	field : 'action',
+				title : '操作',
+				width :50,
+				fixed:true,
+				formatter : function(value, row, index) {
+					var str = '';
+					if(row.status == 0){
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.certificationEditFun('+row.id+',editTitle,winWidth,winHeight,editUrl,'+row.userId+','+row.typeId+');" title="'+editTitle+'">审核</a>';
+					}
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar'
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName"  autocomplete="off"/></li>
+		       		<li><span>真实姓名</span><input type="text" name="realName" id="realName"  autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" id="status" class="status">
+						<option value="99">全部</option>
+						<option value="0" selected="selected">待审核</option>
+						<option value="1">审核通过</option>
+						<option value="-1">审核未通过</option>
+					</select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>         
+        </div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>800众服</title>
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	<script src="/plugins/vue/vue.min.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/user/account_log.js" ></script>
+	<style type="text/css">
+	.bottom-div{
+		display: none;
+	}
+	</style>
+</head>
+<body class="bg">
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>资金记录</span>
+	</div>
+	<#include "../include/menue.html">
+		<div class="account-content">
+			<div class="account-col" v-repeat="item in items"  onclick="showDetail({{item.id}})" >
+				<div class="account-small-col" >
+					<div class="account-left">
+						<p>
+							<b>资金动向：
+								<span v-if="'invest'===item.type">投资相关</span>
+								<span v-if="'off_recharge'===item.type">线下充值</span>
+								<span v-if="'cash_frost'===item.type">资金冻结</span>
+								<span v-if="'cash_success'===item.type">提现成功</span>
+								<span v-if="'online_recharge'===item.type">线上充值</span>
+								<span v-if="'off_recharge'===item.type">线下充值</span>
+							</b>
+					  	</p>
+				  	</div>
+					<div class="account-right"><p>交易金额：<span v-text="item.money | moneyFormat" ></span></p></div>	
+				</div>
+				<div class="bottom-div" id="{{item.id}}" >
+					<div class="account-small-col">
+						<div class="account-left"><p>交易时间：<span v-text="item.addTime | timeFormat 'yyyy年M月d日'" ></span></p></div>
+						<div class="account-small-col"><p v-text="item.doremark" ></p></div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>800Bank</title>
+		<link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+		<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+		<script language="JavaScript" type="text/javascript">
+			function delayURL(url) {
+				var delay = document.getElementById("time").innerHTML;
+				if(delay > 0) {
+					delay--;
+					document.getElementById("time").innerHTML = delay;
+				} else {
+					window.top.location.href = url;
+				}
+				setTimeout("delayURL('" + url + "')", 1000);
+			}
+		</script>
+	</head>
+	<body class="authSuccessBg">
+		<div class="authSuccess"><img src="${webroot}${theme_dir}/wx/img/success.png"/></div>
+		<div class="investmentList">
+			<p class="auth">${msg!}</p>
+			<p><span id="time">8</span>秒后自动跳入上一页面</p>
+			<p><a href="${gotoUrl!}" style="text-decoration: underline">点击直接跳转</a></p>
+		</div>	
+		<script type="text/javascript">
+			delayURL('${gotoUrl!}');
+		</script>	
+	</body>
+</html>

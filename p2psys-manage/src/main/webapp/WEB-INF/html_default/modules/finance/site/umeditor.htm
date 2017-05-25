@@ -1,0 +1,16 @@
+<#-- 显示百度富文本编辑器  输入参数长度、高度、id(Textarea的id)、name(Textarea的name)、文本框中的值-->
+<#macro showUeditor width heigth id name content>
+<link href="${webroot}/plugins/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="${webroot}/plugins/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${webroot}/plugins/umeditor/umeditor.min.js"></script>
+
+<script type="text/plain" id="${id!'myEditor'}" name="${name!'myEditor'}" style="width:100%;height:${height!0}px;">
+
+${content!''}
+</script>
+<script type="text/javascript">
+//实例化编辑器
+var um = UM.getEditor("${id!'myEditor'}");
+
+</script>
+</#macro>

@@ -1,0 +1,12 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/repayment/repaymentEntrustEdit.html');
+	});
+</script>
+<div class="popShow">
+</div>
+<form id="form"  method="post">	
+		<span>预期收益：</span><input type="text" name="expectedRate" value=""/>
+		<span></span><input type="hidden" name="repaymentId" value="${repaymentId}"/>
+</form>
+

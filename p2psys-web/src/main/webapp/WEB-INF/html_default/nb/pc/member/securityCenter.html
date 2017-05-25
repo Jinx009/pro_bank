@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="800Bank">
+	<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+    <title>800Bank</title>
+	<script type="text/javascript">
+		seajs.use("/themes/theme_default/nb/pc/js/member/security_setting.js")
+    </script>
+    <link href="/themes/theme_default/nb/pc/css/security.css" rel="stylesheet"/>
+  </head>
+  <script  type="text/javascript" >  	
+  	$(function(){
+		changeLeftMenue("安全中心");
+		var htmlStr = "";
+		$.ajax({
+			type : "post",
+			url : "/nb/pc/securityInfo.html",
+			dataType : "json",
+			success : function(json) {
+				if (checkUser(json.result)) {
+					if(json.pwdLock)
+					{
+						htmlStr = "登录密码已锁定，请于24小时后再尝试！";
+					}else
+					{
+						htmlStr = "<div class='form-group row rechargeForm_col'>";
+						htmlStr += "<label  class='col-md-2'>原密码：</label>";
+						htmlStr += "<input type='password' class='col-md-4 rechargeForm_inp'  placeholder='请输入8位以上数字和字母组合' name='pwd' id='oldpassword'>";
+						htmlStr += "<div class='col-md-4'><img src='/themes/theme_default/nb/pc/img/tip.png'/><span class='tipSpan'>请输入原密码</span></div></div>";
+						
+						htmlStr += "<div class='form-group row rechargeForm_col'>";
+						htmlStr += "<label  class='col-md-2'>新密码：</label>";
+						htmlStr += "<input type='password' class='col-md-4 rechargeForm_inp' placeholder='请输入8位以上数字和字母组合' name='newPwd' id='password'>";
+						htmlStr += "<div class='col-md-4'><img src='/themes/theme_default/nb/pc/img/tip.png'/><span class='tipSpan'>请输入新密码</span></div></div>";
+					 
+				
+					  	htmlStr += "<div class='form-group row rechargeForm_col'>";
+					  	htmlStr += "<label  class='col-md-2'>确认新密码：</label>";
+					  	htmlStr += "<input type='password' class='col-md-4 rechargeForm_inp' placeholder='请输入8位以上数字和字母组合' name='confirmNewPwd' id='confirm_password'>";
+					  	htmlStr += "<div class='col-md-4'><img src='/themes/theme_default/nb/pc/img/tip.png'/><span class='tipSpan'>请再次输入新密码</span></div></div>";
+	
+						htmlStr += "<div class='form-group row rechargeForm_col'>";
+						htmlStr += "<div  class='col-md-2'></div>";
+						htmlStr += "<button type='submit' class='col-md-4 paySure'>确认</button></div>";	
+					}
+					$("#modifyPwdForm").html(htmlStr);
+					if(json.payPwdLock)
+					{
+						htmlStr = "交易密码已锁定，请于24小时后再尝试！";
+						$("#modifyPayPwdForm").empty();
+						$("#modifyPayPwdForm").html(htmlStr);
+					}else
+					{
+						if(json.payPwd!=null&&json.payPwd!="")
+						{
+							$("#oldpwddiv").show();
+						}				
+					}
+					//$("#modifyPayPwdForm").html(htmlStr);
+					
+					if(json.session_user_identify.emailStatus==0)
+					{
+						$("#settingEmailForm").show(); 
+					}else
+					{
+						 var email = "";
+						 if(typeof(json.session_user.email)!="undefined"&&json.session_user.email!="")
+						 {
+							 email = json.session_user.email;
+						 }
+						 
+						 $("#mailValidata").show(); 
+						 $("#userMail").html(email);
+						
+					}
+					
+				} else {
+					showDiv("util_login");
+				}
+			}
+		});
+		
+	})
+  </script>
+  <style>
+	body {background: #fafafa; }
+	.nav-tabs {border-bottom: 0px;}
+   	.safeSetting>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{background-color: #ceebff;color: #3c94d1;box-shadow: 4px 6px 6px rgba(76,76,76,0.27);border:0px;}
+   	a{color: #a1a1a1;text-decoration: none;}
+   	a:hover{color: #a1a1a1;}
+   	.nav-tabs>li>a{margin-right: 0px;}
+ </style>
+  <body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+		<div class="col-md-3 main_left padding_col0 ">
+			<#include "../include/member_menu.html">
+		</div>
+     <!-- 用户中心左导航菜单 end -->		
+
+		<div class="col-md-9 main_right col-lg-9 col-xs-9">
+			<p class="space-div-4" ></p>
+   	  		<p class="account_title" >安全中心</p>
+		    <div class="row">
+			    <ul class="nav nav-tabs safeSetting" role="tablist">
+					<li role="presentation" class="active col-md-2 safeBoxCol text-center phone_col">
+						<div class="col-md-1"></div>
+						<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="col-md-10">
+							<dl class="setting_nav">
+								<dt><img src="/themes/theme_default/nb/pc/img/loginIcon.png"/></dt>
+								<dd>登录密码</dd>
+							</dl>
+						</a>
+						<div class="col-md-1"></div>
+					</li>
+	
+					<li role="presentation" class="col-md-2 safeBoxCol text-center phone_col">
+						<div class="col-md-1"></div>
+						<a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" class="col-md-10">
+							<dl class="setting_nav">
+								<dt><img src="/themes/theme_default/nb/pc/img/payPwdIcon.png"/></dt>
+								<dd>交易密码</dd>
+							</dl>
+						</a>
+						<div class="col-md-1"></div>
+					</li>
+					<li role="presentation" class="col-md-2 safeBoxCol text-center phone_col">
+						<div class="col-md-1"></div>
+						<a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" class="col-md-10">
+							<dl class="setting_nav">
+								<dt><img src="/themes/theme_default/nb/pc/img/EmailIcon.png"/></dt>
+								<dd>绑定邮箱</dd>
+							</dl>
+						</a>
+						<div class="col-md-1"></div>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="profile">
+						<p class="account_smallTitle">登录密码修改</p>
+				  		<form class="account_rechargeForm" action="/nb/pc/security/modifyPwd.html" method="post" id="modifyPwdForm">
+				  			
+						</form>
+					 </div>
+					
+					<div role="tabpanel" class="tab-pane" id="messages">
+						<p class="account_smallTitle">交易密码修改</p>
+					  	<form class="account_rechargeForm" action="/nb/pc/security/modifyPaypwd.html" method="post" id="modifyPayPwdForm">
+							  <div class="form-group row rechargeForm_col" id="oldpwddiv" style="display:none;">
+							    <label  class="col-md-2">原交易密码：</label>
+							    <input type="password" class="col-md-4 rechargeForm_inp"  name="payPwd" id="oldpassword"  placeholder='请输入6位数字' maxlength="6"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							    <div class="col-md-4"><img src="/themes/theme_default/nb/pc/img/tip.png"/><span class="tipSpan">请输入原交易密码</span></div>
+							  </div>
+							  <div class="form-group row rechargeForm_col">
+							    <label  class="col-md-2">新交易密码：</label>
+							    <input type="password" class="col-md-4 rechargeForm_inp" name="newPayPwd" id="pay_password"  placeholder='请输入6位数字' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							    <div class="col-md-4"><img src="/themes/theme_default/nb/pc/img/tip.png"/><span class="tipSpan">请输入新交易密码</span></div>	
+							  </div>
+						
+							  <div class="form-group row rechargeForm_col">
+							    <label  class="col-md-2">确认新密码：</label>
+							    <input type="password" class="col-md-4 rechargeForm_inp" name="confirmNewPayPwd" id="pay_confirm_password"   placeholder='请输入6位数字' maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							    <div class="col-md-4"><img src="/themes/theme_default/nb/pc/img/tip.png"/><span class="tipSpan">请再次输入交易密码</span></div>
+							  </div>
+			
+								<div class="form-group row">
+							    <div  class="col-md-2"></div>
+							    <button type="submit" class="col-md-4 paySure">确认</button>
+							  </div>
+							  
+							  <div class="form-group row">
+							    <div  class="col-md-2"></div>
+							    <a href="#" onclick="showDiv('util_forget_pay_pwd')"><p class="col-md-4 text-right phone_col forgetPayPwd">忘记交易密码?</p></a>
+							  </div>
+						</form>
+					</div>
+					
+					<div role="tabpanel" class="tab-pane" id="settings">
+							<p class="account_smallTitle">邮箱修改</p>
+						  	<form class="account_rechargeForm" action="/nb/pc/security/doBindEmail.html" method="post" id="settingEmailForm" style="display:none;">
+								  <div class="form-group row rechargeForm_col">
+								    <label  class="col-md-2">邮箱地址：</label>
+								    <input type="text" name="email" id="email" class="col-md-4 rechargeForm_inp" value="" placeholder="请输入邮箱地址" autocomplete="off"/>
+								  </div>
+								  <div class="form-group row rechargeForm_col">
+								    <label  class="col-md-2">验证码：</label>
+								    <input type="text" name="code" class="col-md-4 rechargeForm_inp"  maxlength="6"  placeholder="请输入验证码" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/>
+								    &nbsp;&nbsp;
+								    <input class="btn btn-primary btn-sm"  id="getNewMailVcode" value="发送验证邮件"/>
+								  </div>
+									<div class="form-group row">
+								    <div  class="col-md-2"></div>
+								    <button type="submit" class="col-md-4 paySure">确认</button>
+								  </div>
+							</form>
+							<form action="/nb/pc/security/checkModifyEmailCode.html" method="post" id="mailValidata" class="account_rechargeForm" style="display:none;">								
+								
+								<div class="form-group row rechargeForm_col">
+							    	<label  class="col-md-2">已验证邮箱：</label>
+							        <p id="userMail" class="col-md-4"></p>
+							    </div>
+							    
+							    <div class="form-group row rechargeForm_col">
+								    <label  class="col-md-2">验证码：</label>
+								    <input type="text" class="col-md-4 rechargeForm_inp" name="code" placeholder="请输入验证码" id="code" maxlength="6" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();">
+								    &nbsp;&nbsp;<input class="btn btn-primary btn-sm"  id="getMailVcode" value="发送验证邮件"/>
+								</div>
+							    
+								<div class="form-group row">
+							    	<div  class="col-md-2"></div>
+							    <button type="submit" id="next" class="col-md-4 paySure">下一步</button>
+							  </div>
+							</form>
+						
+							<form class="account_rechargeForm" action="/nb/pc/security/doBindEmail.html" method="post" id="modifyEmailForm" style="display:none;">
+							  <div class="form-group row rechargeForm_col">
+							    <label  class="col-md-2">填写新邮箱：</label>
+							    <input type="text" class="col-md-4 rechargeForm_inp"  name="email" id="email"  placeholder="请输入新邮箱" value="" autocomplete="off">
+							    <!-- <div class="col-md-4"><img src="/themes/theme_default/nb/pc/img/tip.png"/><span class="tipSpan">请输入新邮箱</span></div> -->
+							  </div>
+							  <div class="form-group row rechargeForm_col">
+							    <label  class="col-md-2">验证码：</label>
+							    <input type="text" class="col-md-4 rechargeForm_inp" name="code" id="code" placeholder="请输入验证邮件" maxlength="6" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();">
+							    &nbsp;&nbsp;<input class="btn btn-primary btn-sm"  id="getNewMailVcode" value="发送验证邮件"/>
+							   <!--  <div class="col-md-4"><img src="/themes/theme_default/nb/pc/img/tip.png"/><span class="tipSpan">请输入验证邮件</span></div>	 -->
+							  </div>
+							 <div class="form-group row">
+							    <div  class="col-md-2"></div>
+							    <button type="submit" class="col-md-4 paySure">确认</button>
+							  </div>
+							</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div style="height: 80px;">	
+</div>
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+  </body>
+</html>

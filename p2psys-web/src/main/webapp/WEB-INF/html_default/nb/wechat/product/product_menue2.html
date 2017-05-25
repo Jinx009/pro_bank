@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<title>800Bank</title>
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+	<script src="/themes/theme_default/dist/jquery.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/product/product_menue.js" ></script>
+			
+</head>
+<body>
+	<input type="hidden" value="${productType}" id="productType" >
+	<div class="productMenueBtnList">
+			<div id="btn_one" onclick="showBtn('btn_one','menue_data')" class="productMenueBtnList_actived" >热销榜</div>
+			<div id="btn_two" onclick="showBtn('btn_two','list_data')">全系列</div>
+		</div>
+		
+		<div id="menue_data">
+
+		</div>
+		
+		<div id="list_data" style="display:none;">
+		
+		</div>
+
+	<div style="height: 50px" ></div>
+	<#include "../../include/wechat_footer.html"> 	
+</body>
+</html>

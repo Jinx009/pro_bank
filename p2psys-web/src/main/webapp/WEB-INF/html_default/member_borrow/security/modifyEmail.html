@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../user_menu.html">
+			</div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<#include "../../common/function.html" />
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul class="user_right_menu clearfix">
+						<li class="h_menu_li">修改邮箱</li>
+					</ul>
+				</div>
+			<form action="/member/security/doModifyEmail.html" method="post" id="J_modifyEmail">	
+				<div class="user_right_main border_gray">
+				<#--
+					<div class="user_right_border">
+					<div class="l">修改方式：</div>
+						<div class="c">
+						<font color="red">【密保】</font> + 【邮箱校验码】绑定邮箱
+						</div>
+					</div>-->
+					<div class="user_right_border">
+						<div class="l">登陆密码：</div>
+						<div class="c">
+							<input type="password" size="15"  id="pwd" name="pwd">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">密保问题：</div>
+						<div class="c">
+							<select name="question" id="question">
+								<#list pwdQuestionList as item>
+									<option value="${item.id}">${item.question}</option>
+								</#list>
+							</select>
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">密保答案：</div>
+						<div class="c">
+							<input type="text" size="15" id="answer" name="answer">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l"></div>
+						<div class="c">
+							<input type="submit" id="modifyNextBtn" value="下一步" class="btn sub_btn">
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+		</div>
+<script type="text/javascript">
+$("#modifyNextBtn").click(function(){
+	$("#J_modifyEmail").ajaxSubmit(function(data){
+		layer.msg(data.msg,1);
+	});	
+});
+
+</script>		
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">
+</body>
+</html>

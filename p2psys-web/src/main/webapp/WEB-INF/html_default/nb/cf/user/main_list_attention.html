@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/user/attention.js" ></script>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				<div class="main-right">
+					<div class="main-title">
+						<h3>我的关注</h3>
+					</div>
+					<div class="table-wrap">
+						<table class="table">
+			              	<thead>
+				                <tr>
+				                  <th>项目名称</th>
+				                  <th>项目状态</th>
+				                  <th>项目类型</th>
+				                </tr>
+				              </thead>
+				              <tbody id="dataTable" ></tbody>
+						</table>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<#include "../include/footer.html"> 
+		<script type="text/javascript">
+			showLi("user_li");
+			changeLeftMenue("我的关注","");
+		</script>
+	</body>
+</html>

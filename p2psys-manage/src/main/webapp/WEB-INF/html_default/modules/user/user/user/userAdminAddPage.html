@@ -1,0 +1,124 @@
+    <script>
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdminAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址
+
+</script>
+<form id="form"  method="post" enctype="multipart/form-data">
+<div class="adminUserForm">
+	<ul>
+		<li><span>公司名称：</span><input type="text" name="companyName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>公司类型：</span>
+		<@linkage name="companyType" id="style" type="value" nid="company_type" />
+		<!-- <select name="companyType" id="style"><option value="1">个人独资企业</option><option value="2">合伙企业</option><option value="3">公司企业</option></select> -->
+		</li>
+		<!-- <li><span>公司标志：</span><input type="file" name="files" class="adminUserTxt" /></li> -->
+		<li><span>公司注册号：</span><input type="text" name="companyRegNo" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>税务登记证号：</span><input type="text" autocomplete="off" name="taxRegNo" class="easyui-validatebox adminUserTxt"/></li>
+		<!-- <li><span>所属城市：</span><input type="text" class="easyui-validatebox adminUserTxt" /></li> -->
+	</ul>
+	<div id="city" class="adminUserMuti">
+		<span style="line-height:40px;">公司地区：</span>
+		<select class="prov" name="province"><option value="浙江">浙江</option></select>  
+	    <select class="city" name="city" disabled="disabled"><option value="杭州">杭州</option></select> 
+	    <select class="dist" name="area" disabled="disabled"><option value="西湖区">西湖区</option></select> 
+	</div>
+	<div class="adminUserMuti"><span>公司地址：</span><textarea name="address" autocomplete="off" class="easyui-validatebox adminUserTextarea" data-options="required: true,validType:'maxLength[50]'"></textarea><i>*</i></div>
+	<div class="adminUserMuti"><span>公司描述：</span><textarea name="description" autocomplete="off" class="easyui-validatebox adminUserTextarea" data-options="required: true"></textarea><i>*</i></div>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>法人姓名：</span><input type="text" name="frdbName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>法人身份证：</span><input type="text" name="frdbNo" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'"/><i>*</i></li>
+		<li class="regCapital"><span>注册资本：</span><input type="text" name="regCapital" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>组织机构代码号：</span><input type="text" name="zzjgCode" autocomplete="off" class="easyui-validatebox adminUserTxt"/></li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>借款人：</span><input type="text" name="user.realName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'chinese'"/><i>*</i></li>
+		<li><span>借款人身份证：</span><input type="text" name="user.cardId" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'"/><i>*</i></li>
+		<li><span>借款人手机：</span><input type="text" name="user.mobilePhone" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'mobile'"/><i>*</i></li>
+		<li><span>借款人邮箱：</span><input type="text" name="user.email" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'email'"/><i>*</i></li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>公司电话：</span><input type="text" name="companyPhone" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'tel'"/><i>*</i></li>
+		<li><span>公司传真：</span><input type="text" name="companyFax" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="validType:'fax'"/></li>
+		<li><span>公司邮箱：</span><input type="text" name="companyEmail" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="validType:'email'"/></li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>经营执照：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li class="taxRegNo"><span>税务登记证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li class="zzjgCode"><span>组织机构证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>开户许可证：</span><input type="file" name="files" class="adminUserTxt adminUserTxt"/></li>
+		<li><span>贷款卡记录：</span><input type="file" name="files" class="adminUserTxt adminUserTxt"/></li>
+		<li><span>个人征信报告：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt"/></li>
+	</ul>
+</div>
+<input type="hidden" name="userType" value="2">
+<input type="hidden" name="userNature" value="2">  
+<input type="hidden" name="fileIndex" id="fileIndex" />
+<input type="hidden" name="fileSize" id="fileSize" />
+<div class="borrowForm" style="border-bottom:0;">
+	<h2 class="borrowFormTitle">公司照<i>*</i></h2>
+	<div class="guarantee_type">
+		<span>公司照：</span>
+	        <div id="uploadGuaranteeBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist2" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="file" id="uploadFile4" onchange="return ajaxFileUpload1('uploadFile4','/imageUp.jsp','picPath');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+	</div>	
+</div>
+</form>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>
+<script>
+	$(function(){
+		$("#form").submit(function(){
+			var files = $("input[name='files']");
+			var fileIndex = "";
+			for(var i = 0; i < files.length; i++){
+				if(files[i].value != ""){
+					fileIndex = fileIndex+i+",";
+				}
+			}
+			$("#fileIndex").val(fileIndex.substring(0,fileIndex.length-1));
+			$("#fileSize").val(files.length);
+		});
+	});
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		prov:"浙江", //省份 
+	    city:"杭州", //城市 
+	    dist:"西湖区", //区县 
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	}); 
+	
+	$("#style").change(function(){
+		var selectVal= $("#style").val();
+		if(selectVal==4){
+			$(".taxRegNo").html('<span>税务登记证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" />');
+			$(".regCapital").html('<span>注册资本：</span><input type="text" name="regCapital" autocomplete="off" class="easyui-validatebox adminUserTxt" />');
+			$(".zzjgCode").html('<span>组织机构证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" />');
+		}else{
+			$(".taxRegNo").html('<span>税务登记证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" /><i>*</i>');
+			$(".regCapital").html('<span>注册资本：</span><input type="text" name="regCapital" autocomplete="off"  class="easyui-validatebox adminUserTxt" id="regCapital" data-options="required: true"/><i>*</i>');
+			$(".zzjgCode").html('<span>组织机构证：</span><input type="file" name="files" class="easyui-validatebox adminUserTxt" /><i>*</i>');
+		}
+	});
+	
+	$("#regCapital").live("keyup",function(){
+		var regCapitalVal=$("#regCapital").val();
+		if(parseInt(regCapitalVal) != regCapitalVal){
+			$("#regCapital").val("");
+		}
+	})
+	
+	
+</script>

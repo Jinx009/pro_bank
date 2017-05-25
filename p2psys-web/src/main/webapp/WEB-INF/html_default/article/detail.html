@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#include "../include/header.html">
+<style>
+	.detail-helpBox h2 {border-bottom: 0;}
+</style>
+
+<div class="aboutUs_nav_bg">
+	<div class="aboutUs_nav">
+		<h3>关于800Bank</h3>
+		<p>用专业帮您成就财富的长度、深度及广度，我们是您的财富管家。</p>
+		<div class="header-line">了解我们提供的服务</div>
+		<ul class="clearfix">
+			<li><a href="/aboutUs/siteIntro.html">关于我们</a></li>
+			<li><a href="/article/detail.html?nid=zifei" class="<#if (nid??&&nid=='zifei')>active</#if>">安全保障</a></li>
+			<li><a href="/article/detail.html?nid=news" class="<#if (nid??&&nid=='news')>active</#if>">媒体报道</a></li>
+			<li><a href="/article/detail.html?nid=notice" class="<#if (nid??&&nid=='notice')>active</#if>">最新动态</a></li>
+			<li><a href="/article/detail.html?nid=join" class="<#if (nid??&&nid=='join')>active</#if>">招贤纳士</a></li>
+			<li><a href="/aboutUs/questionIntro.html">帮助中心</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="detail-helpBox clearfix" style="border:0;">
+	<div class="detail-helpBd clearfix">
+		<div class="detail-helpContent">
+			<div class="con">
+				<div class="service_right">
+			<!--S- service_right_con -->
+			<div class="service_right_con">
+				<#if subListMap?? && subListMap.article?? >
+					<div class="arcInfoBox">
+						<#if subListMap.leafChild.type != 1>
+						<h1>${subListMap?if_exists.article?if_exists.title?if_exists}</h1>
+						<div class="arcInfo_content">
+							<div class="arcInfo_time">
+							${subListMap?if_exists.article?if_exists.addTime?if_exists?string('yyyy-MM-dd HH:mm:ss')}
+							分享至：
+							</div>
+							<!-- S-百度分享 -->
+							<div class="bdsharebuttonbox">
+								<a href="#" class="bds_more" data-cmd="more"></a>
+								<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+								<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+								<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+								<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+								<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+							</div>
+							<!-- E-百度分享 -->
+							<script>
+							window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+							</script>
+						</div>
+						</#if>
+					</div>
+					<div class="arcContentBox">
+					${subListMap?if_exists.article?if_exists.content?if_exists}
+					</div>
+					<#if subListMap.leafChild.type != 1>
+					<div class="pageTurning">
+						<p class="return"><a href="javascript:history.go(-1);">[&nbsp;&nbsp;返回&nbsp;&nbsp;]</a></p>
+						<br><br><br>
+						<p class="Up">&lt;&lt;上一篇：
+							<#if subListMap.prevArticle??>
+							    <a href="${webroot}/article/detail.html?nid=${subListMap.prevArticle.site.nid}&id=${subListMap.prevArticle.id}">${subListMap.prevArticle.title}</a>
+							<#else>
+							    <a href="javascript:;">无</a>
+							</#if>
+						</p>
+						<p class="Down">下一篇&gt;&gt;：
+							<#if subListMap.nextArticle??>
+							    <a href="${webroot}/article/detail.html?nid=${subListMap.nextArticle.site.nid}&id=${subListMap.nextArticle.id}" >${subListMap.nextArticle.title}</a>
+							<#else>
+							    <a href="javascript:;">无</a>
+							</#if>
+						</p>
+					</div>
+					</#if>
+				<#elseif subListMap?? && subListMap.leafChild?? && subListMap.leafChild.type == 2>
+				   <#if subListMap.leafChild.nid == "ask">
+				     <ul class="arcList" data-val="${subListMap.leafChild.nid}"></ul>
+					<div id="kkpager"></div>
+					<script type="text/javascript">seajs.use("${webroot}${theme_dir}/media/js/arcList1");</script>
+				   <#else>
+					<ul class="arcList" data-val="${subListMap.leafChild.nid}"></ul>
+					<div id="kkpager"></div>
+					<script type="text/javascript">seajs.use("${webroot}${theme_dir}/media/js/arcList");</script>
+				   </#if> 
+                </#if>    
+			</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+         
+</div>
+<!--E-咨询列表-->
+
+<#include "../include/footer.html"> 

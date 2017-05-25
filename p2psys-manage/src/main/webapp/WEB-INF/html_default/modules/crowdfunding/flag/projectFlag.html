@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/myjs.js" ></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<script type="text/javascript">
+$(function(){
+	getData();
+	
+	$.ajax({
+		url:"/modules/crowdfunding/flag/flagData.html",
+		type:"POST",
+		dataType:"json",
+		success:function(res){
+			if(null!=res.errorMsg){
+				var htmlStr = "";
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<option value="+res.errorMsg[i].id+" >"+res.errorMsg[i].name+"</option>";
+				}
+				$("#flagId").html(htmlStr);
+			}
+		}
+	})
+})
+/**
+ * 标签列表
+ */
+function getData(){
+	var id = $("#id").val();
+	var name = $("#name").val();
+	var params = "projectId="+id;
+	$.ajax({
+		url:"/modules/crowdfunding/flag/projectFlagData.html",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if(null!=res.errorMsg){
+				var htmlStr = "";
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<tr><td><b>"+name+"</b></td><td>"+res.errorMsg[i].flag.name+"</td><td><a class='btn btn-info' onclick=doDelete('"+res.errorMsg[i].id+"')  >删除</a></td></tr>";
+				}
+				$("#dataList").html(htmlStr);
+			}
+		}
+	})
+}
+/**
+ *新建标签
+ */
+function doCreate(){
+	var id = $("#flagId").val();
+	var projectId = $("#id").val();
+	var params = "flagId="+id+"&projectId="+projectId;
+	
+	$.ajax({
+		url:"/modules/crowdfunding/flag/projectFlagAdd.html",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				location.reload();
+			}
+		}
+	})
+}
+/**
+ * 删除
+ */
+function doDelete(id){
+	if(confirm("确定要删除该标签吗?")){
+		var params = "id="+id;
+		$.ajax({
+			url:"/modules/crowdfunding/flag/projectFlagDelete.html",
+			type:"POST",
+			data:params,
+			dataType:"json",
+			success:function(res){
+				if("success"==res.result){
+					location.reload();
+				}
+			}
+		})
+	}
+}
+
+/**
+ * 切换标签
+ */
+function show(id){
+	$("#list").hide();
+	$("#new").hide();
+	
+	$("#"+id).show();
+}
+
+</script>
+<style>
+body{
+	font-family: "Microsoft Yahei";
+}
+.space30{
+	height: 30px;
+}
+.nav{
+	width: 96%;
+	margin-left: 2%;
+}
+.space100{
+	height: 100px;
+}
+</style>
+</head>
+<body>
+<input type="hidden" value="${name}" id="name" >
+<input type="hidden" value="${id}" id="id" >
+<div id="list"  >
+	<div class="space30" ></div>
+	<div class="nav">
+		<div class="btn-group" role="group" aria-label="...">
+		  <button type="button" class="btn btn-info">标签列表</button>
+		  <button type="button" class="btn btn-default" onclick="show('new')"  >新建标签</button>
+		</div>
+	</div>
+	<div class="space30"></div>
+	<table  class="table table-bordered" style="width:40%;margin-left: 2%"  >
+		<thead>
+			<tr>
+				<th>产品名称</th>
+				<th>标签名称</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody  id="dataList" ></tbody>
+	</table>
+	<div class="space100"></div>
+</div>
+
+<!-- 新建 -->
+<div id="new"  style="display: none"  >
+<form id="form" method="post" enctype="multipart/form-data"  >
+	<div class="space30"></div>
+	<div class="nav">
+		<div class="btn-group" role="group" aria-label="...">
+		  <button type="button" class="btn btn-default" onclick="show('list')" >标签列表</button>
+		  <button type="button" class="btn btn-info"   >新建标签</button>
+		</div>
+	</div>
+	<div class="space30" ></div>
+	<table class="table table-bordered" style="width: 40%;margin-left: 2%" >
+		<thead>
+			<tr>
+				<th width="20%" >标签名</th>
+				<th width="20%" >
+					<select id="flagId" class="form-control" ></select>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="2"><a class="btn btn-info" onclick="doCreate()"  >&nbsp;&nbsp;添&nbsp;&nbsp;加&nbsp;&nbsp;</a></th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</form>
+</div>
+</body>
+</html>

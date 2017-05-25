@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width; height=device-height;" name="viewport">
+		<link href="/themes/theme_default/media/css/zcStyle.css" rel="stylesheet">
+		<link href="/themes/theme_default/media/css/zcTimeline.css" rel="stylesheet">
+		
+		<title>实物众筹</title>
+	</head>
+	<body>
+	<input type="hidden" value="${zcProjectid}" id="zcProjectid" >
+	<input type="hidden" value="${type}" id="type">
+	<input type="hidden" value="${user_id}" id="user_id">
+	<input type="hidden" value="${userName}" id="userName"/>
+	<input type="hidden" value="${tel}" id="tel"/>
+		<!--header	start-->
+		<div id="header">
+			<div id="head_info">
+				<div class="clearfix head_top">
+					<div class="float_left">
+						<a href="/"><div class="logo"></div></a>
+						<span class="navChild"><a href="/aboutUs/siteIntro.html">关于我们</a></span>
+						<span class="navChild"><a href="/crowdfunding/index.html?id=2">我要投资</a></span>
+						<span class="navChild"><a href="/member/main.html">我的账户</a></span>
+						<span class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+						<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+					</div>
+					<div class="float_right">
+						<span class="loginStatus">
+							<span class="welcomePhone">欢迎您，131****9876</span>
+							<a href="${webroot}/user/logout.html">退出</a>
+							<a class="guide" href="/crowdfunding/index.html">在e800Bank投资</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--header	end-->
+   		<!--currentNav		start-->
+   			<div class="currentNav"><p><a href="/crowdfunding/index.html?id=2">我要投资</a><span class="dayu">&gt;</span><span id="zcType"></span ><span class="dayu">&gt;</span><a><span class="detail"></span></a></p></div>   		
+   		<!--currentNav		end-->
+   		<!--details	start-->
+   		<div class="zcProductDetails">
+   			<div class="zcProductDetails_left">
+   				<div class="left"></div>
+   				<div class="right">
+   					<p class="rightTitle"></p>
+   					<ul class="clearfix  all allHeight" id="all" style="width:295px;">										
+					</ul>
+					<div class="clearfix raiseGoal" id="mjRaise">
+						<p class="goalDesc">此项目必须在<!-- 2015年05月15日 -->前得到<br/>￥<!-- 1000000 -->的支持才可成功！剩余<span id="remainDays"><!-- 18 --></span>天!</p>
+						<div class="barBottom">
+							<div class="bar barLeft"><span></span></div>
+							<div class="barProgress"></div>
+						</div>
+					</div>
+					
+					<div class="clearfix" style="padding-top: 30px;line-height:20px;" id="mjRights">
+						<p class="goal" style="padding-bottom: 8px;">融资目标:￥100,0000</p>
+						<p style="padding-bottom:8px;" id="rightsDesc">此项目必须在2015年05月15日前得到<br/>￥<!-- 1000000 -->的支持才可成功！剩余<span id="remainDays">18天!</span></p>
+						<div class="barBottom">
+							<div class="bar barLeft"><span></span></div>
+							<div class="barProgress"></div>	
+						</div>
+					</div>
+					
+   				</div>
+   			</div>
+   			<div class="border-left">
+   				
+   			</div>
+   			<div class="zcProductDetails_right">
+				<p class="fqr">发起人</p>				
+				<p class="fqr_name" id="fqr_name"></p>
+   				<img src=""  width="184" height="41"  id="fqr_img"/>
+   				<p class="jj" id="fqr_jj"></p>
+   				<div class="btn" id="fqr_btn" style="display:none;"><span>立即投资</span></div>			
+   			</div>
+   		</div>
+   		
+   		<!--details	end-->
+   		
+   		<!--details2 start-->
+   		<div class="zcDesc" >
+   			<div class="zcDesc_left">
+   				<ul class="smallTitle" id="tabs">
+		   			<li class="one active">项目描述</li>
+		   			<li class="one">大事记</li>
+		   			<li class="one">项目问答</li>
+   				</ul>
+   				
+   				<ul id="tab_conbox">
+   					<!--项目描述-->
+					<dl class="tab_con">
+						<div id="xmms">
+						
+						</div>
+						<!--  <div class="xmms">
+							<div class="xmms_desc">此项目暂时没有项目描述</div>
+							<div class="xmms_img"><img src="/themes/theme_default/images/raise/list.jpg"/></div>
+						</div>
+						
+						<div class="xmms">
+							<div class="xmms_desc">此项目暂时没有项目描述</div>
+							<div class="xmms_img"><img src="/themes/theme_default/images/raise/list.jpg"/></div>
+						</div>
+						
+						<div class="xmms">
+							<div class="xmms_desc">此项目暂时没有项目描述</div>
+							<div class="xmms_img"><img src="/themes/theme_default/images/raise/list.jpg"/></div>
+						</div>  -->
+						
+					</dl>
+					<!--大事记-->
+					<dl class="tab_con">
+						
+						<section id="cd-timeline" class="cd-container">
+					
+						</section>
+					</dl>
+					<!--项目问答-->
+					<dl class="tab_con">
+						<ul class="xmwd_desc">
+							<!-- <li class="xmwd">
+								<span class="xmwd_span">从哪里可以访问并登录800Bank？</span>
+								<p class="xmwd_p">您可以从PC上访问www.800bank.com.cn的主域名; 也可通过关注微信号e800bank，从手机端直接访问。</p>
+							</li>
+							
+							<li class="xmwd">
+								<span class="xmwd_span">成为800Bank合格投资者的条件有哪些？</span>
+								<p class="xmwd_p">只要您年满18周岁，并且拥有经过实名认证的手机号即可成为800Bank的投资者</p>
+							</li>
+							
+							<li class="xmwd">
+								<span class="xmwd_span">可以注册多个账户吗？</span>
+								<p class="xmwd_p">手机号与客户身份信息都有唯一性，故一个手机只能绑定一个账户</p>
+							</li>
+							
+							<li class="xmwd">
+								<span class="xmwd_span">忘记登录密码如何重置？</span>
+								<p class="xmwd_p">在800Bank 的登陆页面中点击忘记密码，按照网页操作步骤引导更改密码。</p>
+							</li>
+							
+							<li class="xmwd">
+								<span class="xmwd_span">输入身份证件时，若身份中号码中包含X, 是否区分大小写？</span>
+								<p class="xmwd_p">不用区分大小写</p>
+							</li> -->
+							
+						</ul>
+					</dl>
+   				</ul>
+   			</div>
+   			<!--raise_right  start-->
+   			<div class="zcDesc_right" id="raise">      				  
+   			</div>
+   			<!--raise_right		end -->
+   			
+   			<!--rights_right start-->
+   			<div class="zcDesc_right" id="rights">
+   				<div class="ltr" >
+   					<p class="fqr" >领投人</p>
+   					<p class="fqr_name" id="ltr_name"></p>
+   					<img src=""  width="184" height="41" id="ltr_img"/>
+	   				<p class="jj" id="ltr_jj"></p>
+   				</div>
+   				
+   				<div class="zchb" id="rights_zchb">
+   					<p class="qtje" id="qtje23">起头金额<!-- <span>￥800,00</span> --></p>
+	   				<p class="qyzb" >出让比例<span id="qyzb_r"><!-- 9% --></span></p>
+	   				<p class="qyzb" >众筹回报</p>
+					<div id="rightsLtr">
+					</div>
+   				</div>
+   				<div class="btn"><span>立即投资</span></div>
+   			</div> 
+   			<!--rights_right end-->
+			<!--合格投资人认证	start-->
+		   		<div class="hgtz_rz">
+					<p style="text-align: center;">合格投资人申明</p>
+					<p>本人自愿申报成为合格投资人，并申明如下：</p>
+					<p>本人申明在投资800Bank发布的理财产品之前，本人符合下列任意条件之一，且能够识别、判断和承担理财产品的投资风险：</p>
+					<p>一、具有至少10万元可用于投资的个人资产（必要时需提供财产证明：包括但不仅限于提供银行开具的存款证明；提供近一个月内存折或存单复印件，</p><p>需银行盖章；提供有价证券证明，一年内的有价证券资产证明，需证券公司盖章）。</p>
+					<p>二、个人收入在最近3年内每年收入超过20万元人民币；夫妻双方合计收入在最近3年内每年收入超过30万元人民币；在认购信托计划时，个人或家庭</p><p>金融资产总计超过100万元。根据相关规定，本人愿意提供所需的合格投资人收入证明。</p>
+					<p>本人申明在进行投资行为前，认真阅读并理解所有产品文件，并愿意依法承担相应的投资风险。</p>
+					<p>本人申明成为合格投资人后，对交易涉及的事项保密，并依法缴纳投资活动所产生的各项税费。</p>
+					<div class="btn_pay">
+						<div class="btn_xyb">确定</div><div class="btn_back">取消</div>
+					</div>
+		   		</div>
+   		<!--合格投资人认证	start-->
+   		
+   			<i id="qianjin"></i>
+   			
+   		</div>
+   		<!--details2 end-->
+   		<div class="blank">
+		</div>
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+		<#include "../include/raise_footer.html">
+  
+<script>
+var time_div_num = 1;
+var zcProjectid = $("#zcProjectid").val();
+var Zctype = $("#type").val();
+var user_id = $("#user_id").val();
+var entry;
+$(function()
+{
+	
+	
+	if(""==user_id||null==user_id)
+	{
+		location.href = "/user/login.html?timeout=1&redirectURL=/crowdfunding/physicalRaise.html?zcProjectid="+zcProjectid+"&type="+Zctype;
+	}
+	else
+	{
+		var userName = $("#userName").val();
+		var tel = $("#tel").val();
+		var tel_l = tel.substring(0,3);
+		var tel_r = tel.substring(7,11);
+		$(".welcomePhone").html("欢迎您，"+tel_l+"****"+tel_r);
+		
+		var zcProjectid = $("#zcProjectid").val();
+		var Zctype = $("#type").val();
+		/*实物众筹*/
+		if(Zctype==0){
+			$("#raise").show();
+			$("#mjRaise").show();
+			$("#fqr_btn").hide()
+		}
+		/*权益众筹*/
+		if(Zctype==2){
+			$("#rights").show();
+			$("#mjRights").show();
+			$("#fqr_btn").show();
+		}
+				var planedMaxInvestor;
+				var supportCount;
+				$.ajax({
+					type:'get',
+					cache:false,
+					url:'/crowdfunding/projectInfoDetail.html?projectId='+zcProjectid,
+					dataType:'json',
+					async:false,
+					success:function(data){
+						var json = eval(data);
+						var stakeShare = parseFloat(json.stakeShare)*100;
+						$("#qyzb_r").html(stakeShare+"%");
+						var acceptanceCode = json.acceptanceCode;
+						var type = json.type;
+						var planedMaxAmount = json.planedMaxAmount;
+						planedMaxInvestor = json.planedMaxInvestor;
+						var unixtime = js_date_time(json.endTime);
+						var year = unixtime.getFullYear();
+						var month = unixtime.getMonth() + 1;
+						var day = unixtime.getDate();
+						
+						if(month<10){
+							month = "0"+month;
+						}
+						
+						var remainDays ;
+						$.ajax({
+							type:'get',
+							cache:false,
+							url:'/crowdfunding/projectTotalInfo.html?id='+zcProjectid,
+							dataType:'json',
+							async:false,
+							success:function(data){
+								var json = eval(data.totalInfo);
+								remainDays = json.leftDays;
+							//	$("#remainDays").html(json.leftDays);
+							}
+						})
+						
+						$(".goalDesc").html("次项目必须在"+year+"年"+month+"月"+day+"日前得到<br/>￥"+planedMaxAmount+"的支持才可成功！剩余<span id=\"remainDays\">"+remainDays+"</span>天!");
+						$("#rightsDesc").html("本项目需要在"+year+"年"+month+"月"+day+"日前筹集到<br/>￥"+planedMaxAmount+"方可成功,剩余<span id=\"remainDays\">"+remainDays+"</span>天!");
+						$(".goal").html("融资目标:￥"+planedMaxAmount);
+						var str = "实物众筹";
+						if(type==0){
+						//	$("#zcType").html(str);
+							$("#zcType").append("<a href='/crowdfunding/index.html?id=0'><span>"+str+"</span></a>");
+						}
+						if(type==2){
+							str = "权益众筹";
+						//	$("#zcType").html(str);
+							$("#zcType").append("<a href='/crowdfunding/index.html?id=2'><span>"+str+"</span></a>");
+						}
+						
+						
+						for(var i = 0;i<json.materials.length;i++){
+							var materialCode = json.materials[i].materialCode;
+							var materialContent  = json.materials[i].materialContent;
+							var materialName = json.materials[i].materialName;
+							materialName = materialName.replace( /^\s+|\s+$/g, "" );
+							materialCode = materialCode.replace(/^\s*/, "").replace(/\s*$/, ""); 
+							
+							if(materialCode==4000){
+								var newHtml = "<a href=/crowdfunding/physicalRaise.html?zcProjectid="+ zcProjectid+"&type="+ type+ ">"+materialContent+"</a>";
+								$(".detail").append(newHtml);
+								$(".rightTitle").html(materialContent);
+							}
+							if(materialCode==2000){
+								$(".left").html("<img src="+back_web_url+materialContent+">");
+								
+								
+							}
+							if(materialCode==9000){
+								$("#fqr_name").html(materialContent);
+								
+									
+								
+							}
+							if(materialCode==10000){
+								$("#fqr_img").attr("src",back_web_url+materialContent);
+								
+							}
+							if(materialCode==11000){
+								$("#fqr_jj").html(materialContent);
+								
+								
+								
+							}
+							
+							if(materialCode==6000){
+								$("#ltr_name").html(materialContent);
+								
+							}
+							if(materialCode==7000){
+								$("#ltr_img").attr("src",back_web_url+materialContent);
+								
+							}
+							
+							
+							if(materialCode==8000){
+								$("#ltr_jj").html(materialContent);
+								
+							}	
+							
+							
+							/*大事记图片*/
+							
+							/*大事记*/
+							 if("B001"==materialCode){
+							
+								 //   \r   回车
+							 	var htmlDsj = "<div class=cd-timeline-block><div class='cd-timeline-img cd-location'><img src='/themes/theme_default/images/raise/cd-icon-location.svg' ></div> <div class=cd-timeline-content>";
+								var dsjTitle = "";
+								var dsjImg = "";
+								var dsjTime = "";
+								var str = materialContent;
+								var arr = new Array();
+								arr = str.split("@@");
+								var time = arr[0].split("=")[1];
+								var title = arr[1].split("=")[1];
+								var pic = arr[2].split("=")[1];
+								var desc = arr[3].split("=")[1];
+								dsjTime = "<span class=cd-date>"+time +"</span>";
+								var time_num = parseInt(time_div_num);
+								if(0==time_num%2)
+								{
+									dsjTitle = "<h2>"+title+"</h2>";
+									if(pic=="无"){
+										dsjImg="";
+									}else{										
+										dsjImg = "<p><img src="+back_web_url+pic+"/><p>"
+									}
+								
+									htmlDsj +=dsjTitle;
+									htmlDsj +=dsjImg;
+									htmlDsj +="<p>"+desc+"</p>";
+								}
+								else
+								{
+									dsjTitle = "<h2 class=left_h2 >"+title+"</h2>";
+									if(pic=="无"){
+										dsjImg="";
+									}else{										
+										dsjImg = "<p><img src="+back_web_url+pic+"/><p>"
+									}
+								
+									htmlDsj +=dsjTitle;
+									htmlDsj +=dsjImg;
+									htmlDsj +="<p class=left_p >"+desc+"</p>";
+								}
+								time_div_num++;
+								
+								htmlDsj +=dsjTime;
+								htmlDsj +="</div></div>";
+								$("#cd-timeline").append(htmlDsj);
+							}
+							
+							if("ANS001"==materialCode){
+								var htmlXmwd = "<li class=xmwd >";
+								var htmlQ = "";
+								var htmlA = "";
+								var str = materialContent;
+								var arr = new Array();
+								arr = str.split("::");
+								var question = arr[0];
+								var answer = arr[1];
+								htmlQ = "<span class=xmwd_span>"+question+"</span>";
+								htmlA = "<p class=xmwd_p>"+answer+"</p>";
+								
+								htmlXmwd +=htmlQ;
+								htmlXmwd +=htmlA;
+								htmlXmwd +="</li>";
+								$(".xmwd_desc").append(htmlXmwd);
+								
+							} 
+							
+							
+							/*项目描述*/
+							
+							if("projectDesc"==materialCode){
+								var htmlXmms = "<div class=xmms>";
+								var htmlDesc = "";
+								var htmlImg = "";
+								var str = materialContent;
+								var arr = new Array();
+								arr = str.split("%%");
+								var desc = arr[0];
+								var img = arr[1];
+								htmlDesc = "<div class=xmms_desc>"+desc+"</div>";
+								if(img=="无"){
+									htmlImg = "";
+								}else{
+									htmlImg = "<div class=xmms_img><img src="+back_web_url+img+"/></div>"
+								}
+								htmlXmms +=htmlDesc;
+								htmlXmms +=htmlImg;
+								htmlXmms +="</div>";
+								$("#xmms").append(htmlXmms);
+							}
+							
+					}
+						if(""==$(".rightTitle").html()){
+							$(".rightTitle").html("此项目暂时没有项目标题");
+						}
+						
+						if(""==$(".left").html()){
+							
+							$(".left").html("<img src='/themes/theme_default/images/raise/list.jpg'>");
+						}
+						if(""==$("#fqr_name").html()){
+							
+							$("#fqr_name").html("此项目暂时没有发起人");
+						}
+						if(""==$("#fqr_img").html()){
+							
+							$("#fqr_img").attr("src","/themes/theme_default/images/raise/list.jpg");
+						}
+						if(""==$("#fqr_jj").html()){
+							
+							$("#fqr_jj").html("此项目暂时没有发起人简介");
+						}
+						if(""==$("#ltr_jj").html()){
+							
+							$("#ltr_name").html("此项目暂时没有领头人");
+						}
+						if(""==$("#ltr_img").html()){
+							
+							$("#ltr_img").attr("src","/themes/theme_default/images/raise/list.jpg");
+						}
+						
+						 if(""==$("#ltr_jj").html()){
+							
+							$("#ltr_jj").html("此项目暂时没有领投人简介");
+						}
+						
+						
+							
+						
+					}
+				})
+				
+				/*获取筹集金额，时间*/
+				var supportCount;
+				$.ajax({
+					type:'get',
+					cache:false,
+					url:'/crowdfunding/projectTotalInfo.html?id='+zcProjectid,
+					dataType:'json',
+					async:false,
+					success:function(data){
+						var json = eval(data.totalInfo);
+						supportCount = json.supportCount;
+						var newHtml = "<li><dt>￥"+json.toltalMoney+"</dt><dd>已筹集</dd></li><li><dt>"+json.supportCount+"人</dt><dd>支持人数</dd></li><li><dt>"+json.leftDays+"天</dt><dd>剩余天数</dd></li>";
+						$("#all").append(newHtml);
+						var progress = parseFloat(json.scale)*100;
+						progress = progress.toFixed(2);
+						supporCount = json.supportCount;
+						$(".barProgress").html(progress+"%");
+						$(".bar span").css("width",progress+"%");
+					}
+				})
+			
+			
+			/*投资和收益规则*/
+				   $.ajax({
+						type : 'get',
+						cache : false,
+						url : '/crowdfunding/getProjectRules.html?id='+ zcProjectid,
+						dataType : 'json',
+						async : false,
+						success : function(data)
+						{
+							var json = eval(data.rules);
+							for (var i = 0; i < json.length; i++)
+							{
+								entry = json[0].entryPrice;
+								var id = json[i].id;
+								var investType = json[i].investType;
+								var entryPrice = json[i].entryPrice;/*单人最小投资金额*/
+								var ceilingPrice = json[i].ceilingPrice;/*单人最大投资金额*/
+								var entryBaseMoneyNumber = json[i].entryBaseMoneyNumber;
+							//	if(i == 0){
+									$("#qtje23").html("起投金额<span>￥"+json[0].entryPrice+"</span>");
+							//	}
+								if (investType == 0)
+								{
+									//自由投资
+									if (Zctype == 0)
+									{
+										
+						//				$("#raise").append("<div  class=\"hb\"><div class=\"hbgz\">"+ entryPrice + "元到"+ ceilingPrice + "元</div><div class=\"hbnrDesc\" id=raise_fly_rule"+id+"></div></div>");
+										$("#raise").append("<div class=\"support\"><div class=\"support_btn\"><p>支持￥"+ entryPrice + "元<p><div class=\"support_right\"  onclick='singleSupport("+entryPrice+")'><span>支持￥"+entryPrice+"</span></div></div><div class=\"limit\"><p class=\"limit_left\">限90位</p><p class=\"limit_right\">已有90位支持者</p></div><p>感谢您的支持，您将或得如下权益</p><div class=\"rightDesc\" id=raise_fly_rule"+id+"></div></div>");
+										
+										$(".limit_left").html("限"+planedMaxInvestor+"位");
+										$(".limit_right").html("已有"+supportCount+"位支持者");
+										for (var j = 0; j < json[i].ruleList.length; j++)
+										{
+											var groupId = json[i].ruleList[j].groupId;
+											var div = $("#"+groupId+id);
+											if (div.length>0)
+											{
+
+											} 
+											else
+											{
+												$("#raise_fly_rule"+id).append("<div id="+groupId+""+id+" class=\"hbnr\"></div>");
+											}
+										}
+									}
+									if (Zctype == 2)
+									{
+										
+										$("#rightsLtr").append("<div  class=\"hb\"><div class=\"hbgz\">"+ entryPrice + "元到"+ ceilingPrice + "元</div><div class=\"hbnrDesc\" id=rights_fly_rule"+id+"></div></div>");
+										for (var j = 0; j < json[i].ruleList.length; j++)
+										{
+											var groupId = json[i].ruleList[j].groupId;
+											var div = $("#"+groupId+id);
+											if (div.length>0)
+											{
+
+											} 
+											else
+											{
+												$("#rights_fly_rule"+id).append("<div id="+groupId+""+id+" class=\"hbnr\"></div>");
+											}
+										}
+									}
+								} 
+								else
+								{
+									//单笔单投
+									if (Zctype == 0)
+									{
+										
+										$("#raise").append("<div class=\"support\"><div class=\"support_btn\"><p>支持￥"+ entryPrice + "元<p><div class=\"support_right\" onclick='singleSupport("+entryPrice+")'><span>支持￥"+entryPrice+"</span></div></div><div class=\"limit\"><p class=\"limit_left\">限90位</p><p class=\"limit_right\">已有90位支持者</p></div><p>感谢您的支持，您将或得如下权益</p><div class=\"rightDesc\" id=raise_single_rule"+id+"></div></div>");
+										$(".limit_left").html("限"+planedMaxInvestor+"位");
+										$(".limit_right").html("已有"+supportCount+"位支持者");
+										for (var j = 0; j < json[i].ruleList.length; j++)
+										{
+											var groupId = json[i].ruleList[j].groupId;
+											var div = $("#"+groupId+id);
+											if (div.length>0)
+											{
+
+											} 
+											else
+											{
+												$("#raise_single_rule" + id).append("<div id="+groupId+""+id+" class=\"hbnr\"></div>");
+
+											}
+										}
+									
+										
+										
+									}
+									if (Zctype == 2)
+									{
+										
+										$("#rightsLtr").append("<div  class=\"hb\"><div class=\"hbgz\">"+ entryPrice + "元</div><div class=\"hbnrDesc\" id=rightsLtr_single_rule"+id+"></div></div>");
+										for (var j = 0; j < json[i].ruleList.length; j++)
+										{
+											var groupId = json[i].ruleList[j].groupId;
+											var div = $("#"+groupId+id);
+											if (div.length>0)
+											{
+
+											} 
+											else
+											{
+												$("#rightsLtr_single_rule"+ id).append("<div id="+groupId+""+id+" class=\"hbnr\"></div>");
+
+											}
+
+										}
+									}
+								}
+								
+							}
+								if (Zctype == 0)
+								{
+									for (var m = 0; m < json.length; m++)
+									{
+										var id = json[m].id;
+										for (var n = 0; n < json[m].ruleList.length; n++)
+										{
+											var rightDescription = json[m].ruleList[n].rightDescription;
+											var groupId = json[m].ruleList[n].groupId;
+											$("#"+groupId+"" + id).append("<span id="+groupId+""+id+" class=\"hbnr_p\">"+ rightDescription+"</span>")
+										}
+									}
+								}
+								if (Zctype == 2)
+								{
+									for (var m = 0; m < json.length; m++)
+									{
+										var id = json[m].id;
+										for (var n = 0; n < json[m].ruleList.length; n++)
+										{
+											var rightDescription = json[m].ruleList[n].rightDescription;
+											var groupId = json[m].ruleList[n].groupId;
+											$("#"+groupId + "" + id).append("<span id="+groupId+""+id+" class=\"hbnr_p\">"+ rightDescription+ "</span>")
+
+										}
+									}
+								}
+
+						}
+					})
+					
+						
+			/* $(".support_right").bind("click",function(){
+											
+					var user_id = $("#user_id").val();
+				    window.location.href = "/crowdfunding/projectSure.html?zcProjectid="+ zcProjectid+"&type=0&user_id="+user_id;		
+			}) */
+			
+			
+			
+			
+			
+					
+	}
+					
+})
+			$(".btn").bind("click",function(){
+				console.log("点击立即投资。。。start");
+				var user_id = $("#user_id").val();
+				window.location.href = "/crowdfunding/projectSure.html?zcProjectid="+ zcProjectid+"&type="+Zctype+"&user_id="+user_id+"&price="+entry;		
+			})
+
+			/*时间转换*/
+			function js_date_time(unixtime)  
+			{  
+			    var timestr = new Date(parseInt(unixtime/1000) * 1000);
+			    return timestr;  
+			}
+			
+			/*单笔单投支持按钮*/
+			function singleSupport(price){
+				var user_id = $("#user_id").val();
+				var zcProjectid = $("#zcProjectid").val();
+				window.location.href = "/crowdfunding/projectSure.html?zcProjectid="+ zcProjectid+"&type=0&user_id="+user_id+"&price="+price;
+			}
+			
+			
+
+						
+</script> 
+<script type="text/javascript">
+			jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+					 $(tab_conbox).find("dl").hide();
+					$(tabtit).find("dl:first").addClass("active").show(); 
+					$(tab_conbox).find("dl:first").show(); 
+				
+					$(".smallTitle li").bind("click",function(){
+						if(!$(this).hasClass("active")){
+							$(this).addClass("active").siblings("li").removeClass("active"); 
+						}
+						
+						var activeindex = $(tabtit).find("li").index(this);
+						$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+						return false;
+					});
+			};
+		
+		   $.jqtab("#tabs","#tab_conbox","click");
+		   
+			
+		   $(function(){
+			   $(".xmwd").toggle(function(){
+		   			var index = $(this).index();
+		   			$(".xmwd_span").eq(index).addClass("xmwd_span_actived");
+					$(".xmwd_p").eq(index).show();
+			   },function(){
+			   		var index = $(this).index();
+		   			$(".xmwd_span").eq(index).removeClass("xmwd_span_actived");
+					$(".xmwd_p").eq(index).hide();
+			   });
+			
+			   $(".hb").toggle(function(){
+		   			var index = $(this).index();
+		   			$(".hbgz").eq(index).addClass("hbgz_actived");
+					$(".hbnrDesc").eq(index).show();
+			   },function(){
+				
+			   		var index = $(this).index();
+		   			$(".hbgz").eq(index).removeClass("hbgz_actived");
+					$(".hbnrDesc").eq(index).hide();
+			   });
+		   })
+		   
+		  
+		  
+		</script>
+		
+		<script>
+		
+		function getSubString(id,start,end){
+			
+				var str = $(id).html();
+				
+		 		var strArray = new Array();
+		 		strArray = str;
+		 		if(strArray.length>=end){
+		 			$(id).html(str.substring(start,str)+"...");
+		 		}
+		
+			
+		}
+		
+			$(function(){
+				
+				getSubString(".rightTitle",12,15);
+				getSubString("#fqr_jj",28,31);
+				getSubString("#ltr_jj",45,48);
+
+			});
+		</script>
+		
+		 <script>
+			$(function(){
+				var $timeline_block = $('.cd-timeline-block');
+				
+				$timeline_block.each(function(){
+					if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.75) {
+						$(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+					}
+				});
+				
+				$(window).on('scroll', function(){
+					$timeline_block.each(function(){
+						if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
+							$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+						}
+					});
+				});
+			});
+		</script> 
+
+	</body>
+</html>

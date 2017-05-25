@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>通道用户</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var unbindUrl = "/modules/payment/unbindUrl.html";	//解除绑定接口地址
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'channelBankList.html',  //表格数据接口地址
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false, 
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [      
+			{ field: 'channelKey', title: '通道名称【KEY】', width: 100, sortable:false,
+				formatter: function(value,row,index){
+					if(value=="unionpay_channel_key"){
+						return "银联支付【"+value+"】";
+					}else if(value=="llpay_channel_key"){
+						return "连连支付【"+value+"】";
+					}else{
+						return value;
+					}
+				}	
+			}, 
+			{ field: 'realName', title: '用户姓名', width: 36, sortable:false }, 
+			{ field: 'bank', title: '所属银行', width: 40, sortable:false }, 
+			{ field: 'bankNo', title: '银行卡号', width: 90, sortable:false }, 
+			{ field: 'bindId', title: '协议号', width: 110, sortable:false }, 
+			{ field: 'bid', title: '银行卡ID', width: 30, sortable:false }, 
+			{ field: 'addTime', title: '添加时间', width: 70, sortable:false}, 
+			{field : 'status',
+				title : '操作',
+				width :75,
+				fixed: true,
+				align:'center',
+				formatter : function(value, row, index) { //功能按钮添加
+					var str = '';
+					if(value==1){
+						str += '<dl>';
+						str += '<dt><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.unbindFun('+row.id+',unbindUrl);">解绑</a></dt>' ;
+						str += '</dl>'
+					}else{
+						str = '已解绑';
+					}
+					return str;
+				}
+			}
+			] ],
+			toolbar : '#toolbar',
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});		
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入通道名称/KEY/姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <!-- <div class="sRight">
+            <label class="lab">新增通道</label>
+            <div class="ipt">
+		     	<input type="file" name="file" id="uploadify" />
+		     </div>
+			<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,exWidth,exHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>新增配置</a>	
+            </div> -->
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<!-- <li><span>姓名</span><input type="text" name="userName" autocomplete="off"/></li> -->
+		        	<li><span>项目名称</span><input type="text" name="projectName" autocomplete="off"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>		
+		</div>		
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

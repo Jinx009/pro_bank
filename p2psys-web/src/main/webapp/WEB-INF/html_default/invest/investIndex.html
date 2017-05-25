@@ -1,0 +1,51 @@
+<#macro trunct name>
+	<#assign length=name?length>
+	<#if length&gt;15>
+		${name[0..15]}
+	<#else>
+		${name}
+	</#if>
+</#macro>
+<!DOCTYPE html>
+<html>
+ <#assign web_title="【投资】投资理财_投资项目_小投资创业项目 - ${webname!}">
+		<#assign web_description="${webname!}通过“风险保障金”和严格的风控体系，打造最安全的p2p网络借贷平台。${webname!}承诺提供百分百本金保障，为投资理财人士提供低门槛、高收益的个人投资理财服务。">
+		<#assign meta_keywords="投资,投资理财,投资项目,小投资创业项目">
+<#include "../include/resource1.html">
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+
+<div class="invest-tab">
+    <div class="invest-tab-con">
+        <a href="/ppfund/index.html">现金管理产品</a>　　　　
+        <a href="/invest/estate.html">海外投资产品</a>　　　　
+        <a href="/invest/entrust.html">浮动收益类产品</a>　　　
+        <a href="/invest/index.html" class="active">固定收益类产品</a>　　　　
+        <!--<a href="">债权转让</a>-->
+    </div>
+</div>
+
+    <div class="investWrap clearfix">
+    	<!-- S 投资列表 -->
+    	<div class="investList clearfix">
+            <div class="invest-list-qh">
+        			<div class="investListBox clearfix">
+                        <ul class="investItem">
+                            <!-- S 静态投资列表 -->
+                           
+                            <!-- E 静态投资列表 -->
+                        </ul>
+        			</div>
+        			<div id="kkpager"></div>
+            </div>
+
+    	</div>
+    	<!-- E 投资列表 -->
+    </div>
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/invest/investList");
+</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

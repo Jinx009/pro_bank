@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>投标记录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 280;
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'tenderList.html',
+            fit : true,
+            fitColumns : false,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50, sortable:false },              
+              { field: 'userName', title: '投资人', width: 50, sortable:false },
+              { field: 'borrowName', title: '标名', width: 150, sortable:false },   
+              { field: 'money', title: '投标金额', width: 80, sortable:false }, 
+              { field: 'account', title: '有效金额', width: 80, sortable:false }, 
+              { field: 'addTime', title: '投标时间', width: 120, sortable:false, 
+            	  	formatter: function(value,row,index){
+	  					if (row.addTime){
+	  						return getLocalTime(value,4);
+	  					} else {
+	  						return value;
+	  					}
+  				  	}  
+              }, 
+              { field: 'status', title: '状态', width: 80, sortable:false , 
+					formatter: function(value,row,index){
+  					if (row.status == 0){
+  						return '投标中';
+  					} else if (row.status == 1){
+  						return '复审通过';
+  					} else if (row.status == 2){
+  						return '复审未通过';
+  					} else {
+  						return value;
+  					}
+  				}  
+              }
+              ] ],
+            toolbar : '#toolbar',
+            onLoadSuccess : function() {
+                $('#searchForm table').show();
+                parent.$.messager.progress('close');
+
+                $(this).datagrid('tooltip');
+            },
+            onRowContextMenu : function(e, rowIndex, rowData) {
+                e.preventDefault();
+                $(this).datagrid('unselectAll').datagrid('uncheckAll');
+                $(this).datagrid('selectRow', rowIndex);
+                $('#menu').menu('show', {
+                    left : e.pageX,
+                    top : e.pageY
+                });
+            }
+        });
+    });
+</script>
+</head>
+<body>
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',title:'查询条件',border:false,collapsed:false" style="height: 185px; overflow: hidden;">
+            <form id="searchForm">
+                <table class="table table-hover table-condensed" style="display: none;">
+                    <tr>
+                     	<th>标名：</th>
+                        <td><input type="text" name="borrowName"/></td>
+					</tr>
+                    <tr>
+                        <th>投资人：</th>
+                        <td><input type="text" name="userName"/></td>
+                        <th>状态：</th>
+                        <td>
+                            <select name="status">
+                            	<option value="99">全部</option>
+                                <option value="0" selected="selected">投标中</option>
+                                <option value="1">复审通过</option>
+                                <option value="2">复审未通过</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:100px;">开始时间：</th>
+						<td><input type="text" name="startTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></td>
+						<th style="width:100px;">结束时间：</th>
+						<td><input type="text" name="endTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></td>
+						<td class="tdBtn">
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a>
+					    </td>
+                    </tr>                   
+                </table>
+            </form>
+        </div>
+        <div data-options="region:'center',border:false">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+    <div id="toolbar" style="display: none;">        
+    </div>
+    <div id="menu" class="easyui-menu" style="width: 120px; display: none;">        
+        <div onclick="$.fn.dataGridOptions.editFun($(this).attr('node-id'),editTitle,winWidth,winHeight,editUrl);" data-options="iconCls:'pencil'">编辑</div>        
+    </div>
+</body>
+</html>

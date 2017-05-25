@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<#include "../include/statistics.html"> 
+<meta charset="UTF-8">
+<meta name="keywords" content="800Bank">
+<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+<title>800Bank</title>
+<link href="/themes/theme_default/nb/pc/css/member/userInvite.css" rel="stylesheet"/>
+<script type="text/javascript">
+$(function()
+{
+	changeLeftMenue("邀请好友");
+})
+</script>
+</head>
+<body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+		<div class="col-md-3 main_left padding_col0 ">
+			 <#include "../include/member_menu.html">
+		</div>
+     <!-- 用户中心左导航菜单 end -->		
+		 <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-1" ></div>
+		 		<p class="margin5p">邀请好友</p>
+		 		<div class="space-div-3" ></div>
+		 		<p class="margin4p"><b>一、推荐人奖励</b></p>
+		 		<p class="margin3p margin3p_bottom">1.每位好友注册,奖励您20元投资红包;</p>
+		 		<p class="margin3p">2.每位好友投资,奖励好友年化投资的0.1%(除随投随享);</p>
+		 		<div class="space-div-1" ></div>
+		 		<p class="margin4p"><b>二、被推荐人奖励</b></p>
+		 		<p class="margin3p">被推荐人可投新手专享标</p>
+		 		<div class="space-div-1" ></div>
+		 		<p class="margin4p"><b>三、邀请的三种方式</b></p>
+		 		<p class="margin3p">1.复制链接给好友</p>
+		 		<div class="margin3p">
+		 		  <div class="form-group">
+					    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+					    <div class="input-group">
+					      <input type="text" class="form-control" id="inviteUrl"  readonly="readonly" >
+					      <div class="input-group-addon inviteUrlCopy" id="inviteUrlCopy" data-clipboard-target="inviteUrl" >复制链接</div>
+					    </div>
+				   </div>
+				</div>
+		 		<div class="margin3p">
+		 			<div class="warning-div" >
+		 				<p class="margin6p">2.请新朋友直接扫描二维码</p>
+		 				<div class="row">
+						  <div class="col-md-2">
+						  		<div id="qrcodeCanvas" ></div>
+						  </div>
+						  <div class="col-md-9" style="font-size:14px;">
+						  	  <p>&nbsp;</p>
+						  	  <p class="margin3p_bottom">扫一扫，邀请更方便</p>
+						  	  <p class="margin3p_bottom">请您的好友扫描此二维码</p>
+						  </div>
+						</div>
+		 			</div>
+		 		</div>
+		 		<div class="margin3p" style="margin-top: 5px;">
+			 		<div class="warning-div" >
+			 			<p class="margin6p" id="inviteCode" style="display: inline-block;">3.直接告诉朋友您的邀请码:</p>
+			 			<div style="display: inline-block;" style="width:100%;">
+			 				<div style="float:left;">
+			 					<img src="/themes/theme_default/nb/pc/img/phone_register.png" style="margin-right:10px;"/>
+			 					<p style="text-align: center;height:30px;line-height:30px;">微信注册</p>
+			 				</div>
+			 				<div style="float:left;">
+				 				<img src="/themes/theme_default/nb/pc/img/pc_register.png" />
+				 				<p style="text-align: center;height:30px;line-height:30px;">网页注册</p>
+			 				</div>
+			 			</div>
+			 		</div>
+		 		</div>
+		 		<div class="data-div">
+		 		<table class="table my-table" >
+		 			<thead>
+		 				<tr class="space-div-2" ></tr>
+					    <tr>
+					    	  <th>邀请人</th>
+						      <th>被邀请人</th>
+						      <th>邀请日期</th>
+					    </tr>
+					</thead>
+					<tbody id="table_content" ></tbody>
+		 		</table>
+		 		<div id="kkpager" class="no-data"></div>
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-4" ></div>
+		  </div>
+		  </div>
+	</div>
+</div>
+	<div class="clearfix"></div>
+</div>
+<div class="space-div-8">	</div>
+<script type="text/javascript">
+seajs.use("/themes/theme_default/nb/pc/js/member/userInvite.js");
+</script>
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+</body>
+</html>

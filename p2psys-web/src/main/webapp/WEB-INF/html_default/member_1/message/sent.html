@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<link href="${webroot}/media/css/modal.css" rel="stylesheet" type="text/css" />
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix" >
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+    	<#assign mid="m_info" >
+		<#include "../user_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<div class="user_right_menu">
+			<#assign msg_type="sent" >
+			<#include "msg_menu.html"> 
+		</div>
+
+		<!--右边的内容user_right_main 开始-->
+		<div class="user_right_main">
+			
+			<div class="user_email_btn" >
+                <input type="button"  class="btn delet_btn"   value="删除" id="J_delsent" data-value="2" /> 
+            </div>
+		
+			<table id="messagelist" class="loglist"></table>
+				<div class="page" id="js_page">
+                       <span class="first" title="首页"><<</span>
+                       <span class="front" title="上一页"><</span>
+                       <div class="pageBox">
+                           <div class="pageList">
+                               <b class="pagenum">                                    
+                               </b>
+                           </div>
+                       </div>
+                    <span class="next" title="下一页">></span>
+                    <span class="last" title="未页">>></span>
+                       <div class="pageDes">
+                           <b class="total">共<font></font>页</b>	
+                           <b class="gopage">
+                             		  跳转至
+                               <input type="text" class="gopage_val">
+                             		  页
+                               <input type="button" class="gopage_btn" value="确定">
+                           </b>	
+                       </div>	                  	
+                </div>
+                
+				<script id="json_data"  type="text/x-handlebars-template">
+							<tr class="t_head">
+								<td>
+									<input type="checkbox" name="allcheck" id="J_messageAll"  />
+									<input type="hidden" name="type" id="type" value="0" />
+								</td>
+								<td>收件人 </td>
+								<td>标题</td>
+								<td>发送时间 </td>
+							</tr>
+							{{#each data.list}}
+								<tr class="data_item">
+									<td>{{{id}}}</td>
+									<td>{{receiveUserName}}</td>
+									<td>{{{title}}}</td>
+									<td>{{addTime}}</td>
+								</tr>	
+							{{/each}}
+						</script>
+			<script>
+			$("#messagelist").usePage({
+				URL:"/member/message/sentList.html?1=1",
+				colModel:[{
+					field:'id',
+					formatter:messageIdFun
+				},{
+					field:'status',
+					formatter:messageStatus1Fun
+				},{
+					field:'receiveUserName'
+				},{
+					field:'title',
+					formatter:messageTitle1Fun
+				},{
+					field:'addTime',
+					formatter:addTimeFun
+				}],callBack:function(){
+					messageOperate();//站内信操作
+					memberMenu();//计算用户中心右侧高度，代码在common.js
+				}
+			})
+			
+			</script>
+			
+		</div>
+		<!--右边的内容user_right_main 结束-->
+
+ 	 </div>
+	<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<script src="${webroot}${theme_dir}/media/js/modal.js"></script>
+
+<#include "../../include/footer.html"> 
+</body>
+</html>

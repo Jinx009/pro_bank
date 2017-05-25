@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/accountBack/accountBackAdd.html');
+	});
+</script>
+<div class="popForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">用户名：</label>
+		     <div class="ipt">
+		     	<input type="text" name="userName" class="w400 easyui-validatebox" data-options="required: true" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">类型：</label>
+		     <div class="ipt">
+		     	<select name="type">
+					<option value="2">账户扣款</option>
+				</select>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">金额：</label>
+		     <div class="ipt">
+		     	<input type="text" name="money" class="w400 easyui-validatebox" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" data-options="required: true" maxlength="8"/>
+		     	<p>目前仅支持8位数的扣款</p>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea name="remark" class="w400 easyui-validatebox" data-options="required: true" maxlength="250"></textarea>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<input type="hidden" name="backToken" value="${backToken}" />
+	</form>
+</div>

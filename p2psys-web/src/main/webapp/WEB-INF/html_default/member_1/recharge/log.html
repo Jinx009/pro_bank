@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+<script>
+
+</script>
+	<#assign nid="my_account">
+	<#include "../../include/member_header.html">
+	<!--#container-->
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+				<#include "../account_menu.html">
+			</div>
+			<!--左边的导航user_left 结束-->
+
+			<!--右边的内容user_right 开始-->
+			<div class="user_right">
+				<h2 class="user_title">账户充值</h2>
+				<div class="user_right_main">
+					<div class="log_head">
+					<span>账户总额<br /><em>${account.total!'0'}</em>元</span>
+					<span>可提现金额<br /><em>${account.useMoney!'0'}</em>元</span>
+					<span class="recharge_withdraw float_right">
+						<a href="/member/recharge/newRecharge.html" class="recharge">充值</a>
+      					<a href="/member/cash/newCash.html" class="withdraw">提现</a>
+					</span>
+					</div>
+					<ul class="member_search">
+						<li id="shortTime">
+							日期范围
+							<span id="timeStatus">
+								<a href="javascript:;" class="current" data-val="9">全部</a>
+								<a href="javascript:;" data-val="7">最近7天</a>
+								<a href="javascript:;" data-val="1">1个月</a>
+								<a href="javascript:;" data-val="2">2个月</a>
+								<a href="javascript:;" data-val="3">3个月</a>
+								<em>具体日期&gt;&gt;</em>	
+							</span>	
+						</li>
+						<li id="fullTime" style="display:none;">
+							起止日期
+							<input type="text" class="dateInput" name="startTime" id="startTime" value="${startTime?default('')}"/> - 
+							<input type="text" class="dateInput" name="endTime" id="endTime" value="${endTime?default('')}"/>
+							<input id="searchBtn" value="搜索" type="button" class="searchBtn">
+							<em>&lt;&lt;日期范围</em>	
+						</li>
+						<li>
+							交易类型 
+							<span id="status">
+								<a href="javascript:;" class="current" data-val="9">全部</a>
+								<a href="javascript:;" data-val="0">充值提交中</a>
+								<a href="javascript:;" data-val="1">充值成功</a>
+								<a href="javascript:;" data-val="2">充值失败</a>
+							</span>
+						</li>
+					</ul>
+					<table id="member_table" class="table_content"></table>
+					<div id="kkpager"></div>
+				</div>
+			</div>
+		</div>
+		<!--E-usermain-->
+	</div>
+	<!--#container-->
+	<script>seajs.use('member/recharge_log');</script>
+	<script src="/plugins/laydate-v1.1/laydate.js"></script>
+	<script src="/themes/theme_default/media/js/date.js"></script>
+	<#include "../../include/footer.html">

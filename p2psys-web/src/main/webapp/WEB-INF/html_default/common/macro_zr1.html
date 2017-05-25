@@ -1,0 +1,123 @@
+<#macro indexListItem item>
+<#if item.is_flow??&&item.is_flow==1>
+			<div class="list-content">
+                <ul class="clearfix lzul">
+                    <div class="itam-img"><a href="${webroot}/invest/detail.html?id=${item.id?c}"><img src="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" alt="" width="74" height="74"></a></div>
+                    <form action="" name="" method="post">
+                        <div class="itam-txt">
+                            <div class="itam-tit  clearfix">
+                                
+                               <!-- <a href="#" class="youbiao"><img src="${webroot}${theme_dir}/media/bg/yb.jpg" alt=""></a>-->
+                                <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="biaoti">${item.name}</a>
+                                <a href="#" rel="tooltip" title="网站内流转的借款标"><img src="${webroot}${theme_dir}/images/xiang.gif" alt=""></a>
+                            </div>
+                            <div class="jiekuan clearfix">
+                                <span class="maxbox">最小流转金额：￥<b><font color="red">${(item.flow_money!0)?c}</font></b>元</span>
+                                <span>年化利率：${item.apr!}%</span>
+                                <span>回收期限：<#if item.borrowTimeType??&&item.borrowTimeType=1>${item.time_limit!}天<#else>${item.time_limit!}月</#if></span>
+                                <span>还款方式：一次性</span>
+                                <span class="maxbox2">流转总金额：￥<b><font color="red">${format4(item.account)}元</font></b></span>
+                                <span>已流转：${((item.account_yes!0)?number/item.flow_money)?c}份</span>
+                                <!--<span>已回购：0份</span>-->
+                                <span>还剩：${(((item.account!0)?number-(item.account_yes!0)?number)/item.flow_money)?string("##.##")}份</span>
+                            </div>
+                        </div>
+                        <div class="yjk">
+                            <div class="but-add clearfix">
+                                <input type="button" class="reduse">
+                                <input type="text" value="1" class="txt">
+                                <input type="button" class="add">
+                            </div>
+                            <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="yjk-but">立即投标</a>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+<#else>
+            <div class="list-div">
+            		<a href="${webroot}/invest/detail.html?id=${item.id?c}">
+                    <div class="itam-img">
+                    	<img src="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" class="productimg">
+                    </div>
+                    </a>
+                    <ul class="list-ul">
+                        <li class="titleli">
+                           <span>
+                                <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="titletxt">
+                                <#if item.name?length lt 23>${item.name}<#else>${item.name[0..20]}...</#if>&nbsp;&nbsp;</a>
+                           </span>     
+                       	   <@showBorrowIcon item=item/>
+                        </li>                                     
+                        <li>
+                            借款金额：￥<strong><font color="red">${format2(item.account)}元</font></strong>
+                        </li>
+                        <li>
+                            年利率：${item.apr}%
+                        </li>
+                        <li>
+                            借款期限：<#if item.borrowTimeType??&&item.borrowTimeType==1><strong>${item.time_limit!0}</strong>天
+                        <#elseif item.is_mb==1>满标自动还款
+                            <#else><strong>${(item.time_limit)?default("0")}</strong>个月</#if>
+                        </li>
+                        <li class="clearfix">
+                            <span style="float:left">信用等级：</span><img class="rank" src="${webroot}/data/images/credit/${item.credit_pic}" title="${item.credit_jifen}"  />
+                        </li>
+                        <li class="clearfix">
+                            <div class="float_left">已完成：</div>
+                            <div class="jindu float_left">
+                                <div class="rate_tiao" style="width:
+<#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gte 0>
+99.9%
+<#else>
+${(item.scales*100)?string("##.##")}%
+</#if>"></div>
+                            </div>
+                            <div class="float_left">&nbsp;
+<#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gt 0>
+99.99%
+<#else>
+${(item.scales*100)?string("##.##")}%
+</#if>
+
+</div>
+                        </li>
+                        <li>
+                            <#if item.borrowTimeType??&&item.borrowTimeType==1>到期全额还款<#elseif
+							item.is_mb==1>系统自动还款<#else>按月分期还款</#if> 
+                        </li>
+                    </ul>
+                    <div class="list-btnbox">
+                        <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="list-btn"><@showIndexTenderButton item /></a>
+                    </div>
+                </div>
+            
+</#if>
+</#macro>
+
+<#macro showIndexTenderButton borrow>
+    <#assign nowTime=dateformat("now") >
+	<#if borrow.status==0>等待初审
+	<#elseif (getRemainTime(borrow.addtime,borrow.valid_time)?number lt 0)&&borrow.is_flow!=1&&borrow.status==1>
+	 已经结束
+	<#elseif borrow.status==1&&((borrow.account_yes)?number lt (borrow.account)?number) > 
+	立即投标
+	<#elseif borrow.status==1&&((borrow.account_yes)?number gt (borrow.account)?number || (borrow.account_yes)?number==(borrow.account)?number) > 
+	等待复审
+	<#elseif borrow.status==2> 
+	初审失败
+	<#elseif borrow.status==3> 
+	复审通过
+	<#elseif borrow.status==5||borrow.status==-1> 
+	用户取消</a>
+	<#elseif borrow.status==4> 
+	复审失败
+	<#elseif borrow.status==6> 
+	还款中</a>
+	<#elseif borrow.status==7> 
+	还款中</a>
+	<#elseif borrow.status==8> 
+	已还款</a>
+	<#else> 
+	用户取消</a> 
+	</#if> 
+</#macro>

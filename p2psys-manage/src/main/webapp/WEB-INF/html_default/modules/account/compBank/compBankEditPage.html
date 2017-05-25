@@ -1,0 +1,64 @@
+<script type="text/javascript">
+$(function(){
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/compBank/compBankEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+});
+</script>
+<script>
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		prov: $(".provinceOpt").val(), //省份 
+	    city: $(".cityOpt").val(), //城市 
+	    dist:"", //区县
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	}); 
+</script>
+
+<div class="popForm">
+    <form id="form"  method="post" enctype="multipart/form-data">
+    	<div class="formitm">
+		     <label class="lab">银行卡号：</label>
+		     <div class="ipt">
+		     	<input type="text" class="w400 easyui-validatebox" id="cardNo" name="cardNo" value="${compBank.cardNo!}">
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">账户名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="accName" class="w400 easyui-validatebox" data-options="required: true" maxlength="50" value="${compBank.accName!}"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">开户行名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="bankName" class="w400 easyui-validatebox" data-options="required: true" maxlength="50" value="${compBank.bankName!}"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">开户行代码：</label>
+		     <div class="ipt">
+		     	<input type="text" name="bankCode" class="w400 easyui-validatebox" data-options="required: true" maxlength="50" value="${compBank.bankCode!}"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">开户省市：</label>
+		     <div class="ipt">
+		     	<li><div class="ipt" id="city" style="float:left;margin-left:0;">
+                   <select class="prov" name="province"><option value="${compBank.province!}" selected="selected" class="provinceOpt">${compBank.province!}</option></select>  
+                    <select class="city" name="city" disabled="disabled"><option value="${compBank.city!}" class="cityOpt">${compBank.city!}</option></select> 
+                    <#--<select class="dist" name="area" disabled="disabled"><option value=""></option></select>--> 
+                    </div>     
+				</li>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<input  type="hidden" name="addTime" value="<#if compBank.addTime??>${compBank.addTime?string('yyyy-MM-dd hh:mm:ss')}"</#if>/>
+		<input type="hidden" name="addIp" value="${compBank.addIp!}">
+	</form>
+	
+
+</div>

@@ -1,0 +1,81 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.picFormSubFun("#form",'/modules/loan/borrow/updatePic.html');	
+	});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<input type="hidden" name="borrowId" value="${id}">
+<div class="borrowForm" style="border-top:none;">
+	<h2 class="borrowFormTitle">资产监控</h2>
+	<#list list as item>
+	<input type="hidden" name="ids" class="listId" value="${item.id}">
+	<input type="hidden" name="physicalaCount${item_index}" id="physicalaCount${item_index}"/>
+	<input type="hidden" name="archivesCount${item_index}" id="archivesCount${item_index}"/>
+	<div class="car_type">
+		<div class="car_type_item">
+			<ul class="type_item">
+				<li><span>车型：</span><input type="text" class="car_type_input easyui-validatebox" name="carType" value="${item.carType!}" data-options="required: true" autocomplete="off" disabled="disabled"/></li>
+				<li><span>车驾号：</span><input type="text" class="car_type_input easyui-validatebox" name="carNo" value="${item.carNo!}" data-options="required: true" autocomplete="off" disabled="disabled"/></li>
+				<li><span>评估价：</span><input type="text" class="car_type_input easyui-validatebox" name="assessPrice" value="${item.assessPrice!}" data-options="required: true" autocomplete="off" disabled="disabled"/></li>
+				<li><span>抵押价：</span><input type="text" class="car_type_input easyui-validatebox" name="mortgagePrice" value="${item.mortgagePrice!}" data-options="required: true" autocomplete="off" disabled="disabled"/></li>
+			</ul>
+		</div>
+		<div class="car_type_item">
+			<span>上传实物照：</span>
+	        <div id="uploadRealPhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist" class="photoUpload  realPhotosList" style="list-style: none; padding: 0; margin: 0;">
+	            	<li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="file" id="physical${item.id}" onchange="return ajaxFileUpload1('physical${item.id}','/imageUp.jsp','physicalPicPath${item_index}','1');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+		</div>
+		<div class="car_type_item">
+			<span>上传档案照：</span>
+	        <div id="uploadFilePhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist1" class="photoUpload filePhotoList" style="list-style: none; padding: 0; margin: 0;">
+	            	<li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="file" id="archives${item.id}" onchange="return ajaxFileUpload1('archives${item.id}','/imageUp.jsp','archivesPicPath${item_index}','2');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+		</div>
+	</div>
+	</#list>
+</div>
+</form>
+<script>
+	//图片列表
+	for(var j = 0;j < $(".listId").length;j++){
+	$.ajax({
+		url:"/modules/loan/borrow/getUpdateMortgageList.html?id="+$(".listId").eq(j).val(),
+		type:"get",
+		async:false,
+		dataType:"json",
+		success:function(data){
+			if(data.list.length > 0){
+				for(var i = 0;i < data.list.length; i++){
+					var sHtml = "";
+					sHtml += '<li data-mum="' + data.list[i].id + '">';
+					sHtml += '<a href="' + data.list[i].picPath + '" class="fileshow"><img src="' + data.list[i].picPath + '" alt="" style="width:100px;height:100px;float:left;"></a>';
+					sHtml += '<a class="closePic" style="float:left;" href="javascript:;" title="删除图片">x</a>';
+					sHtml += '</li>';
+					if(data.list[i].type == 1){
+						$(".realPhotosList").eq(j).append(sHtml);
+					}else{
+						$(".filePhotoList").eq(j).append(sHtml);
+					}
+				}
+			}
+		}
+	});
+	
+  };
+</script>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>
+<!-- 图片预览-->
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

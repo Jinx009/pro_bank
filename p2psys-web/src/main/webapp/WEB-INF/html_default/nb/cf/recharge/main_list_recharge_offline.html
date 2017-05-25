@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script src="/themes/theme_default/cf/js/common.js" ></script>
+		<script src="/themes/theme_default/cf/js/raphael-min.js" ></script>
+		<script src="/themes/theme_default/cf/js/morris.min.js" ></script>
+		<script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/js/recharge/recharge_offLineRecharge.js"></script>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>线下充值</h3>
+					</div>
+					
+					<div class="cash-wrap">
+					<p class="investMoney">完整填写如下信息后，请完成银行转账操作（网银/手机银行/银行柜台），收款信息如下：</p>
+							<div class="cash-left col-no-padding">
+								<form action="/cf/recharge/doOfflineRecharge.html" class="form-horizontal" name="form2" method="post">
+									
+									<div class="cash-top">
+										<p><span>开户银行:</span>中国建设银行上海黄浦支行</p>
+										<p><span>银行账号:</span>31050170360000000491</p>
+										<p><span>账户:</span>上海众朴信息科技有限公司</p>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">可用余额:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<p class="help-block investMoney" id="use_money"></p>
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">充值金额:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" id="rechargeMoney2"	name="money" placeholder="充值金额"   maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" size="10" value="${minRechargeMoney!0}" autocomplete="off">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="trdRecharge_tips"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">转账姓名:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" id="userName2" name="realName" placeholder="转账姓名" maxlength="5">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="trdName_tips"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">身份证号:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control"  id="cardId2" name="cardId" placeholder="身份证号" maxlength="18">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="trdCardId_tips"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">转账银行卡号:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" id="bankNo2" name="bankNo" placeholder="转账银行卡号"
+												onKeyUp="value=value.replace(/[^0-9]/g,'')"
+												onblur="getBankInfo(this,'yhcard2',2)" maxlength="25">
+											<span id="yhcard2"></span>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="trdBankNo_tips"></p>	
+									    </div>
+									</div>
+									<input type="hidden" class="paymentStatus" name="type" value="3">
+									<input type="hidden"  id="xxRToken" name="nbRechargeToken" value="${nbRechargeToken!}">
+									<input type="hidden" name="minRechargeMoney" id="minRechargeMoney" value="${minRechargeMoney!0}">
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<button class="sure-btn" type="button" onclick="checkOLForm();">确认提交</button>
+									    </div>
+									</div>
+									
+									
+								</form>
+								
+							</div>
+							
+							<div class="cash-right">
+								<div>
+									<h3>温馨提示：</h3>
+									<p style="margin-bottom: 0px;">预计到账时间：</p>
+									<p>1.工作日上午10点前（含10点）到账的线下充值资金将于10点30分入账，下午15点前（含15点）到账的线下充值资金将于15点30分入账，遇节假日顺延。</p>
+									<p style="margin-bottom: 0px;">2.线下最低充值金额<span id="minRechargeMoneyTis">${minRechargeMoney!0}</span>元。</p>
+								</div>
+							</div>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				var info = '${prompt!}';
+				var msg = "${msg!}";
+				var msg2 = "${msgInfo!}";
+				if(null!==info&&""!==info){
+					if(info.indexOf("成功") > -1){
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0},function(){
+							location.href = '/cf/user/main.html';//
+						})
+					}else{
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0})
+						msgAlert(info);
+					}
+				}
+			})
+				
+			function msgAlert(obj){
+				if(obj!=null && obj!=""){
+					var isSecond = $("#isSecond").val();
+					if(isSecond==1){
+		    			
+					}else if(isSecond==2){
+					}else{
+					}
+				}
+			}
+			showLi("user_li");
+			changeLeftMenue("充值","线下充值");
+		</script>
+	</body>
+</html>

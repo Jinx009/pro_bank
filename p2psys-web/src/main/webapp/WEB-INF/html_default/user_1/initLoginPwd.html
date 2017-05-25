@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<#assign nid="account_home" >
+<#include "../include/resource1.html"> 
+<div id="loginWrap" class="clearfix">
+	<div class="loginBd clearfix">
+		<div class="memberLogo"><a href="/" title="设置密码"><span>设置密码</span></a></div>
+		<a href="/" title="返回首页" class="backHomePage">返回首页</a>
+	</div>
+</div>
+<div class="changePWD">
+	<ul class="changePWD_process clearfix">
+		<li class="hover">初始化密码</li>
+	</ul>
+	<div class="changePWD_content">
+		<h3>
+			恭喜<em>${companyName}</em>完成商家账户的创建，请初始化登录密码。
+		</h3>
+		<form action="/user/initPwd.html" id="changeLoginPwd_form">
+		<ul>
+			<li>
+				<label for="">登录密码</label>
+				<input type="password" name="pwd" id="password" />
+				<span>8-16位数字与字母、符号的组合，区分大小写</span>
+				<input type="hidden" name="userId" value="${uId}">
+			</li>
+			<li>
+				<label for=""></label>
+				<div class="passwordStrength clearfix ">	
+	                <span class="bar" style="padding: 0;">
+	                    <span class="process" style="padding: 0;"></span>
+	                </span>
+	                <span class="strength low">弱</span>
+	                <span class="strength good">中</span>
+	                <span class="strength best">强</span>
+	             </div>
+			</li>
+			<li>
+				<label for="">确认密码</label>
+				<input type="password" name="confirmPassword" />
+				<span></span>
+			</li>
+			<li>
+				<label for=""></label>
+				<input type="submit" value="立即修改">
+				<span></span>
+			</li>
+		</ul>
+	</form>
+	</div>
+	
+</div>
+<script>
+	seajs.use("member/changeLoginPwd");
+</script>
+<#include "../include/footer.html">
+</body>
+</html>

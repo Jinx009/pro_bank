@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+	<div class="usermain clearfix">
+		<!--左边的导航 开始-->
+		<div class="user_left">
+			<#assign mid="m_info" >
+			<#include "../user_menu.html">
+		</div>
+		
+		
+		<div class="user_right">
+			<div class="user_right_menu">
+				<ul class="user_right_menu clearfix">
+					<!-- 未设置密保的场合 -->
+					<li class="h_menu_li">积分兑换现金</li>
+				</ul>
+			</div>
+			<div class="user_right_main">
+				<form action="${webroot}/member/score/doConvertVip.html" method="post" onSubmit="return check_form()" name="form1">
+					<ul class="pwd_question">
+						<li>
+							<span class="question_tit">
+								真实姓名：
+							</span>
+							<span class="question_txt">${user.realName!''}</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								总积分：
+							</span>
+							<span class="question_txt">${userScore.totalScore!0}
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								已消费积分：
+							</span>
+							<span class="question_txt">${userScore.expenseScore!0}</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								可用积分：
+							</span>
+							<span class="question_txt">
+								<#if userScore?? && userScore.validScore??><input type="hidden" value="${userScore.validScore!0}" id="validScore"></#if>
+								${userScore.validScore!0}
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								兑换VIP积分：
+							</span>
+							<span class="question_txt">
+								<input type="hidden" id="convertScore"  name="score" value="${convertScore!0}"/>${convertScore!0}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<#if result?? && result == false>您暂时不能申请兑换VIP操作。</#if><font color="#FF0000" id="realRemark"></font></span>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								兑换备注：
+							</span>
+							<span class="question_txt">
+								<textarea style="width: 300px;height: 150px;" type="text" name="remark" maxLength="255"/></textarea>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								　
+							</span>
+							<span class="question_txt">
+							<input type="hidden" name="user.userId" value="${user.userId}" />
+							<#if convertToken?? && convertToken != "">
+								<input type="hidden" name="convertToken" value="${convertToken}" />
+							</#if>
+							<#if result?? && result == true>
+								<input type="submit" class="btn sub_btn" name="submit" value="确认">
+							</#if>
+							</span>
+						</li>
+					</ul>
+					
+				</form>	
+				
+			</div>
+			<div class="user_help alert">
+	            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+	            <p>
+	            	3000积分兑换一年VIP，并且一年只能兑换一次。积分兑换VIP以后，减去相应的积分分值。
+	            </p>
+	            <p>
+	            <#if msg?? && msg != "">
+						<font color="#FF0000">${msg}</font>
+				</#if>
+	            </p>
+			</div>
+		
+		</div>		
+		<script>
+			function check_form(){
+				var value = $("#convertScore").val();// 兑换积分
+				var validScore = $("#validScore").val();// 有效积分
+		   	 	var score = parseInt(value);
+		   	 	var numReg =  /^[0-9]$|^[1-9][0-9]+$/;  
+			   	if(score != null && score > 0 && score <= validScore && numReg.test(value)){
+			   		 return true;
+			    }else{
+			    	if(score > validScore){
+			    		$("#convertScore").val(0);
+						document.getElementById('realRemark').innerHTML = "您的有效积分不足，不能兑换VIP。";
+			    	}
+					return false;
+			    }
+			}
+		</script>
+		<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,291 @@
+@charset "utf-8";
+$chinaFontfamily:'microsoft yahei',
+Verdana,
+Arial,
+Helvetica,
+sans-serif;
+$fontSize:20; //媒体查询，以rem位单位
+$bodyPadding:10px;
+$bodyColor:#f4f4f4; //body背景颜色 
+$titleFontSize:15px; //标题字体大小
+$descFontSize:16px; //描述字体大小
+$detailFontSize:13px; //详细字体大小
+$titleColor:#545454; //标题颜色
+$titleColor2:#393939; //标题颜色2
+$descColor:#8a8a8a; //描述颜色
+$borderSolidColor:#e1e1e1; //实线边框颜色
+$borderDashedColor:#c8c8c8; //虚线边框颜色
+$eleMargin:16px;
+$divMargin:5px;
+.test {
+    color: red;
+}
+
+html,
+body,
+.wrap,
+.swiper-container {
+    height: 100%;
+}
+
+body {
+    font-family: $chinaFontfamily;
+}
+
+a {
+    text-decoration: none;
+}
+
+.tabs {
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    width: 100%;
+    height: 41px;
+    z-index: 999;
+}
+
+.tabs a {
+    flex: 1;
+    color: $titleColor2;
+    display: flex;
+    height: 41px;
+    font-size: $titleFontSize;
+    border-bottom: 1px solid $borderSolidColor;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabs .active {
+    color: #fff;
+    background-color: #5bc0de;
+}
+
+.swiper-slide-active {
+    overflow: scroll;
+}
+
+.content-slide {
+    margin: 10px;
+}
+
+.none {
+    margin: 20px auto;
+    text-align: center;
+    font-size: $descFontSize;
+}
+
+.not-none2 {
+    margin-bottom: 74px;
+}
+
+.not-none h2 {
+    font-size: $titleFontSize;
+    margin-top: 0;
+    margin-bottom: $divMargin;
+    font-weight: normal;
+    margin-top: 20px;
+}
+
+.not-none p {
+    padding-left: $divMargin;
+    font-size: $detailFontSize;
+    line-height: 2;
+    margin: 0;
+}
+.not-none2 h2 {
+    font-size: $titleFontSize;
+    margin-top: 0;
+    margin-bottom: $divMargin;
+    font-weight: normal;
+    margin-top: 20px;
+}
+
+.not-none2 p {
+    padding-left: $divMargin;
+    font-size: $detailFontSize;
+    line-height: 2;
+    margin: 0;
+}
+.coupons-table {
+    border: 1px solid $borderSolidColor;
+    border-radius: 6px;
+    margin-top: $eleMargin;
+}
+
+.coupons-titles h3 {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: $descFontSize;
+    margin: 0;
+    padding-left: 5px;
+    background: #F5F5F5;
+    font-weight: normal;
+}
+
+.coupons-title,
+.coupons-detail {
+    display: flex;
+    align-items: center;
+}
+
+.coupons-title span,
+.coupons-detail span {
+    display: flex;
+        justify-content: center;
+    align-items: center;
+    flex: 1;
+    // text-align: center;
+}
+
+.coupons-title {
+    height: 30px;
+    line-height: 30px;
+    border-top: 1px solid $borderSolidColor;
+    font-size: $titleFontSize;
+    font-weight: bold;
+}
+
+.coupons-detail {
+    position: relative;
+    height: 60px;
+    border-top: 2px solid $borderSolidColor;
+    padding-left: 2px;
+    padding-right: 6px;
+    font-size: $detailFontSize;
+}
+
+.coupons-detail .tips {
+    position: absolute;
+    left: 5px;
+    bottom: -8px;
+    font-size: 10px;
+    width: 180px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #09F;
+    background-color: #FFF;
+    z-index: 199;
+}
+
+.coupons-detail .tips:before,
+.coupons-detail .tips:after {
+    content: "";
+    display: block;
+    border-width: 6px;
+    position: absolute;
+    top: -13px;
+    left: 34px;
+    border-style: dashed dashed solid;
+    border-color: transparent transparent #09F;
+    font-size: 0;
+    line-height: 0;
+}
+
+.coupons-detail .tips:after {
+    top: -12px;
+    border-color: transparent transparent #FFF;
+}
+
+.coupons-detail .coupons-name {
+    display: flex;
+        justify-content: flex-start;
+    align-items: center;
+    // display: inline-block;
+    color: #f00;
+    // width: 20px;
+    padding-left: 2px;
+    // padding-right: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.coupons-detail .btn {
+    display: flex;
+    align-items: center;
+    width: 70px;
+}
+
+.coupons-detail .btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex: 1;
+    margin: 1px;
+    background: #31b0d5;
+    color: #fff;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+}
+
+.test {
+    width: 100px;
+}
+
+
+/*底部导航*/
+
+.foot-blank {
+    height: 54px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 54px;
+    width: 100%;
+    z-index: 1000;
+    background: #ededed;
+    display: flex;
+    align-items: center;
+}
+
+.footer .nav {
+    width: 100%;
+}
+
+.footer .nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    height: 42px;
+    padding: 0;
+}
+
+.footer .nav ul li {
+    flex: 1;
+    height: 42px;
+    text-align: center;
+}
+
+.footer .nav ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #505050;
+    font-size: 12px;
+}
+
+.footer .nav ul li a .foot-nav-svgwrap {
+    width: 30px;
+    height: 25px;
+    margin: 0 auto;
+    padding-bottom: 6px;
+}
+
+.footer .nav ul li a .foot-nav-icon {
+    fill: transparent;
+    stroke: #7D7D7D;
+    stroke-width: 30px;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 底部导航*/

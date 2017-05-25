@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_borrow_header.html">
+<div id="container">
+	<div class="usermain clearfix">
+		<div class="user_left">
+		<#assign mid="m_borrow" >
+			<#include "../account_menu.html">
+		</div>
+		<div class="user_right">
+			<h2 class="user_title">信用额度</h2>
+			<div class="user_tab clearfix">
+				<ul>
+					<li class="active">申请额度</li>
+					<li><a href="/member_borrow/borrow/creditApply.html">申请记录</a></li>
+				</ul>
+			</div>
+			
+			<div class="amountApplyTabBox">
+				<#if session_user_identify.realNameStatus==1>
+		            <#if applyIngCount?exists&&applyIngCount&gt;0>
+		            	<div class="small_add"><p>申请已提交</p></div>
+					<#else>
+					<!-- S 申请信用额度 -->
+					<form action="/member/borrow/doCreditApply.html"  method="post"  id="addAmountApply">
+						<#if applyIngCount?exists&&applyIngCount&gt;0>
+						<#else>
+						<div class="formitm">
+			                <label class="lab">申请人</label>
+			                <div class="ipt"><span class="userName">${session_user.userName}</span></div>
+			            </div>
+			            <div class="formitm">
+			                <label class="lab">申请类型</label>
+			                <div class="ipt">
+			                	<select class="select_ui" name="type">
+									<option value="credit" selected="selected">借款信用额度</option>
+								</select>
+							</div>
+			            </div>
+			            <div class="formitm">
+			                <label class="lab">申请金额</label>
+			                <div class="ipt">
+			                	<input type="text" id="amount" name="amount" maxlength="7" class="applyingInput" onkeyup="this.value=this.value.trim();this.value=value.replace(/[^0-9]/g,'')" /><span class="yuan">元</span>
+			                	<em class="errorMsg"></em>
+							</div>
+							
+			            </div>
+			            <div class="formitm">
+			                <label class="lab">详情说明</label>
+			                <div class="ipt">
+			                	<textarea name="content" id="bidTit" class="content"></textarea>
+			                	<em class="errorMsg"></em>
+							</div>
+			            </div>
+			            <div class="formitm">
+			                <label class="lab">其他说明</label>
+			                <div class="ipt">
+			                	<textarea name="remark" class="content"></textarea>
+							</div>
+			            </div>
+			            <div class="formitm">
+			                <label class="lab"></label>
+			                <div class="ipt">
+			                	<input type="submit" name="name" class="addBtn" value="确认提交" size="30" />
+							</div>
+			            </div>
+						<p class="errorMsg"></p>
+					</#if>
+					</form>
+					<!-- E 申请信用额度 -->
+					</#if>
+					<#else>
+					<div class="small_add">
+						<p><a href="${webroot}/member/cash/bank.html?borrow=1">请先绑定银行卡</a></p>
+					</div>
+		        </#if>		
+			</div>
+	     </div>
+		</div>
+	</div>	
+</div>
+<script>seajs.use('member/usercertification_addApply');</script>
+<#include "../../include/footer.html"> 

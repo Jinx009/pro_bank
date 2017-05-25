@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html">
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="800Bank">
+<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+<title>我要提现</title>
+<link href="/themes/theme_default/nb/pc/css/user.css" rel="stylesheet" />
+<script src="/themes/theme_default/nb/pc/js/cash/cash_newCash.js"></script>
+<style>
+body {
+	background: #fafafa;
+}
+
+.recharge>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	display: block;
+	color: #FFFFFF;
+	background-color: #3c94d1;
+	text-decoration: none;
+}
+
+a {
+	color: #a1a1a1;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #a1a1a1;
+}
+
+.nav-tabs>li>a {
+	margin-right: 0px;
+}
+.recharge li a{display:block;}
+</style>
+<script type="text/javascript">
+   		$(function(){
+   			changeLeftMenue("我要提现");
+   		})
+   		
+</script>
+</head>
+<body>
+	<!-- header begin -->
+	<#include "../include/member_header.html">
+	<!-- header  end -->
+
+	<div class="container-fluid">
+		<div class="container main_top">
+			<div class="row">
+				<!-- 用户中心左导航菜单 begin -->
+				<div class="col-md-3 main_left padding_col0"><#include
+					"../include/member_menu.html"></div>
+				<!-- 用户中心左导航菜单 end -->
+				<div class="col-md-9 main_right col-lg-9 col-xs-9">
+					<p class="space-div-3"></p>
+   	  				<p class="account_title">我要提现</p>
+
+					<ul class="row recharge" role="tablist">
+						<li role="presentation" class="col-md-3 padding_col0 text active"><a
+							href="#home" aria-controls="home" role="tab" data-toggle="tab">在线提现</a></li>
+						<li role="presentation" class="col-md-3 padding_col0 text "><a
+							href="#profile" aria-controls="profile" role="tab"
+							data-toggle="tab">线下提现</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div role="tabpanel" class="tab-pane active" id="home">
+							<div class="row margin_col0" style="margin-top: 28px;">
+							<div class="rechargeForm col-md-5 padding_col0" id="cashForm">
+								<!-- <form action="/nb/pc/cash/doAllCash.html" name="form1"  class="rechargeForm col-md-5" id="cashForm"> -->
+									<div class="form-group row rechargeForm_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">提现银行卡:</label>
+										<div class="col-md-8 text-left padding_col0" id="pic">
+										</div>
+										
+									</div>
+
+									<div class="form-group row newCash_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">可用余额:</label>
+										<div class="col-md-8" id="useMoney" >0元</div>
+									</div>
+									<div class="form-group row newCash_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">提现金额:</label>
+										<div class="col-md-8 padding_col0">
+											<input name="money" id="money" type="text" class="col-md-12 rechargeForm_inp"
+												placeholder="提现金额" value="" maxlength="10"   onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" aria-required="true" aria-invalid="true" aria-describedby="money-error" size="10"  autocomplete="off"><span class="yuan">元</span>
+										</div>
+									</div>
+									<div class="form-group row margin_col0">
+										<div class="col-md-4"></div>
+										<div class="text-right forgetPayPwd" id="cash_tips" ></div>
+									</div>
+									<div id="cityCodeSpan" style="display: none;">
+								        <div class="form-group row newCash_col margin_col0">
+									        <label class="col-md-4 text-left padding_col0">选择地区:</label>
+									        <div class="col-md-8 padding_col0" id="addBankCode" >						            
+									            
+									            <select  id="province"  name="province"  onclick="loadCity('province');" onchange="getCityInfo(this.value,'city');" class="form-control"  style="width:48%;float:left;color: #a0a0a0;margin-right:0%;">
+									               	<option value="" selected="selected">请选择省份</option>
+									            </select><div style="width:4%;float:left;color:#a0a0a0;height:34px;line-height:34px;">-</div>
+									            <select  id="city"  name="city"  onchange="" class="form-control" style="width:48%;float:left;color: #a0a0a0;">
+									               	<option value="" selected="selected">请选择市区</option>
+									            </select>
+									        </div>
+								        </div>
+								        <div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="citys_tips" ></div>
+										</div>
+								        <div class="form-group row newCash_col margin_col0">
+											<label class="col-md-4 text-left padding_col0">支行名称:</label>
+											<div class="col-md-8 padding_col0">
+												<input name="branch" id="branch" type="text" class="col-md-12 rechargeForm_inp"
+													placeholder="支行名称" value="" maxlength="12"  autocomplete="off">
+											</div>
+											<p style="width:100%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:20px;font-size:0.8em;">如不确定，请联系银行客服查找</p>
+										</div>
+										<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="branch_tips" ></div>
+										</div>
+										<input type="hidden" id="isCityType" value="0">
+							        </div>
+									<div class="form-group row newCash_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">交易密码:</label>
+										<div class="col-md-8 padding_col0"><input name="payPwd" id="payPwd"
+											type="password"  class="col-md-12 rechargeForm_inp"
+											id="exampleInputPassword1"  placeholder="交易密码">
+										</div>
+									</div>
+									<div class="form-group row margin_col0">
+										<div class="col-md-4"></div>
+										<div class="text-right forgetPayPwd" id="trdPwd_tips"></div>
+									</div>
+		
+
+
+									<div class="form-group row margin_col0" style="margin-bottom: 5px;">
+										<div class="col-md-4"></div>
+										<button type="button" class="col-md-8 newChashBtn" id="sub">确认提现</button>
+									</div>
+
+									<div class="form-group row margin_col0">
+										<div class="col-md-4"></div>
+										<a href=javascript:showDiv('util_forget_pay_pwd') ><p class="text-right forgetPayPwd col-md-8 padding_col0">忘记交易密码？</p></a>
+									</div>
+									</div>
+						<!-- 		</form> -->
+
+								<div class="col-md-5 padding_col0 rightTip">
+									<p id="tips" style="margin-top: 10px; display: none;" >
+										可用余额:<span
+											style="color: #efb322; margin-left: 10px; font-size: 24px;"
+											id="use_money">1000</span>元
+									</p>
+									<div class="warmPrompt" style="padding: 10px;">
+										<p class="warmPromptTitle">温馨提示：</p>
+										<p style="margin-bottom: 0px;">
+											1.预计到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账；
+											遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。</p>
+										<p>2.提现手续费2元/笔，推广期间免费。每日限提2次</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div role="tabpanel" class="tab-pane" id="profile">
+						<!-- 	<form action="/nb/pc/cash/doAllOfflineCash.html"  method="post"
+								name="form2" class="rechargeForm col-md-5"> -->
+							<div class="row margin_col0" style="margin-top: 28px;">
+							
+								<div class="rechargeForm col-md-5 padding_col0">
+									<div class="form-group row rechargeForm_col  margin_col0">
+										<label class="col-md-4 text-left padding_col0">可用余额:</label>
+										<p class="help-block" class="col-md-8 " id="useMoney2">0元</p>
+									</div>
+									<div class="form-group row rechargeForm_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">提现金额:</label> <input
+											type="text" class="col-md-8 rechargeForm_inp" id="cashMoney2"
+											name="cashMoney2" placeholder="提现金额" value="${minCashMoney!0}" maxlength="9"   onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" aria-required="true" aria-invalid="true" aria-describedby="money-error" size="10"  autocomplete="off">
+									</div>
+									<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="money_tips"></div>
+									</div>
+									<div class="form-group row rechargeForm_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">转账姓名:</label> <input
+											type="text" class="col-md-8 rechargeForm_inp" id="userName2"
+											name="realName" placeholder="转账姓名">
+									</div>
+									<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="userName_tips"></div>
+									</div>
+									<div class="form-group row rechargeForm_col margin_col0">
+										<label class="col-md-4 text-left padding_col0">身份证号:</label> <input
+											type="text" class="col-md-8 rechargeForm_inp" id="cardId2"
+											name="cardId" placeholder="身份证号">
+									</div>
+									<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="cardId_tips"></div>
+									</div>
+									<div class="form-group row rechargeForm_col margin_col0" >
+										<label class="col-md-5 padding_col0 text-left">转账银行卡号:</label> <input
+											type="text" class="col-md-7 rechargeForm_inp" id="bankNo2"
+											name="bankNo2" placeholder="转账银行卡号"  maxlength="25" onblur="getBankInfo(this,'bankNo_tips')" onkeyup="value=value.replace(/[^\d]/g,'')"  autocomplete="off">
+											<span id="yhcard2"></span>
+									</div>
+									<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="bankNo_tips"></div>
+									</div>
+									<div class="form-group row newCash_col margin_col0">
+									        <label class="col-md-4 text-left padding_col0">选择地区:</label>
+									        <div class="col-md-8 padding_col0" id="addBankCode" >						            
+									            
+									            <select  id="province2"  name="province2"  onclick="loadCity('province2');" onchange="getCityInfo(this.value,'city2');" class="form-control"  style="width:48%;float:left;color: #a0a0a0;margin-right:0%;">
+									               	<option value="" selected="selected">请选择省份</option>
+									            </select><div style="width:4%;float:left;color:#a0a0a0;height:34px;line-height:34px;">-</div>
+									            <select  id="city2"  name="city2"  onchange="" class="form-control" style="width:48%;float:left;color: #a0a0a0;">
+									               	<option value="" selected="selected">请选择市区</option>
+									            </select>
+									        </div>
+								        </div>
+								        <div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="citys_tips2" ></div>
+										</div>
+								        <div class="form-group row newCash_col margin_col0">
+											<label class="col-md-4 text-left padding_col0">支行名称:</label>
+											<div class="col-md-8 padding_col0">
+												<input name="branch2" id="branch2" type="text" class="col-md-12 rechargeForm_inp"
+													placeholder="支行名称" value="" maxlength="12"  autocomplete="off">
+											</div>
+											<p style="width:100%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:20px;font-size:0.8em;">如不确定，请联系银行客服查找</p>
+										</div>
+										<div class="form-group row margin_col0">
+											<div class="col-md-4"></div>
+											<div class="text-right forgetPayPwd" id="branch_tips2" ></div>
+										</div>
+									<div class="form-group row rechargeForm_col margin_col0">
+										<div class="col-md-4"></div>
+										<input type="hidden" name="minCashMoney" id="minCashMoney"
+											value="${minCashMoney!0}">
+										<button type="button" class="col-md-8 paySure" id="offSub">确认提现</button>
+									</div>
+								</div>
+								<!-- </form> -->
+	
+								<div class="col-md-5 warmPrompt rightTip">
+									<p class="warmPromptTitle">温馨提示：</p>
+									<p style="margin-bottom: 0px;">
+										1.预计到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账；
+										遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。</p>
+									<p>2.提现手续费2元/笔，推广期间免费。每日限提2次</p>
+									<p>3.线下提现最低金额<span id="minCashMoneyTis">${minCashMoney!0}</span>元。</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<input type="hidden"  id="cashToken" name="nbCashToken" value="${nbCashToken!}">
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+	</div>
+	<div style="height: 80px;"></div>
+	<#include "../include/top_static.html">
+	<#include "../include/member_footer.html">
+</body>
+</html>

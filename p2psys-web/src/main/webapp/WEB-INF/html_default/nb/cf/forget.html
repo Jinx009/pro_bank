@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/forgetPwd.js" ></script>
+
+</head>
+<body class="regist-bg">
+<input type="hidden" value="${redirectUrl}" id="redirectUrl" >
+<div class="middle-content">
+	<div class="regist-position">
+		<div class="regist-border">
+			<div class="regist-logo"><img src="/themes/theme_default/cf/img/logo.png"/></div>
+				<div class="form-group regist-bottom">
+				    <div class="input-group regist-inp">
+				      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_user.png"/></div>
+				      <input type="text" class="form-control regist-inp" oninput="checkMobilePhone()" id="username" placeholder="手机号">
+				    </div>
+			    </div> 
+			    <div class="form-group regist-bottom">
+				    <div class="input-group regist-inp">
+				      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_pwd.png"/></div>
+				      <input type="password" class="form-control regist-inp" id="pwd" placeholder="密码">
+				    </div>
+			    </div>
+			    <div class="form-group regist-bottom">
+				    <div class="input-group regist-inp">
+				      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_pwd.png"/></div>
+				      <input type="password" class="form-control regist-inp" id="repwd" placeholder="确认密码">
+				    </div>
+			    </div>
+			    <div class="form-group regist-bottom">
+				    <div class="input-group regist-inp">
+				      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_edit.png"/></div>
+				      <input type="text" class="form-control regist-inp" id="code" placeholder="验证码">
+				      <div class="input-group-addon regist-inp regist-edit" id="code_text" onclick="sendCode()" >获取验证码</div>	
+				    </div>
+			    </div>
+			     <div class="form-group error text-right" id="register_error" style="color:red;"></div>
+			    <div class="regist-position-bottom">
+			    	<button type="button" class="btn-block btn-register" onclick="goModify()" >确认</button>
+					<p class="text-right regist-tip"><a href="#" class="backLogin">返回</a></p>
+			    </div>
+		</div>
+	</div>
+</div>
+
+<#include "include/protocol.html"> 
+</body>
+</html>

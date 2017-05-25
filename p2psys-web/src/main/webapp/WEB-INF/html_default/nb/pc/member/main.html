@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="800Bank">
+	<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+    <title>800Bank</title>
+    <link href="/themes/theme_default/nb/pc/css/user.css" rel="stylesheet"/>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/Chart.Core.js" ></script>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/Chart.Doughnut.js" ></script>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/member/member_center.js"></script>
+   <script type="text/javascript">
+   	$(function(){
+   		changeHeader("账户中心");
+   		changeLeftMenue("我的账户");
+   	 // 六大风控保障体系
+        $("#collect_").mouseover(function() {
+                $("#collecBox").toggle();
+        });
+        $("#collect_").mouseout(function(){
+        		$("#collecBox").hide();
+        });
+   	})
+   </script>
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/top_static.html"> 
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+			<div class="col-md-3 main_left padding_col0 ">
+					<#include "../include/member_menu.html">
+			</div>
+     <!-- 用户中心左导航菜单 end -->		
+		 <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		  	<p class="space-div-4" ></p>
+   	  		<p class="account_title" >我的账户</p>
+		  	<div class="row account ">
+		  		<div class=" col-md-4 padding_col0"><span>账户总额</span><span class="total_money">0</span>元</div>		  		
+		  		<div class="col-md-4 padding_col0 text-center" id="collect_" style="position:relative;"><span>累计收益</span><span class="account_income_money" >0</span>元
+		  		
+			  		<div class="text-center" style="font-size:14px;position:absolute;z-index:1;left:0;bottom:0; display: none;" id="collecBox">
+							<p style="margin-bottom:0;height:30px;line-height:30px;">累计收益: 截止昨日已获得的投资收益(含未到期)</p>
+					</div>
+					
+		  		</div>
+		  		<div class="col-md-3 row padding_col0" style="float: right;margin-right:0px;">
+		  			<a href="/nb/pc/recharge/newRecharge.html"><div class="col-md-5 rechargeBtn">充值</div></a>
+		  			<a href="/nb/pc/cash/cashPage.html"><div class="col-md-5 col-md-offset-1 accountBtn">提现</div></a>
+		  		</div>
+		  	</div>
+		  	<!-- <div class="row" style="padding-left: 45px;">
+		 		<div class="col-md-4 padding_col0">  </div>
+		  		<div id="collecBox" class="col-md-4  text-center padding_col0" style=" background: rgba(19,129,193,0.58);color:#ffffff;font-size:14px;" >
+					<div class="text-center">
+						<p style="margin-bottom:0;">累计收益: 截止昨日已获得的投资收益(含未到期)</p>
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+		  	</div> -->
+		  	
+		  	<div class="clearfix"></div>
+		  	<div class="account-left-con1">
+					<div class="user_money"><span></span>可用余额<font class="rightUser" id="user_money">0元</font></div>
+					<div class="no_user_money"><span></span>冻结余额<font class="rightUser" id="no_user_money">0元</font></div>
+					<div class="collection_money"><span></span>待收余额<font class="rightUser" id="collection_money">0元</font></div>
+					<a href="/invest/log.html"><div class="investDetail">查看投资详情</div></a>
+				</div>
+				<div class="clearfix"></div>
+				
+				<div id="account-left-con2">
+				<div id="allMoney">总资产</div>
+				<canvas id="chart-area" width="240" height="240">总资产</canvas>
+				</div>				
+		  	
+		  <div class="rightBank">
+		  	<div class="bank"><img src="${webroot}${theme_dir}/nb/pc/img/bank.png"/><p class="bank_title">银行卡</p></div>
+		  	<div class="clearfix"></div>
+		  	<div class="bank_">
+		  	<p>未绑定银行卡</p>
+		  	<p class="addCard">添加新的银行卡信息</p>
+		  	<p class="hasband">已经绑定银行卡:<span class="card-num">0</span>张</p>
+		  	</div>
+		  </div>
+		  
+		  <div class="clearfix"></div>
+		  
+		  <div class="recommendation"><div>热销榜</div><p></p></div>
+		   <div id="showData">
+			</div>
+		
+			<div class="more" style="cursor: pointer;"><a href="/nb/pc/product/product_list.html?id=1">查看更多</a></div>
+		  </div>	  
+	</div>
+</div>
+	
+	<div class="clearfix"></div>
+	
+</div>
+<div style="height: 80px;">	
+</div>
+
+<#include "../include/member_footer.html"> 
+  </body>
+</html>

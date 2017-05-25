@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="invest"> <#include "../../include/header.html">
+
+	<div id="main" class="clearfix">
+		<div class="title">
+			<img src="${theme_dir}/images/ico_4.gif"> 评论管理：
+		</div>
+		<div class="content">
+			<#if commentList?exists> <#list commentList as item>  
+			<ul class="pinglun_list pinglun_co">
+				<li class="faceli" style=" width:620px; margin:0;">
+				<div class=pinglun_co_left>
+					<div class=pinglun_co_pic><img height=73 src="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" width=73></div>
+						<a href="">${item.username}</a></div>
+					<div class=floatr>
+					<div class=pinglun_co_content>${item.comment}<br>
+					<font style="font-size: 12px; float: right">${dateformat(item.addtime)}</font></div></div>
+				</li>
+			</ul>
+			</#list></#if>	
+			<div align="center">
+				共${count}条 <span class="">首页</span> <span class="">上一页</span> <span
+					class="">下一页</span> <span class="">尾页</span>
+			</div>
+		</div>
+		<div class="foot"></div>
+	</div>
+	<script type="text/javascript">
+			function facebox(){
+				var box = $(".pinglun_co");
+				var oLi = $(".faceli",box);
+				for(var i=0; i<oLi.length; i++)
+				{
+					face($(oLi[i]));
+				}
+				function face(obj){
+					var contents = $(obj); //对象
+					var texts = $(".pinglun_co_content",contents);//表情的 文本对象div
+					var txt = texts.text();//获取文字表情内容
+					var a=txt.replace(/\[\/[a-z]+(\d+)\]/gmi,'<img src="${webroot}/themes/face/face/$1.gif">');
+					texts.html(a);
+				}
+					
+			}
+			facebox();
+	</script>
+	<script
+		src="${webroot}${theme_dir}/media/js/modal.js"></script>
+	<script
+		src="${webroot}${theme_dir}/media/js/tab.js"></script>
+	<script
+		src="${webroot}${theme_dir}/media/js/tooltip.js"></script>
+	<script
+		src="${webroot}${theme_dir}/media/js/popover.js"></script>
+	<script
+		src="${webroot}${theme_dir}/media/js/alert.js"></script>
+	<script
+		src="${webroot}${theme_dir}/media/js/transition.js"></script>
+        
+
+	<#include "../../include/footer.html">

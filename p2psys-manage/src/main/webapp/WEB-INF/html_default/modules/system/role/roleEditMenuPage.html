@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/role/roleEditMenu.html');
+	var treeObj = $('#menuTree');
+    treeObj.tree({
+			url : "/modules/system/menu/menuList.html",
+			parentField : 'pid',
+			checkbox:true,
+			loadFilter: function(rows){return $.fn.treeConvert.menu(rows.rows); },
+			onCheck:function(node){
+			    $("#menuId").val($.fn.treeGridOptions.doNode());
+			},
+			onLoadSuccess : function(node, data) {
+			    <#list roleMenuList as roleMenu>				
+				 $.fn.treeGridOptions.nodeChk(treeObj,${roleMenu.menu.id});
+			    </#list>	
+                $("#menuId").val($.fn.treeGridOptions.doNode());			   
+			}
+     }); 	
+</script>
+<div class="popForm sForm">
+     <form id="form"  method="post">
+     	<div class="formitm">
+		     <label class="lab">角色名称：</label>
+		     <div class="ipt">
+		     	${role.name!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">添加者：</label>
+		     <div class="ipt">
+		     	${role.addUser!}&nbsp;
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	${role.remark!}
+		     </div>
+		</div>
+		<div class="formitm">
+			<input type="hidden" name="menuId" id="menuId">
+		     <label class="lab">选择菜单：</label>
+		     <div class="ipt">
+		     	<ul id="menuTree"></ul>
+		     </div>
+		</div>
+		   <input name="id" value="${role.id}" type="hidden"/>
+	</form>
+</div>

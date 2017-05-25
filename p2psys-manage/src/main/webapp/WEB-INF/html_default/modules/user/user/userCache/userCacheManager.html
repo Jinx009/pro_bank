@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<script type="text/javascript">
+	var dataGrid;
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userCacheList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '编号', width: 50, fixed :true,checkbox : false},
+			{ field: 'userName', title: '用户名', width: 100, fixed :true,checkbox : false},
+			{ field: 'realName', title: '真实姓名', width: 100, sortable: false },
+			{ field: 'loginTime', title: '最后登录时间', width: 150, sortable: false ,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}	
+			},
+			{ field: 'lastIp', title: '最后登录IP', width: 100, sortable: false },
+			{ field: 'loginTimes', title: '登录次数', width: 100, sortable: false }
+			 ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			loadFilter: function(data){
+				$.each(data.rows,function(index,row){
+					if(row.user){
+						row.id=row.user.userId;
+						row.userName=row.user.userName;
+						row.realName=row.user.realName;
+					}
+				}); 
+				return data;
+			},
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',title:'查询条件',border:false,collapsible:false" style="height: 140px; overflow: hidden;">
+			<form id="searchForm">
+				<div class="search_box">用户名：<input type="text" name="userName"/></div>
+				<div class="search_box">真实姓名：<input type="text" name="realName"/></div>
+				<div class="search_box">最后登录时间：<input type="text" name="startTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>-<input type="text" name="endTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></div>
+                <div class="search_box">
+                	按登陆次数：
+                	<select name="loginTimes" class="type">
+                        <option value="0">全部</option>
+	                    <option value="1">升序</option>
+	                    <option value="2">降序</option>
+                    </select>
+                </div>           
+                <div class="search_box">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a>
+                </div>
+			</form>
+		</div>
+		<div data-options="region:'center',border:false">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

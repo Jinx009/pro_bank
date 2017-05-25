@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	    <script src="/themes/theme_default/cf/js/url.js"></script>
+	    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	    <script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/order/order.js" ></script>
+	    <script type="text/javascript"> 
+		    $(function(){
+		    	$('.select > p').bind('click', function(){
+					$('.select').toggleClass('open');
+				});
+				$('.select ul li').bind('click', function(){
+					var _this = $(this);
+					$('.select > p').text(_this.attr('data-value'));
+					_this.addClass('selected').siblings().removeClass('selected');
+					$('.select').removeClass('open');
+				});
+			})
+		</script>
+	</head>
+	<body class="bg">
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>我投资的项目</span>
+			<div class="back-right">
+				<div class="select">
+					<p>分类</p>
+					<ul>
+						<li class="selected fl" data-value="分类">全部</li>
+						<li class="selected gq" data-value="股权众筹">股权众筹</li>
+						<li class="selected sw" data-value="实物众筹">实物众筹</li>
+						<li class="selected gy" data-value="公益众筹">公益众筹</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<#include "../include/menue.html">
+		<div class="attention-content"  id="buyList">
+			<div class="attention-col"  v-repeat="order in orders">
+				<div class="invest-top" >
+					<div class="attention-col-right-1">
+						<h1 v-text="order.projectName"></h1>
+						<div class="invest-bottom">
+							<a href="/wechat/pro/detail.action?id={{order.projectId}}" ><p>投资金额：<span v-text="'&yen;'+order.money+'元'"></span></p>
+							<p>实付金额：<span class="account-income-money" v-text="'&yen;'+order.payMoney+'元'"></span></p>
+							<p>支持方式：<span v-if="order.leaderStatus===1">领投</span><span v-else>跟投</span></p>
+							<p>支持时间：<span v-text="order.addTime | timeFormat 'yyyy年MM月dd日'"></span></p></a>
+							<p class="state" v-if="1===order.projectType" >操作：<span onclick="goUrl('{{order.id}}')" >收货地址</span></p>
+							<p class="state" v-if="1!==order.projectType"  >操作：
+								<span v-if="1===order.payStatus" onclick="payAll('{{order.id}}','{{order.money}}','{{order.payMoney}}')"  >付全款</span>
+								<span v-if="1===order.payStatus" onclick="doCacle('{{order.id}}')"  >撤销</span>
+								<span v-if="4===order.modelStatus&&2===order.payStatus&&'精准医疗，让肿瘤君滚蛋吧'!==order.projectName" onclick="showProtocol('{{order.id}}')"  >查看合同</span>
+							</p>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="protocolDiv" style="width: 100%;height: 100%;display: none;background: white;"  >
+		   <div style="position: absolute;right: 5px;top: 55px;height: 30px;width:30px;border-radius:15px;background: gray;line-height: 30px;text-align: center;" onclick="hideProtocol()"  >x</div>
+			<div style="width: 96%;margin-left: 2%;" id="protocol" ></div>
+		</div>
+	</body>
+</html>

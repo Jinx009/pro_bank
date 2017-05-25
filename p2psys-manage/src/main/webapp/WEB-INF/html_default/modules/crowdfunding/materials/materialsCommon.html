@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/myjs.js"></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<script type="text/javascript">
+/**
+ * 获取素材字典
+ */
+$(function() {
+	getMaterialsList();
+
+	getProjectInfo();
+
+	$.ajax({
+		url : "/modules/crowdfunding/materials/materialsCodeListJson.html",
+		type : "GET",
+		dataType : "json",
+		ansys : false,
+		success : function(res) {
+			codeData = res.list;
+			var htmlStr = "";
+
+			for (var i = 0; i < res.list.length; i++) {
+				htmlStr += "<option value="+i+" >"+res.list[i].materialName+"</option>";
+			}
+			$("#materialsName").append(htmlStr);
+		}
+	})
+
+	loadForms();
+
+})
+var materialsData;
+var codeData;
+
+/**
+ * 产品详情
+ */
+function getProjectInfo() {
+	var project_id = $("#project_id").val();
+	$.ajax({
+		url : "/crowdfunding/getProjectInfo.html?id=" + project_id,
+		type : "GET",
+		dataType : "json",
+		ansyc : false,
+		success : function(res) {
+			$(".project_name_1").html(res.data.projectName);
+		}
+	})
+}
+/**
+ * 获取素材列表
+ */
+function getMaterialsList() {
+	$("#materials_list").html("");
+
+	var project_id = $("#project_id").val();
+	$
+			.ajax({
+				url : "/modules/crowdfunding/materials/materialJson.html?id="
+						+ project_id,
+				type : "GET",
+				dataType : "json",
+				success : function(res) {
+					materialsData = res.list;
+					var htmlStr = "<tr><th>素材名称</th><th>素材Code</th><th>素材类型</th><th>素材内容</th><th>操作</th></tr>";
+
+					if (res.list != null) {
+						for (var i = 0; i < res.list.length; i++) {
+							htmlStr += "<tr>";
+							htmlStr += "<td>" + res.list[i].materialName
+									+ "</td>";
+							htmlStr += "<td>" + res.list[i].materialCode
+									+ "</td>";
+							if ("1" == res.list[i].materialType) {
+								htmlStr += "<td>图片</td>";
+								htmlStr += "<td><img width='100px' src='"+res.list[i].materialContent+"'  /></td>";
+							} else if ("2" == res.list[i].materialType) {
+								htmlStr += "<td>文字</td>";
+								htmlStr += "<td>"
+										+ res.list[i].materialContent
+										+ "</td>";
+							} else {
+								htmlStr += "<td>文件</td>";
+								htmlStr += "<td>"+
+								res.list[i].materialContent+"</td>";
+							}
+							htmlStr += "<td><button type='button' onclick=deleteThis('"
+									+ i
+									+ "') class='btn btn-default' aria-label='Left Align'>";
+							htmlStr += "删除<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></td>";
+
+							htmlStr += "</tr>";
+						}
+					}
+
+					$("#materials_list").append(htmlStr);
+
+				}
+			})
+}
+
+/**
+ * 删除一个素材
+ */
+function deleteThis(index) {
+	if(confirm("是否删除这条素材!")){
+		var id = materialsData[parseInt(index)].id;
+		$.ajax({
+			url : "/modules/crowdfunding/materials/materialsDelete.html",
+			type : "POST",
+			data : "id=" + id,
+			dataType : "json",
+			success : function(res) {
+				if (res != null) {
+					getMaterialsList();
+				}
+			}
+		})
+	}
+}
+/**
+ * 切换后续内容
+ */
+function getNew() {
+	var obj = document.getElementById("materialsName");
+	var selectText = obj.options[obj.selectedIndex].text;
+
+	$("#materialName").val(selectText);
+
+	var index = parseInt($("#materialsName").val());
+
+	$("#materialCode").val(codeData[index].materialCode);
+
+	var type = codeData[index].materialType;
+
+	if ("1" == type) {
+		$("#materialTypeValue").val("图片");
+		$("#materialType").val("1");
+		$("#fileText").show();
+		$("#textText").hide();
+	} else if ("2" == type) {
+		$("#materialTypeValue").val("文字");
+		$("#materialType").val("2");
+		$("#fileText").hide();
+		$("#textText").show();
+	}else if ("3" == type) {
+		$("#materialTypeValue").val("文件");
+		$("#materialType").val("3");
+		$("#fileText").show();
+		$("#textText").hide();
+	}
+
+}
+
+/**
+ * 切换菜单
+ */
+function show(id) {
+	$("#list").hide();
+	$("#project").hide();
+	$("#new").hide();
+
+	$("#" + id).show();
+}
+
+/**
+ * 执行添加素材
+ */
+function addMaterials() {
+	$("#form").submit();
+}
+
+/**
+ * Ajax Form表单
+ */
+var load_msg;
+function loadForms() {
+	$("#form").ajaxForm({
+		success : function(data) {
+			var json = eval("(" + data + ")");
+
+			if ("success" == json.result) {
+				location.reload();
+			}
+		},
+		complete : function(t) {
+		}
+	});
+}
+</script>
+<style>
+body {
+	font-family: "Microsoft Yahei";
+}
+.space30{
+	height: 30px;		
+}
+#new{
+	width: 50%;
+	margin-left: 2%; 
+}
+.space100{
+	height: 100px;
+}
+#materials_list{
+	margin-left: 2%;
+	width: 50%;
+}
+.nav{
+	width: 96%;
+	margin-left: 2%;
+}
+.width60{
+	width: 60%;
+	margin-left: 2%;
+}
+</style>
+</head>
+<body>
+<!-- 数据 以及 菜单 -->
+<div id="list">
+	<div class="space30"></div>
+	<div class="nav">
+		<div class="btn-group" role="group" aria-label="...">
+			<button type="button" class="btn btn-info">素材列表</button>
+			<button type="button" class="btn btn-default" onclick="show('new')">新建素材</button>
+			<button type="button" class="btn btn-default project_name_1">项目概况</button>
+		</div>
+	</div>
+	<div class="space30"></div>
+	<table class="table table-bordered" id="materials_list"> </table>
+	<div class="space100"></div>
+</div>
+<!-- 新建 -->
+<div id="new" style="display: none">
+	<form id="form" method="post" enctype="multipart/form-data" action="/modules/crowdfunding/materials/materialsAdd.html?project_id=${project_id}">
+		<div class="space30"></div>
+		<div class="nav">
+			<div class="btn-group" role="group" aria-label="...">
+				<button type="button" class="btn btn-default" onclick="show('list')">素材列表</button>
+				<button type="button" class="btn btn-info">新建素材</button>
+				<button type="button" class="btn btn-default project_name_1"></button>
+			</div>
+		</div>
+		<div class="space30"></div>
+		<input type="hidden" value="${project_id}" name="project_id" id="project_id">
+		<table class="table table-bordered  width60">
+			<thead>
+				<tr>
+					<th width="20%">属性名</th>
+					<th width="60%">属性内容</th>
+					<th width="20%">输入状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>素材名称</td>
+					<td>
+						<select name="materialsName" class="form-control" id="materialsName" onchange="javascript:getNew()">
+							<option value="none">请选择素材名称</option>
+						</select> 
+						<input type="hidden" value="none" name="materialName" id="materialName">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>素材Code</td>
+					<td>
+						<input type="text" name="materialCode" id="materialCode" readonly="readonly" class="form-control" />
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>素材类型</td>
+					<td>
+						<input type="text" name="materialTypeValue" id="materialTypeValue" readonly="readonly" class="form-control" />
+						<input type="hidden" name="materialType" id="materialType" readonly="readonly" class="form-control" />
+					</td>
+					<td></td>
+				</tr>
+				<tr id="fileText" style="display: none">
+					<td>素材内容</td>
+					<td>
+						<div class="form-group">
+							<label class="sr-only" for="exampleInputAmount">选择图片</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="exampleInputAmount" placeholder="选择图片" readonly="readonly">
+								<div class="input-group-addon" onclick="$('input[id=file]').click();">浏览</div>
+							</div>
+						</div>
+						 <input type="file" name="file" id="file" readonly="readonly" class="form-control" style="display: none" />
+					</td>
+					<td></td>
+				</tr>
+				<tr id="textText" style="display: none">
+					<td>素材内容</td>
+					<td>
+						<textarea rows="" cols="" id="materialContent" style="height: 200px; width: 100%" class="form-control" name="materialContent"></textarea>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>操作</td>
+					<td colspan="2">
+						<input type="button" value="新建" class="btn btn-info" onclick="addMaterials()" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<script type="text/javascript">
+		$('input[id=file]').change(function() {
+			$('#exampleInputAmount').val($(this).val());
+		});
+	</script>
+</div>
+</body>
+</html>

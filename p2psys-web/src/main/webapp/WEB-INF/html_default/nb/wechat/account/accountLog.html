@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<title>800Bank</title>
+		
+		<script src="/themes/theme_default/dist/jquery.js" ></script>
+		
+		<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+		<script type="text/javascript">
+		wx.config({
+			debug: false,
+			appId: '${appId}',
+			timestamp:${timestamp},
+			nonceStr: '${nonceStr}',
+			signature: '${signature}',
+			jsApiList: [
+			  'checkJsApi',
+			  'hideMenuItems',
+			  'hideAllNonBaseMenuItem',
+			  'hideOptionMenu'
+			]
+		});
+		
+		wx.ready(function () 
+		{
+			wx.checkJsApi({
+			jsApiList: ['chooseImage'],
+			success: function(res) 
+			{
+				 wx.hideMenuItems(
+				 {
+				       menuList: ['menuItem:share:qq','menuItem:share:QZone','menuItem:share:weiboApp',
+				                  'menuItem:copyUrl','menuItem:openWithQQBrowser','menuItem:originPage',
+				                  'menuItem:readMode','menuItem:openWithSafari','menuItem:share:appMessage',
+				                  'menuItem:share:timeline'] 
+				 });
+			}
+			});
+		});
+		wx.error(function(res){});
+		</script>
+		<script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+		<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+		<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+        <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+        <script>
+            seajs.use('${webroot}${theme_dir}/wx/js/account_log');
+        </script> 
+			
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+	</head>
+	<body>
+		<p class="title"><span class="back"><a href="main.html">&lt;</a></span><span class="backTitle">资金明细</span></p>
+		<div class="money_details">
+			
+			<div class="money_details_title">
+				<p>日期</p>
+				<p>类型</p>
+				<p>资金金额</p>
+			</div>
+			<div class="investItem"></div>
+		</div>
+		<div id="kkpager"></div>
+	</body>
+</html>

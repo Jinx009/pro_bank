@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>平台账户充值管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = true;
+</script>
+<script type="text/javascript">
+	$.canDelete = true;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = true;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  550;
+	var winHeight = 370;
+	var transWidth =  750;
+	var transHeight = 600;
+	var param = 1;
+	var addTitle = "平台充值";
+	var addUrl =  "/modules/account/tppGlodLog/glodRechargePage.html";
+	var transTitle = "账户互转";
+	var transUrl = "/modules/account/tppGlodLog/glodTransferPage.html";
+	var cashTitle = "平台取现";
+	var cashUrl = "/modules/account/tppGlodLog/glodCashPage.html";
+	var webRechargeTitle = "账户转账";
+	var webRechargeUrl = "/modules/account/tppGlodLog/webRechargePage.html"
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'glodLogList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50,fixed:true,sortable:true},
+				{ field: 'ordId', title: '流水号', fixed:true,width: 160},
+				{ field: 'userName', title: '操作员', fixed:true,width: 100}
+			]],
+			columns : [[ 			
+					{ field: 'money', title: '操作金额',fixed:true, width: 100,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'fee', title: '手续费',fixed:true, width:100,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'account', title: '转出账户',fixed:true, width:100,formatter:function(value,row,index){
+						if(value == "1"){
+							return "平台"
+						}else{
+							return value;
+						}
+					}},
+					{ field: 'payAccount', title: '转入账户',fixed:true, width:100,formatter:function(value,row,index){
+						if(value == "1"){
+							return "平台"
+						}else{
+							return value;
+						}
+					}},
+					{ field: 'fee', title: '手续费',fixed:true, width:100,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'addtime', title: '操作时间', width: 180,formatter:function(value,row,index){
+						return getLocalTime(value,4);
+					}},
+					{ field: 'addip', title: '操作IP', width: 120},
+					{ field: 'statusStr', title: '状态', width: 100,formatter:function(value, row, index){
+						return value;
+					}},
+					{ field: 'typeStr', title: '操作类型', width: 100,formatter:function(value, row, index){
+						return value;
+					}},
+					{ field: 'memo', title: '备注', width: 100,formatter:function(value, row, index){
+						return value;
+					}}
+						]],
+			toolbar : '#toolbar'
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" id="searchName" placeholder="输入操作员进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+				<a id="a" onclick="$.fn.dataGridOptions.editFun(param,webRechargeTitle,transWidth,transHeight,webRechargeUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe603;</i>账户转账</a>
+            </div>
+            <div class="sRight">
+				<a id="a" onclick="$.fn.dataGridOptions.editFun(param,transTitle,transWidth,transHeight,transUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe603;</i>账户互转</a>
+            </div>
+            <div class="sRight">
+				<a id="a" onclick="$.fn.dataGridOptions.addGlodRechargeFun(param,cashTitle,winWidth,winHeight,cashUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>平台取现</a>
+            </div>
+            <div class="sRight">
+				<a id="a" onclick="$.fn.dataGridOptions.addGlodRechargeFun(param,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>平台充值</a>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>流水号</span><input type="text" name="ordId" id="ordId" autocomplete="off"/></li>
+		        	<li><span>转出账户</span><input type="text" name="account" id="account" autocomplete="off"/></li>
+		        	<li><span>转入账户</span><input type="text" name="payAccount" id="payAccount" autocomplete="off"/></li>
+		        	<li><span>操作类型</span><select name="type" id="type" class="type">
+							<option value="">全部</option>
+							<option value="RECHARGE">账户充值</option>
+							<option value="TRANSFER">账户互转</option>
+							<option value="CASH">账户取现</option>
+							<option value="WEBRECHARGE">账户转账</option>
+						</select></li>
+		       		<li><span>状态</span><select name="status" id="status" class="type">
+							<option value="99">全部</option>
+							<option value="0">待处理</option>
+							<option value="1">成功</option>
+							<option value="2">失败</option>
+						</select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

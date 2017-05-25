@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>标信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var detailTitle = "更新资产包";
+	var detailUrl = "/modules/loan/borrow/getMortgagePicPage.html?id=${id}";
+	var detailWinParmeters = "'{0}','" + detailTitle + "',800,400,'" + detailUrl + "'";
+	
+	var editPicTitle = "更新资产包图片";
+	var editPicUrl = "/modules/loan/borrow/getPicPage.html?id=${id}";
+	var editPicWinParmeters = "'{0}','" + editPicTitle + "',800,400,'" + editPicUrl + "'";
+	
+    $(function() {
+    	dataGrid = $('#getMortgageList').datagrid({
+            url : '/modules/loan/borrow/getMortgageList.html?id=${id}',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : false,
+            nowrap:false,
+            idField : 'id',
+            sortName : 'id',
+            sortOrder : 'asc',
+            columns : [ [
+              { field:'id',checkbox:true},
+              { field: 'carType', title: '车型', width: 80, sortable:false },
+              { field: 'carNo', title: '车号', width: 80, sortable:false },
+              { field: 'assessPrice', title: '评估价', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return value+"元";
+              }},  
+              { field: 'mortgagePrice', title: '抵押价', width: 110, sortable:false,formatter: function(value,row,index){
+            	  return value+"元";
+              }},
+              { field: 'action', title: '操作', width: 80, fixed:true,sortable:false,
+            	  formatter : function(value, row, index) {
+                  var str = '';
+                  str += $.formatString('<img onclick="$.fn.dataGridOptions.upDataMortgageFun('+detailWinParmeters+');" src="{1}" title="出库"/>', row.id, '${theme_dir}/css/images/extjs_icons/pencil.png');
+                  str += '&nbsp;&nbsp;&nbsp;';
+                  str += $.formatString('<img onclick="$.fn.dataGridOptions.upDataMortgagePicFun('+editPicWinParmeters+');" src="{1}" title="更新图片"/>', row.id, '${theme_dir}/css/images/extjs_icons/photoAndPic/picture_edit.png');
+                  return str;
+              }}
+             ]],
+             toolbar : '#toolbar'
+        }); 
+    });
+    
+</script>
+</head>
+<body style="padding:0 20px;" >
+<div class="easyui-layout" data-options="fit : true,border : false">
+   <div data-options="region:'center'" style="margin-top:20px;margin-bottom:20px;">
+       <table id="getMortgageList"></table>
+   </div>
+   <div id="toolbar" style="display: none;">		
+		<a href="javascript:void(0);" id="outBound" onclick="outBound();" class="addBtn">出库</a>	 标名称：${borrow.name}
+	</div>
+</div>
+<input type="hidden" name="borrowId" id="borrowId" value="${id}">
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>
+</body>
+</html>

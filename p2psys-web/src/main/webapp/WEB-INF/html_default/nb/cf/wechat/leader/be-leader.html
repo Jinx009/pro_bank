@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+		<script src="/themes/theme_default/cf/js/url.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+		<script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/pro/leader.js" ></script>
+	</head>
+	<body>
+		<input type="hidden" value="${projectBaseinfo.id}" id="id" >
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>申请领投人信息</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="main-content">
+			<div class="main-col">
+				<div class="main-col-left"><span>项目名称：</span></div>
+				<div class="main-col-right"><span>${projectBaseinfo.projectName}</span></div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><span>申请状态：</span></div>
+				<div class="main-col-right">
+					<span  v-if="0===model.size" >未申请</span>
+					<span  v-if="1===model.size" >申请中</span>
+					<span  v-if="-1===model.size" >申请通过</span>
+				</div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><span>姓名：</span></div>
+				<div class="main-col-right"><input type="text" id="name"  value=""/></div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><span>个人简介：</span></div>
+				<div class="main-col-right"><input type="text"  id="info"  value=""/></div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><span>领投理由：</span></div>
+				<div class="main-col-right"><input type="text"  id="reason" value=""/></div>
+			</div>
+		</div>
+		<div class="blank"></div>
+		<div class="product-detail-btn" v-if="0===model.size" onclick="sendData()"  >申请</div>
+		<div class="product-detail-btn" v-if="1===model.size" onclick="sendData()"  >保存</div>
+		<div class="product-detail-btn" v-if="-1===model.size" >申请通过</div>
+	</body>
+</html>

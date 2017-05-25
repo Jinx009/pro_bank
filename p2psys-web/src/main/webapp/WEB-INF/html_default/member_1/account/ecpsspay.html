@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>支付</title></head>
+
+<body>
+
+<form action="https://pay.ecpss.cn/sslpayment" method="post" name="E_FORM" id="E_FORM">
+  <table align="center">
+    
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="MerNo" value="${ecp.merNo}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="BillNo" value="${ecp.billNo?c}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="Amount" value="${ecp.amount?c}"></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="ReturnURL" value="${ecp.returnUrl}" ></td>
+    </tr>
+    
+	 <tr>
+      <td></td>
+      <td><input type="hidden" name="AdviceURL" value="${ecp.returnUrl}" ></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="MD5info" value="${ecp.md5Info}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="Remark" value="${ecp.remark}"></td>
+    </tr>
+	 <tr>
+      <td></td>
+      <td><input type="hidden" name="defaultBankNumber" value=""></td>
+    </tr>
+	 <tr>
+      <td></td>
+      <td><input type="hidden" name="orderTime" value="${ecp.orderTime?c}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="hidden" name="products" value="${ecp.products}"></td>
+    </tr>
+  </table>
+  <p align="center">
+      <script type="text/javascript">
+      document.getElementById("E_FORM").submit();
+    </script>
+  </p>
+</form>
+
+</body>
+</html>

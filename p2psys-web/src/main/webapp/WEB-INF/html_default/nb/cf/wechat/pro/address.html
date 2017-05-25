@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/order/buy.css" />
+	    <script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	    <script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/pro/address.js" ></script>
+	</head>
+	<body class="bg">
+	<input type="hidden" id="orderId" value="${orderId}" />
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>支持详情</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="order-content">
+			<div class="order-box">
+				<h1>项目名称：${projectBaseinfo.projectName}</h1>
+			</div>
+			<div class="order-box" >
+				<div class="order-col">
+					<div class="order-col-left">收件人</div>
+					<div class="order-col-right"><input type="text" v-attr="value:data.realName" id="realName" placeholder="请输入收件人姓名" /></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">联系方式</div>
+					<div class="order-col-right"><input type="text" v-attr="value:data.mobilePhone" id="mobilePhone" placeholder="请输入收件人联系方式"/></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">收件地址</div>
+					<div class="order-col-right"><input type="text" v-attr="value:data.address" id="address" placeholder="请输入您的收件地址" /></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">邮政编码</div>
+					<div class="order-col-right"><input type="text" v-attr="value:data.postNum" id="postNum" placeholder="请输入您的邮政编码" /></div>
+				</div>
+			</div>
+		</div>
+		<div class="blank"></div>
+		<div class="product-detail-btn" onclick="saveAddress()" >保存</div>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+<ul class="list-tab clearfix">
+	<li class="h_menu_li">消息管理</li>
+	<li <#if msg_type?exists&&msg_type=="box">class="active"</#if> ><a href="${webroot}/member/message/detail.html">收件箱</a></li>
+	<li <#if msg_type?exists&&msg_type=="sent">class="active"</#if> ><a href="${webroot}/member/message/sent.html">已发送</a></li>
+	<li <#if msg_type?exists&&msg_type=="send">class="active"</#if> ><a href="${webroot}/member/message/send.html">发信息</a></li>
+</ul>

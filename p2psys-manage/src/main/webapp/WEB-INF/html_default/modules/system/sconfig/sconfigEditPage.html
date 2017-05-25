@@ -1,0 +1,61 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/sconfig/sconfigEdit.html',"修改成功！","修改失败！");
+	    $('#status').val('${sconfig.status!}');
+	    $('#type').val('${sconfig.type!}');
+	});
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		    <label class="lab">状态：</label>
+		    <div class="ipt">
+				<select name="status" id="status">
+					<option value="1">启用</option>
+					<option value="0">禁用</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">类型：</label>
+		    <div class="ipt">
+				<select name="type" id="type">
+					<option value="1">基础数据</option>
+					<option value="2">统计数据</option>
+				</select>
+			</div>
+		</div>
+		
+	    <div class="formitm">
+			<label class="lab">标识：</label>
+			<div class="ipt">
+				<input type="text" name="nid" class="w300 easyui-validatebox" value="${sconfig.nid!}" data-options="required: true" maxlength="10"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">名称：</label>
+		     <div class="ipt">
+				<input type="text" name="name" class="w300 easyui-validatebox" value="${sconfig.name!}" data-options="required: true" maxlength="10"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">值：</label>
+		     <div class="ipt">
+				<input type="text" name="value" class="w300 easyui-validatebox" value="${sconfig.value!}" data-options="required: true" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+				<input type="text" name="remark" class="w300 easyui-validatebox" value="${sconfig.remark!}" data-options="required: true" maxlength="300"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="g-btn">
+			<input type="hidden" name="id" value="${sconfig.id!}">
+		</div>
+	</form>
+</div>

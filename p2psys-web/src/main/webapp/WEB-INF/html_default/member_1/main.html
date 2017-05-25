@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<#assign nid="account_home" >
+<#assign web_title='我的账户 - ${webname!}' >
+<#assign web_description='我的账户，${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<body>
+<#include "../include/member_header.html"> 
+<!--header-end-->  
+<div id="account_home_msg_wrapper" class="forenoon" >
+	<div class="account_home_msg clearfix"><a href="/member/info/face.html" class="user_img"><img id="user_img" src="${webroot}/avatar/${session_user.userId?c}.jpg"><img src="/themes/theme_default/images/mian-type1.png" class="main-type"></a>
+<div class="account_home_msg11">
+<ul>
+   <li>
+      <span class="user-name"></span>
+      <span style="position: relative;top: -2px;"><i class="iconfont" style="color:#3db4ff;" title="实名已认证"></i><i class="iconfont" style="color:#febb38;" title="手机已认证"></i><i class="iconfont" style="color:#93cd38;" title="邮箱已认证"></i> </span>
+   </li>
+   <li class="account_home_line">您好！亲爱的投资人，每一天，努力让梦想更近一些！</li>
+   <li>电子邮箱：<font></font>　手机号码：<font></font></li>
+</ul>
+<div class="main-inside-letter">
+  <a href="/member/message/detail.html">0</a>
+</div>
+</div>
+</div>
+</div>
+  <div class="main-account">
+ 	 <div class="main-account-left clearfix">
+ 	  <div class="account-left-con1">
+           <div class="account-left-con1top">
+            <span>账户总额<em id="totalMoney"> 0</em>元</span>
+            <p><a href="/member/invest/mine.html" target="_blank">查看投资详情</a><!--<a href="/member/auto/detail.html">设置自动投标</a>--></p>
+           </div>
+           <div class="account-left-con1down">
+            <a href="/member/recharge/newRecharge.html" class="cz-btn">充值</a>
+            <a href="/member/cash/newCash.html" class="tx-btn">提现</a>
+           </div>
+        </div>
+        <div class="account-left-con2" id="moneychart" ></div>
+        <div class="account-left-con3">
+          <div class="account-left-con3top">
+            <span>可用金额<em id="userMoney">0</em>元</span>
+            <p><a href="/member/invest/collection.html">查看待收列表</a></p>
+           </div>
+           <div class="account-left-con3down">
+            <span>冻结金额<em id="iceMoney">0</em>元</span>
+            <p><a href="/member/invest/myInvest.html">查看正在投标项目</a></p>
+           </div>
+           <div class="account-left-con3top">
+            <span>待收金额<em id="waitMoney" ></em></span>
+            <p><a href="/member/invest/collection.html">查看待收项目</a></p>
+           </div>
+</div>
+</div>
+     <div class="main-account-right">
+         <div class="the-bid">
+             <span class="title">投标情况</span>
+             <div class="tbqk">
+               
+             </div>
+             <span class="title">银行卡</span>
+             <div class="bank-card">
+                <p>已经绑定银行卡：<b>${bankAccount}</b>张</p>
+                <a href="${webroot}/member/cash/bank.html">管理银行卡</a>
+             </div>
+         </div> 
+     </div>
+  
+   </div>
+
+    <div class="account_home_con">
+      <ul class="clearfix">
+        <li>热门投资</li>
+        <li>收款信息</li>
+        <li>交易记录</li>
+      </ul>
+    <div class="home_con_box clearfix">
+      <div class="con clearfix dueIn_msg main_invest_list" style="display: block;">
+      	<!-- S 可投借款 -->
+      	<table id="main_invest"></table>
+      	<!-- S 可投借款 -->
+      </div>
+      <div class="con clearfix main_collection_list" style="display:none;">
+      	<!-- S 收款信息 -->
+      	<table id="main_collection"></table>
+      	<!-- E 收款信息 -->
+	  </div>
+      <div class="con clearfix trade_log tradeLogTable_list" style="display:none;">
+      	<!-- S 交易记录 -->
+	    <table id="tradeLogTable"></table>
+	    <!-- S 交易记录 -->
+      </div>
+     
+     <!-- 下次待收 -->
+      <div class="date-receipt" id="date-receipt">
+          
+      </div>
+
+    </div>
+    </div>
+<script>
+seajs.use('${webroot}${theme_dir}/media/js/member/member_main');
+</script>
+<#include "../include/footer.html">
+</body>
+</html>

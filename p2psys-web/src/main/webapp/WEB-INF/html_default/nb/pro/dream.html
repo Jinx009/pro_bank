@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/dream.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/dist/jquery.form.js"></script>
+<script src="/plugins/vue/vue.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/themes/theme_default/cf/js/dreamApply.js" ></script>
+<style type="text/css">
+.user-headIcon{
+	text-align: left;
+	width: 200px;
+	background:white;
+	padding: 0px;
+	cursor: pointer;
+}
+</style>
+</head>
+<body class="bg">
+<#include "../cf/include/header.html">
+<div class="product-detail-top-title">
+	<ol class="breadcrumb">
+	  <li><a href="/cf/aboutUs.html" >发起梦想</a></li>
+	  <li class="active" >申请项目</li>
+	</ol> 
+</div>
+<div class="middle-content">
+	<div class="order-content">
+		<h1 class="order-title">项目方身份认证</h1>	
+		<div class="form-horizontal order-form">
+		   <h4>申请状态：
+		   		<span v-if="null==data.approvalStatus" >暂未申请</span>
+		   		<span v-if="-1===data.approvalStatus" >资料审核中</span>
+		   	</h4>
+		   <hr/>
+		   <div class="form-group" >
+		    	<label class="col-sm-2 control-label">邀请人编码：</label>
+		    	<div class="col-sm-8" v-if="null==data.approvalStatus"  >
+		    		<input class="col-sm-12 form-control" placeholder="可不填（不填表示自由发起人）"  id="name" />
+		    	</div>
+		    	<div class="col-sm-8" v-if="-1===data.approvalStatus"  >
+		    		<input class="col-sm-12 form-control" placeholder="可不填（不填表示自由发起人）" v-text="data.userIdentity" readonly="readonly"  id="name" />
+		    	</div>
+		    </div>
+		   <hr/>
+		   <form id="form"  method="post" enctype="multipart/form-data" action="/cf/upload.action" >
+			     <div class="form-group" >
+			    	<label class="col-sm-2 control-label">上传身份证正面：</label>
+			    	<div class="col-sm-8 left">
+						<div class="user-headIcon" v-if="null==data.approvalStatus" >   
+							<div class="user-headIcon-top"><img id="headerImg" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-one')"  /></div>
+							<input type="file" name ="file" id="file1" class="file-upload-one" onchange="subForm('form')" style="display: none;" >
+						</div>
+						<div class="user-headIcon" v-if="-1===data.approvalStatus" >   
+							<div class="user-headIcon-top"><img id="headerImg" v-attr="src:data.idCardPicPositive"  /></div>
+						</div>
+			    	</div>
+			    </div>
+		  </form>
+		 <hr/>
+		  <form id="form1"  method="post" enctype="multipart/form-data" action="/cf/upload.action" >
+			     <div class="form-group" >
+			    	<label class="col-sm-2 control-label">上传身份证反面：</label>
+			    	<div class="col-sm-8 left">
+						<div class="user-headIcon"  v-if="null==data.approvalStatus"  >   
+							<div class="user-headIcon-top"><img id="headerImg1" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-two')"  /></div>
+							<input type="file" name ="file" id="file2" class="file-upload-two" onchange="subForm('form1')" style="display: none;" >
+						</div>
+						<div class="user-headIcon" v-if="-1===data.approvalStatus" >   
+							<div class="user-headIcon-top"><img id="headerImg1" v-attr="src:data.idCardPicOther"  /></div>
+						</div>
+			    	</div>
+			    </div>
+		  </form>
+	   	  <hr/>
+	      <form id="form2"  method="post" enctype="multipart/form-data" action="/cf/upload.action" >
+		     <div class="form-group" >
+		    	<label class="col-sm-2 control-label">上传营业执照：</label>
+		    	<div class="col-sm-8 left">
+					<div class="user-headIcon"  v-if="null==data.approvalStatus"  >   
+						<div class="user-headIcon-top"><img id="headerImg2" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-three')"  /></div>
+						<input type="file" name ="file" id="file3" class="file-upload-three" onchange="subForm('form2')" style="display: none;" >
+					</div>
+					<div class="user-headIcon" v-if="-1===data.approvalStatus" >   
+							<div class="user-headIcon-top"><img id="headerImg2" v-attr="src:data.businessLicense"  /></div>
+					</div>
+		    	</div>
+		    </div>
+	      </form>
+	      <hr/>
+		    <div class="form-btn">
+			  	<span v-if="null==data.approvalStatus" class="product-detail-btn" onclick="sendData()" id="clickBtn">申请</span>
+			  	<span class="product-detail-btn disable-btn" id="cacleBtn" >返回</span>
+		    </div>	
+		</div>
+	</div>
+</div>	
+<#include "../cf/include/footer.html"> 
+</body>
+</html>

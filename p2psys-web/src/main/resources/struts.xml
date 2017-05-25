@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+   
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.freemarker.manager.classname" value="com.rongdu.p2psys.core.freemarker.CustomFreemarkerManager" />
+	<constant name="struts.multipart.maxSize" value="1000000000"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="true" />
+	<constant name="struts.convention.default.parent.package" value="project-default"/>
+	<constant name="struts.convention.result.path" value="/WEB-INF/content"/>
+	
+	<constant name="struts.convention.action.disableJarScanning" value="true" />
+    <constant name="struts.convention.action.fileProtocols" value="jar,wsjar" />
+    <constant name="struts.convention.action.includeJars" value=".*?/rongdu-common*.*?jar(!/)?" />
+    <constant name="struts.convention.action.packages" value="com.rongdu.p2psys" />
+    
+    
+    <package name="project-default" extends="struts-default" abstract="true">
+    	<result-types>  
+            <result-type name="ftl" class="com.rongdu.p2psys.core.freemarker.CustomFreemarkerResult" default="false"/>  
+        </result-types> 
+        <interceptors>
+           <interceptor name="param" class="com.rongdu.p2psys.core.web.interceptor.ParamFilterInterceptor"></interceptor>
+           <interceptor name="action" class="com.rongdu.p2psys.core.web.interceptor.ActionInterceptor"></interceptor>
+           <interceptor name="ajaxSafe" class="com.rongdu.p2psys.core.web.interceptor.AjaxSafeInterceptor"></interceptor>
+           <interceptor name="session" class="com.rongdu.p2psys.core.web.interceptor.SessionInterceptor"></interceptor>
+           <interceptor name="freeze" class="com.rongdu.p2psys.core.web.interceptor.FreezeInterceptor"></interceptor>
+           <interceptor name="userStatus" class="com.rongdu.p2psys.core.web.interceptor.UserStatusInterceptor"></interceptor>
+           
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="globalStack">
+			    <interceptor-ref name="defaultStack" />
+			    <interceptor-ref name="param"/>
+			    <interceptor-ref name="action" />
+			    <interceptor-ref name="freeze" />
+			    <interceptor-ref name="userStatus" />
+			 </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="globalStack" />
+        
+        <global-results>
+        	<result name="index" type="redirect">/index.html</result>
+            <result name="login" type="ftl">/user/login.html</result>
+            <!--<result name="notfound" type="ftl">/404.html</result>-->
+            <result name="msg" type="ftl">/msg.html</result>
+            <result name="adminmsg" type="ftl">/admin/msg.html</result>
+            <result name="exception" >/error.jsp</result>
+        </global-results>
+        
+    </package>
+
+
+    <bean type="com.opensymphony.xwork2.UnknownHandler" name="rongdu" 
+    	class="com.rongdu.p2psys.core.freemarker.CustomConventionUnknownHandler"/>
+    	
+    <package name="manage-default" extends="project-default" abstract="true">
+  
+    </package>
+    <include file="wx_struts.xml"></include>
+	<unknown-handler-stack>  
+       <unknown-handler-ref name="rongdu" />  
+    </unknown-handler-stack>
+   
+</struts>

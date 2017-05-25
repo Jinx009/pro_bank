@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			<#assign mid="m_invest">
+			   <#include "../account_menu.html"></div>
+			<!--左边的导航 结束-->
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">我的体验金</h2>
+				 <!-- <li id="status" class="tab-status">
+                    <a href="javascript:;" data-val="1" class="current">未使用</a>
+                    <a href="javascript:;" data-val="2">已使用</a>
+            	</li> -->
+				<div class="user_right_main">
+					<!-- <div id="choiceRedPacket" class="choiceRedPacketBox layer_pageContent" style="padding:0;">
+						<ul id="member_table" class="table_content" style="width:898px;">
+						</ul>
+					</div>
+					<div id="kkpager"></div> -->
+					<#if egList?exists && egList?size gt 0>
+						<#list egList as item>
+							<#if item.status==0>
+								<div class="expressionGold">
+									<div>
+										<p class="total">&yen;${item.money!0}</p>
+										<!-- <p class="invest_day">未使用</p> -->	
+										<div style="padding-left: 48px;height: 42px;padding-top: 8px;">
+										<#if isBindC gt 0> 
+											<a href="${egUrl!}" ><div class="bottomBtn" style="width: 60px;">使用</div></a>
+									  	<#else>
+									  		<!-- 提示用户没绑卡，去充值绑卡 -->
+											<div><a href="/member/recharge/newRecharge.html" ><div class="bottomBtn" style="width: 60px;">去认证</div></a></div>
+									  	</#if></div>
+									</div>
+								</div>
+							<#else>
+								<div class="expressionGold expressionGold_used" style="background: url(/themes/theme_default/media/css/images/experienceGold_bg2.png) no-repeat;background-size: 100% 100%;">
+									<div>
+										<p class="total">&yen;${item.money!0}</p>
+										<p class="invest_day">已使用</p>
+									</div>
+								</div>
+							</#if>
+						</#list>
+					<#else>
+						<div class="expressionGold" style="background: url(/themes/theme_default/media/css/images/experienceGold_bg2.png) no-repeat;background-size: 100% 100%;">
+							<p class="total" style="font-size: 2em;">暂无体验金</p>
+							<div class="expressionGold_right">
+								<p class="text"></p>
+							</div>
+						</div>
+					</#if>
+				</div>	
+					<div class="user_help">
+			            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+						<p>1、为了优化体验流程，请先进行充值完成身份认证。</p>
+						<p>2、体验金只可投资【新手专享】，投资到期后收益自动转出至账户。</p>
+						<p>3、体验金只限新用户使用，且每个用户只可使用一次，收益只计算一次。</p>
+						<i id="qianjin"></i>
+					</div>
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/experience_gold');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>文章作者管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  870;
+	var winHeight = 650;
+	var addTitle = "添加文章作者";
+	var addUrl =  "/modules/finance/article/financeArticleExpertAddPage.html";
+	var editTitle = "编辑文章作者";
+	var editUrl =  "/modules/finance/article/financeArticleExpertEditPage.html";
+	var deleteTitle = "删除文章作者";
+	var deleteUrl = "/modules/finance/article/financeArticleExpertDelete.html"; //删除记录接口地址
+	var addWinParmeters = "'{0}','"+addTitle+"',"+winWidth+","+winHeight+",'"+addUrl+"'";
+	
+	var deleteWinParmeters = "'{0}','" + deleteUrl + "'";
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'financeArticleExpertList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,fixed:true, checkbox : false},
+			{ field: 'autorName', title: '文章作者', width: 40, sortable : false},
+			{ field: 'position', title: '职位', width: 40, sortable : false},
+			{ field: 'picPath', title: '图片路径', width: 150, sortable:false },
+			{ field: 'addTime', title: '添加时间', width: 100,sortable:false,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			},
+			{field:'addIp', title:'添加IP',width: 100},
+			{	field : 'action',
+				title : '操作',
+				fixed: true,
+				width :80,
+				formatter : function(value, row, index) {
+					var str = '';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+					if(row.status != 2){
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',deleteUrl);">删除</a>';
+					}
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入文章作者进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>文章作者</span><input type="text" name="title" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="type">
+							<option value="0" selected="selected">全部</option>
+							<option value="1">显示</option>
+							<option value="2">隐藏</option>
+						</select></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

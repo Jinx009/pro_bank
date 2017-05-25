@@ -1,0 +1,292 @@
+<div class="popForm">
+	<div class="formitm" style="display: none">
+		<label class="lab">编辑状态</label>
+	</div>
+	<form id="form" method="post" enctype="multipart/form-data">
+		<div class="formitm">
+			<label class="lab">项目类型</label>
+			<input type="hidden" id="id" name="id" value="${projectBaseinfo.id}" />
+			<input type="hidden" id="addTime" name="addTime" value="${projectBaseinfo.addTime}" />
+			<input type="hidden" id="isShowPcValue"  value="${projectBaseinfo.isShowPc}"  >
+			<input type="hidden" id="isShowWechatValue"  value="${projectBaseinfo.isShowWechat}"  >
+			<input type="hidden" id=financing  value="${projectBaseinfo.financing}"  >
+			<div class="ipt">
+				<input type="hidden" id="typeValue" value="${projectBaseinfo.type}" />
+				<select class="type" id="type" name="type" >
+					<option value="1">实物众筹</option>
+					<option value="2">股权众筹</option>
+					<option value="3">影视众筹</option>
+					<option value="4">公益众筹</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">项目名称</label>
+			<div class="ipt">
+				<input type="text" id="projectName" name="projectName" value="${projectBaseinfo.projectName}" class="w400 easyui-validatebox" readonly="readonly" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">项目状态</label>
+			<div class="ipt">
+				<input type="hidden" id="statusValue" value="${projectBaseinfo.status}" />
+				<select class="type" id="status" name="status" readonly="readonly">
+					<option value="-1" >等待初审</option>
+					<option value="0" >等待初审</option>
+					<option value="2" >初审完成</option>
+					<option value="3" >众筹完成</option>
+					<option value="4" >众筹撤回</option>
+					<option value="5" >众筹失败</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">简介</label>
+			<div class="ipt">
+				<input type="text" id="info" name="info" class="w400 easyui-validatebox" value="${projectBaseinfo.info}" data-options="required:false" maxlength="264" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">单笔最小金额</label>
+			<div class="ipt">
+				<input type="text" id="minMoney" name="minMoney" class="w400 easyui-validatebox" value="${projectBaseinfo.minMoney}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">单笔最大金额</label>
+			<div class="ipt">
+				<input type="text" id="maxMoney" name="maxMoney" class="w400 easyui-validatebox" value="${projectBaseinfo.maxMoney}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<input type="hidden" value="${projectBaseinfo.isExceedAccept}" id="isExceedAcceptValue"  >
+			<label class="lab">超募是否接受</label>
+			<div class="ipt">
+				<select class="type" id="isExceedAccept" name = "isExceedAccept" >
+					<option value="0" >不接受</option>
+					<option value="1" >接受</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">最小接收人数</label>
+			<div class="ipt">
+				<input type="text" id="minInvestor" name="minInvestor" class="w400 easyui-validatebox" value="${projectBaseinfo.minInvestor}" data-options="required:false" maxlength="12" />
+				<b>*</b>                                                                      
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">最大接收人数</label>
+			<div class="ipt">
+				<input type="text" id="maxInvestor" name="maxInvestor" class="w400 easyui-validatebox" value="${projectBaseinfo.maxInvestor}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<input type="hidden" value="${projectBaseinfo.isExceedAcceptInvestor}" id="isExceedAcceptInvestorValue"  >
+			<label class="lab">是否可以超人数</label>
+			<div class="ipt">
+				<select class="type" id="isExceedAcceptInvestor"  name = "isExceedAcceptInvestor" >
+					<option value="0" >不可以</option>
+					<option value="1" >可以</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">推荐级别</label>
+			<div class="ipt">
+				<input type="text" id="isRecommend" name="isRecommend" class="w400 easyui-validatebox" value="${projectBaseinfo.isRecommend}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">开始时间</label>
+			<div class="ipt">
+				<input type="text" id="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" readonly="readonly" name="startTime" class="w400 easyui-validatebox" value="${projectBaseinfo.startTime}" data-options="required:false" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">结束时间</label>
+			<div class="ipt">
+				<input type="text" id="endTime" onFocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" readonly="readonly" name="endTime" class="w400 easyui-validatebox" value="${projectBaseinfo.endTime}" data-options="required:false" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">预计权益到达日期</label>
+			<div class="ipt">
+				<input type="text" id="rightDueTime" onFocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" readonly="readonly" name="rightDueTime" class="w400 easyui-validatebox" value="${projectBaseinfo.rightDueTime}" data-options="required:false" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">管理费提成</label>
+			<div class="ipt">
+				<input type="text" id="manageFee"  name="manageFee" class="w400 easyui-validatebox" value="${projectBaseinfo.manageFee}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+			<div class="formitm">
+			<label class="lab">发起人</label>
+			<div class="ipt">
+				<input type="text" id="creater"  name="creater" class="w400 easyui-validatebox" value="${projectBaseinfo.creater}" data-options="required:false" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+			<div class="formitm">
+			<label class="lab">发起人公司</label>
+			<div class="ipt">
+				<input type="text" id="company"  name="company" class="w400 easyui-validatebox" value="${projectBaseinfo.company}" data-options="required:false" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+			<div class="formitm">
+			<label class="lab">发起人公司简介</label>
+			<div class="ipt">
+				<input type="text" id="address"  name="address" class="w400 easyui-validatebox" value="${projectBaseinfo.address}" data-options="required:false" maxlength="128" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">公司现估值</label>
+			<div class="ipt">
+				<input type="text" id="companyMoney"  name="companyMoney" class="w400 easyui-validatebox" value="${projectBaseinfo.companyMoney}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">违约金比率</label>
+			<div class="ipt">
+				<input type="text" id="breach"  name="breach" class="w400 easyui-validatebox" value="${projectBaseinfo.breach}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">金额增加规则</label>
+			<div class="ipt">
+				<input type="text" id="addAmount"  name="addAmount" class="w400 easyui-validatebox" value="${projectBaseinfo.addAmount}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">当前募集金额</label>
+			<div class="ipt">
+				<input type="text" id="account"  name="account" class="w400 easyui-validatebox" value="${projectBaseinfo.account}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">募集金额</label>
+			<div class="ipt">
+				<input type="text" id="wannaAccount"  name="wannaAccount" class="w400 easyui-validatebox" value="${projectBaseinfo.wannaAccount}" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<input type="hidden" value="${projectBaseinfo.isShowWechat}" id="isShowWechatValue" >
+			<label class="lab">微信显示</label>
+			<div class="ipt">
+				<select class="type" id="isShowWechat" name = "isShowWechat" >
+					<option value="0" >不显示</option>
+					<option value="1" >显示</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<input type="hidden" value="${projectBaseinfo.isShowPc}" id="isShowPcValue" >
+			<label class="lab">PC显示</label>
+			<div class="ipt">
+				<select class="type" id="isShowPc" name = "isShowPc" >
+					<option value="0" >不显示</option>
+					<option value="1" >显示</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">定向标准投密码</label>
+			<div class="ipt">
+				<input type="text" id="acceptanceCode" name="acceptanceCode" class="w400 easyui-validatebox" value="${projectBaseinfo.acceptanceCode}" data-options="required: false" maxlength="32" />
+				<input type="button" value="获取" onclick="getCode()">
+				<input type="button" value="清除" onclick="hideCode()">
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '编辑',
+		width: 520,
+		height: 798,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/crowdfunding/projectInfoUpdate.html');
+	//项目类型
+	var value = $("#typeValue").val();
+	var element = document.getElementById("type");
+	for (i = 0; i < element.length; i++) {
+		if (value == element.options[i].value) {
+			element.options[i].selected = true;
+		}
+	}
+	//项目状态
+	var value1 = $("#statusValue").val();
+	var element1 = document.getElementById("status");
+	for (i = 0; i < element1.length; i++) {
+		if (value1 == element1.options[i].value) {
+			element1.options[i].selected = true;
+		}
+	}
+	//是否接受超过最大募集金额
+	var value2 = $("#isExceedAcceptValeu").val();
+	var element2 = document.getElementById("isExceedAccept");
+	for (i = 0; i < element2.length; i++) {
+		if (value2 == element2.options[i].value) {
+			element2.options[i].selected = true;
+		}
+	}
+	//是否接受超过最大人数限制
+	var value3 = $("#isExceedAcceptInvestorValue").val();
+	var element3 = document.getElementById("isExceedAcceptInvestor");
+	for (i = 0; i < element3.length; i++) {
+		if (value3 == element3.options[i].value) {
+			element3.options[i].selected = true;
+		}
+	}
+	//PC显示
+	var value4 = $("#isShowPcValue").val();
+	var element4 = document.getElementById("isShowPc");
+	for (i = 0; i < element4.length; i++) {
+		if (value4 == element4.options[i].value) {
+			element4.options[i].selected = true;
+		}
+	}
+	//微信显示
+	var value5 = $("#isShowWechatValue").val();
+	var element5 = document.getElementById("isShowWechat");
+	for (i = 0; i < element5.length; i++) {
+		if (value5 == element5.options[i].value) {
+			element5.options[i].selected = true;
+		}
+	}
+});
+/**
+ * 获取随机码
+ */
+function getCode() {
+	var time = Math.round(new Date().getTime() / 1000);
+	$("#acceptanceCode").val(time);
+}
+/**
+ * 删除随机码
+ */
+function hideCode() {
+	$("#acceptanceCode").val("");
+}
+</script>

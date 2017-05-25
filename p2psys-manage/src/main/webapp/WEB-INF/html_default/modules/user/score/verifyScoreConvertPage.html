@@ -1,0 +1,66 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/verifyScoreConvert.html');		
+	});
+</script>
+<div class="popShow" style="padding-bottom:0">
+	<div class="showItem">
+		<span>积分兑换人：</span>
+		${user.userName}
+	</div>
+	<div class="showItem">
+		<span>类型名：</span>
+		${convert.scoreTypeName}
+	</div>
+	<div class="showItem">
+		<span>状态：</span>
+		<#if convert.status==-1>
+			错误状态
+		<#elseif convert.status==0>
+			等待审核
+		<#elseif convert.status==1 >
+			审核通过
+		<#elseif convert.status==2>
+			审核未通过
+		<#else>
+			错误状态
+		</#if>
+	</div>
+	<div class="showItem">
+		<span>兑换积分：</span>${convert.score}
+	</div>
+	<div class="showItem">
+		<span>兑换金额：</span>${convert.money}
+	</div>
+	<#if convert.scoreTypeNid?? && convert.scoreTypeNid == 'score_convert_vip'>
+	<div class="showItem">
+		<span>兑换VIP时间：</span>${vipTime}月
+	</div>
+	</#if>
+	<div class="showItem">
+		<span>备注：</span>${convert.remark}
+	</div>
+	<div class="showItem">
+		<span>添加时间：</span>
+		${convert.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+</div>
+<form id="form" method="post">
+<div class="popForm" style="padding-top:0;">
+	<div class="formitm">
+		<label class="lab">是否通过：</label>
+		<div class="ipt">
+			<input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过
+			<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true"/>不通过
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt">
+			<textarea name="remark" class="w300 easyui-validatebox" data-options="required: true"></textarea>
+		</div>
+	</div>
+	<input name="convertToken" value="${convertToken!}" type="hidden">
+	 <input name="id" value="${convert.id}" type="hidden"/>	
+</div>
+</form>

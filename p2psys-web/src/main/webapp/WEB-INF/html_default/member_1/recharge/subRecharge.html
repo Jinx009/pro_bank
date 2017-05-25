@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account">
+	<#assign flag="rLog">
+	<#include "../../common/function.html">
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<!--#container-->
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>			
+			<div class="user_right">
+			
+				<h2 class="user_title">账户充值</h2>
+				<input type="hidden" id="deposit" value="${is_open_deposit}" />
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main clearfix">
+					        <section class="info">
+         <form name="payForm" id="payForm" method="post" action="/member/recharge/dollPayRecharge.html">  
+         	<strong>充值金额：</strong> ${money!}元<br><br>
+         	<div id="cashCardDiv">
+	         	<span>已绑定银行卡：</span>
+				<ul class="cashCardList clearfix" id="cardlist"></ul>    
+			</div>
+        	<ul class="user_cash_form">
+                 <!-- <li>
+                     <input type="button" id="otherBanks" value="选择其他银行支付" onclick="" class="btn orange w100 mt10">
+                </li> -->
+                <#if bindBank?exists>
+					<div>
+						<ul class="cashCardList clearfix">						
+							<li>
+								<div class="bank_radio bank_radio_hover">
+	                        		<b></b><label><i>${bindBank.bank!""}</i><em>尾号：${bindBank.hideBankNo}</em></label>
+	                        	</div>
+	                        </li>
+						</ul>    
+					</div>
+					<input type="hidden" name="accName" id="accName" value="${bindBank.user.realName!}" />
+					<input type="hidden" name="mobile" id="mobile" value="${bindBank.mobile!}" />
+					<input type="hidden" name="accId" id="accId" value="${bindBank.user.cardId!}" />
+					<input type="hidden" name="card_no" id="card_no" value="${bindBank.bankNo!}" />
+				<#else>
+				
+			      <div id="otherbankTr">
+	                <li>
+			        	<strong>姓名：</strong>
+	                   <input type="text" name="accName" id="accName" value="" autocomplete="off" placeholder="姓名" class="cash_money" maxLength="12"/><span id="accnameid" style="color: red;"></span>
+	                </li>
+	                <li>
+			        	<strong>预留电话：</strong>
+			        	<#if session_user.mobilePhone??>
+	                    	<input type="text" name="mobile" id="mobile" value="${session_user.mobilePhone!}" autocomplete="off" class="cash_money" readOnly="readonly" maxLength="11"/><span id="mobileid" style="color: red;"></span>
+	               		<#else>
+	               			<input type="text" name="mobile" id="mobile" value="" autocomplete="off" placeholder="银行预留手机号码" class="cash_money" maxLength="11"/><span id="mobileid" style="color: red;"></span>
+	               		</#if>
+	                </li>
+	            	<li>
+			        	<strong>身份证号：</strong>
+	                   <input type="text" name="accId" id="accId" value="" autocomplete="off" placeholder="身份证号" class="cash_money" maxLength="18"/><span id="accnoid" style="color: red;"></span>
+	                </li>
+	            	<li>
+			        	<strong>银行卡号：</strong>
+	                   <input type="text" name="card_no" id="card_no" value="" style="width:200px;" placeholder="银行卡号" maxLength="22" autocomplete="off" class="cash_money" onselectstart="return false;" onpaste="return false;" onKeyUp="value=value.replace(/[^0-9]/g,'')"/><span class="yhcard"></span><span class="card-tip hide"></span>
+	                    <span id="cardtip"></span>
+	                </li>
+	            </div>
+	           
+			</#if>
+		
+            
+	      	<input type="hidden" class="paymentStatus" name="type" value="1"/>
+	      	<input  type="hidden" name="channelType" id="channelType" value="1" />
+	      	<input type="hidden" value="preposit" name="paymod">
+	         <input type="hidden" value="${money!}" name="money_order">
+	         <input type="hidden" value="PC连连充值" name="name_goods">
+	         <input type="hidden" value="${payType!}" name="payType">
+	      
+	      		<li><strong>&nbsp;</strong>
+	      		<input type="submit" id="recPayBtn2" value="提交去充值" onclick="" class="cashBtn"></li>
+	      	</ul>
+        
+        </form></section>
+
+		<script type="text/javascript">
+		
+		</script>
+				</div>
+		           
+				</div>
+				<!--E-右边的内容user_right_main 结束-->
+			</div>
+			<!--E-user_right-->
+		</div>
+	</div>
+<!-- 	<script type="text/javascript">
+	function unllbank(noagrre){
+		alert(noagrre);
+		$.ajax({
+			url:"/member/recharge/unllBank.html?no_agree="+noagrre+"&random="+Math.random(),
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				    if(data.result==false){
+				    	require.async(['/plugins/layer-v1.8.4/skin/layer.css','/plugins/layer-v1.8.4/layer.min'],function(){
+							//构造确认框DOM
+							$.layer({
+								type: 1,
+								closeBtn: true,
+				                title: "&nbsp;",
+							    area: ['450px', '190px'],
+							    border: [1, 1, '#cecfd0'],
+							    page: {
+							        html: "<div class='tipsWrap w450'>"+"<div class='tipsTxt'>"+"<i class='iconfont tipIco'>"+"&#xe63c;"+"</i><span>"+data.msg+"</span></div>"+"<div class='tipsBtnBar'>"+"<a href='/member/recharge/newRecharge.html' class='okBtn'>"+"重新解绑"+"</a></div></div>"
+							    }
+							});
+				    	});
+				    }else{
+				    	require.async(['/plugins/layer-v1.8.4/skin/layer.css','/plugins/layer-v1.8.4/layer.min'],function(){
+							//构造确认框DOM
+							$.layer({
+								type: 1,
+								closeBtn: true,
+				                title: "&nbsp;",
+							    area: ['450px', '190px'],
+							    border: [1, 1, '#cecfd0'],
+							    page: {
+							        html: "<div class='tipsWrap w450'>"+"<div class='tipsTxt'>"+"<i class='iconfont tipIco'>"+"&#xe63c;"+"</i><span>"+"恭喜您，解绑成功！"+"</span></div>"+"<div class='tipsBtnBar'>"+"<a href='/member/recharge/newRecharge.html' class='okBtn'>"+"确定"+"</a></div></div>"
+							    }
+							});
+				    	});
+				    }
+			}
+		})
+	}
+	</script> -->
+	<!-- #main start-->
+	<script>seajs.use("member/recharge_subRecharge")</script>
+	<#include "../../include/footer.html">

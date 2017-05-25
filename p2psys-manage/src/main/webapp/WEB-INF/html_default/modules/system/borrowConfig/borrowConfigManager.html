@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>标种配置管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth = 800;
+	var winHeight = 520;
+	var addTitle = "添加";
+	var addUrl =  "/modules/system/borrowConfig/borrowConfigAddPage.html";
+	var editTitle = "编辑";
+	var editUrl =  "/modules/system/borrowConfig/borrowConfigEditPage.html";
+	var addWinParmeters = "'{0}','"+addTitle+"',"+winWidth+","+winHeight+",'"+addUrl+"'";
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'borrowConfigList.html',
+			fit : true,
+            		fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50, checkbox : false},
+				{ field: 'cname', title: '标识', width: 80, sortable:false},
+				{ field: 'name', title: '名称', width: 80, sortable:false}
+			]],
+			columns : [ [ 			
+				{ field: 'mostAccount', title: '最大投标额', width: 80, sortable:false},
+				{ field: 'lowestAccount', title: '最小投标额', width: 80, sortable:false},
+				{ field: 'mostApr', title: '最大年利率', width: 80, sortable:false},
+				{ field: 'lowestApr', title: '最小年利率', width: 80, sortable:false},
+				{ field: 'mostAwardApr', title: '最大奖励比率', width: 100, sortable:false},
+				{ field: 'lowestAwardApr', title: '最小奖励比率', width: 100, sortable:false},
+				{ field: 'trail', title: '是否跳过初审', width: 100, sortable:false,
+					formatter:function(value, row, index){
+						if(value){
+							return "是";
+						} else if(!value){
+							return "否"; 
+						} else {
+							return value;
+						}
+					}	
+				}, 
+				{ field: 'review', title: '是否跳过复审', width: 100, sortable:false,
+					formatter:function(value, row, index){
+						if(value){
+							return "是";
+						} else if(!value){
+							return "否";
+						} else {
+							return value;
+						}
+					}	
+				}, 
+				{ field: 'identify', title: '认证条件', width: 80, sortable:false},
+				{ field: 'manageFee', title: '借款管理费', width: 80, sortable:false},
+				{ field: 'dayManageFee', title: '日借款管理费', width: 100, sortable:false},
+				{ field: 'nature', title: '性质', width: 300,fixed:true,sortable:false},
+				{ field: 'remark', title: '描述', width: 600, sortable:false},
+				{	field : 'action',
+					title : '操作',
+					width :50,
+					fixed:true,
+					formatter : function(value, row, index) {
+						var str = '';
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+						return str;
+					}
+				} 
+			] ],
+			toolbar : '#toolbar'
+		});
+	});
+
+	function getIndexAfterDel(){  
+	    var selected = $('#dataGrid').datagrid('getSelected');  
+	    var index = $('#dataGrid').datagrid('getRowIndex', selected);  
+	    return index;  
+	} 
+	function saverow(index,obj){
+		var tmpIndex = getIndexAfterDel();    
+		$('#dataGrid').datagrid('endEdit', index);  
+	    var node = $('#dataGrid').datagrid('getSelected');  
+	    var json = {};  
+	    json.id = node.id;  
+	    json.nid = node.nid;  
+	    json.name = node.name;
+	    json.value = node.value;
+	    json.status = node.status;  
+	    $.ajax({  
+            url:'/modules/system/borrowConfig/borrowConfigEdit.html',  
+            type : 'post',  
+            data : json, 
+            dataType : 'json',  
+            timeout : 60000,  
+            success : function(data, textStatus, jqXHR) {     
+				if (data.result){  
+                   	$.messager.alert('提示', '保存成功！', function() {  
+                    	$('#dataGrid').datagrid('reload');  
+                    });  
+             	 }else{
+             		$.messager.alert('提示', '保存失败！');
+             	 } 
+  
+            }  
+        });  
+	}	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text" name="searchName" autocomplete="off" class="sInput" placeholder="输入标识/名称进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            </form>
+            </div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

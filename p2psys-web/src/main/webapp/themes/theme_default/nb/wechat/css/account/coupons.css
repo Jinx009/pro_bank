@@ -1,0 +1,309 @@
+@charset "UTF-8";
+.test {
+  color: red; }
+
+html,
+body,
+.wrap,
+.swiper-container {
+  height: 100%; }
+
+body {
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif; }
+
+a {
+  text-decoration: none; }
+
+.tabs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  top: 0;
+  background: #fff;
+  width: 100%;
+  height: 41px;
+  z-index: 999; }
+
+.tabs a {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  color: #393939;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 41px;
+  font-size: 15px;
+  border-bottom: 1px solid #e1e1e1;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
+.tabs .active {
+  color: #fff;
+  background-color: #5bc0de; }
+
+.swiper-slide-active {
+  overflow: scroll; }
+
+.content-slide {
+  margin: 10px; }
+
+.none {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 16px; }
+
+.not-none2 {
+  margin-bottom: 74px; }
+
+.not-none h2 {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-weight: normal;
+  margin-top: 20px; }
+
+.not-none p {
+  padding-left: 5px;
+  font-size: 13px;
+  line-height: 2;
+  margin: 0; }
+
+.not-none2 h2 {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-weight: normal;
+  margin-top: 20px; }
+
+.not-none2 p {
+  padding-left: 5px;
+  font-size: 13px;
+  line-height: 2;
+  margin: 0; }
+
+.coupons-table {
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  margin-top: 16px; }
+
+.coupons-titles h3 {
+  display: inline-block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  margin: 0;
+  padding-left: 5px;
+  background: #F5F5F5;
+  font-weight: normal; }
+
+.coupons-title,
+.coupons-detail {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.coupons-title span,
+.coupons-detail span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.coupons-title {
+  height: 30px;
+  line-height: 30px;
+  border-top: 1px solid #e1e1e1;
+  font-size: 15px;
+  font-weight: bold; }
+
+.coupons-detail {
+  position: relative;
+  height: 60px;
+  border-top: 2px solid #e1e1e1;
+  padding-left: 2px;
+  padding-right: 6px;
+  font-size: 13px; }
+
+.coupons-detail .tips {
+  position: absolute;
+  left: 5px;
+  bottom: -8px;
+  font-size: 10px;
+  width: 180px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #09F;
+  background-color: #FFF;
+  z-index: 199; }
+
+.coupons-detail .tips:before,
+.coupons-detail .tips:after {
+  content: "";
+  display: block;
+  border-width: 6px;
+  position: absolute;
+  top: -13px;
+  left: 34px;
+  border-style: dashed dashed solid;
+  border-color: transparent transparent #09F;
+  font-size: 0;
+  line-height: 0; }
+
+.coupons-detail .tips:after {
+  top: -12px;
+  border-color: transparent transparent #FFF; }
+
+.coupons-detail .coupons-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #f00;
+  padding-left: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.coupons-detail .btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 70px; }
+
+.coupons-detail .btn a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 1px;
+  background: #31b0d5;
+  color: #fff;
+  height: 20px;
+  border: none;
+  border-radius: 4px; }
+
+.test {
+  width: 100px; }
+
+/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+
+/* 底部导航*/
+
+/*# sourceMappingURL=coupons.css.map */

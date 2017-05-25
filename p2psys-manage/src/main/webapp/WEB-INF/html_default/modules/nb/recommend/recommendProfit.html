@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>推荐人收益规则</title>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/themes/theme_default/nb/css/recommend/recommendProfit.css" type="text/css">
+
+<script type="text/javascript">
+$(function()
+{
+	getData();
+})
+/**
+ * 获取数据
+ */
+function getData()
+{
+	$.ajax({
+		url:"/modules/nb/recommend/recommendProfitList.html",
+		type:"GET",
+		ansyc:false,
+		dataType:"json",
+		success:function(res)
+		{
+			if(null!=res.data)
+			{
+				$("#info").html("");
+				
+				for(var i = 0;i<res.data.length;i++)
+				{
+					var htmlStr = "<tr>";
+					
+					htmlStr += "<td>"+res.data[i].id+"</td>";
+					htmlStr += "<td><input value="+res.data[i].rate+" id=rate"+res.data[i].id+" class='form-control' readonly=readonly /></td>";
+					htmlStr += "<td><input value="+res.data[i].startMoney+" id=startMoney"+res.data[i].id+" class='form-control' readonly=readonly /></td>";
+					htmlStr += "<td><input value="+res.data[i].endMoney+" id=endMoney"+res.data[i].id+" class='form-control' readonly=readonly /></td>";
+					htmlStr += "<td>"+jsDateTime(res.data[i].updateTime)+"</td>";
+					htmlStr += "<td><div class='btn-group' role='group' aria-label='...'>";
+					htmlStr += "<button type='button' class='btn btn-default' onclick=updateThis('"+res.data[i].id+"') id=btn"+res.data[i].id+" >修改</button>";
+					htmlStr += "<button type='button' class='btn btn-default' onclick=deleteThis('"+res.data[i].id+"' id=back"+res.data[i].id+" )>删除</button>"; 
+					htmlStr += "</div>";  
+					htmlStr += "</tr>";
+					
+					$("#info").append(htmlStr);
+				}
+			}
+		}
+	})	
+}
+/**
+ * 切换元素
+ */
+function show(elementId)
+{
+	$("#main").hide();
+	$("#add").hide();
+	
+	$("#"+elementId).show();
+}
+/**
+ * 新增
+ */
+function add()
+{
+	var params = $("#form").serialize();
+	
+	$.ajax({
+		url:"/modules/nb/recommend/recommendProfitAdd.html",
+		data:params,
+		dataType:"json",
+		type:"POST",
+		success:function(res)
+		{
+			if("success"==res.result)
+			{
+				getData();
+				show("main");
+			}
+			else
+			{
+				$("#errorMsg").html(res.errorMsg);
+			}
+		}
+	})
+}
+/**
+ * 修改
+ */
+function update(id)
+{
+	var params = "rate="+$("#rate"+id).val()+"&startMoney="+$("#startMoney"+id).val()+"&endMoney="+$("#endMoney"+id).val()+"&id="+id;
+	
+	$.ajax({
+		url:"/modules/nb/recommend/recommendProfitUpdate.html",
+		type:"POST",
+		data:params,
+		datatType:"json",
+		ansyc:false,
+		success:function(res)
+		{
+			if("success"==res.result)
+			{
+				location.reload();
+			}
+		}
+	})
+}
+/**
+ * 删除
+ */
+function deleteThis(id)
+{
+	var params = "rate="+$("#rate"+id).val()+"&startMoney="+$("#startMoney"+id).val()+"&endMoney="+$("#endMoney"+id).val()+"&id="+id;
+	
+	$.ajax({
+		url:"/modules/nb/recommend/recommendProfitDelete.html",
+		type:"POST",
+		data:params,
+		datatType:"json",
+		ansyc:false,
+		success:function(res)
+		{
+			if("success"==res.result)
+			{
+				location.reload();
+			}
+		}
+	})	
+}
+/**
+ * 进入修改状态
+ */
+function updateThis(id)
+{
+	$("#rate"+id).attr("readonly",false);	
+	$("#startMoney"+id).attr("readonly",false);
+	$("#endMoney"+id).attr("readonly",false);
+	
+	$("#btn"+id).html("提交");
+	$("#btn"+id).attr("onclick","update('"+id+"')");
+	
+	$("#back"+id).html("返回");
+	$("#back"+id).attr("onclick","back('"+id+"')");
+}
+/**
+ * 修改修改状态
+ */
+function back(id)
+{
+	$("#rate"+id).attr("readonly",true);	
+	$("#startMoney"+id).attr("readonly",true);
+	$("#endMoney"+id).attr("readonly",true);
+	
+	$("#btn"+id).html("修改");
+	$("#btn"+id).attr("onclick","updateThis('"+id+"')");
+	
+	$("#back"+id).html("删除");
+	$("#back"+id).attr("onclick","deleteThis('"+id+"')");
+}
+
+/**
+ * 转换时间戳
+ */
+function jsDateTime(unixtime)  
+{  
+	 var date = new Date(unixtime);
+	 
+	 return  date.format("yyyy-MM-dd hh:mm:ss"); 
+}  
+Date.prototype.format = function(format)
+{
+	var o = 
+	{
+	"M+" : this.getMonth()+1, 
+	"d+" : this.getDate(), 
+	"h+" : this.getHours(),
+	"m+" : this.getMinutes(), 
+	"s+" : this.getSeconds(), 
+	"q+" : Math.floor((this.getMonth()+3)/3), 
+	"S" : this.getMilliseconds() 
+	}
+
+	if(/(y+)/.test(format)) 
+	{
+		format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+	}
+
+	for(var k in o) 
+	{
+		if(new RegExp("("+ k +")").test(format))
+		{
+			format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+		}
+	}
+	return format;
+} 
+</script>
+</head>
+<body>
+	<!-- 列表 -->
+	<div class="main" id="main" >
+	<button type="button" class="btn btn-info" onclick="show('add')" >
+		 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增规则
+	</button>
+	<div class="space-div" ></div>
+	<table class="table table-bordered" >
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>收益千分比例(‰)</th>
+				<th>区间最小值(元)</th>
+				<th>区间最大值(元)</th>
+				<th>操作时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="info" ></tbody>
+	</table>
+	</div>
+	<!-- 添加 -->
+	<form id="form" > 
+	<div id="add" class="add-div" style="display: none;" >
+		<button type="button" class="btn btn-default" onclick="show('main')" >
+		 	<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 返回
+		</button>
+		<div class="space-div" ></div>
+		<table class="table table-bordered" >
+			<tr>
+				<th>收益千分比例</th>
+				<td>
+					<input type="text" class="form-control" id="rate" name="rate" >
+				</td>
+			</tr>
+			<tr>
+				<th>区间最小值</th>
+				<td>
+					<input type="text" class="form-control" id="startMoney" name="startMoney" >
+				</td>
+			</tr>
+			<tr>
+				<th>区间最大值</th>
+				<td>
+					<input type="text" class="form-control" id="endMoney" name="endMoney" >
+				</td>
+			</tr>
+			<tr>
+				<td >
+					<a class="btn btn-danger" onclick="add()" >&nbsp;保&nbsp;存&nbsp;</a>
+				</td>
+				<td class="error-msg" id="errorMsg" ></td>
+			</tr>
+		</table>
+	</div>
+	</form>
+</body>
+</html>

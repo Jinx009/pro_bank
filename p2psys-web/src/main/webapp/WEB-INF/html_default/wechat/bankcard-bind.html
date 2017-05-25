@@ -1,0 +1,157 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>绑定银行卡</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 0px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+	.table_info
+	{
+		width: 100%;
+		height: 100%;
+		font-family: "Microsoft YaHei";
+		background: #000;
+	}
+	.table_info td
+	{
+		border: 1px solid black;
+		text-align: center;
+		 margin:0px; 
+	}
+	body
+	{
+		height: 100%;
+		margin: 0px;
+	}
+  </style>
+  <script type="text/javascript">
+  	function hideForm()
+  	{
+  		$("#main_info").css("display","none");
+  		$("#table_info").css("display","block");
+  	}
+  	function hideTable()
+  	{
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  	}
+  </script>
+</head>
+<body>
+<div id="main_info" >
+<form id="addBankForm" method="post" action="${webroot}/member/cash/addBank.html" name="form1" >
+  <div class="content">
+		<div class="edit">
+        	<input name="accName" id="accName" type="text" <#if session_user_identify?? && session_user_identify.realNameStatus != 1> placeholder="真实姓名" <#else> value="${session_user.getHideRealname()!}" </#if> >
+      	</div>
+		<div class="edit">
+          	<input name="accId" id="accId" type="text" <#if session_user_identify?? && session_user_identify.realNameStatus != 1> placeholder="身份证" <#else> value="${session_user.getHideCardId()!}" </#if>>
+        </div>
+		<div class="edit">
+            <input type="text" name="cardNo" id="infoyhzh" autocomplete="off"  placeholder="卡号" onpaste="return false;" />
+        </div>
+  		<div class="edit">
+            <input name="mobile" id="mobilePhone" value="${session_user.mobilePhone!}" autocomplete="off" type="tel" placeholder="银行预留手机号码">
+        </div>
+  
+ 		<div class="edit">
+            <input class="code" type="text" name="code" id="code" style="width: 60%" autocomplete="off" placeholder="验证码" maxlength="6">
+            <span class="getCode" id="timeval" style="width: 37%" onclick="doajax();">点击获取</span>
+        </div>
+	
+		  <input  type="hidden" name="payType" id="payType" value="1" />
+		  <input type="hidden" name="user_id" value="${session_user.userId}" />
+		  <input type="submit" id="cashBtn" value="完成" class="sureBtn" style="display:block;"/>
+	</div>
+</form>
+  <div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;">温馨提示：可支持绑定招商银行、工商银行、农业银行、中国银行、邮储银行、光大银行、广发银行、平安银行。<span style="color: red" onclick="hideForm()" >点击查看各银行提款限额。</span>
+  <div style="height: 30px" ></div>
+  </div>
+  </div>
+  <#if msg?? && msg != "">
+		<script type="text/javascript">
+			gourl('${msg}');
+			function gourl(obj){
+				if(obj=="恭喜！绑卡成功！"){
+					window.location.href = "/wx/account/bank.html";
+				}else{
+					alert('${msg}');
+				}
+			}
+		</script>
+  </#if>
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+  <script type="text/javascript">
+  /**
+   * 获取手机验证码
+   */
+  function doajax(){
+    $.ajax({
+      url:'/member/cash/getAddBankCode.html?mobilePhone='+$('#mobilePhone').val(),
+      type:'post',
+      success:function(data){
+        if(data.result){
+          //$(".tip").html()
+          $(".input-error-checkTip").html();  
+          var time=60;
+          var timeFun=setInterval(function(){
+            time--;
+            if(time>0){
+              $('#timeval').html(time+"秒后重新获取").attr("disabled",true);
+              $('#timeval').css("font-size","14px");
+              $('#timeval').css("color","#fff");
+              $('#timeval').css("background","#249FF1");
+            }else{
+              time=60;
+              $('#timeval').val("点击获取").removeAttr("disabled");
+              $('#timeval').css("background","#2370b6");
+              $('#timeval').css("color","#fff");
+              clearInterval(timeFun);
+            }
+          },1000);
+        }
+        else{
+          //$(".tip").html(data.msg);
+          $(".input-error-checkTip").html(data.msg);  
+        }
+      }
+    });
+  }
+  </script>
+  <script type="text/javascript">
+    seajs.use("${webroot}${theme_dir}/wx/js/cash_addBank")
+  </script>
+  <div id="table_info" style="display: none" onclick="hideTable()" >
+  		<table style="width:96%;margin-left: 2%" >
+  			<tr height="25px" ></tr>
+			<tr><td></td><td>单笔限额</td><td>单日限额</td></tr>
+			<tr><td><img src="/data/bank/ICBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>1万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/yz.jpg"/></td><td>1万</td><td>1万</td></tr>
+			<tr><td><img src="/data/bank/CMB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td valign="top" ><img src="/data/bank/ABC_OUT.gif"/></td><td valign="top" >2-20万</td><td  valign="top" >500万</td></tr>
+			<tr height="25px" ></tr>
+			<tr><td colspan="3" style="color: red" >备注:中国农业银行6:00-20:00限额20万其余时段 限额2万，点击表格即可关闭此页。</td></tr>
+		</table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<script type="text/javascript">
+$(function(){
+	$('#siteNewDialog').dialog({   
+		title:'栏目',
+		width:520,
+		height:798,
+		modal: true
+	}); 
+	$('#siteNewDialog').dialog("close");
+	$('#siteNewName').click(function(){
+		$('#siteNewDialog').dialog("open");
+		$('#siteNewTree').tree({
+			url:'/modules/column/article/articleTreeList.html',
+			onClick: function(node){
+				$('#siteId').val(node.id);
+				$('#siteNewName').val(node.text);
+				$('#siteNewDialog').dialog("close");
+			}
+		});
+	});
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/column/article/articleAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+});
+</script>
+<div class="popForm">
+    <form id="form"  method="post" enctype="multipart/form-data">
+    	<div class="formitm">
+		     <label class="lab">栏目：</label>
+		     <div class="ipt">
+		     	<input type="text" class="w400 easyui-validatebox" id="siteNewName" name="siteNewName">
+		     	<input type="hidden" id="siteId" name="siteId">
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">标题：</label>
+		     <div class="ipt">
+		     	<input type="text" name="title" class="w400 easyui-validatebox" data-options="required: true" maxlength="50"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">状态：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="0" checked="checked"/>&nbsp;&nbsp;隐藏
+				<input type="radio" name="status" value="1"/>&nbsp;&nbsp;显示
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">排序：</label>
+		     <div class="ipt">
+		     	<input type="text" name="sort" class="easyui-numberbox" data-options="required: true" maxlength="4"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否推荐：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="isRecommend" value="0" checked="checked"/>&nbsp;&nbsp;否
+				<input type="radio" name="isRecommend" value="1"/>&nbsp;&nbsp;是
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否置顶：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="isTop" value="0" checked="checked"/>&nbsp;&nbsp;否
+				<input type="radio" name="isTop" value="1"/>&nbsp;&nbsp;是
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">图片：</label>
+		     <div class="ipt">
+		     	<input type="file" name="file">	
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">简介：</label>
+		     <div class="ipt">
+		     	<textarea type="areatext" class="w400 easyui-validatebox" name="introduction"></textarea>	
+		     </div>
+		</div>
+		<div class="">
+			<div class="tits">内容：</div>
+			<div class="conts">        				
+				<#include "umeditor.htm"> 
+				<@showUeditor width=870 heigth=300 id="message" name="content" content="" />
+			</div>
+		</div>
+	</form>
+</div>
+<div id="siteNewDialog">
+	<ul id="siteNewTree"></ul>
+</div>

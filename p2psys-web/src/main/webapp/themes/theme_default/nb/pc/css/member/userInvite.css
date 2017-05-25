@@ -1,0 +1,71 @@
+.my-table th,td{
+	text-align: left;
+	font-size: 14px;
+}
+.inviteUrlCopy{
+	cursor: pointer;
+}
+.data-div{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.my-table th{
+	background: rgb(216,229,238);
+}
+.no-data{
+	text-align: center;
+}
+.gray-error{
+	font-size: 14px;
+	color: rgb(210,210,210);
+}
+.warning-div{
+	text-align:left;
+	margin-left: 0px;
+	text-align: left;
+}
+.color-warning-p{
+	color:rgb(62,148,209);
+	font-size: 15px;
+}
+.warning-p{
+	color:rgb(131,131,131);
+	font-size: 14px;
+}
+.width800{
+	width: 80%;
+	margin-left: 0px;
+}
+body {
+	background: #fafafa;
+}
+.margin5p{
+	margin-left: 30px;
+	font-size: 22px;
+}
+.margin4p{
+	margin-left: 30px;
+	font-size: 16px;
+	margin-right: 30px;
+	text-align: left;
+	color:#ebab00;
+}
+.margin6p{
+	margin-left: 0px;
+	font-size: 14px;
+	margin-right: 30px;
+	text-align: left;
+}
+.margin3p{
+	margin-left: 30px;
+	font-size: 14px;
+	margin-right: 30px;
+	text-align: left;
+}
+.font14{
+	font-size: 14px;
+}
+.space-div-8{
+	height: 80px;
+}
+.margin3p_bottom{margin-bottom: 5px;}

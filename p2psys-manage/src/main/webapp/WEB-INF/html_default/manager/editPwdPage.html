@@ -1,0 +1,56 @@
+<script type="text/javascript">
+	$(function() {
+		parent.$.messager.progress('close');
+		$('#editCurrentUserPwdForm').form({
+			url : '/modules/system/general/userEditPwd.html',
+			onSubmit : function() {
+				parent.$.messager.progress({
+					title : '提示',
+					text : '数据处理中，请稍后....'
+				});
+				var isValid = $(this).form('validate');
+				if (!isValid) {
+					parent.$.messager.progress('close');
+				}
+				return isValid;
+			},
+			success : function(result) {
+				parent.$.messager.progress('close');
+				result = $.parseJSON(result);
+				if (result) {
+					parent.$.messager.alert('提示', result.msg, 'info');
+					parent.$.modalDialog.handler.dialog('close');
+				} else {
+					parent.$.messager.alert('错误', result.msg, 'error');
+				}
+			}
+		});
+	});
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">
+		<#if (session_operator.name) == "">
+			<img src="${theme_dir}/css/images/blue_face/bluefaces_35.png" alt="" />
+			<div>登录已超时，请重新登录，然后再刷新本功能！</div>
+			<script type="text/javascript" charset="utf-8">
+				try {
+					parent.$.messager.progress('close');
+				} catch (e) {
+				}
+			</script>
+		</#if>
+		<#if (session_operator.name) != "">
+			<form id="editCurrentUserPwdForm" method="post">
+				<div class="formStyle clearfix">
+					<ul class="editPwdForm">
+						<li><label><span class="formTitle">用户名：</span>${session_operator.userName}</label></li>
+						<li><label><span class="formTitle">原密码：</span><input name="oldPassword" type="password" placeholder="请输入原密码" class="easyui-validatebox pwdInput" data-options="required:true"></label></li>
+						<li><label><span class="formTitle">新密码：</span><input name="pwd" type="password" placeholder="请输入新密码" class="easyui-validatebox pwdInput" data-options="required:true"></label></li>
+						<li><label><span class="formTitle">重复密码：</span><input name="confirmPassword" type="password" placeholder="请再次输入新密码" class="easyui-validatebox pwdInput" data-options="required:true,validType:'eqPwd[\'#editCurrentUserPwdForm input[name=pwd]\']'"></label></li>
+					</ul>
+					<input type="hidden" name="id" value="${session_operator.id}"/>
+				</div>
+			</form>
+		</#if>
+	</div>
+</div>

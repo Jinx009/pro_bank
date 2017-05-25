@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>账户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = true;
+</script>
+<script type="text/javascript">
+	$.canDelete = true;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  420;
+	var winHeight = 460;
+	var editTitle = "审核";
+	var editUrl =  "/modules/account/userCredit/userCreditApplyEditPage.html";
+	var editWinParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+editUrl+"'";
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'vipList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,sortable:true},
+			{ field: 'userName', title: '用户名', width: 100},
+			{ field: 'realName', title: '真实姓名', width: 100},
+			{ field: 'type', title: '申请类型', width: 100},
+			{ field: 'account', title: '申请额度', width: 80, sortable:true},
+			{ field: 'accountNew', title: '新额度', width: 80},
+			//{ field: 'accountOld', title: '原来额度', width: 80, sortable:true},
+			{ field: 'status', title: '状态', width: 80,formatter:function(value,row,index){
+				if(value==1){
+					return '审核通过';
+				}else if(value==-1){
+					return '未通过';
+				}else{
+					return '<font color="red">待审核</font>';
+				}
+			}},
+			{ field: 'addTime', title: '申请时间', width: 150, sortable:true,formatter:function(value,row,index){
+				return getLocalTime(value,4);
+			}},
+			{ field: 'content', title: '内容', width: 220, sortable:true},
+			{ field: 'remark', title: '备注', width: 220, sortable:true},
+			{field : 'action',title : '操作',width :100,
+				formatter : function(value, row, index) {
+					var str = '';
+					if (row.status==2) {
+						str = $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+editWinParmeters+');" src="{1}" title="审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/pencil.png');
+					}
+					str += '&nbsp;';
+					return str;
+				}
+			} 
+			 ] ],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+				$(this).datagrid('tooltip');
+			}
+		});
+	});
+
+	
+</script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',title:'查询条件',border:false,collapsed:false" style="height: 80px; overflow: hidden;">
+			<form id="searchForm">
+				<table class="table table-hover table-condensed" style="display: none;">
+					<tr>
+						<th>用户名：</th>
+						<td><input type="text" name="userName"/></td>
+						<th style="width:70px;">真实姓名：</th>
+						<td><input type="text" name="realName" /></td>
+						<th>状态：</th>
+						<td>
+							<select name="status">
+								<option value="99">全部</option>
+								<option value="2">待审核</option>
+								<option value="1">审核通过</option>
+								<option value="-1">审核不通过</option>
+							</select>
+						</td>
+						<td class="tdBtn">
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a>
+					    </td>
+					</tr>				
+				</table>
+			</form>
+		</div>
+		<div data-options="region:'center',border:false">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<script type="text/javascript">
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '修改',
+		width: 900,
+		height: 800,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/productSort/productTypeEdit.html');
+	var typeCategory = $("#typeCategory").val();
+	var $input = $("input[type=radio]");
+	$("#productCharacteristics input").each(function() {
+		var radioVal = $(this).val();
+		if (radioVal == typeCategory) {
+			$(this).attr("checked", "checked");
+		}
+	})
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${productType.id}">
+		<div class="formitm">
+			<label class="lab">
+				类别名称
+			</label>
+			<div class="ipt">
+				<input type="text" id="typeName" name="typeName" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" value="${productType.typeName}" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别编码
+			</label>
+			<div class="ipt">
+				<input type="text" id="typeCode" name="typeCode" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" value="${productType.typeCode}" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别描述
+			</label>
+			<div class="ipt">
+				<input type="text" id="typeDescription" name="typeDescription" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" value="${productType.typeDescription}" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别备注
+			</label>
+			<div class="ipt">
+				<textarea id="remark" name="remark" class="w400 easyui-validatebox" data-options="required: false">${productType.remark!''}</textarea>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				产品类别特征
+			</label>
+			<input type="hidden" id="typeCategory" name="typeCategory" value="${productType.typeCategory}" />
+			<div class="ipt" id="productCharacteristics">
+				<input type="radio" disabled="disabled" style="margin-right: 3px;margin-left: 5px;" value="现金类产品" /> 现金类产品
+				<br/>
+				<input type="radio" disabled="disabled" style="margin-right: 3px;margin-left: 5px;" value="非现金类产品" /> 非现金类产品
+				<br/>
+				<input type="radio" disabled="disabled" style="margin-left: 5px;" value="新手专享" /> 新手专享
+				<br/>
+				<input type="radio" disabled="disabled" style="margin-left: 5px;" value="五星专享" /> 五星专享
+				<br/>
+				<input type="radio" disabled="disabled" style="margin-left: 5px;" value="VIP" /> VIP
+			</div>
+		</div>
+	</form>
+</div>

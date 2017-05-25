@@ -1,0 +1,104 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>800Bank</title>
+	<style type="text/css">
+		*{margin:0;padding:0;font-size:12px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+		.h_all{width:100%;height:auto;margin:0 auto;}
+		/* bank_header start */
+		.h_all .bank_header{width:100%;height:45px;background-color:#2370B6;text-align:center;line-height:45px;padding:0;}
+		.h_all .bank_header img{display: block;width: 40%;height:25px;padding-top: 10px;padding-left: 30%;}
+		/*end bank_header */
+
+		/* bank_whatDo start*/
+		.h_all .bank_whatDo{width:100%;height:230px;border-bottom:1px solid #E7E7E7;}
+		.h_all .bank_whatDo .bank_what{float:left;font-size:20px;line-height:40px;height:40px;margin-left:25px;color:#2370B6;}
+		.h_all .bank_whatDo span{float:left;margin:0 auto;}
+		.h_all .bank_whatDo span p{float:left;font-family:Microsoft YaHei;padding:1px;font-size:12px;line-height:18px;margin:0 20px;color:#666;letter-spacing:0.5px;word-break:break-all;}
+		/* end bank_whatDo */
+
+		/* bank_weCanDo start */
+		.h_all .bank_weCanDo{width:100%;height:160px;border-bottom:1px solid #E7E7E7;}
+		.h_all .bank_weCanDo .bank_Cando{float:left;font-size:20px;line-height:40px;height:40px;margin-left:25px;color:#2370B6;}
+		.h_all .bank_weCanDo span p{float:left;font-family:Microsoft YaHei;padding:1px;font-size:12px;line-height:18px;margin:0 20px;color:#666;letter-spacing:0.5px;word-break:break-all;}
+		.p_indent{text-indent:2em;}
+		/* end bank_weCanDo */
+
+		/* bank_detail start */
+		.h_all .bank_detail{width:100%;height:130px;border-bottom:1px solid #E7E7E7;}
+		.h_all .bank_detail ul li{width:100%;float:left;list-style:none;display:block;height:40px;line-height:40px;}
+		.h_all .bank_detail ul .bank_imgAddress{margin-top:10px;}
+		.h_all .bank_detail ul li img{display: block;margin-top: 10px;margin-left: 20px;}
+		.h_all .bank_detail ul li label{margin-top: -30px;line-height: 30px;display: block;margin-left: 70px;float: left;color:#6E6E6E;font-size:12px;}
+		
+		/* end bank_detail */
+
+		/* bank_foot start*/
+		.h_all .bank_foot{font-family:Microsoft YaHei;text-align:center;position:relative;width:100%;height:60px;}
+		.h_all .bank_foot .bank_footborder{width:100%;margin-top:10px;text-align:center;position:absolute;color:#999;}
+		.h_all .bank_foot .bank_footborder .bank_email{font-size:12px;line-height:18px;}
+		.h_all .bank_foot .bank_footborder .banck_ICP{font-size:14px;line-height:20px;}
+		/* end bank-foot */
+	</style>
+ </head>
+ <body>
+		<div class="h_all">
+				<div class="bank_header">
+						<img  src="${webroot}${theme_dir}/wx/static/css/images/index_logo.png" width="150" height="25" alt="800Bank" />
+				</div>
+				<!--bank_whatDo start-->
+				<div class="bank_whatDo">
+						<span class="bank_what">
+							800Bank做什么
+						</span>
+						<span>
+							<p class="p_indent">800Bank立志于成为中国最受推崇的互联网私人财富管家，为中高净值资产人士提供专业的咨询、全方位的理财方案以及创新产品，并努力实现全球资产配置，成为客户安全而可靠的伙伴。</p>
+							<p class="p_indent">800Bank由仁和智本资产管理集团投资，著名的互联网金融评论者——陈宇(江南愤青)也参与投资并担任顾问。创始合伙人及高管团队皆来自于跨国金融机构、四大会计师事务所以及知名律师事务所，为投资者的财富增值保驾护航。</p>
+						</span>
+				</div>
+				<!-- end bank_whatDo -->
+				<!-- bank_weCanDo start-->
+				<div class="bank_weCanDo">
+						<span class="bank_Cando">
+							我们能为您做什么
+						</span>
+						<span>
+							<p class="p_indent">不同于传统的第三方财富管理机构的金融产品代销模式，800Bank旨在帮助投资者在众多金融领域，结合客户的实际状况提供金融产品配置，并首创业内的资金受托方式，让投资者实现轻松的一站式理财。
+							</p>
+						</span>
+				</div>
+				<!-- end bank_weCanDo -->
+				<!-- bank_detail start -->
+				<div class="bank_detail">
+						<ul>
+							<li>
+								<img src="${webroot}${theme_dir}/wx/static/css/images/telephone.png" width="30" height="30" class="bank_phone" />
+								<label>400-6366-800</label>
+							</li>
+							<li>
+								<img src="${webroot}${theme_dir}/wx/static/css/images/email.png" width="30" height="30" />
+								<label>service@800Bank.com.cn</label>
+							</li>
+							<li class="bank_address">
+								<img src="${webroot}${theme_dir}/wx/static/css/images/address.png" width="30" height="30" class="bank_imgAddress" />
+								<label >上海浦东陆家嘴东路166号中保大厦17层</label>
+							</li>
+						</ul>
+				</div>
+				<!-- end bank_detail -->
+				<!--bank_foot start -->
+				<div class="bank_foot">
+					<div class="bank_footborder">
+						<span class="bank_email">@2015 www.800bank.com.cn</span><br/>
+						<span class="banck_ICP">ICP备案号:15005952</span>
+					</div>
+				</div>
+				<!-- end bank_foot-->
+		</div>
+ </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../user_menu.html">
+			</div>
+			
+            
+			<#include "../../common/function.html" />
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul class="user_right_menu clearfix">
+						<li class="h_menu_li">邮箱绑定</li>
+					</ul>
+				</div>
+				<div class="user_right_main border_gray">
+					<div class="user_right_border">
+						<div class="l">修改方式：</div>
+						<div class="c">
+							通过【绑定手机】 + 【短信验证码】修改邮箱
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">绑定手机：</div>
+						<div class="c">
+							<input type="text" size="15" maxlength="11" name="mobile_phone">
+							<a href="" class="btn">获取校验码</a> 
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">校验码：</div>
+						<div class="c">
+							<input type="text" size="10" maxlength="6" name="code">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l"></div>
+						<div class="c">
+							<input type="submit" value="下一步" class="btn sub_btn">
+						</div>
+					</div>
+				</div>
+				<div class="user_help alert">
+					<h3><b class="user_help_tip"></b>温馨提示</h3>
+						<#if session_user.email?? && session_user_identify.emailStatus=1 >您已绑定邮箱：${session_user.hideEmail}</#if>
+					</div>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">
+</body>
+</html>

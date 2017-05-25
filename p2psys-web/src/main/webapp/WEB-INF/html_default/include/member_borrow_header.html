@@ -1,0 +1,25 @@
+<div id="member-header">
+	<div class="member-header-con clearfix">
+		<div class="member-header-l">
+			<a href="/index.html" class="memebr-logo"></a>
+			<a href="${webroot}/member/main.html?borrow=1" class="<#if (nid??&&nid=='account_home')>hover</#if>">账户主页</a>
+    		<a href="${webroot}/member/recharge/log.html?borrow=1" class="<#if (nid??&&nid=='my_account')>hover</#if>">我的账户</a>
+    		<a href="${webroot}/member_borrow/borrow/mine.html" class="<#if (nid??&&nid=='borrow_manage')>hover</#if>">借款管理</a>
+		</div>
+		<div class="member-header-r">
+			<!--<a href="#" class="borrow_link">我要借款</a>--> 
+			<span class="member-right">
+				<a href="${webroot}/member/main.html">${session_user.userName}</a>
+				<em class="member-name"></em>
+				<em class="member-down"></em>
+				<ul class="hide">
+					<li><a href="/member/security/setting.html">账户设置</a></li>
+					<li><a href="/user/logout.html">退出账户</a></li>
+				</ul>
+			</span>
+		</div>
+	</div>
+</div>
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/member-header");
+</script>

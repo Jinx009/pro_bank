@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../../../../include/resources.html">
+<title>800Bank</title>
+ <script type="text/javascript">
+
+	var dataGrid;
+	var winWidth = 900;
+	var winHeight = 500;
+	
+	var addTitle = "新增数据";
+	var addUrl = "/modules/nb/homepage/bannerAddPage.html?useStatus=0";
+	
+	var editTitle = "修改";
+	var editUrl = "/modules/nb/homepage/bannerEditPage.html?useStatus=0";
+	
+	var searchUrl="/modules/nb/homepage/bannerViewPage.html";
+	var searchTitle="查看信息";
+	
+	var status = "是否启用？";
+	var statusUrl = "/modules/nb/homepage/bannerEnable.html";
+	
+	var addWinParmeters = "'{0}','" + addTitle + "'," + winWidth + ","
+			+ winHeight + ",'" + addUrl + "'";
+	
+	var deleteTitle = "您是否要删除当前记录?";
+	var deleteUrl = "/modules/nb/homepage/bannerDelete.html";
+	var deleteWinParmeters = "'{0}','" + deleteUrl + "'";
+
+	$(function()
+	{
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid(
+		{
+			url : '/modules/nb/homepage/bannerList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums : 1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect : true,
+			columns :
+			[
+			[
+			{
+				field : 'id',
+				title : 'ID',
+				width : 50,
+				fixed : true,
+				checkbox : false
+			},
+			{
+				field : 'bannerName',
+				title : '名称',
+				width : 200,
+				fixed : true,
+				sortable : false
+			},
+						
+			{	
+				field : 'bannerKeywords',
+				title : '关键字',
+				fixed: false,
+				width :300,
+				sortable : false,
+			},
+			{	
+				field : 'isEnable',
+				title : '是否启用',
+				fixed: true,
+				width :100,
+				sortable : false,
+				formatter : function(value, row, index) 
+				{
+					var str = '';
+										
+					if(value==1){					
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',statusUrl,status);" title="未启用？">启用</a>';
+					}else{
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',statusUrl,status);" title="启用?">未启用</a>';
+					}
+					return str;
+				}				
+			},
+			{	
+				field : 'action',
+				title : '操作',
+				fixed: true,
+				width :100,
+				sortable : false,
+				formatter : function(value, row, index) 
+				{
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun('+row.id+',searchTitle,winWidth,winHeight,searchUrl);" title="'+searchTitle+'">查看</a><i class="iconfont">&#xe639;</i></dt>' ;
+					str += '<dd>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">修改</a>';	
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',deleteUrl,deleteTitle);">删除</a>';
+					str += '</dd>'
+					str +=  '</dl>'
+					return str;
+				}
+			}
+			] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function()
+			{
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu : function(e, rowIndex, rowData)
+			{
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show',
+				{
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});
+
+	
+</script>
+
+</head>
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	
+		<div data-options="region:'north',border:false,collapsible:false"
+			id="searchBox">
+			
+			<div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);"
+					href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+			</div>
+		</div>
+		
+		<div data-options="region:'center'"
+			style="margin-top: 30px; padding-bottom: 30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>800众服</title>
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+    <script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+    <script src="/plugins/vue/vue.min.js"></script>
+    <script src="/themes/theme_default/cf/wechat/js/user/wallet.js" ></script>
+</head>
+<body>
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>我的钱包</span>
+	</div>
+	<#include "../include/menue.html">
+	<div class="wallet-content">
+		<ul>
+			<li>
+				<a href="javascript:;">
+					<div class="wallet-col-left">我的资产</div>
+					<div class="wallet-col-right"><b v-text="'&yen;'+ data.total | moneyFormat" ></b></div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="wallet-col-left">已投金额</div>
+					<div class="wallet-col-right"><b v-text="'&yen;'+ data.noUseMoney | moneyFormat" ></b></div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="wallet-col-left">账户余额</div>
+					<div class="wallet-col-right"><b v-text="'&yen;'+ data.useMoney | moneyFormat" ></b></div>
+				</a>
+			</li>
+			<li>
+				<a href="/cf/wechat/user/accountLog.html">
+					<div class="wallet-col-left">资金记录</div>
+					<div class="wallet-col-right"><span>&gt;</span></div>
+				</a>
+			</li>
+		</ul>
+	</div>	
+<!--<div class="product-detail-btn">确认</div> -->
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>提现验证码</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  <script type="text/javascript" src="${webroot}${theme_dir}/nb/wechat/js/wechat_alert.js" ></script>
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+	.border{
+			border: 1px solid red;
+	}
+	.form-control {
+		float:left;
+		display: inline-block;
+		width: 48%;
+		height: 34px;
+		padding: 6px 12px;
+		color:#898989;
+		font-size: 14px;
+		line-height: 1.42857143;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+	}
+  </style>
+  <script type="text/javascript">
+  		function loadCity(){
+  			var pc = $("#province").children().length;
+  			if(pc<=1){  				
+	  			var province = document.getElementById("province");
+	  		    var cityArr =  eval('${cityCodeList}');
+	  		    var num = 1;
+	  		    $.each(cityArr,function(i,item){
+	  		    	var obj = cityArr[i];
+	  		    	if(obj.city===""){
+	  		    		province[num]=new Option(obj.province,obj.province);
+		  		        num++;
+	  		    	}
+	  		    })
+  			}
+		}
+		
+		function getCityInfo(tem){
+  			var city = document.getElementById("city");
+  			city.options.length=1;
+  		    var cityArr =  eval('${cityCodeList!}');
+  		    var num = 1;
+  		    $.each(cityArr,function(i,item){
+  		    	var obj = cityArr[i];
+  		    	if(obj.province===tem && obj.city!=""){
+  		    		city[num]=new Option(obj.city,obj.city);
+	  		        num++;
+  		    	}
+  		    })
+  		}
+  		
+  	  	function checkForm(){
+  	  		var branch=document.getElementById("branch");
+  	  		var selcity = $("#city").val();
+  	  		//alert('${minRechargeMoney!0}');
+  	  		var code = $("#code").val();
+  	  		if(branch!=null){
+	  	  		if(selcity.length==0){
+	  				wechatAlert("请选择地区！","0");
+	  			}else if((branch.value).length==0){	
+	  				wechatAlert("请输入支行名称！","0");
+		  		}else if(code.length==0){
+		  			wechatAlert("请输入验证码！","0");
+	  			}else{	
+					document.form1.submit();
+		  		}
+  	  		}else{
+	  	  		if(code.length==0){
+		  			wechatAlert("请输入验证码！","0");
+	  			}else{	
+					document.form1.submit();
+		  		}
+  	  		}
+  	  		
+  	  	}
+  </script>
+</head>
+<body>
+		<form action="/nb/wechat/cash/doAllCash.html" method="post" name="form1" id="J_cash" novalidate="novalidate">
+		<div class="sureUser bottom">
+	      	<p><strong>提现金额：</strong> ${money!0}元</p>
+	      	<input type="hidden" name="money" id="money" value="${money!0}" />
+	      	<input type="hidden" name="mobile" id="mobilePhone" value="${nb_user.mobilePhone!}" />
+	      </div>
+	      <div class="bankCard" style="width: 83%">
+				<img src="/themes/theme_default/nb/wechat/img/setCard.png" class="bank_icon"/>
+				<div class="bank_name">${bindBank.bank!""}<span class="card_type">储蓄卡</span></div>
+				<p class="card_num">${bindBank.hideBankNo}</p>
+			</div><br>
+		<#if wapCashKey=="llpay_channel_key" && (!(bindBank.branch)?? || bindBank.branch=="") >
+			<div class="edit">
+		          
+		            <select  id="province"  name="province"  onclick="loadCity();" onchange="getCityInfo(this.value);" class="form-control">
+		               	<option value="" selected="selected">---请选择省份---</option>
+		            </select>
+		            <div style="float:left;width:4%;text-align:center;color:#898989;height:34px;line-height:34px;">-</div>
+		            <select  id="city"  name="city"  onchange="" class="form-control" >
+		               	<option value="" selected="selected">---请选择市区---</option>
+		            </select>
+		            
+	        </div>
+	        <div class="edit" style="margin-bottom:2%;">
+	            <input class="code" type="text" name="branch" id="branch" style="width: 95%" autocomplete="off" placeholder="支行名称" maxlength="12">
+	        </div>
+	        <p style="width:92%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:10px;">如不确定，请联系银行客服查找</p>
+	        
+        </#if>
+	      <div class="edit">
+            <input class="code" type="text" name="code" id="code" style="width: 55%" autocomplete="off" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="验证码" maxlength="6">
+            <span class="getCode" id="timeval" style="width: 37%" onclick="doajax();">点击获取</span>
+        </div>
+		
+	  <input type="hidden" name="wapCashToken" value="${wapCashToken!}">
+	  <input type="hidden"  name="wapCashKey" id="wapCashKey" value="${wapCashKey!}">
+	  <span id="cashBtn" class="sureBtn" style="display:block;" onclick="checkForm();">提交</span>
+	  </form>
+	  
+	  <#if msg?? && msg != "">
+		<script type="text/javascript">
+			gourl('${msg}');
+			function gourl(obj){
+				//alert('${msg}');
+				wechatAlert("${msg}","0");
+			}
+		</script>
+  	</#if>
+ <script type="text/javascript">
+   	var mark=0;
+  /**
+   * 获取手机验证码
+   */
+  function doajax(){
+	  if(mark==0){
+    $.ajax({
+      url:'/nb/wechat/cash/getCashCode.html?mobilePhone='+$('#mobilePhone').val(),
+      type:'post',
+      success:function(data){
+        if(data.result){
+          //$(".tip").html()
+          $(".input-error-checkTip").html();  
+          var time=60;
+          var timeFun=setInterval(function(){
+            time--;
+            if(time>0){
+              mark=1;
+              $('#timeval').html(time+"秒后重新获取").attr("disabled",true);
+              $('#timeval').css("font-size","14px");
+              $('#timeval').css("color","#fff");
+              $('#timeval').css("background","#ffae00");
+            }else{
+              time=60;
+              mark=0;
+              $('#timeval').html("点击获取").removeAttr("disabled");
+              $('#timeval').css("background","#ffae00");
+              $('#timeval').css("color","#fff");
+              clearInterval(timeFun);
+            }
+          },1000);
+        }
+        else{
+          //$(".tip").html(data.msg);
+          $(".input-error-checkTip").html(data.msg);  
+        }
+      }
+    });
+	  }
+  }
+  </script>
+</body>
+</html>

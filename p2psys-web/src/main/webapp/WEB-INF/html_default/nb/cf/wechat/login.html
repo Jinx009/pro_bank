@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/loading.css" />
+<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/cf/wechat/js/login.js" ></script>
+<style type="text/css">
+.sweet-alert .showSweetAlert .visible{
+	background: red;
+}
+</style>
+</head>
+<body class="regist-bg">
+<div style="display:none;" id="hehe" >
+	<input type="hidden" value="${redirectUrl}" id="redirectUrl" >
+	<div class="back">
+		<div class="back-left" id="menue"></div>
+		<span>登录</span>
+	</div>
+	<div class="regist-position">
+		<div class="regist-content">
+			<div class="regist-logo"><img src="/themes/theme_default/cf/wechat/img/logo.png"/></div>
+			<form>
+				<div class="form-group">
+					<input type="text" placeholder="手机号" id="username" class="long-inp"/>
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="密码（8位或8位以上数字字母组合）" id="pwd" class="long-inp"/>
+				</div>
+				<div class="regist-forget-bottom">
+					<a href="#"  class="forgetPwd" style="color:#ff7777;text-decoration:underline;"><p>忘记密码</p></a>
+			    </div>
+				<div class="regist-position-bottom">
+			   		<button type="button" onclick="doLogin()" class="regist-btn">确认</button>
+					<p class="regist-tip"><a href="/cf/wechat/register.html" style="text-decoration: underline;" >没有账号？注册</a></p>
+			   	</div>
+			</form>
+		</div>	
+	</div>
+</div>
+<!-- 动画start -->
+<div class="spinner" id="haha">
+	<div class="rect1"></div>
+	<div class="rect2"></div>
+	<div class="rect3"></div>
+	<div class="rect4"></div>
+	<div class="rect5"></div>
+</div>
+<!-- 动画end -->
+</body>
+</html>

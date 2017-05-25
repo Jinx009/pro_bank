@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>掉单补单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入标ID进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                                    <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+                        <form id="searchForm1" style="display:none">
+                                        <select name="status" class="type">
+                                            <option value="2">失败</option>
+                                        </select>
+                        </form>
+            </div>
+            <!-- <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div> -->
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        <a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+                 <li><span>状态</span>
+                     <select name="status" id="status" class="type">
+                         <option value="">全部</option>
+                         <option value="1"> 成功</option>
+                         <option value="2">失败</option>
+                         <option value="0">未处理</option>
+                     </select>
+                 </li>
+				<li><span>操作类型</span>
+                     <select name="operateType" id="operateType" class="type">
+                         <option value="">全部</option>
+                         <option value="AUTOVERIFYFULLSUCCESS">放款</option>
+                         <option value="AUTOREPAY">还款</option>
+                         <option value="AUTOVERIFYFULLFAIL">撤标</option>
+                     </select>
+                 </li>
+                 <li><span> 接口类型</span>
+                     <select name="cmdid" id="cmdid" class="type">
+                         <option value="">全部</option>
+                         <option value="UsrUnFreeze">解冻</option>
+                         <option value="LOANS">放款</option>
+                         <option value="REPAYMENT">还款</option>
+                     </select>
+                 </li>
+                <li><span>付款方</span><input type="text" name="payUserName" id="payUserName" autocomplete="off"/></li>
+		        <li><span>收款方</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+                <li><span>流水号</span><input type="text" name="ordId" id="ordId" autocomplete="off"/></li>               
+                <li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+	       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <form id="scheduleManageForm" class="easyui-layout" data-options="fit:true,border : false">
+                <div id="toolbar">
+                        <a id="checkAll" href="javascript:void(0);" >全选</a>
+                        <a id="unCheckAll" href="javascript:void(0);" >全部取消</a>
+                        <a id="triggerButton" href="javascript:void(0);" >重新触发</a>
+                </div>
+                <table id="dataGrid"></table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var dataGrid;
+    var winWidth =  900;
+    var winHeight = 500;
+    var verifyTitle = "查看记录";
+    var verifyUrl =  "/modules/loan/borrow/tenderDetailPage.html";
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : '/modules/schedule/chinapnr/scheduleList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'ids',
+            sortOrder : 'asc',
+            checkOnSelect : true,
+            singleSelect:true,
+            selectOnCheck : false,
+            nowrap : false,
+            columns : [ [
+               { field: 'ids',title:'选中',width:50,align:'center',fixed:true,
+                        formatter:function(value,row,index){
+                                if( row.status=='1')
+                                {
+                                    return '-';
+                                }
+                                else
+                                {
+                                    return '<input type="checkbox" name="ids" value="'+row.id+'" />'
+                                }
+                        }
+                },
+              { field: 'borrowId', title: '标ID', width: 40},
+              { field: 'cmdid', title: '接口类型', width: 60,
+                        formatter:function(value,row,index){
+                             switch(value)
+                            {
+                                case "UsrUnFreeze":
+	                                return "解冻";
+	                                break;
+                                case "LOANS":
+	                                return "放款";
+	                                break;
+                                case "REPAYMENT":
+	                                return "还款";
+	                                break;
+                                case "TRANSFER":
+	                               	return "平台转账";
+	                               	break;
+                                case "CREDITASSIGN":
+	                               	return "债权转让";
+	                               	break;
+                                defalut:
+                                	break;
+
+                            }
+                        }
+              },
+              { field: 'payUserName', title: '付款方', width: 60},
+              { field: 'ordamt', title: '金额', width: 120},
+              { field: 'userName', title: '收款方', width: 60},
+              { field: 'operateType', title: '操作类型', width: 60,
+                    formatter:function(value,row,index){
+                        switch(value)
+                        {
+                            case "AUTOVERIFYFULLSUCCESS":
+	                            return "放款";
+	                            break;
+                            case "AUTOREPAY":
+	                            return "还款";
+	                            break;
+                            case "AUTOVERIFYFULLFAIL":
+	                            return "撤标";
+	                            break;
+                            case "ADDBORROW":
+                                return "发标";
+                                break;
+                            case "WEBPAY":
+                                return "网站垫付";
+                                break;
+                            case "TRANSFER":
+                                return "转账";
+                                break;
+                            defalut:
+                            	break;
+
+                        }
+                    }
+              },
+              { field: 'status', title: '状态', width: 100,
+            	       formatter: function(value,row,index){
+            		      var status = row.status;
+                              if(status=='1'){
+                            	  return "汇付处理成功";
+                              }else if(status=='2'){
+                            	  return "汇付处理失败";
+                              }else{
+                            	  return "汇付处理未处理";
+                              }
+                    }
+              },
+              { field: 'ordId', title: '订单号', width: 120},
+              { field: 'errorMsg', title: '备注', width: 150},
+              { field: 'addtime', title: '操作时间', width: 150,formatter:function(value,row,index){
+					return getLocalTime(value,4);
+				}}
+              ] ],
+            toolbar : '#toolbar'
+        });
+    });
+
+//重新触发按钮
+$("#checkAll").click(function(){
+    $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",true);
+    })
+})
+$("#unCheckAll").click(function(){
+     $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",false);
+    })
+})
+$("#triggerButton").click(function(){
+    var flag = false;
+    $('input[type="checkbox"]').each(function(){
+        if($(this).attr("checked"))
+        {
+            flag = true;
+        }
+    })
+    if(flag)
+    {
+        $("#scheduleManageForm").ajaxSubmit({
+            url:'/modules/schedule/chinapnr/schedule.html',
+            dataType:'json',
+            success:function(data){
+                if(data.result)
+                {
+                    $.messager.alert('提示','触发成功！');
+                }
+                else
+                {
+                    $.messager.alert('提示','触发失败！');
+                }
+            }
+        });
+    }
+    else
+    {
+        $.messager.alert('提示','请选择至少选中一个');
+    }
+    
+})
+
+function exportExcel(){
+	var url = "/modules/schedule/chinapnr/exportExcelSchedule.html";
+	var searchName = $("#searchName").val()
+	var userName = $("#operateType").val();
+	var realName = $("#cmdid").val();
+	var status = $("#status").val();
+	var status = $("#payUserName").val();
+	var status = $("#userName").val();
+	var status = $("#ordId").val();
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	var sou = "?searchName=" + searchName + "&userName=" + userName + "&realName=" + realName + "&status=" + status + "&startTime=" + startTime + "&endTime=" + endTime;
+	window.location.href = url + sou;
+}
+</script>
+<script src="${theme_dir}/js/search.js"></script>
+

@@ -1,0 +1,96 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>我的账户</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet">
+  <link href="${webroot}${theme_dir}/wx/css/index.css" rel="stylesheet">
+  <script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+  <script src="${webroot}${theme_dir}/wx/js/jquery.circliful.min.js"></script>
+  <style type="text/css">
+  .my_btn
+  {
+  	 border: 1px solid gray;
+  	 border-radius: 2px;
+  	 text-align: center;
+  }
+  body
+  {
+  	width: 100%;
+  	text-align: center;
+  }
+  </style>
+</head>
+<body class="cfff">
+		  <div class="header nonebottom">我的账户</div>
+		  <div class="my">
+			<div class="my-total">
+			  <span class="fs12">总资产</span>
+			  <div class="my-total-amount"><span class="fs16">￥</span><span class="money" id="count_AMT">0</span></div>
+			</div>
+			<!--
+			<div class="my-amount"><span>账户余额</span><span class="fr fs16" ><span class="fs12">￥</span><span id="count_mb">0</span></span></div>
+			-->
+		  </div>
+		  <div class="my-row" style="width: 98%;margin-left: 1%;">
+			<span style="position:absolute ;left: 15px" >账户余额</span>
+			<span style="position:absolute;right: 15px" ><em class="fs12" >￥</em><span id="count_mb">0</span></span>
+		  </div>
+		  <div class="my-row"  style="width: 98%;margin-left: 1%;">
+			<span style="position:absolute ;left: 15px" >冻结金额</span>
+			<span style="position:absolute;right: 15px" ><em class="fs12" >￥</em><span id="span_dj">0</span></span>
+		  </div>
+		  <div class="my-row" style="width: 98%;margin-left: 1%;">
+			<span style="position:absolute ;left: 15px">微投</span>
+			<span style="position:absolute;right: 15px"><em class="fs12" >￥</em><span id="span_mb">0</span></span>
+		  </div>
+		  <div class="my-row" style="width: 98%;margin-left: 1%;">
+			<span style="position:absolute ;left: 15px">众筹</span>
+			<span style="position:absolute;right: 15px"><em class="fs12">￥</em>0</span>
+		  </div>
+		  <div class="my-row" style="width: 98%;margin-left: 1%;">
+			<span style="position:absolute ;left: 15px">优选</span>
+			<span style="position:absolute;right: 15px"><em class="fs12">￥</em>0</span>
+		  </div>
+		  <table style="width: 98%;margin-top: 35px;margin-left:1%; height: 25px;text-align: center;"  >
+		  	<tr height="24px" >
+		  		<td width="32%"  class="my_btn" ><a   href="/wx/plist.html">资产配置</a></td>
+		  		<td width="32%" class="my_btn" ><a   href="/wx/account/ppfund.html">现金管理</a></td>
+		  		<td width="32%"   class="my_btn" ><a   href="/wx/account/account_log.html">资金记录</a></td>
+		  	</tr>
+		  </table>
+		 
+		  <div class="fluid-button" style="margin-top: 25px" >
+			<div class="fluid-col">
+			  <a class="button button-main" href="/wx/account/newCash.html">提现</a>
+			</div>
+			<div class="fluid-col"><a class="button button-main" href="/wx/account/newRecharge.html">充值</a></div>
+		  </div>
+		  <div class="list-tip" style="margin-top: 10px;">
+		    <input type="hidden"  value="${randTime}" name="randTime"/>
+			<img src="${webroot}${theme_dir}/wx/static/css/images/T_arrow.png">以上收益金额为预期到期收益金额
+		  </div>
+		  <div style="height:100px;"></div>
+		
+		  <#include "wx_p2/html/lego/bar.html">
+
+		  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+		  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+		  <script>
+				seajs.use("${webroot}${theme_dir}/wx/js/index");
+				seajs.use('${webroot}${theme_dir}/wx/js/account');
+		  </script>
+		  <script type="text/javascript">
+				$(document).ready(function() {
+						$('.btn').click(function() {
+								window.location.href = "account/ppfundDetail.html?id="+ $('#id').val();
+						});
+						$('#other').click(function() {
+								window.location.href = "ppfundList.html";
+						});
+				});
+			</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<div id="footer" class="clearfix">
+     <div class="footer-con">
+        <div class="footer-logo"></div>
+        <div class="footer-kj">
+            <a href="/aboutUs/siteIntro.html">关于我们</a>　　
+            <a href="/article/detail.html?nid=zifei">安全保障</a>　　
+            <a href="/article/detail.html?nid=news">媒体报道</a>　　
+            <a href="/article/detail.html?nid=notice">最新动态</a>　
+            <a href="/article/detail.html?nid=join">招贤纳士</a>　　
+            <a href="/aboutUs/questionIntro.html">帮助中心</a>
+        </div>
+        <div class="footer-address">
+          <span>${copyright!}</span><span>${beian!}</span>
+        </div>
+        <div class="foot-lx clearfix" style="padding-bottom:30px">
+            <div class="foot-tel">${fuwutel!}</div>
+            <div class="foot-contact">
+                <a href="http://weibo.com/800bank" class="wb" target="_blank"></a>
+                <a href="" class="wx"></a>
+                <!--<a href="" class="el"></a>-->
+                <div class="wx-tu hide"><img src="/themes/theme_default/images/wx-tu.png"></div>
+            </div>
+        </div>
+        <div class="rz">
+            <a  key ="5538cb96efbfb06dd6db7cd3"  logo_size="83x30"  logo_type="business"  href="https://www.anquan.org" ><script src="https://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
+            <a id='___szfw_logo___' href='https://search.szfw.org/cert/l/CX20150120006837006580' target='_blank'><img src='/themes/theme_default/images/aqrz.png' ></a>
+            <script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
+            <span id="symantecSeal" style="text-align:center;" title="单击即可验证 - 该站点选择 Symantec SSL 实现安全的电子商务和机密通信">
+           	<a  target="_blank" href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.800bank.com.cn&lang=zh_cn" >
+           		<img src="/themes/theme_default/images/nuodun.png">
+           	</a>
+            </span>
+        </div>
+     </div>
+</div>
+
+<div id="floatTools" class="float0831">
+  
+  <div class="floatL"><a style="display:block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" onclick="javascript:jQuery('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ jQuery('#divFloatToolsView').show();kf_setCookie('RightFloatShown', 0, '', '/', 'www.istudy.com.cn'); });jQuery('#aFloatTools_Show').attr('style','display:none');jQuery('#aFloatTools_Hide').attr('style','display:block');" href="javascript:void(0);">展开</a> <a id="aFloatTools_Hide" class="btnCtn" style="display:none" title="关闭在线客服" onclick="javascript:jQuery('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){jQuery('#divFloatToolsView').hide();kf_setCookie('RightFloatShown', 1, '', '/', 'www.istudy.com.cn'); });jQuery('#aFloatTools_Show').attr('style','display:block');jQuery('#aFloatTools_Hide').attr('style','display:none');" href="javascript:void(0);">收缩</a> </div>
+  <div id="divFloatToolsView" class="floatR" style="display: none;">
+    <div class="tp"></div>
+    <div class="cn">
+      <ul>
+                    <li style="height:71px;">
+                        客服热线<br/>400-6366-800
+                    </li>
+                    <li style="text-align:left;" id="qq_popup">
+                         <a href="#" id="youcherong"  title="点击咨询客服">
+                         </a> 
+                     </li>
+                  
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="wechat_div"  >
+	<img src="/themes/theme_default/images/wx-tu.png">
+	<p class="color-p" >扫一扫加关注</p>
+</div>
+<div class="qq_popup">
+	<p class="title">请发起聊天的方式：</p>
+	<div class="qqimg">
+		<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+			<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+			<dd>QQ账号聊天</dd>
+		</dl>
+		<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+			<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+			<dd><a>匿名聊天</a></dd>
+		</dl>	
+	</div>
+	<img src="/themes/theme_default/images/qq_close.png" class="qq_close"/>
+</div>	
+
+
+
+<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+<script>
+	$(function(){
+		
+		$("#qq_popup").bind("click",function(){
+			var width = $(window).width();
+			var height = $(document).height();
+			var left = (width-500)/2;
+			$(".qq_popup").css("left",left+"px");
+
+			$(".qq_popup").show();
+		})
+		
+		$(".qq_close").bind("click",function(){
+			$(".qq_popup").hide();
+		})
+
+	});
+</script>
+
+<script>
+seajs.use("footer");
+seajs.use("kefu");
+</script>
+
+<style>
+	*{margin: 0;padding: 0;}
+	.qq_popup{width: 500px;position: absolute;border-radius: 5px;border: 1px solid #C5C5C5;overflow: hidden;background: #fff;top: 200px;display:none;}
+	.title{color: #000000;font-weight:bold;height: 30px;line-height: 30px;margin-top: 20px;margin-bottom: 20px;margin-left: 20px;}
+	.qqimg{clear:both;width: 280px;margin: 0 auto;overflow: hidden;}
+	.qqimg dl{float: left;margin-right: 80px;margin-bottom: 100px;width: 100px;height: 86px;cursor: pointer;}
+	.qqimg dl:last-child{margin-right: 0px;}
+	.qqimg dl dt{border: 1px solid #C5C5C5;border-radius: 5px;width: 86px;height: 86px;margin: 0 auto;}
+	.qqimg dl dt img{display: block;border: 1px solid #C5C5C5;border-radius: 5px;width: 80px;height: 80px;margin: 0 auto;vertical-align: middle;margin-top: 3px;}
+	.qqimg dl dd{color: rgb(0,160,230);margin-left:0px;text-align: center;font-weight: bold;margin-top: 5px;height:30px;line-height: 30px;}
+	.qq_close{position: absolute;right: 0;top: 0;cursor: pointer;}
+	.wechat_div{
+		position: fixed;
+		right: 0px;
+		bottom: 20px;
+		width: 110px;
+		text-align: center;
+	}
+	.wechat_div img{
+		width: 100%;
+	}
+	.color-p{
+		color: rgb(35,152,196);
+		text-align: center;
+	}
+	.rz img{vertical-align: middle;}
+</style>

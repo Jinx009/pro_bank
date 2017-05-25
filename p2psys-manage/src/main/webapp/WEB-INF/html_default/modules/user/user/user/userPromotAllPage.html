@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>推荐人功能</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+    $(function() {
+    	dataGrid = $('#getUserList').datagrid({
+            url : '/modules/user/user/user/userPromotAllList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'userId',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'userId', title: '序号', sortable:false},
+			  { field: 'userName', title: '用户名', sortable:false},
+              { field: 'realName', title: '真实姓名', sortable:false},
+              { field: 'inviteUserName', title: '推荐人用户名', sortable:false},
+              { field: 'inviteRealName', title: '推荐人真实姓名', sortable:false},
+              { field: 'email', title: '邮箱地址', sortable:false },
+              { field: 'mobilePhone', title: '电话号码', sortable:false },
+              { field: 'inviteTime', title: '推荐时间', sortable:false ,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}}
+             ]]
+        }); 
+    });
+    function exportExcel(){
+		var url = "/modules/user/user/user/exportExceluserPromotAllList.html";
+		var searchName = $("#searchName").val()
+		var inviteUserName = $("#inviteUserName").val();
+		var inviteRealName = $("#inviteRealName").val();
+		var sou = "?searchName=" + searchName + "&inviteUserName=" + inviteUserName + "&inviteRealName=" + inviteRealName;
+		window.location.href = url + sou;
+	}
+    
+</script>
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<div data-options="region:'north',border:false,collapsible:false" id="searchBox"  style="margin-top:0;">
+		<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入推荐人用户名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>推荐人用户名</span><input type="text" name="inviteUserName" id="inviteUserName" autocomplete="off"/></li>
+		        	<li><span>推荐人真实姓名</span><input type="text" name="inviteRealName" id="inviteRealName" autocomplete="off"/></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+     </div>
+	<div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+	    <table id="getUserList"></table>
+	</div>
+</div>
+</body>
+<script src="${theme_dir}/js/search.js"></script>
+</html>

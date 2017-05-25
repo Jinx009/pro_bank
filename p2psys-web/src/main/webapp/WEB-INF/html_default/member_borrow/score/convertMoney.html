@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+	<div class="usermain clearfix">
+		<!--左边的导航 开始-->
+		<div class="user_left">
+			<#assign mid="m_info" >
+			<#include "../user_menu.html">
+		</div>
+		
+		
+		<div class="user_right">
+			<div class="user_right_menu">
+				<ul class="user_right_menu clearfix">
+					<!-- 未设置密保的场合 -->
+					<li class="h_menu_li">积分兑换现金</li>
+				</ul>
+			</div>
+			<div class="user_right_main">
+				<form action="${webroot}/member/score/doConvertMoney.html" method="post" onSubmit="return check_form()" name="form1">
+					<ul class="pwd_question">
+						<li>
+							<span class="question_tit">
+								真实姓名：
+							</span>
+							<span class="question_txt">${user.realName!''}</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								总积分：
+							</span>
+							<span class="question_txt">${userScore.totalScore!0}
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								已消费积分：
+							</span>
+							<span class="question_txt">${userScore.expenseScore!0}</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								冻结积分：
+							</span>
+							<span class="question_txt">${userScore.freezeScore!0}</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								可用积分：
+							</span>
+							<span class="question_txt">
+								<#if userScore?? && userScore.validScore??><input type="hidden" value="${userScore.validScore!0}" id="validScore"></#if>
+								${userScore.validScore!0}
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								兑换积分：
+							</span>
+							<span class="question_txt">
+								<input type="text" id="score" name="score" onblur="convertMoneyValidate();"  />
+								<span id="realacc">参考到账金额：<font color="#FF0000" id="realMoney">0</font> 元，一切以实际到账金额为准。</span>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								兑换备注：
+							</span>
+							<span class="question_txt">
+								<textarea style="width: 300px;height: 150px;" type="text" name="remark" maxLength="255"/></textarea>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								　
+							</span>
+							<span class="question_txt">
+							<input type="hidden" name="user.userId" value="${user.userId}" />
+							<#if convertToken?? && convertToken != "">
+								<input type="hidden" name="convertToken" value="${convertToken}" />
+							</#if>
+								<input type="submit" class="btn sub_btn" name="submit" value="确认">
+							</span>
+						</li>
+					</ul>
+					
+				</form>	
+				
+			</div>
+			<div class="user_help alert">
+	            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+	            <p>
+	            	100积分兑换1元钱，1000积分起可以兑换。
+	            </p>
+	            <p>
+	            <#if msg?? && msg != "">
+						${msg}
+				</#if>
+	            </p>
+			</div>
+		
+		</div>		
+		<script>
+			function convertMoneyValidate() {
+		   	  	var value = $("#score").val();// 兑换积分
+		   	  	var validScore = $("#validScore").val();// 有效积分
+		   	 	var score = parseInt(value);
+		   	 	var numReg =  /^[0-9]$|^[1-9][0-9]+$/;  
+				if(score != null && score > 0 && score <= validScore && numReg.test(value)){
+				 	jQuery.ajax({
+						url:"${webroot}/member/score/convertMoneyValidate.html",
+						dataType:'json', 
+						success:function(data){
+							if(data != null){
+								var infoMap = data.infoMap;
+								var convertBasic = infoMap.convertBasic;//兑换单元基数
+								var convertMin = infoMap.convertMin;//兑换积分最小基数
+								var userCredit = infoMap.item;//会员积分实体
+								var validScore = userCredit.validScore;//会员有效积分
+								if(userCredit != null && validScore > 0 && validScore >= score){//用户积分实体不为空，有效积分大于等兑换积分
+									if(score >= convertMin){//兑换积分要大于等于最小起兑基数
+										var money = score / convertBasic;
+										document.getElementById('realMoney').innerHTML = money;
+									}else{
+										$("#score").val(0);
+										document.getElementById('realMoney').innerHTML = 0;
+										alert("您的输入的积分小于积分兑换最小"+convertMin+"的起兑基数！");
+									}
+								}else{
+									$("#score").val(0);
+									document.getElementById('realMoney').innerHTML = 0;
+									alert("您的积分信息为空，或有效积分大于兑换积分！");
+								}
+							}
+						},
+						error : function() {
+							$("#score").val(0);
+							document.getElementById('realMoney').innerHTML = 0;
+							alert("您的积分信息有误，请联系管理员！");
+						}
+					}); 
+				 }else if(score == 0){
+					 $("#score").val(0); 
+					 alert("请输入大于0的兑换积分！");
+				 }else{
+					 alert("您的积分不足，不能兑换现金！");
+				 }
+		     }
+			
+			function check_form(){
+				var value = $("#score").val();// 兑换积分
+				var validScore = $("#validScore").val();// 有效积分
+		   	 	var score = parseInt(value);
+		   	 	var numReg =  /^[0-9]$|^[1-9][0-9]+$/;  
+			   	if(score != null && score > 0 && score <= validScore && numReg.test(value)){
+			   		 return true;
+			    }else{
+			    	if(score <= 0){
+				    	$("#score").val(0);
+						document.getElementById('realMoney').innerHTML = 0;
+						alert("请输入大于零的积分！");
+			    	}else if(score > validScore){
+			    		$("#score").val(0);
+						document.getElementById('realMoney').innerHTML = 0;
+						alert("兑换的积分不能大于"+validScore+"有效积分！");
+			    	}else if(!numReg.test(value)){
+			    		$("#score").val(0);
+						document.getElementById('realMoney').innerHTML = 0;
+						alert("输入的积分积分格式不正确！");
+			    	}
+					return false;
+			    }
+			}
+		</script>
+		<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

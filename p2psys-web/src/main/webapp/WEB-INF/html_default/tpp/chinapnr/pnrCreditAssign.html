@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>汇付债权转让投标跳转页面</title>
+</head>
+<body>
+<div align="center">汇付债权转让投标跳转页面跳转中，去不要关闭页面...</div>
+	<form action="${pnr.url}" method="post" id="frm1" style="display: none;">
+		<input type="text" value="${pnr.version}" name="Version" /> 
+		<input type="text" value="${pnr.cmdId}" name="CmdId" /> 
+		<input type="text" value="${pnr.merCustId}" name="MerCustId" /> 
+		<input type="text" value="${pnr.sellCustId}" name="SellCustId" />
+		<input type="text" value="${pnr.creditAmt}" name="CreditAmt" /> 
+		<input type="text" value="${pnr.creditDealAmt}" name="CreditDealAmt" />
+
+		<input type="text" value="${pnr.fee}" name="Fee" />
+
+		<input type="text" value="${pnr.buyCustId}" name="BuyCustId" />
+		<input type="text" value="${pnr.ordId}" name="OrdId" /> 
+		<input type="text" value="${pnr.ordDate}" name="OrdDate" />
+		<input type="text" value="${pnr.retUrl}" name="RetUrl" /> 
+		<input type="text" value="${pnr.bgRetUrl}" name="BgRetUrl" /> 
+		<input type="text" value="${pnr.merPriv}" name="MerPriv" />
+		<textarea rows="6" cols="60" name="BidDetails" >${pnr.bidDetails}</textarea>
+		<textarea rows="6" cols="60" name="DivDetails" >${pnr.divDetails}</textarea>
+		<textarea rows="6" cols="60" name="ChkValue">${pnr.chkValue}</textarea>
+	</form>
+	<script language="javascript">
+		document.getElementById("frm1").submit();
+	</script>
+</body>
+</html>

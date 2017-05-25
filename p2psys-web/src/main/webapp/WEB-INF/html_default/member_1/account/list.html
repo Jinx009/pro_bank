@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/header.html">
+	<link href="${webroot}/media/css/modal.css" rel="stylesheet" type="text/css" />
+	<!--#container-->
+	<div id="container" class="clearfix" >
+		<!--S-usermain-->
+		<div class="usermain">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+				<#include "../user_menu.html">
+			</div>
+			<!--左边的导航user_left 结束-->
+
+			<!--右边的内容user_right 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<#assign account_type="list">
+					<#include "account_menu.html">
+				</div>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+				<div style="line-height:30px; font-size:15px; font-weight:bold">个人资金详情</div>
+				<div class="user_right_border">
+					<div class="linvest">账户总额：<strong>￥<#if summary?exists&&summary.accountTotal?exists>${summary.accountTotal}<#else>0</#if></strong></div>
+					
+					<div class="linvest">可用余额：<font color="#FF0000">￥<#if summary?exists&&summary.accountUseMoney?exists>${summary.accountUseMoney}<#else>0</#if></font></div>
+					
+					<div class="linvest">冻结金额：￥<#if summary?exists&&summary.accountNoUserMoney?exists>${summary.accountNoUserMoney}<#else>0</#if></div>
+					
+				</div><div class="user_right_border">
+					<div class="linvest">投标冻结总额：￥----</div>
+					<div class="linvest">充值成功总额：￥----</div>
+					<div class="linvest">提现成功总额：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">在线充值总额：￥----</div>
+					<div class="linvest">线下充值总额：￥----</div>
+					<div class="linvest">手动充值总额：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">总手续费：￥----</div>
+					<div class="linvest">充值手续费：￥----</div>
+					<div class="linvest">提现手续费：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">最高额度：￥----</div>
+					<div class="linvest">最低额度：￥----</div>
+					<div class="linvest">可用额度：￥----</div>
+				</div>
+				<div style="line-height:30px; font-size:15px; font-weight:bold">投资资金详情</div>
+			
+				<div class="user_right_border">
+					<div class="linvest">投标总额：￥----</div>
+					<div class="linvest">借出总额：￥----</div>
+					<div class="linvest">奖励收入总额：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">待回收总额：￥----</div>
+					<div class="linvest">待回收金额：￥----</div>
+					<div class="linvest">待回收利息：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">已回收总额：￥----</div>
+					<div class="linvest">已回收金额：￥----</div>
+					<div class="linvest">已回收利息：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">网站垫付总额：￥----</div>
+					<div class="linvest">逾期罚金收入：￥----</div>
+					<div class="linvest">损失利息总额：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">最近收款日期：-</div>
+				</div>
+				<div style="line-height:30px; font-size:15px; font-weight:bold">贷款资金详情</div>
+			
+
+				<div class="user_right_border">
+					<div class="linvest">借款总额：￥<#if summary?exists&&summary.borrowTotal?exists>${summary.borrowTotal}<#else>0</#if></div>
+					<div class="linvest">已还总额：￥----</div>
+					<div class="linvest">未还总额：￥----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">发标次数：<#if summary?exists&&summary.borrowTimes?exists>${summary.borrowTimes}<#else>0</#if></div>
+					<div class="linvest">还款标数：----</div>
+					<div class="linvest">待还笔数：----</div>
+				</div>
+				<div class="user_right_border">
+					<div class="linvest">最近还款日期：----</div>
+					<div class="linvest">最近应还款金额：￥----</div>
+				</div>
+				
+				<div class="user_main_title"> 
+					发布时间：<input type="text" name="dotime1" id="dotime1" value="${(dotime1)?default("")}" size="15" onclick="change_picktime()"/> 到 <input type="text"  name="dotime2" value="${(dotime2)?default("")}" id="dotime2" size="15" onclick="change_picktime()"/>   
+					<input value="搜索" type="submit" class="btn sub_btn"  onclick="sousuo('index.php?user&q=code/account/publish')" />
+				</div>	
+				
+					<table  border="0"  cellspacing="1" class="table table-striped  table-condensed"  width="300" style="margin-top:20px;">
+						<tr class="head"  width="300">
+							<td>日期</td>
+							<td>成功借款+</td>
+							<td>借款手续费-</td>
+							<td>借款保证金-</td>
+							<td>借款奖励-</td>
+							<td>投标-</td>
+							<td>待收总额+</td>
+							<td>投标奖励+</td>
+					        <td>担保奖励+</td>
+					        <td>利息收入+</td>
+							<td>还款-</td>
+							<td>充值+</td>
+							<td>提现-</td>
+						</tr>
+						<tr>
+							<td>2012-08-15</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+				            <td>￥</td>
+				            <td>￥</td>
+							<td>￥0</td>
+							<td>￥0</td>
+							<td>￥0</td>
+						</tr>		
+					</table>	
+				</div>
+					<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	</div>
+<script>
+var url = "index.php?user&q=code/account/list";
+function sousuo(){
+	var _url = "";
+	var dotime1 = jQuery("#dotime1").val();
+	var keywords = jQuery("#keywords").val();
+	var username = jQuery("#username").val();
+	var dotime2 = jQuery("#dotime2").val();
+	var type = jQuery("#type").val();
+	if (username!=null){
+		 _url += "&username="+username;
+	}
+	if (keywords!=null){
+		 _url += "&keywords="+keywords;
+	}
+	if (dotime1!=null){
+		 _url += "&dotime1="+dotime1;
+	}
+	if (dotime2!=null){
+		 _url += "&dotime2="+dotime2;
+	}
+	if (type!=null){
+		 _url += "&type="+type;
+	}
+	location.href=url+_url;
+}
+</script>
+<script src="${webroot}${theme_dir}/media/js/modal.js"></script>
+
+	<!--#container-->
+	<#include "../../include/footer.html">

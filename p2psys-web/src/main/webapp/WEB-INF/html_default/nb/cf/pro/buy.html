@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />		
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/url.js" ></script>
+<script src="/themes/theme_default/cf/js/pro/buy.js" ></script>
+<style type="text/css">
+.fame , .contents{
+	color: #ff7777;
+	font-size: 12px;
+	cursor: pointer;
+}
+</style>
+</head>
+<body class="bg">
+<input type="hidden" id="payStatus" value="${payStatus}" >
+<input type="hidden" id="profit" value="${profit}" >
+<input type="hidden" id="type" value="${projectBaseinfo.type}" >
+<input type="hidden" id="id" value="${projectBaseinfo.id}" >
+<input type="hidden" id="virtual" value="${virtual}" >
+<input type="hidden" id="account" value="${account}" >
+<div class="main">
+	<#include "../include/header.html">
+	<div class="middle-content">
+		<div class="order-content">
+			<h1 class="order-title">提交订单：${projectBaseinfo.projectName}</h1>	
+			<form class="form-horizontal order-form">
+				<div class="form-group">
+				    <label class="col-sm-2 control-label">交易方式:</label>
+				    <div class="col-sm-10 sm-inp">
+				      <div class="col-sm-2 col-no-padding" id="checkDiv1" ><input type="checkbox" id="check1" onclick="doCheck('1')" ><span>预约</span></div>
+				      <div class="col-sm-2 col-no-padding" id="checkDiv2" ><input type="checkbox" id="check2" onclick="doCheck('2')" checked="checked"  ><span>全额</span></div>
+				    </div>
+			    </div>
+			    <div class="form-group" id="selectMoneyDiv" >
+			    	<label class="col-sm-2 control-label">选择金额:</label>
+			    	<div class="col-sm-10" >
+			    		<select class="form-control big-inp" disabled="disabled" id="selectMoney" onchange="getProfitId()"  ></select>
+			    	</div>
+			    </div>
+			    <div class="form-group" id="minMoneyDiv" >
+			    	<label class="col-sm-2 control-label">起投金额:</label>
+			    	<div class="col-sm-10">
+			    		<p class="form-control-static start-money" id="minMoney" >${projectBaseinfo.minMoney}</p>
+			    	</div>
+			    </div>
+				<!--输入份数-->
+			    <div class="form-group" id="buyNumDiv" >
+			    	<label class="col-sm-2 control-label">请输入份数:</label>
+			    	<div class="col-sm-10">
+			    		<div class="col-sm-2 col-no-padding sm-btn disable-btn" onclick="sub();">-</div>
+			    		<input type="text" class="col-sm-4 form-control middle-inp" value="" id="buyNum" readonly="readonly" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" />
+			    		<div class="col-sm-2 col-no-padding sm-btn" onclick="add();">+</div>
+			    	</div>
+			    </div>
+			        <!--输入金额-->
+			    <div class="form-group">
+			    	<label class="col-sm-2 control-label">投资金额:</label>
+			    	<div class="col-sm-10">
+			    		<input type="text" class="form-control big-inp" id="money" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"  readonly="readonly" value="" />
+			    		<p class="fame"></p>
+			    		<div class="contents" style="display: none;"></div>
+			    	</div>
+			    </div>
+			     <div class="form-group">
+			    	<label class="col-sm-2 control-label">实付金额:</label>
+			    	<div class="col-sm-10">
+			    		<p class="form-control-static end-money" id="realMoney" ></p>
+			    	</div>
+			    </div>
+			   <div class="form-group" id="virtualDiv"  style="display: none;"  >
+			    	<label class="col-sm-2 control-label">虚拟金额:</label>
+			    	<div class="col-sm-10">
+			    		<p class="form-control-static end-money" id="realMoney" ></p>
+			    	</div>
+			    </div>
+			    <div class="form-group none" id="heheDiv">
+			    	<label class="col-sm-2 control-label">保证金额度:</label>
+			    	<div class="col-sm-10">
+			    		<p class="form-control-static" id="hehe" ></p>
+			    	</div>
+			    </div>
+			    <div class="form-group" id="profitNumDiv" >
+			    	<label class="col-sm-2 control-label">股权分析:</label>
+			    	<div class="col-sm-10">
+			    		<p class="form-control-static" id="profitNum" ></p>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<label class="col-sm-2 control-label">交易密码:</label>
+			    	<div class="col-sm-10">
+			    		<input type="password" class="form-control big-inp" id="payPwd" value="" maxlength="6" />
+			    	</div>
+			    </div>
+			    
+			    <div class="form-group">
+			    	<label class="col-sm-2 control-label">收益详情:</label>
+			    	<div class="col-sm-10">
+			    		<textarea class="col-sm-12 form-control" rows="4" readonly="readonly"  id="profitInfo" ></textarea>
+			    	</div>
+			    </div>
+			     <div class="form-group">
+				    <label class="col-sm-2 control-label"></label>
+				    <div class="col-sm-10 sm-inp">
+					      <div class="col-sm-2 col-no-padding xiyi">
+					        <input type="checkbox" onclick="return false;" checked="checked"><span onclick="openRisk();">风险提示书</span>
+					    </div>
+					    <div class="col-sm-2 col-no-padding xiyi">
+					        <input type="checkbox" onclick="return false;" id="hehecheck" style="display: none" checked="checked"><span id="hehehe"></span>
+					    </div>
+				     </div>
+			    </div>
+			    <div class="form-btn">
+				  	<span class="product-detail-btn " onclick="doBuy()" >确定</span>
+				  	<span class="product-detail-btn disable-btn" onclick="goBack()" >返回</span>
+			    </div>	
+			    
+			</form>
+		</div>
+	</div>
+</div>
+
+<#include "../include/protocol.html"> 
+<#include "../include/footer.html"> 
+<script type="text/javascript">
+	showLi('project_li');
+</script>
+</body>
+</html>

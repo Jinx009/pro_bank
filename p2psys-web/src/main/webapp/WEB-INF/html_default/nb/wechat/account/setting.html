@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	<title>800Bank</title>
+	<script src="/themes/theme_default/dist/jquery.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/account/setting.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+	<script>
+		$(function () {
+			// 导航颜色修改
+        $("#foot_nav_set_a").css("color","#326eaf").find("svg").css({"fill":"#326eaf","stroke-width":"0"});	
+		});
+	</script>
+	<style>
+		/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+
+/* 底部导航*/
+	</style>
+</head>
+<body>
+	<p class="title">设置</p>
+
+	  <#if bankList?? && bankList?size gt 0 >
+		  <div class="row">
+			  <a href="/nb/wechat/cash/bank.html" style="text-decoration:none;display:block;">
+			  	  <img class="row_icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png">
+			  	  <span>我的银行卡</span>
+				  <span class="row_value" id="bank_type" >已绑定</span>
+			  </a>
+		  </div>
+	  <#else>
+		  <!-- <div class="row">
+			  <a href="/nb/wechat/cash/addBankPage.html" style="text-decoration:none;display:block;">
+			  	  <img class="row_icon" src="/themes/theme_default/nb/wechat/img/setCard.png">
+			      <span>我的银行卡</span>
+			  </a>
+		  </div> -->
+	  </#if>
+	
+	
+	<div class="row"  id="account_div" onclick="goToUserList()"  >
+		<img src="/themes/theme_default/nb/wechat/img/phone.png" class="row_icon"/>
+		<span>我的手机号码</span>
+	</div>
+	
+	<div class="row"   >
+		<img src="/themes/theme_default/nb/wechat/img/setLoginPwd.png" class="row_icon"/>
+		<span>邀请码</span>
+		<span class="row_value" id="code"  >${promotCode}</span>
+	</div>
+	
+	<div class="row"   >
+		<a href="/nb/wechat/account/changePwd.html" style="text-decoration:none;display:block;">
+			   <img class="row_icon" src="${webroot}${theme_dir}/wx/static/css/images/lock.png">
+			   <span>修改登陆密码</span>
+		</a>
+	</div>
+	
+	<div class="row"   >
+		<a id="payPwdLink"  href="/nb/wechat/account/changePayPwd.html?redirectURL=/nb/wechat/account/setting.html" style="text-decoration:none;display:block;">
+			   <img class="row_icon" src="${webroot}${theme_dir}/wx/static/css/images/lock.png">
+			   <span id="payPwdText" >修改交易密码</span>
+			   <span id="payPwdStatus" style="display:none;" >${payPwd}</span>
+		</a>
+	</div>
+	
+	<div class="row" id="wechat_div" style="display: none;" onclick="getUser()" >
+		<img src="/themes/theme_default/nb/wechat/img/setLoginPwd1.png" class="row_icon"/>
+		<span  style="color:#ff5a5a;">邀请好友</span>
+		<input type="hidden" value="${wechat}" id="wechat" >
+		<input type="hidden" value="${wechatUrl}" id="wechatUrl" >
+	</div>
+	
+	
+	<div class="row" id="wechat_div_phone" style="display: none;">
+	  <a href="tel:400-6366-800" > <div> <img src="/themes/theme_default/nb/wechat/img/kefu.png" class="row_icon"/>
+		联系客服
+		</div>
+		</a>
+	</div>
+	
+	<div class="row" id="cacle_div"  onclick="cacleBind()" >
+		<img src="/themes/theme_default/nb/wechat/img/setLoginPwd.png" class="row_icon"/>
+		<span >退出账号</span>
+	</div>
+	
+	<div class="success-alert"  id="success_div" onclick="successUrl()"  >
+		<div class="space-div" ></div>
+	    <img src="/themes/theme_default/nb/wechat/images/open.png" width="45px"  >
+	   	<div class="space-div" ></div>
+	   	<p class="error-p" id="errorMsg" >恭喜您，退出成功!</p>
+	   	<div class="space-div" ></div>
+	   	<div class="space-div" ></div>
+	   	<div class="error-btn" onclick="goBind()"  >确定</div>
+	   	<div class="space-div" ></div>
+	</div>
+
+	<div class="well big-well" id="mask_div"></div>
+	
+	<div class="sureBtn2" style="display: none" onclick="loginOut()"  id="login_out"  >退出当前账户</div>
+	
+	<!--底部导航-->
+    <div class="foot-blank"></div>    
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+    <!-- 底部导航 -->
+</body>
+</html>

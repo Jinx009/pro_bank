@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/account/main.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+		<script src="/themes/theme_default/dist/jquery.js" ></script>
+		<script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+		<script src="/themes/theme_default/nb/wechat/js/account/account.js" ></script>
+	</head>
+	<body>
+	
+		<div class="main-top">
+			<div class="main-top-wrap">
+				<h2>总资产(元)</h2>
+				<p class="account-money" id="total"></p>
+				<h2>累计收益</h2>
+				<p class="account-income-money" id="netProfit"></p>
+			</div>
+		</div>
+		<div style="background:#326eaf;width:90%;padding:0 5%;color:#a7d1ff;text-align: center;font-size:12px;height:16px;line-height:16px;">累计收益：截止昨日已获得的投资收益(含未到期)</div>
+		<div class="main-bottom">
+			<ul class="main-bottom-col-one">
+				<li><div class="main-bottom-li-left">可用余额</div><div class="main-bottom-li-right" id="useMoney"></div></li>
+				<li><a href="/nb/wechat/account/collect.html"><div class="main-bottom-li-left">待收余额</div><div class="main-bottom-li-right" ><b id="collect_mb"></b><span>&gt;</span></a></li>
+				<li><a href="/nb/wechat/account/lock.html"><div class="main-bottom-li-left">锁定余额</div><div class="main-bottom-li-right" ><b id="noUseMoney"></b><span>&gt;</span></a></li>
+			</ul>
+			<div class="clear"></div>
+			<ul class="main-bottom-col-two">
+				<li><a href="/nb/wechat/account/experienceGold.html"><div class="main-bottom-li-left">新手专享</div><div class="main-bottom-li-right text-gray" style="color: rgb(142,142,142)" >年化10.88%<span>&gt;</span></a></li>
+				<li><a href="/nb/wechat/account/redPacket.html"><div class="main-bottom-li-left red-text">我的红包</div><div class="main-bottom-li-right"><b id="redPacketMoney" style="color: rgb(142,142,142)"  ></b><span>&gt;</span></a></li>
+				<li><a href="/nb/wechat/account/coupons.html"><div class="main-bottom-li-left red-text">我的加息券</div><div class="main-bottom-li-right"><b id="couponsMoney" style="color: rgb(142,142,142)"  ></b><span>&gt;</span></a></li>
+			</ul>
+			<div class="clear"></div>
+			<ul class="main-bottom-col-three">
+				<li><a href="/nb/wechat/account/assets.html"><div class="main-bottom-li-left">投资详情</div><div class="main-bottom-li-right"><span>&gt;</span></a></li>
+				<li><a href="/nb/wechat/account/log.action"><div class="main-bottom-li-left">资金明细</div><div class="main-bottom-li-right"><span>&gt;</span></a></li>
+				<li><a href="/nb/wechat/account/recommendProfitRecord.html"><div class="main-bottom-li-left">推荐收益</div><div class="main-bottom-li-right"><span>&gt;</span></a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="account-btn">
+			<a href="/nb/wechat/recharge/newRecharge.html?operType=recharge"  ><button type="button" id="recharge">充值</button></a>
+            <a href="javascript:showError()"><button type="button" id="cash">提现</button></a>
+		</div>
+		
+		<div class="success-alert"  id="success_div" onclick="hideError()" style="text-align: left;" >
+		   	<div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;line-height: 20px;"><h3><b class="user_help_tip"></b>温馨提示</h3>到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账； 遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。
+		  		<div style="height: 30px" ></div>
+		  	</div>
+		   	<div class="error-btn" id="divText"  style="text-align: center;">确定</div>
+		   	<div class="space-div" ></div>
+		</div>
+		<!--底部导航-->
+    	<#include "../../include/wechat_footer.html">
+    	<!-- 底部导航 -->
+	</body>
+	
+</html>

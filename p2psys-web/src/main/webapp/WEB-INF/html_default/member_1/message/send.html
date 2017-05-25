@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix" >
+<div class="usermain  clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+    	<#assign mid="m_info" >
+		<#include "../account_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<h2 class="user_title">通知设置</h2>
+		<div class="noticeConfig clearfix">
+			<ul class="noticeConfig_tab">
+				<li>通知类型</li>
+			</ul>
+			<div class="noticeConfig_tab_content">
+				<form id="form1" action="/member/message/noticeUserSet.html">
+					<table class="noticeConfig_talbe">
+						<thead>
+							<tr>
+								<th>操作类型</th>
+								<th>短信</th>
+								<th>邮件</th>
+								<th>站内信</th>
+								<th>解释说明</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<input name="list[0].nid" value="recharge_succ" type="hidden"/>
+								<input name="list[0].user.userId" value="${user.userId}" type="hidden" />
+								<input name="list[0].id" value="<#if unConfigList??>${unConfigList[0].id}</#if>" type="hidden" />
+								<td>线上充值成功</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[0].sms" 
+									<#if unConfigList??&&unConfigList[0].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[0].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[0].email"
+									<#if unConfigList??&&unConfigList[0].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[0].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[0].message"
+									<#if unConfigList??&&unConfigList[0].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[0].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[1].nid" value="new_borrow" type="hidden"/>
+								<input name="list[1].user.userId" value="${user.userId}" type="hidden" />
+								<input name="list[1].id" value="<#if unConfigList??>${unConfigList[1].id}</#if>" type="hidden" />
+								<td>新借款标发布</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[1].sms"
+									<#if unConfigList??&&unConfigList[1].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[1].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[1].email"
+									<#if unConfigList??&&unConfigList[1].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[1].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[1].message"
+									<#if unConfigList??&&unConfigList[1].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[1].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[2].nid" value="borrow_verify_succ" type="hidden"/>
+								<input name="list[2].user.userId" value="${user.userId}" type="hidden" />
+								<input name="list[2].id" value="<#if unConfigList??>${unConfigList[2].id}</#if>" type="hidden" />
+								<td>后台初审通过</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[2].sms"
+									<#if unConfigList??&&unConfigList[2].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[2].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[2].email"
+									<#if unConfigList??&&unConfigList[2].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[2].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[2].message"
+									<#if unConfigList??&&unConfigList[2].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[2].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[3].nid" value="borrow_verify_fail" type="hidden"/>
+								<input name="list[3].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[3].id" value="<#if unConfigList??>${unConfigList[3].id}</#if>" type="hidden" />
+								<td>后台初审不通过</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[3].sms"
+									<#if unConfigList??&&unConfigList[3].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[3].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[3].email"
+									<#if unConfigList??&&unConfigList[3].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[3].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[3].message"
+									<#if unConfigList??&&unConfigList[3].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[3].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[4].nid" value="borrow_cancel" type="hidden"/>
+								<input name="list[4].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[4].id" value="<#if unConfigList??>${unConfigList[4].id}</#if>" type="hidden" />
+								<td>借款标取消</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[4].sms"
+									<#if unConfigList??&&unConfigList[4].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[4].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[4].email"
+									<#if unConfigList??&&unConfigList[4].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[4].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[4].message"
+									<#if unConfigList??&&unConfigList[4].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[4].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[5].nid" value="invest_succ" type="hidden"/>
+								<input name="list[5].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[5].id" value="<#if unConfigList??>${unConfigList[5].id}</#if>" type="hidden" />
+								<td>投标成功</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[5].sms"
+									<#if unConfigList??&&unConfigList[5].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[5].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[5].email"
+									<#if unConfigList??&&unConfigList[5].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[5].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[5].message"
+									<#if unConfigList??&&unConfigList[5].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[5].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[6].nid" value="invest_fail" type="hidden"/>
+								<input name="list[6].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[6].id" value="<#if unConfigList??>${unConfigList[6].id}</#if>" type="hidden" />
+								<td>投标失败</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[6].sms"
+									<#if unConfigList??&&unConfigList[6].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[6].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[6].email"
+									<#if unConfigList??&&unConfigList[6].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[6].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[6].message"
+									<#if unConfigList??&&unConfigList[6].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[6].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[7].nid" value="auto_tender" type="hidden"/>
+								<input name="list[7].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[7].id" value="<#if unConfigList??>${unConfigList[7].id}</#if>" type="hidden" />
+								<td>自动投标成功</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[7].sms"
+									<#if unConfigList??&&unConfigList[7].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[7].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[7].email"
+									<#if unConfigList??&&unConfigList[7].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[7].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[7].message"
+									<#if unConfigList??&&unConfigList[7].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[7].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[8].nid" value="auto_tender" type="hidden"/>
+								<input name="list[8].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[8].id" value="<#if unConfigList??>${unConfigList[8].id}</#if>" type="hidden" />
+								<td>自动投标成功</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[8].sms"
+									<#if unConfigList??&&unConfigList[8].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[8].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[8].email"
+									<#if unConfigList??&&unConfigList[8].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[8].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[8].message"
+									<#if unConfigList??&&unConfigList[8].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[8].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[9].nid" value="borrow_full_succ" type="hidden"/>
+								<input name="list[9].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[9].id" value="<#if unConfigList??>${unConfigList[9].id}</#if>" type="hidden" />
+								<td>满标审核通过</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[9].sms"
+									<#if unConfigList??&&unConfigList[9].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[9].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[9].email"
+									<#if unConfigList??&&unConfigList[9].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[9].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[9].message"
+									<#if unConfigList??&&unConfigList[9].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[9].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[10].nid" value="borrow_full_fail" type="hidden"/>
+								<input name="list[10].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[10].id" value="<#if unConfigList??>${unConfigList[10].id}</#if>" type="hidden" />
+								<td>满标审核失败</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[10].sms"
+									<#if unConfigList??&&unConfigList[10].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[10].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[10].email"
+									<#if unConfigList??&&unConfigList[10].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[10].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[10].message"
+									<#if unConfigList??&&unConfigList[10].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[10].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[11].nid" value="receive_repay" type="hidden"/>
+								<input name="list[11].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[11].id" value="<#if unConfigList??>${unConfigList[11].id}</#if>" type="hidden" />
+								<td>借款人还款</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[11].sms"
+									<#if unConfigList??&&unConfigList[11].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[11].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[11].email"
+									<#if unConfigList??&&unConfigList[11].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[11].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[11].message"
+									<#if unConfigList??&&unConfigList[11].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[11].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+							<tr>
+								<input name="list[12].nid" value="repay_succ" type="hidden"/>
+								<input name="list[12].user.userId" value="${user.userId}" type="hidden"/>
+								<input name="list[12].id" value="<#if unConfigList??>${unConfigList[12].id}</#if>" type="hidden" />
+								<td>还款成功</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[12].sms"
+									<#if unConfigList??&&unConfigList[12].sms==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[12].sms==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[12].email"
+									<#if unConfigList??&&unConfigList[12].email==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[12].email==1>1<#else>0</#if>"/>
+								</td>
+								<td>
+									<span class="switch"><label class="switchBtn" for="repayment" title="点击开启"></label></span>
+									<input class="on_off" type="checkbox" name="list[12].message"
+									<#if unConfigList??&&unConfigList[12].message==1>checked="checked"</#if> value="<#if unConfigList??&&unConfigList[12].message==1>1<#else>0</#if>"/>
+								</td>
+								<td>解释说明文字</td>
+							</tr>
+						</tbody>
+					</table>
+					<input type="button" value="保存设置" class="saveSetting_btn"/>
+				</form>
+			</div>
+		</div>
+		
+		
+ 	 </div>
+	<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<script>seajs.use('member/message_send');</script>
+<#include "../../include/footer.html"> 
+</body>
+</html>

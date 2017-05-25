@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="guarantee"> 
+	<#include "../../include/member_guarantee_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--右边的内容 开始-->
+			<div class="user_right_guaranteeList">
+				<h2 class="user_title">担保项目</h2>
+				<div class="user_right_main">
+					<ul class="member_search">
+						<li id="shortTime">
+							发标时间
+							<span id="timeStatus">
+								<a href="javascript:;" class="current" data-val="0">全部</a>
+								<a href="javascript:;" data-val="7">最近7天</a>
+								<a href="javascript:;" data-val="1">1个月</a>
+								<a href="javascript:;" data-val="2">2个月</a>
+								<a href="javascript:;" data-val="3">3个月</a>
+								<em>具体日期&gt;&gt;</em>	
+							</span>	
+						</li>
+						<li id="fullTime" style="display:none;">
+							起止日期
+							<input type="text" class="dateInput" name="startTime" id="startTime" value="${startTime?default('')}"/> - 
+							<input type="text" class="dateInput" name="endTime" id="endTime" value="${endTime?default('')}"/>
+							<input id="searchBtn" value="搜索" type="button" class="searchBtn">
+							<em>&lt;&lt;日期范围</em>	
+						</li>
+						<li>
+							借款人&nbsp;&nbsp;&nbsp;
+							<input type="text" name="borrowName" placeholder="请输入借款人姓名" class="sInput"/>
+							<input id="searchBtn" value="搜索" type="button" class="searchBtn" />
+						</li>
+					</ul>
+					<table id="member_table" class="table_content"></table>
+					<div id="kkpager"></div>
+				</div>	
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member_guarantee/guarantee_guaranteeList');</script>
+	<script src="/plugins/laydate-v1.1/laydate.js"></script>
+	<script src="/themes/theme_default/media/js/date.js"></script>
+	<#include "../../include/footer.html">
+</body>
+</html>

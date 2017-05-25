@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<title>800财富</title>
+		<script src="/themes/theme_default/dist/jquery.js"></script>
+		<script type="text/javascript" src="/themes/theme_default/nb/wechat/js/card/card2.js" ></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript">
+		wx.config({
+		    debug: false,
+		    appId: '${appId}',
+		    timestamp:${timestamp},
+		    nonceStr: '${nonceStr}',
+		    signature: '${signature}',
+		    jsApiList: [
+		      'checkJsApi',
+		      'onMenuShareTimeline',
+		      'onMenuShareAppMessage',
+		      'onMenuShareQQ',
+		      'onMenuShareWeibo',
+		      'hideMenuItems',
+		      'showMenuItems',
+		      'hideAllNonBaseMenuItem',
+		      'showAllNonBaseMenuItem',
+		      'translateVoice',
+		      'startRecord',
+		      'stopRecord',
+		      'onRecordEnd',
+		      'playVoice',
+		      'pauseVoice',
+		      'stopVoice',
+		      'uploadVoice',
+		      'downloadVoice',
+		      'chooseImage',
+		      'previewImage',
+		      'uploadImage',
+		      'downloadImage',
+		      'getNetworkType',
+		      'openLocation',
+		      'getLocation',
+		      'hideOptionMenu',
+		      'showOptionMenu',
+		      'closeWindow',
+		      'scanQRCode',
+		      'chooseWXPay',
+		      'openProductSpecificView',
+		      'addCard',
+		      'chooseCard',
+		      'openCard'
+		    ]
+		});
+
+		wx.ready(function () 
+		{
+			wx.checkJsApi({
+		    jsApiList: ['chooseImage'],
+		    success: function(res)
+			{
+		    	 wx.hideMenuItems(
+ 		    	{
+ 		    		menuList: ['menuItem:share:qq','menuItem:share:QZone','menuItem:share:weiboApp',
+ 		    			      'menuItem:copyUrl','menuItem:openWithQQBrowser','menuItem:originPage',
+ 		    			      'menuItem:readMode','menuItem:openWithSafari'] 
+ 		    	});
+		    	wx.showMenuItems({
+		    	    menuList: [ 'menuItem:share:appMessage','menuItem:share:timeline'] 
+		    	});
+			}
+			});
+			wx.onMenuShareTimeline({
+			 title: '京东第二波现金红包来袭，再不来抢就没了！',
+			 desc:'新八君正在派发京东红包，趁手没剁之前，先抢了再说！',
+			 link: 'http://www.800bank.com.cn/nb/wechat/card/qcard.action', 
+			 imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/card/card_red_packet.jpg', 
+			 success: function ()
+			 {
+				 showResult();
+			 },
+			  cancel: function () {}
+		 	});
+			wx.onMenuShareAppMessage({
+				title: '我正在抢100元京东红包，中奖率100%',
+				desc:'京东第二波现金红包来袭，再不来抢就没了！',
+				link: 'http://www.800bank.com.cn/nb/wechat/card/qcard.action', 
+				imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/card/card_red_packet.jpg', 
+			    success: function ()
+			    {
+			    	showResult();
+			    },
+			    cancel: function (){}
+			});
+		});
+		wx.error(function(res){});    
+		</script>
+		
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/card/card.css" />
+	</head>
+	<body>
+		<input type="hidden" id="userId" value="${userId}" >
+		<input type="hidden" id="status" value="${status}" >
+		<input type="hidden" id="url" value="${url}" >
+		<img src="/themes/theme_default/nb/wechat/images/card/red_bg.png" class="red_bg"/>
+		<img src="/themes/theme_default/nb/wechat/images/card/red_bg_one.png" class="red_bg_one"/>
+		<div class="result">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png" class="red_index"/>
+			<h1 class="red_h1 red_msg">恭喜您</h1>
+			<h3 class="red_h3 red_msg1">131****0000</h3>
+			<h3 class="red_h3 red_msg2">您获得了1元京东红包</h3>
+			<div class="red_btn">
+				<img src="/themes/theme_default/nb/wechat/images/card/see_btn.png"/>
+			</div>
+		</div>
+		
+		<div class="result_edit">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png"  class="red_index"/>
+			<h2 class="red_h2 red_msg">恭喜您获得</h2>
+			<h3 class="red_h3 red_msg1">1元京东红包</h3>
+			<div class="red_btns">
+				<input type="tel" id="mobilePhone"  class="phone_edit" placeholder="手机号码"/>
+				<img src="/themes/theme_default/nb/wechat/images/card/send_btn.png" onclick="reSendMsg()"  />
+			</div>
+		</div>
+		
+		<div class="rule">
+			<h3>活动规则：</h3>
+			<p>1、活动时间2015年11月3日12:00-2015年11月10日22:00</p>
+			<p>2、参与方式：</p>
+			<p>1）用户点击抽奖按钮</p>
+			<p>2）点击右上角分享至朋友圈，查看中奖信息</p>
+			<p>3）若未中奖，还可享受一次机会</p>
+			<p>4）中奖后输入手机号，红包信息将直接发送至手机</p>
+			<p>5）若忘记红包信息还可点击再次获取</p>
+			
+			<p>3、红包信息</p>
+			<p>1）参与本次活动的用户将有机会获得面值为不等的京东电子券。</p>
+			<p>2）该电子券可在京东网上商城“京东自营”范围内购买产品时抵扣现金</p>
+			
+			<p class="tip">本次活动最终解释权归800Bank所有</p>
+			<img src="/themes/theme_default/nb/wechat/images/card/getRed_btn.png" class="getRedBtn" onclick="doActivity();" />
+		</div>
+		
+		<div class="again">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png" class="red_index"/>
+			<div class="text-msg">
+				<h3 class="red_h3">手气不太旺哦，</h3>
+				<h3 class="red_h3">别灰心，</h3>
+				<h3 class="red_h3">期待参与下次活动。</h3>
+			</div>
+		</div>
+		
+		<div class="playAgain">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png" class="red_index"/>
+			<div class="text-msg">
+				<h3 class="red_h3">很遗憾</h3>
+				<h3 class="red_h3">您没中奖</h3>
+			</div>
+			<div class="red_btn">
+				<img src="/themes/theme_default/nb/wechat/images/card/playAgain_btn.png" onclick="showIndex()" />
+			</div>
+		</div>
+		
+		<div class="sure">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png" class="red_index"/>
+			<div class="sure_btns">
+				<input type="tel" class="phone_edit" placeholder="手机号码"/>
+				<img src="/themes/theme_default/nb/wechat/images/card/sure_btn.png"  />
+			</div>
+		</div>
+		
+		<div class="code">
+			<img src="/themes/theme_default/nb/wechat/images/card/code.png" class="code_bg"/>
+			<div class="code-text">
+				<h3 class="red_p red_p_bottom">长按识别二维码，关注800财富</h3>
+				<h3 class="red_p">点击我要抽奖</h3>
+			</div>
+		</div>
+	
+		<div class="share">
+			<img src="/themes/theme_default/nb/wechat/images/card/red_index.png" class="red_index"/>
+			<div class="text-msg">
+				<p class="red_p">点击右上角分享</p>
+				<p class="red_p">到朋友圈查看结果!</p>
+			</div>
+		</div>
+	</body>
+</html>

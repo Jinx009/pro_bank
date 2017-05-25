@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>新生充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <form action="${payment.url}" method="get" id="orderForm">
+		<input type="hidden" name="version"  value="${payment.version}">
+		<input type="hidden" name="serialID"  value="${payment.serialID}">
+		<input type="hidden" name="submitTime"  value="${payment.submitTime}">
+		<input type="hidden" name="failureTime"  value="${payment.failureTime}">
+		<input type="hidden" name="customerIP"  value="${payment.customerIP}">
+		<input type="hidden" name="orderDetails"  value="${payment.orderDetails}">
+		<input type="hidden" name="totalAmount"  value="${payment.totalAmount}">
+		<input type="hidden" name="type"  value="${payment.type}">
+		<input type="hidden" name="buyerMarked"  value="${payment.buyerMarked}">
+		<input type="hidden" name="payType"  value="${payment.payType}">
+		<input type="hidden" name="orgCode"  value="${payment.orgCode}">
+		<input type="hidden" name="currencyCode"  value="${payment.currencyCode}">
+		<input type="hidden" name="directFlag"  value="${payment.directFlag}">
+		<input type="hidden" name="borrowingMarked"  value="${payment.borrowingMarked}">
+		<input type="hidden" name="couponFlag"  value="${payment.couponFlag}">
+		<input type="hidden" name="platformID"  value="${payment.platformID}">
+		<input type="hidden" name="returnUrl"  value="${payment.returnUrl}">
+		<input type="hidden" name="noticeUrl"  value="${payment.noticeUrl}">
+		<input type="hidden" name="partnerID"  value="${payment.partnerID}">
+		<input type="hidden" name="remark"  value="${payment.remark}">
+		<input type="hidden" name="charset"  value="${payment.charset}">
+		<input type="hidden" name="signType"  value="${payment.signType}">
+		<input type="hidden" name="signMsg"  value="${payment.signMsg}">
+		<input type="hidden" name="orderID"  value="${payment.orderID}">
+    </form>
+    <script type="text/javascript">
+		document.getElementById("orderForm").submit();
+    </script>
+  </body>
+</html>

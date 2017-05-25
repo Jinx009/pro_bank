@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>推荐人纪录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+    	<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text" id="inviteUserName" name="inviteUserName" class="sInput" placeholder="输入推荐人姓名/用户名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                                    <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+				<a id="a" href="javascript:void(0);" onclick="exportExcel();" class="addBtn">
+					导出Excel
+				</a>
+			</div>
+        </div>
+        
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 600;
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'recommendProfitRecordList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50,fixed:true, sortable:false }, 
+			  { field: 'inviteUserName', title: '推荐人',  fixed:true,sortable:false },
+			  { field: 'userName', title: '投资(被推荐)人',  fixed:true,sortable:false},
+              { field: 'projectName', title: '项目', width: 150, sortable:false },   
+              { field: 'money', title: '推荐人获取的收益', width: 100, sortable:false,formatter: function(value,row,index)
+            	{
+            	  return value+"元";
+              } },
+              { field: 'account', title: '投资人投资金额', width: 100, sortable:false,formatter: function(value,row,index)
+            	 {
+            	  return value+"元";
+              } },
+              { field: 'addTime', title: '添加时间', width: 180, fixed:true,sortable:false, 
+            	  	formatter: function(value,row,index)
+            	  	{
+            	  		return getLocalTime(value,4);
+  				  	}  
+              }] ]
+        });
+    });
+    function exportExcel() {
+    	var url = "/modules/nb/recommend/exportRecommendProfitRecordList。html";
+    	var sou = "?inviteUserName=" + $("#inviteUserName").val();
+    	window.location.href = url + sou;
+    }
+</script>
+<script src="${theme_dir}/js/search.js"></script>

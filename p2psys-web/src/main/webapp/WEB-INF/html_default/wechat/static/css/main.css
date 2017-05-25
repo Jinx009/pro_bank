@@ -1,0 +1,371 @@
+body, input, select, textarea, a, pre{
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+body, div, h1,h2,h3,h4,h5,h6, ul, li, dl, dt, dd, i, em, pre, option,p {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #f9f9f9;
+}
+body.cfff {
+  background: #fff;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;}
+.clr { clear: both; height: 0;}
+a:link, a:visited {
+  color: #333;
+  text-decoration: none;
+}
+.button {
+ // display: inline-block;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  height: 40px;
+ //line-height: 40px;
+  border: 1px solid #2370b6;
+  color: #2370b6;
+  font-size: 16px;
+}
+.button.button-block {
+  display: block;
+  margin: 0 10px;
+  text-align: center;
+}
+.button.button-main {
+  background-color: #2370b6;
+  color: #fff;
+}
+.fs12 {
+  font-size: 12px;
+}
+.fr {
+  float: right;
+}
+.link {
+  color: #2370b6 !important;
+}
+.txt-success {
+  color: #81d8d0 !important;
+}
+.mt25 {
+  margin-top: 25px !important;
+}
+.mt15 {
+  margin-top: 15px !important;
+}
+.ltr {
+  text-align: right;
+}
+.header {
+  position: relative;
+  background: #2370b6;
+  text-align: center;
+  color: #fff;
+  line-height: 45px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+.header.nonebottom {
+  margin-bottom: 0;
+}
+.header .backto {
+  position: absolute;
+  border-width: 10px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #e3e7e8 transparent transparent;
+  left: 0px;
+  top: 13px;
+}
+.header .backto:after {
+  content: "";
+  position: absolute;
+  border-width: 10px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #2370b6 transparent transparent;
+  left: -9px;
+  top: -10px;
+}
+
+.row {
+  position: relative;
+  display: block;
+  background-color: #fff;
+  height: 45px;
+  line-height: 45px;
+  border: 1px solid #e3e7e8;
+  border-width: 1px 0;
+  margin-bottom: 10px;
+}
+.row .row-icon {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 12px 10px;
+  border: none;
+}
+.row .row-arrow {
+  width: 6px;
+  height: 11px;
+  position: absolute;
+  right: 10px;
+  top: 17px;
+}
+.row .row-value {
+  position: absolute;
+  font-size: 12px;
+  right: 22px;
+  line-height: 46px;
+  color: #666;
+}
+.row-group {
+  margin-bottom: 10px;
+}
+.row-group .row {
+  margin: -1px 0 0 0;
+}
+
+/*inputs*/
+input {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.input-row {
+  position: relative;
+  height: 44px;
+  line-height: 44px;
+  margin: 10px 0;
+  border: 1px solid #e3e7e8;
+  border-width: 1px 0;
+  width: 100%;
+  background-color: #fff;
+}
+.lay-row {
+  height: 44px;
+  line-height: 44px;
+  margin: 10px 0;
+  padding: 0 20px;
+}
+.lay-row.mini-row {
+  height: 20px;
+  line-height: 20px;
+}
+.lay-row.m10 {
+  padding: 0 10px;
+}
+.input-row.nonetop {
+  border-top: none;
+}
+.input-row .input-row-inner,
+.input-row .input-error-tip,
+.input-row .input-button {
+  position: absolute;
+}
+.input-row .input-row-inner, .lay-row .input-row-inner {
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+}
+.input-group {
+  margin-bottom: 10px;
+}
+.input-group.m10 .input-row .input-row-inner, .input-row.m10 .input-row-inner, .lay-row.m10 .input-row-inner {
+  left: 10px;
+  right: 10px;
+}
+.input-row .input-text {
+  height: 24px;
+  //line-height: 24px;
+  padding:0px 0;
+  border: none;
+  width: 100%;
+  outline: none;
+  -webkit-appearance: none;
+}
+.input-row .input-error-tip {
+  top: 10px;
+  right: -10px;
+  display: none;
+  height: 24px;
+  line-height: 24px;
+  color: #c90a12;
+}
+.input-row .input-error-tip-one {
+  top: 10px;
+  right: 20px;
+  display: none;
+  height: 24px;
+  line-height: 24px;
+  color: #c90a12;
+  z-index: 999;
+}
+.input-row .input-button {
+  top: 0;
+  right: 0;
+  height: 44px;
+  width: 115px;
+  text-align: center;
+  border-left: 1px solid #e3e7e8;
+  background-color: #fff;
+}
+.input-row.input-title-row {
+  padding: 5px 0;
+  line-height: 55px;
+}
+.input-row.input-icon-row .iconfont {
+  margin-left: 20px;
+}
+.input-row.input-icon-row .input-row-inner {
+  left: 45px;
+}
+.input-row.input-error {
+  color: #c90a12;
+  border-color: #c90a12;
+}
+.input-row.input-error .input-error-tip {
+  display: block;
+}
+.input-row.input-button-row.input-error-tip {
+  right: 140px;
+}
+.input-group .input-row {
+  margin: -1px 0 0 0;
+}
+
+.check-box {
+  height: 14px;
+  line-height: 14px;
+}
+
+.check-box .check-icon {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin: 4px 5px 0 0;
+}
+.tab {
+  height: 34px;
+  background-color: #fff;
+}
+.tab .tab-item {
+  display: inline-block;
+  position: relative;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+}
+.tab.col3 .tab-item {
+  width: 33%;
+  color: #666666;
+  float: left;
+}
+.tab.col3 .tab-item:last-child {
+  float: right;
+}
+.tab .tab-item.current {
+  border-bottom-color: #2370b6;
+}
+.tab .tab-item .split {
+  width: 0px;
+  height: 14px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
+  border-left: 1px solid #e3e7e8;
+}
+
+.list {
+  background: #fff;
+}
+.list .list-header {
+  height: 26px;
+  line-height: 26px;
+  background-color: #e7e7e7;
+  font-size: 12px;
+  color: #999999;
+}
+.list .col {
+  text-indent: 20px;
+  float: left;
+  margin-left: -1px;
+}
+.list .col.fr {
+  float: right;
+}
+.list .col.w10 {
+  width: 10%;
+}
+.list .col.w20 {
+  width: 20%;
+}
+.list .col.w30 {
+  width: 30%;
+}
+.list .col.w40 {
+  width: 40%;
+}
+.list .col.w50 {
+  width: 50%;
+}
+.list .col.w60 {
+  width: 60%;
+}
+.list .col.w70 {
+  width: 70%;
+}
+.list .col.w80 {
+  width: 80%;
+}
+.list .col.w90 {
+  width: 90%;
+}
+.list .col.w100 {
+  width: 100%;
+}
+.list .list-block {
+  padding: 8px 0;
+  border-bottom: 1px solid #e3e7e8;
+}
+.list .list-block:last-child {
+  border-bottom: none;
+}
+.list .list-row {
+  height: 24px;
+  line-height: 24px;
+}
+.list .list-row.overflow {
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.list .list-ltr {
+  text-align: right;
+  padding-right: 20px;
+}
+.list-tip {
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #999999;
+  font-size: 12px;
+  margin: 5px 0;
+}
+.list-tip img {
+  display: inline-block;
+  position: relative;
+  width: 11px;
+  height: 11px;
+  margin: 2px 5px 0 0;
+}

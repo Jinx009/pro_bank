@@ -1,0 +1,33 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>交易密码重置</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="static/css/main.css" rel="stylesheet">
+</head>
+<body>
+	  <div class="header">交易密码重置</div>
+	  <form action="/member/security/modifyPaypwd.html" method="post" id="modifyPayPwdForm" name="form1" novalidate="novalidate">
+	  <div class="input-group m10">
+			    <div class="input-row">
+					<div class="input-row-inner">
+						<input type="password" name="newPayPwd" id="pay_password" class="input-text" placeholder="重置新交易密码" />
+					</div>
+				</div>
+				<div class="input-row">
+					<div class="input-row-inner">
+							<input type="password" name="confirmNewPayPwd" id="pay_confirm_password" class="input-text" placeholder="重复交易密码"  />
+					</div>
+			    </div>
+	  </div>
+	  <a class="button button-block button-main" onclick="form1.submit();">重置</a>
+	  </form>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	  <script type="text/javascript">
+			seajs.use('${webroot}${theme_dir}/wx/js/security_setting');
+	  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdminEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<form id="form" method="post">
+<div class="adminUserForm" style="border-bottom:0;">
+    <ul>
+		<li><span>公司名称：</span><input type="text" name="companyName" value="${userCache.companyName}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>营业执照号：</span><input type="text" name="companyRegNo" value="${userCache.companyRegNo}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>税务登记证号：</span><input type="text" name="taxRegNo" value="${userCache.taxRegNo}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>组织机构代码：</span><input type="text" name="zzjgCode" value="${userCache.zzjgCode}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>公司法人：</span><input type="text" name="frdbName" value="${userCache.frdbName}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>法人身份证：</span><input type="text" name="frdbNo" value="${userCache.frdbNo}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'" maxlength="20"/><i>*</i></li>
+		<li><span>公司电话：</span><input type="text" name="companyPhone" value="${userCache.companyPhone}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'tel'" maxlength="20"/><i>*</i></li>
+		<li><span>公司传真：</span><input type="text" name="companyFax" value="${userCache.companyFax}" autocomplete="off" class="easyui-validatebox adminUserTxt" maxlength="20"/></li>
+		<li><span>公司邮箱：</span><input type="text" name="companyEmail" value="${userCache.companyEmail}" autocomplete="off" class="easyui-validatebox adminUserTxt" maxlength="20"/></li>
+		<li><span>负责人：</span><input type="text" name="user.realName" value="${userCache.user.realName}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>负责人身份证：</span><input type="text" name="user.cardId" value="${userCache.user.cardId}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'" maxlength="20"/><i>*</i></li>
+		<li><span>负责人手机：</span><input type="text" name="user.mobilePhone" value="${userCache.user.mobilePhone}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'mobile'" maxlength="20"/><i>*</i></li>
+		<li><span>负责人邮箱：</span><input type="text" name="user.email" value="${userCache.user.email}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'email'" maxlength="50"/><i>*</i></li>
+		<!-- <li><span>第三方商户名：</span><input type="text" name="user.apiId" value="${userCache.user.email}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>		
+		<li><span>第三方商户号：</span><input type="text" name="user.apiUsercustId" value="${userCache.user.email}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li> -->
+		</ul>
+		<div id="city" class="adminUserMuti">
+		<span style="line-height:40px;">公司地区：</span>
+		<select class="prov" name="province"><option value="${userCache.province!}">${userCache.province!}</option></select>  
+	    <select class="city" name="city" disabled="disabled"><option value="${userCache.city!}">${userCache.city!}</option></select> 
+	    <select class="dist" name="area" disabled="disabled"><option value="${userCache.area!}">${userCache.area!}</option></select>  
+	</div>
+	<div class="adminUserMuti"><span>公司地址：</span><textarea name="address" class="easyui-validatebox adminUserTextarea" data-options="required: true,validType:'maxLength[50]'">${userCache.address}</textarea><i>*</i></div>
+	<div class="adminUserMuti"><span>备注：</span><textarea name="description" class="easyui-validatebox adminUserTextarea">${userCache.description}</textarea></div>
+	<input type="hidden" name="id" value="${userCache.id}">
+</div>
+</form>
+<script>
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		<#if userCache.province??>
+		prov:"${userCache.province}", //省份 
+	    city:"${userCache.city!}", //城市 
+	    dist:"${userCache.area!}", //区县 
+		<#else>
+		prov:"${userCache.city!}", //省份 
+	    city:"${userCache.area!}", //城市 
+		</#if>
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	}); 
+</script>

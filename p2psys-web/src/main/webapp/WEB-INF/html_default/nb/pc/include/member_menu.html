@@ -1,0 +1,116 @@
+<script type="text/javascript">
+$(function(){
+	changeHeader("账户中心");
+	//判断用户是否登陆过
+	$.ajax({
+		url:"/nb/sessionUser.action",
+		type:"GET",
+		ansyc:false,
+		dataType:"json",
+		success:function(res){
+		if(null!=res.result&&""!=res.result){
+			
+		}else{
+			closeDiv("");
+			showDiv("util_login");
+			$(".close-btn").attr("onclick","openUrl('/index.html')");
+		}
+	}
+	})	
+	
+	Get_Greetings();
+});
+
+</script>
+<p class="text main_title main_tip" id="welcome"></p>
+<div class="row phone_bottom">
+	<div class="col-md-offset-3 col-md-2 text padding_col0 col-lg-2 col-xs-2 col-sm-2"><a href="/nb/pc/securityCenter.html"><img src="${webroot}${theme_dir}/nb/pc/img/phone.png" /></a></div>
+	<div class="col-md-2 text padding_col0 col-lg-2 col-xs-2 col-sm-2"><a href="/nb/pc/securityCenter.html"><img src="${webroot}${theme_dir}/nb/pc/img/email.png" /></a></div>
+	<div class="col-md-2 text padding_col0 col-lg-2 col-xs-2 col-sm-2"><a href="/user/center.html"><img src="${webroot}${theme_dir}/nb/pc/img/pepole.png" /></a></div>
+</div>
+					
+					<div id="leftMenue">
+
+<div class="row user_menue_li" id="userCenter">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text user_menue_li_img col-lg-3 col-xs-3 col-sm-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/myAccoun_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/myAccoun_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text col-sm-5 col-lg-5"><a href="/user/center.html">我的账户</a></div>
+</div>
+
+<div class="row user_menue_li" id="uRecharge">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3 col-sm-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/recharge_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/recharge_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text col-sm-5"><a href="/nb/pc/recharge/newRecharge.html">我要充值</a></div>
+</div>
+					
+<div class="row user_menue_li " >
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/cash_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/cash_bg_active.png" class="img2""/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text"><a href="/nb/pc/cash/cashPage.html">我要提现</a></div>
+</div>
+					
+<div class="row user_menue_li" id="accountLog">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/money_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/money_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-6 padding_col0 user_menue_li_text"><a href="/nb/pc/cash/bank.html">我的银行卡</a></div>
+</div>
+					
+<div class="row user_menue_li" id="investDetail">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/invest_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/invest_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text"><a href="/invest/log.html">投资详情</a></div>
+</div>
+
+<div class="row user_menue_li" id="accountLog">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/money_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/money_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text"><a href="/account/log.html">资金明细</a></div>
+</div>
+					
+<div class="row  user_menue_li ">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-lg-3 col-xs-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/benefitsWith.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/benefitsWith_active.png" class="img2"/>
+	</div>
+	<div class="col-md-6 padding_col0">
+		<div role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="user_menue_li_text"><a style='color:#fb6e6e;'>我的福袋</a></div>
+		<div id="collapseOne" class="panel-collapse collapse redPacket" role="tabpanel" aria-labelledby="headingOne">
+			<div class="gray" ><a href="/nb/pc/member/redPacket.html" >我的红包</a></div>
+			<div class="gray" ><a href="/nb/pc/member/coupons.html" >我的加息券</a></div>
+			<div class="gray" ><a href="/nb/pc/egList.html">新手专享</a></div>
+			<div class="gray" ><a href="/nb/pc/member/recommendProfit.html">推荐收益</a></div>
+		</div>						
+	</div>
+</div>
+
+<div class="row user_menue_li">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-xs-3 col-lg-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/setting_bg.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/setting_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 user_menue_li_text"><a href="/nb/pc/securityCenter.html">安全中心</a></div>
+</div>
+
+<div class="row user_menue_li">
+	<div class="col-md-offset-2 col-md-3 padding_col0 text col-xs-3 col-lg-3">
+		<img src="${webroot}${theme_dir}/nb/pc/img/inviteFriends_bg_active.png" class="img1"/>
+		<img src="${webroot}${theme_dir}/nb/pc/img/inviteFriends_bg_active.png" class="img2"/>
+	</div>
+	<div class="col-md-5 padding_col0 inviteFriends_text user_menue_li_text"><a href="/nb/pc/member/userInvite.html">邀请好友</a></div>
+</div>
+
+</div>
+
+<div style="height: 148px;"></div>

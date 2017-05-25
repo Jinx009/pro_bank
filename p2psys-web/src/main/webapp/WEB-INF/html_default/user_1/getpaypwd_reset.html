@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#assign nid="member" >
+
+<!--找回密码 开始-->
+	<div id="loginWrap" class="clearfix">
+		<div class="loginBd clearfix">
+			<div class="memberLogo"><a href="/" title="找回交易密码"><span>找回交易密码</span></a></div>
+			<a href="/" title="返回首页" class="backHomePage">返回首页</a>
+		</div>
+	</div> 
+	<div id="forgetPwdWrap" class="clearfix">
+		<ul class="forgetPwdTab clearfix">
+		
+			<li <#if type==1>class="active"</#if>><i class="iconfont">&#xe627;</i><a href="/user/getPayPwd.html?showType=1" title="通过【邮箱】找回密码">邮箱找回</a></li>
+			<li <#if type==2>class="active1"</#if>><i class="iconfont">&#xe626;</i><a href="/user/getPayPwd.html?showType=2" title="通过【手机】找回密码">手机找回</a></li>
+		</ul>
+		<form action="/user/getPayPwd.html" method="post" id="emailgetForm">
+		<dl class="forgetPwdForm">
+			<dt>通过邮箱找回密码</dt>
+			<dd class="showErrorTips" style="height:36px"><span class="normalTips">请输入6位数字的新密码</span><span class="errorTips" style="display:none;width: 400px;"><em><i class="iconfont">&#xe60f;</i><b></b></em></span></dd>
+			<dd><label>新密码</label><input type="password" id="password" name="payPwd" class="password"  maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></dd>
+			<dd><label>确认密码</label><input type="password" id="confirm_new_pwd" name="confirmNewPwd" class="password" maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></dd>
+			<dd><label>&nbsp;</label>
+			<input type="hidden" value="${userName?if_exists}" name="userName">
+			<input type="hidden" value="${type!}" name="getType">
+			<input type="hidden" value="${mobilePhone!}" name="mobilePhone">
+			<input type="hidden" value="${email!}" name="email">
+			<input type="hidden" value="2" name="step">
+			<input type="submit" value="确定修改" class="nextBtn"></dd>
+		</dl>
+		</form>
+	</div>
+	<#include "../include/loginFooter.html"> 	
+   <script>
+		seajs.use("${webroot}${theme_dir}/media/js/user/getpaypwd_reset")
+	</script>
+   
+
+<!--找回密码 结束-->
+</body>
+</html>

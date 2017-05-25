@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+
+	<link href="${webroot}/media/css/modal.css"
+		rel="stylesheet" type="text/css" />
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain ">
+			<!--左边的导航 开始-->
+			<div class="user_left"><#include "../user_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul id="tab" class="list-tab clearfix">
+						<li><a href="${webroot}/member/borrow/repaymentdetail.html">还款明细账</a></li>
+					</ul>
+				</div>
+				<div class="user_right_main">
+					<!--正在招标 开始-->
+					<div class="user_main_title">
+						发布时间：<input type="text" name="dotime1" id="dotime1"
+							value="<#if dotime1?exists>${dotime1}</#if>" size="15"
+							onclick="change_picktime()" /> 到 <input type="text"
+							name="dotime2" value="<#if dotime2?exists>${dotime2}</#if>"
+							id="dotime2" size="15" onclick="change_picktime()" /> 关键字：<input
+							type="text" name="keywords" id="keywords" size="15"
+							value="<#if searchkeywords?exists>${searchkeywords}</#if>" /> <input
+							value="搜索" type="submit" onclick="sousuo('')" />
+					</div>
+				<!-- 正在招标开始 -->		
+				<table  border="0"  cellspacing="1" class="table table-striped  table-condensed" style="width:100%">
+						  <form cur="" method="post">
+							<tr class="head" >
+								<td>借款者</td>
+								<td>借款标</td>
+								<td>借出总额</td>
+								<td>收益总额</td>
+								<td>已收总额</td>
+								<td>待收总额</td>
+								<td>已收利息</td>
+								<td>待收利息</td>
+							</tr>
+							<#list  tender as item>
+							<tr>
+								<td>test</td>
+								<td><a href="${webroot}/invest/detail.html?id=${item.borrow_id?c}">${item.borrow_name}</a></td>
+								<td>￥${item.account}</td>
+								<td>￥${item.repayment_account}</td>
+								<td>￥${item.repayment_yesaccount}</td>
+								<td>￥${item.wait_account}</td>
+								<td>￥${item.repayment_yesinterest}</td>
+								<td>￥${item.wait_interest}</td>
+							</tr>
+							</#list>
+						</form>	
+					</table>
+		
+				<!--正在招标 结束-->
+		</div>
+			</div>
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">

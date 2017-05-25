@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    $.fn.treeGridOptions.formSubFun("#form",'/modules/column/site/siteEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<form id="form"  method="post">
+<div class="borrowForm" style="border-top:none;">
+    <ul>
+    	<li><span>名称：</span><input type="text" name="name" value="${siteNew.name}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="20"/><font  color="red" size="4">*</font></li>
+    	<li><span>标识：</span><input type="text" name="nid" value="${siteNew.nid}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="20"/><font  color="red" size="4">*</font></li>
+    	<li><span>等级：</span><input name="level" value="${siteNew.level}" hidden="hidden"/><select name="level" disabled="disabled">
+	            <option value="1" <#if siteNew.level==1>selected="selected"</#if>>一级</option>
+	            <option value="2" <#if siteNew.level==2>selected="selected"</#if>>二级</option>
+	            <option value="3" <#if siteNew.level==3>selected="selected"</#if>>三级</option>
+            </select>
+            <font  color="red" size="4">*</font>
+        </li>
+    	<li><span>父级ID：</span><input type="text" name="pid" value="${siteNew.pid!}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="20" readonly="readonly"/><font  color="red" size="4">*</font></li>
+    	<li><span>叶子：</span><label><input type="radio" name="leaf" value="0" <#if siteNew.leaf==0>checked="checked"</#if>/>&nbsp;&nbsp;否</label><label><input type="radio" name="leaf" value="1" <#if siteNew.leaf==1>checked="checked"</#if>/>&nbsp;&nbsp;是</label></li>
+    	<li><span>状态：</span><label><input type="radio" name="status" value="0" <#if siteNew.status==0>checked="checked"</#if>/>&nbsp;&nbsp;隐藏</label><label><input type="radio" name="status" value="1" <#if siteNew.status==1>checked="checked"</#if>/>&nbsp;&nbsp;显示</label></li>
+    	<li><span>类型：</span><select name="type">
+	            <option value="1" <#if siteNew.type==1>selected="selected"</#if>>单页</option>
+	            <option value="2" <#if siteNew.type==2>selected="selected"</#if>>列表</option>
+	            <option value="3" <#if siteNew.type==3>selected="selected"</#if>>站内链接</option>
+	            <option value="4" <#if siteNew.type==4>selected="selected"</#if>>站外链接</option>
+            </select>
+            <font  color="red" size="4">*</font>
+        </li>
+    	<li><span>跳转链接：</span><input type="text" name="url" value="${siteNew.url}" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="100"/><font  color="red" size="4">*</font></li>
+    	<li><span>排序：</span><input type="text" name="sort" value="${siteNew.sort}" class="borrowFormTxt easyui-numberbox" data-options="required: true" maxlength="4"/><font  color="red" size="4">*</font></li>
+    	<li><span>显示个数：</span><input type="text" name="size" value="${siteNew.size}" class="borrowFormTxt easyui-numberbox" data-options="required: true" maxlength="4"/><font  color="red" size="4">*</font></li>
+    </ul>
+    <div class="borrowFormMuti"><span>描述：</span><textarea class="borrowFormTextarea" name="description">${siteNew.description}</textarea></div>
+    <input name="id" value="${siteNew.id}" type="hidden">
+    <input name="addTime" value="${siteNew.addTime!}" type="hidden">
+    <input name="addIp" value="${siteNew.addIp!}" type="hidden">
+</div>
+</form>

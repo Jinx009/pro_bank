@@ -1,0 +1,263 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/redPacket/redPacketAdd.html',"添加成功！","添加失败！");
+	});
+</script>
+<style>
+.hide{display:none;}
+.sForm .ipt{margin-left:155px;}
+.sForm .ipt1{margin-bottom:20px;margin-left:155px;}
+.sForm .lab{width:139px;}
+</style>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+        
+    	<div class="formitm">
+		     <label class="lab">红包名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" class="w200 easyui-validatebox" data-options="required: true" value="" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">业务类型：</label>
+		     <div class="ipt">
+		     	活动红包
+		     	<input type="hidden" name="serviceName" class="w200 easyui-validatebox"  value="" maxlength="10"/>
+		     	<input type="hidden" name="serviceType" class="w200 easyui-validatebox"  value="" maxlength="10"/>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用：</label>
+		     <div class="ipt">
+		     	<input type="radio" id="status" class="xj-hongbao" value="1" name="status" checked="checked">启用
+		     	<input type="radio" id="status" class="xn-hongbao" value="0" name="status">不启用
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包类型：</label>
+		     <div class="ipt">
+		     	<input type="radio" id="type" class="xj-hongbao" value="1" name="type" checked="checked">现金红包
+		     	<input type="radio" id="type" class="xn-hongbao" value="2" name="type" >虚拟红包
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">活动时间：</label>
+		     <div class="ipt">
+		     	<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" value=""  style="width:100px;"/>~
+		     	<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" value="" style="width:100px;"/>
+		     	<b>为空代表活动长期有效</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">发放方式：</label>
+		     <div class="ipt">
+		     		<input type="radio" id="gd-money" class="gd-money" value="1" name="paymentType" checked="checked">固定金额
+		     		<input type="radio" id="gd-rate" class="gd-rate" value="2" name="paymentType">固定比率
+		     		<input type="radio" id="fd-money" class="fd-money" value="3" name="paymentType">浮动金额
+		     </div>
+		</div>
+		<div class="formitm hongbao-money">
+		     <label class="lab">红包金额：</label>
+		     <div class="ipt">
+		     	<input type="text" name="money" onkeyup="value=value.replace(/[^\d]/g,'')" class="w200 easyui-validatebox"  maxlength="10" value=""/>元
+		     </div>
+		</div>
+		<div class="formitm hide fd-fs">
+		     <label class="lab">浮动方式：</label>
+		     <div class="ipt">
+		     		<input type="radio" id="je-qj" class="je-qj" value="1" name="floatType">区间金额
+		     		<input type="radio" id="bl-qj" class="bl-qj" value="2" name="floatType">区间比率
+		     </div>
+		</div>
+		<div class="formitm hide money-lv">
+		     <label class="lab">金额比率：</label>
+		     <div class="ipt">
+		     	<input type="text" name="rate" id="rate" class="w200 easyui-validatebox"  maxlength="10" value=""/>%
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">有效期：</label>
+		     <div class="ipt">
+		     	<input type="text" name="day" id="day" class="w200 easyui-validatebox"  maxlength="10" value=""/>天
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">提醒天数：</label>
+		     <div class="ipt">
+		     	<input type="text" name="dueTimeLimit" id="dueTimeLimit" class="w200 easyui-validatebox"  maxlength="10" value="2"/>天
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包总数：</label>
+		     <div class="ipt">
+		     	<input type="text" name="totalNum" class="w200 easyui-validatebox"  maxlength="10" value=""/>个
+		     	<b>0代表不限</b>
+		     </div>
+		</div>
+		<div class="formitm hide monye-je">
+		     <label class="lab">最大金额：</label>
+		     <div class="ipt">
+		     	<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" name="maxMoney" class="w200 easyui-validatebox"  maxlength="10" value=""/>元
+		     </div>
+		</div>
+		<div class="formitm hide monye-je">
+		     <label class="lab">最小金额：</label>
+		     <div class="ipt">
+		     	<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" name="minMoney" class="w200 easyui-validatebox"  maxlength="10" value=""/>元
+		     </div>
+		</div>
+		<div class="formitm fds1 hide">
+		     <label class="lab">金额区间：</label>
+				<div class="ipt1" style="margin-left:155px;"><input type="text" name="min" class="w80 easyui-validatebox"  maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">&lt;= 投标/充值金额 &lt; <input type="text" name="max" value="" class="w80 easyui-validatebox"  maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">时，红包金额<input type="text" value="" name="detailMoney" class="w80 easyui-validatebox"  maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">元<input type="button" value="增加一行" class="add1"></div>
+		</div>
+		<div class="formitm fds2 hide">
+			<label class="lab">金额区间：</label>
+					<div class="ipt1" style="margin-left:155px;"><input type="text" name="min" class="w80 easyui-validatebox" value=""  maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">&lt;= 投标/充值金额 &lt; <input type="text" name="max" class="w80 easyui-validatebox" value=""  maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">时，红包金额兑换比率<input type="text" name="detailRatio" class="w80 easyui-validatebox" value=""  maxlength="10">%<input type="button" value="增加一行" class="add2"></div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包描述：</label>
+		     <div class="ipt">
+		     	<textarea rows="3" cols="50" name="description"></textarea>
+		     </div>
+		</div>
+	</form>
+</div>
+
+<script>
+var txt1 = '<label class="lab">金额区间：</label>';
+var txt2 = '<div class="ipt1" style="margin-left:155px;">';
+var txt3 = '<input type="text" name="min" class="w80 easyui-validatebox" data-options="required: true" maxlength="10"/>';
+var txt4 = '<= 投标/充值金额 < ';
+var txt5 = '<input type="text" name="max" class="w80 easyui-validatebox" data-options="required: true" maxlength="10"/>时，';
+var txt6 = '红包金额<input type="text" name="detailMoney" class="w80 easyui-validatebox" data-options="required: true" maxlength="10"/>元';
+var txt7 = '红包金额兑换比率<input type="text" name="detailRatio" class="w80 easyui-validatebox" data-options="required: true" maxlength="10"/>%';
+var txt8 = '<input type="button" value="增加一行" class="add1"></div>';
+var txt9 = '<input type="button" value="增加一行" class="add2"></div>';
+var str1 = txt1+txt2+txt3+txt4+txt5+txt6+txt8;
+var str2 = txt1+txt2+txt3+txt4+txt5+txt7+txt9;
+var str3="";
+
+$(function(){
+
+	
+ showCont();
+	 $("input[name=paymentType]").click(function(){
+	  showCont();
+	 });
+});
+function showCont(){
+ switch($("input[name=paymentType]:checked").attr("id")){
+  case "fd-money":
+	   $(".fd-fs").show();
+	   $(".hongbao-money").hide();
+	   $(".money-lv").hide();
+	   $(".monye-je").hide();
+	   $(".fdje-fs").hide();
+	   $(".fds1").show();
+	   $(".fds2").hide();
+	   $(".fds1 input").attr("disabled",false);
+	   $(".fds2 input").attr("disabled",true);
+	   break;
+  case "gd-money":
+	   $(".fd-fs").hide();
+	   $(".hongbao-money").show();
+	   $(".money-lv").hide();
+	   $(".monye-je").hide();
+	   $(".fds1").hide();
+	   $(".fds2").hide();
+	   $(".fds1 input").attr("disabled",true);
+	   $(".fds2 input").attr("disabled",true);
+	   break;
+  case "gd-rate":
+	   $(".fd-fs").hide();
+	   $(".hongbao-money").hide();
+	   $(".money-lv").show();
+	   $(".monye-je").show();
+	   $(".fds1").hide();
+	   $(".fds2").hide();
+	   $(".fds1 input").attr("disabled",true);
+	   $(".fds2 input").attr("disabled",true);
+	   break;
+  default:
+   break;
+ }
+}
+
+
+$("input[class=je-bl]").click(function(){
+	  $(".money-lv").show();
+	  $(".fds1").hide();
+	  $(".fds2").hide();
+	  $(".fdje-fs").hide();
+	  $(".monye-je").hide();
+	  $(".fds1 input").attr("disabled",true);
+	  $(".fds2 input").attr("disabled",true);
+});
+$("input[class=je-qj]").click(function(){
+	  $(".money-lv").hide();
+	  $(".fdje-fs").show();
+	  $(".monye-je").hide();
+});
+$("input[class=fd-money]").click(function(){
+	  $("input[class=je-qj]").attr("checked","");
+	  $("input[class=je-bl]").attr("checked","checked")
+});
+$("input[class=gd-money]").click(function(){
+	  $(".fdje-fs").hide();
+});
+$("input[class=je-qj]").click(function(){
+	$(".fds1").show();
+	$(".fds2").hide()
+	$(".fds1 input").attr("disabled",false);
+	$(".fds2 input").attr("disabled",true);
+	$(".fds1").html(str1);
+	$(".fds2").html(str3);
+	$(".add1").click(function(){
+		var bb = $(this).parent().parent();
+		var str= "<div class='ipt1'>"+"<input type='text' name='min' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"<= 投标/充值金额 <"+"<input type='text' name='max' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"时，红包金额"+"<input type='text' name='detailMoney' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"元"+"<input type='button' value='删除' class='cut'>"+"</div>"
+		$(str).appendTo(bb);
+		$(".cut").click(function(){
+		   $(this).parent().remove();
+		})
+	})
+});
+$("input[class=bl-qj]").click(function(){
+	$(".fds1").hide();
+	$(".fds2").show();
+    $(".fds1 input").attr("disabled",true);
+    $(".fds2 input").attr("disabled",false);
+	$(".monye-je").show();
+	$(".fds2").html(str2);
+	$(".fds1").html(str3);
+	$(".add2").click(function(){
+		var bb = $(this).parent().parent();
+		var str= "<div class='ipt1'>"+"<input type='text' name='min' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"<= 投标/充值金额 <"+"<input type='text' name='max' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"时，红包金额兑换比率"+"<input type='text' name='detailRatio' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"%"+"<input type='button' value='删除' class='cut'>"+"</div>"
+		$(str).appendTo(bb);
+		$(".cut").click(function(){
+		   $(this).parent().remove();
+		})
+	})
+});
+$(".add1").click(function(){
+		var bb = $(this).parent().parent();
+		var str= "<div class='ipt1'>"+"<input type='text' name='min' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"<= 投标/充值金额 <"+"<input type='text' name='max' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"时，红包金额"+"<input type='text' name='detailMoney' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"元"+"<input type='button' value='删除' class='cut'>"+"</div>"
+		$(str).appendTo(bb);
+		$(".cut").click(function(){
+		   $(this).parent().remove();
+		})
+	})
+	$(".add2").click(function(){
+		var bb = $(this).parent().parent();
+		var str= "<div class='ipt1'>"+"<input type='text' name='min' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"<= 投标/充值金额 <"+"<input type='text' name='max' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"时，红包金额兑换比率"+"<input type='text' name='detailRatio' class='w80 easyui-validatebox' data-options='required: true' maxlength='10'/>"+"%"+"<input type='button' value='删除' class='cut'>"+"</div>"
+		$(str).appendTo(bb);
+		$(".cut").click(function(){
+		   $(this).parent().remove();
+		})
+	})
+if($(".bl-qj").prop("checked"))
+{
+	$(".monye-je").show();
+}
+</script>
+

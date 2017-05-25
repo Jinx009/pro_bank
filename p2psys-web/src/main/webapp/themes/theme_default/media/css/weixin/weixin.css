@@ -1,0 +1,806 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Microsoft YaHei, Helvetica;
+  font-size: .875em;
+  background: #F0F0F0;
+  -webkit-text-size-adjust: 100%;
+}
+.global-layout {
+  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+}
+a {
+  color: #428BC7;
+  text-decoration: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+img {
+  vertical-align: middle;
+}
+input {
+  height: 1.75em;
+  line-height: normal;
+  font-size: 1em;
+  font: -webkit-small-control;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+}
+.pull-right {
+  float: right;
+  margin-top: 10px;
+}
+#header {
+  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+  height: 42px;
+  background: #137DDB;
+}
+#header img {
+  display: block;
+  float: left;
+  width: 25px;
+  margin-left: 10px;
+}
+#header span {
+  display: block;
+  float: left;
+  text-align: center;
+  margin-top: 6px;
+  color: white;
+  font-size: 20px;
+}
+#header span a {
+  color: white;
+}
+#header span.more {
+  width: 20%;
+  font-size: 18px;
+}
+#header span.close {
+  float: right;
+  margin-right: 30px;
+}
+#header span.extend {
+  width: 20%;
+  font-size: 13px;
+  padding-top: 5px;
+}
+#header span.left {
+  width: 15%;
+}
+#header span.right {
+  width: 15%;
+  float: right;
+}
+#main {
+  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+  color: #999;
+  background: white;
+  position: relative;
+}
+#main .crumb {
+  margin: 8px 0;
+  margin-left: 10px;
+}
+@media screen and (min-width: 1240px) {
+  #main {
+    max-width: 640px;
+  }
+}
+#main .record {
+  margin-top: 10px;
+}
+#main .record .table-striped {
+  width: 100%;
+  margin-top: 10px;
+}
+#main .record .table-striped tr {
+  width: 100%;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+#main .record .table-striped tr th {
+  height: 40px;
+  text-align: center;
+}
+#main .record .table-striped tr th.time {
+  width: 30%;
+}
+#main .record .table-striped tr td {
+  text-align: center;
+}
+#main #banner {
+  position: relative;
+}
+#main #banner #banner-list li {
+  float: left;
+}
+#main #banner img {
+  width: 100%;
+  display: block;
+}
+#main .form-style {
+  margin-left: 15px;
+}
+#main .form-style p {
+  padding-bottom: 10px;
+  text-align: center;
+  color: #666;
+  margin-top:20px;
+}
+#main .form-style p span {
+  font-size: 30px;
+  color: #FF7A03;
+}
+#main .form-style ul {
+  margin-right: 15px;
+  padding: 15px 0 15px 0;
+  min-width:320px;
+}
+#main .form-style ul li {
+  height: 55px;
+  float:left;
+  width:50%;
+}
+#main .form-style ul li img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  float: left;
+  padding-right: 5px;
+}
+#main .form-style ul li font {
+  color: #666;
+  font-size: 14px;
+  display:block;
+  margin-top:5px;
+}
+#main .form-style ul li font span{
+	color:#FF8700;
+}
+#main .form-style-reg {
+  margin-top: 10px;
+  display: block;
+  border: solid 1px #e3e7e8;
+  margin-bottom: 20px;
+}
+#main .form-style-reg ul li {
+  padding-left:5px;
+}
+#main .form-style-reg li {
+  height: 65px;
+  border-top: 1px solid #e3e7e8;
+  position: relative;
+  overflow: hidden;
+}
+#main .form-style-reg li b{
+  color: #666;
+  font-weight: normal;
+  display:block;
+  margin-top:5px;
+}
+#main .form-style-reg li:first-child {
+  border-top: 0;
+}
+#main .form-style-reg label {
+  width: 20%;
+  float: left;
+  color: #667279;
+  margin-top:10px;
+  margin-bottom:10px;
+  display:block;
+}
+#main .form-style-reg label.txt {
+  width: 35%;
+}
+#main .form-style-reg input {
+  border: 1px solid #999;
+  font-size: 1em;
+  width: 60%;
+  margin-top:9px;
+}
+#main .form-style-reg input.helper {
+  width: 20%;
+}
+#main .form-style-reg input.less,
+#main .form-style-reg input.add {
+  width: 3%;
+}
+#main .form-style-reg input.nums {
+  width: 8%;
+}
+#main .form-style-reg input.btn {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  background: #852c2b;
+  border: 1px solid #852c2b;
+}
+#main .form-style-reg span {
+
+}
+#main .detail {
+  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 16px 0 30px 12px;
+  color: #666;
+  border-left: 2px solid #7fbc23;
+  border-bottom: 1px solid #D7D7D7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  background-size: auto 100%;
+}
+#main .detail ul li {
+  width: 29%;
+  float: left;
+}
+#main .detail ul li a{
+	color:#666;
+}
+#main .detail ul li span {
+  color: #31B7C9;
+}
+#main .detail ul li.special {
+  height: 35px;
+  font-size: 20px;
+  color: #FC852C;
+}
+#main .detail .bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 47px;
+  height: 46px;
+  background: url(http://weixin.91wutong.com/static/weixin/images/201407/index-new.png) right top no-repeat;
+  background-size: auto 46px;
+}
+#main .form-style-login {
+  background: #F0F0F0;
+  margin-top: 10px;
+}
+#main .form-style-login p {
+  font-size: 17px;
+  color: #333;
+  text-align: center;
+}
+#main .form-style-login p.identity,
+#main .form-style-login p.content {
+  font-size: 14px;
+  margin-top: 25px;
+  text-align: left;
+  margin-left: 20px;
+  color: #666;
+}
+#main .form-style-login p.content {
+  margin-top: 10px;
+  margin-right: 15px;
+  background: white;
+  padding: 10px 30px 10px 10px;
+}
+#main .form-style-login .money {
+  width: 94%;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  padding: 8px;
+  font-size: 16px;
+  color: #666;
+  background: white;
+  border: 1px solid #d7d7d7;
+  border-radius: 2px;
+}
+#main .form-style-login .form-group {
+  margin-left: 3%;
+  margin-right: 2%;
+  margin-bottom: 15px;
+  padding: 12px 0 6px 10px;
+  border: 1px solid #D7D7D7;
+  background: white;
+}
+#main .form-style-login .form-group img {
+  width: 18px;
+  height: 20px;
+}
+#main .form-style-login .form-group input {
+  width: 85%;
+  border: none;
+  vertical-align: top;
+  margin-left: 15px;
+  color: black;
+  font-size: 14px;
+}
+#main .form-style-login .form-group span {
+  font-size: 16px;
+  color: #333;
+}
+#main .form-style-login .codeButton {
+  width: 35%;
+  float: left;
+  margin-right: 2%;
+  padding: 10px 0 8px 10px;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #7fbc23;
+  color: #7fbc23;
+  background: white;
+}
+#main .form-style-login .checkbox {
+  margin-left: 3%;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+#main .money {
+  padding: 10px 0 15px 10px;
+  color: white;
+  background: #F66D11;
+  border-top: 4px solid white;
+}
+#main .money span {
+  display: block;
+  float: left;
+  width: 46%;
+  font-size: 20px;
+}
+#main .money span img {
+  width: 20px;
+  height: 20px;
+  padding-right: 4px;
+}
+#main .money span a {
+  font-size: 14px;
+  color: white;
+  float: right;
+  padding-top: 5px;
+}
+#main .money p {
+  clear: left;
+  text-align: center;
+  font-size: 50px;
+  padding-top: 10px;
+}
+#main .list {
+  background: #F0F0F0;
+}
+#main .list li {
+  width: 49%;
+  height: 35px;
+  float: left;
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+  border-right: 1px solid #333;
+}
+#main .list li span {
+  font-size: 18px;
+}
+#main .list .recharge,
+#main .list .withdraw {
+  display: block;
+  float: left;
+  width: 45%;
+  text-align: center;
+  background: #137DDB;
+  margin-top: 30px;
+  margin-left: 3%;
+  padding: 10px 0 10px 0;
+  border-radius: 5px;
+}
+#main .list .recharge a,
+#main .list .withdraw a {
+  font-size: 18px;
+  color: white;
+  display:block;
+}
+#main .list .withdraw {
+  background: #137DDB;
+  margin-bottom: 10px;
+}
+#main .list p {
+  color: #333;
+  margin-left: 3%;
+  font-size: 18px;
+}
+#main .invest-detail {
+  background: #F0F0F0;
+  color: #666;
+  height: 135px;
+}
+#main .invest-detail p {
+  width: 50%;
+  float: left;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  border-bottom: 1px dotted #D7D7D7;
+}
+#main .invest-detail p span {
+  font-size: 35px;
+  color: #7fbc23;
+}
+#main .invest-detail p font {
+  font-size: 18px;
+}
+#main .invest-detail .today {
+  display: block;
+  float: left;
+  width: 50%;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+#main .invest-detail .today img {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+#main .detail-list {
+  margin-bottom: 20px;
+}
+#main .detail-list .botton{
+	display:block;
+	width:100%;
+	background:#137DDB;
+	color:white;
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+#main .detail-list .table-striped {
+  width: 100%;
+  padding-left: 10px;
+}
+#main .detail-list .table-striped tr {
+  width: 100%;
+}
+#main .detail-list .table-striped tr td {
+  color: #666;
+  padding: 12px 0 12px 0;
+  border-bottom: 1px solid #D7D7D7;
+}
+#main .detail-list .table-striped tr td:first-child {
+  width: 30%;
+  color: #333;
+  font-size: 16px;
+}
+#main .detail-list .table-striped tr td .unfold-arrow {
+  width: 13px;
+  height: 13px;
+  float: right;
+  margin-right: 10px;
+  display: inline-block;
+  background: url(http://weixin.91wutong.com/static/weixin/images/201407/arrow-down-red.png) bottom center no-repeat;
+  background-size: auto 8px;
+}
+#main .detail-list .table-striped tr td.radio {
+  width: 10%;
+  border: none;
+  font-size: 14px;
+}
+#main .detail-list .table-striped tr td.radio input {
+  vertical-align: middle;
+}
+#main .detail-list .table-striped tr td.right {
+  border: none;
+  padding-left: 8%;
+}
+#main .detail-list .table-striped tr td.right input {
+  width: 95%;
+  height: 30px;
+  border: 1px solid #D7D7D7;
+}
+#main .detail-list .table-striped tr td.youhui {
+  font-size: 16px;
+  color: #666;
+  width: 33%;
+  text-align: center;
+}
+#main .detail-list .table-striped tr td.help {
+  border: none;
+  padding: 5px 10px 5px 0;
+  font-size: 14px;
+}
+#main .detail-list .table-striped tr td.help:first-child {
+  width: 8%;
+}
+#main .detail-list .table-striped tr td.help1 {
+  border: none;
+  padding: 5px 10px 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+#main .detail-list .table-striped tr td.help1:first-child {
+  width: 8%;
+}
+#main .recommend .share {
+  display: block;
+  background: #f0f0f0;
+  padding: 15px 0 5px 10px;
+  font-size: 16px;
+  color: black;
+}
+#main .recommend .choice {
+  padding-left: 15px;
+}
+#main .recommend .choice li {
+  padding: 10px 0 10px 0;
+  color: #666;
+}
+#main .recommend .choice li input {
+  vertical-align: middle;
+}
+#main .recommend .choice li span {
+  margin-left: 6%;
+}
+#main .produce {
+  margin-top: 15px;
+  padding: 15px 10px 10px 10px;
+  color: #666;
+  background: white;
+  border-bottom: 1px solid #D7D7D7;
+}
+#main .produce .title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+#main .produce h4 {
+  margin: 8px 0 8px 0;
+}
+#main .help-list li {
+  padding: 12px 0 12px 30px;
+  border-bottom: 1px solid #D7D7D7;
+  font-size: 16px;
+  background: #ffffff url(http://weixin.91wutong.com/static/weixin/images/201407/arrow-right-gray.png) 10px center no-repeat;
+  background-size: 9px auto;
+}
+#main .help-list li a {
+  color: #666;
+}
+#main .help-list li.hidden,
+#main .help-list li.hidden1,
+#main .help-list li.hidden2,
+#main .help-list li.hidden3,
+#main .help-list li.hidden4,
+#main .help-list li.hidden5 {
+  padding: 0;
+  background: #f0f0f0;
+  display: none;
+}
+#main .safe p {
+  padding: 30px 0 30px 0;
+  font-size: 17px;
+  color: #666;
+  background: #f0f0f0;
+  text-align: center;
+}
+#main .safe p img {
+  width: 117px;
+  height: 17px;
+}
+#main .safe ul li {
+  margin-left: 10px;
+  padding: 12px 0 12px 0;
+  font-size: 16px;
+  color: #666;
+  border-bottom: 1px solid #D7D7D7;
+}
+#main .safe ul li img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+#main .safe ul li span {
+  float: right;
+  margin-right: 10px;
+}
+#slideMenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+#slideMenu .slideLeft {
+  position: fixed;
+  width: 36%;
+  height: 100%;
+  top: 0;
+  z-index: 1020;
+}
+#slideMenu .slideRight {
+  color: white;
+  width: 64%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1500;
+  opacity: 0.99;
+  background: #333;
+  right: -64%;
+}
+#slideMenu .slideFade {
+  background: url(http://weixin.91wutong.com/static/weixin/images/alpha-black30.png);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+}
+#slideMenu .more-list {
+  background: #343434;
+}
+#slideMenu .more-list li {
+  padding: 10px 0 10px 10px;
+  font-size: 16px;
+  border-bottom: 1px solid white;
+}
+#slideMenu .more-list li a {
+  color: white;
+}
+#slideMenu .more-list li span {
+  float: right;
+  margin-right: 20px;
+  font-size: 20px;
+}
+#operator {
+  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+  clear: left;
+  padding-top: 20px;
+}
+@media screen and (min-width: 1240px) {
+  #operator {
+    max-width: 640px;
+  }
+}
+#operator .btn {
+  display: block;
+  width: 94%;
+  background: #137DDB;
+  margin-left: 3%;
+  padding: 12px 0 10px 0;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  cursor:pointer;
+}
+#operator .button {
+  display: block;
+  width: 93.5%;
+  margin-left: 3%;
+  margin-top: 15px;
+  padding: 10px 0 8px 0;
+  border: 1px solid #137DDB;
+  border-radius: 5px;
+  text-align: center;
+  color: #137DDB;
+  font-size: 18px;
+}
+#footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 0;
+  background-color: #363d3f;
+  height: 55px;
+}
+#footer li {
+  float: left;
+  width: 25%;
+  text-align: center;
+  margin-top: 5px;
+}
+#footer .invest {
+  height: 55px;
+  background: white;
+}
+#footer .invest .less,
+#footer .invest .add {
+  display: block;
+  float: left;
+  width: 33px;
+  height: 33px;
+  margin-left: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  background: #e0e0e0 url(http://weixin.91wutong.com/static/weixin/images/201407/font-minus.png) center center no-repeat;
+}
+#footer .invest .add {
+  background: #ee252d url(http://weixin.91wutong.com/static/weixin/images/201407/font-plus.png) center center no-repeat;
+}
+#footer .invest .nums {
+  width: 15%;
+  height: 33px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  border: 1px solid #D7D7D7;
+  border-radius: 2px;
+}
+#footer .invest p {
+  width: 50%;
+  background: #7fbc23;
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+  padding: 8px 0 6px 0;
+  text-align: center;
+  line-height: 15px;
+  border-radius: 2px;
+  font-size: 16px;
+}
+#footer .invest p a {
+  color: white;
+}
+#footer .invest p span {
+  font-size: 12px;
+}
+
+
+
+.list-invest {
+	background: #fff;
+	box-shadow: 1px 1px 5px rgba(150, 150, 150, 0.5);
+	behavior: url(../plugin/PIE.htc);
+	width:640px;
+	margin:10px auto;
+}
+.cf{
+	width:640px;
+	margin:0 auto;
+}
+.title-list-invest li{
+	float:left;
+	display:block;
+}
+.cf li{
+	float:left;
+	display:block;
+	height:40px;
+}
+.page{
+	width:640px;
+	float:left;
+	margin-top:10px;
+	display:block;
+}
+.bg-bank{
+	width:120px;
+	height:30px;
+}
+#bank {
+display: none;
+}
+.cash-bank{
+	float: left;
+	width: 80%;
+}
+.cash-bank dd{
+	width:auto;
+	float:left;
+	margin-top:3px;
+	margin-right:20px;
+}
+.cash-bank dd span {
+	float: left;
+	margin-top: 2px;
+	margin-left:-5px;
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"><#include "user_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul id="tab" class="list-tab clearfix">
+						<li class="active"><a href="#userpwd" data-toggle="tab">登陆密码</a></li>
+						<li><a href="#paypwd" data-toggle="tab">交易密码</a></li> 
+						<li><a href="#protected" data-toggle="tab">密码保护</a></li>
+						<li><a href="#serialstatus" data-toggle="tab">动态口令设置</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--收件箱 开始-->
+				<div class="user_right_main">
+					<div id="myTabContent" class="tab-content">
+						<div class="list-tab-con tab-pane fade in active" id="userpwd">
+							<form action="" name="form1" method="post" onSubmit="return check_form()">
+								<div class="user_help alert alert">密码请不要太简单，设成复杂一点，做好字母+符号</div>
+								<div class="user_right_border">
+									<div class="e">原始密码：</div>
+									<div class="c">
+										<input type="password" name="oldpassword" /> 
+									</div>
+								</div>
+								<div class="user_right_border">
+									<div class="e">新密码：</div>
+									<div class="c">
+										<input type="password" name="newpassword" /> 
+									</div>
+								</div>
+								<div class="user_right_border">
+									<div class="e">确认密码：</div>
+									<div class="c">
+										<input type="password" name="newpassword1" /> 
+									</div>
+								</div>
+								<div class="user_right_border">
+									<div class="e"></div>
+									<div class="c">
+										<input type="submit" class="btn sub_btn" name="name"  value="确认提交" size="30" /> 
+									</div>
+								</div>
+								</form>
+								<div class="user_right_foot alert">
+								* 温馨提示：我们将严格对用户的所有资料进行保密
+								</div>
+								<script>
+									function check_form(){
+										 var frm = document.forms['form1'];
+										 var oldpassword = frm.elements['oldpassword'].value;
+										 var newpassword = frm.elements['newpassword'].value;
+										  var newpassword1 = frm.elements['newpassword1'].value;
+										 var errorMsg = '';
+										  if (oldpassword.length == 0 ) {
+											errorMsg += '* 请输入旧的登录密码' + '\n';
+										  }
+										  if (newpassword.length == 0 ) {
+											errorMsg += '* 新密码不能为空' + '\n';
+										  }
+										   if (newpassword.length >15 || newpassword.length<7 ) {
+											errorMsg += '* 新密码长度在8到15之间' + '\n';
+										  }
+										    if (newpassword.length !=newpassword1.length) {
+											errorMsg += '* 两次密码不一样' + '\n';
+										  }
+										  if (errorMsg.length > 0){
+											layer.alert(errorMsg); return false;
+										  } else{  
+											return true;
+										}
+									
+									}
+								</script>
+						</div>
+						<!-- 修改交易密码 -->
+						<div class="list-tab-con tab-pane fade" id="paypwd">
+							<form action="" name="form1" method="post" onSubmit="return check_form()">
+							<div class="user_help alert">请把密码设置复杂,并认真保管好自己的密码!（字母+符号尤佳）</div>
+							<div class="user_right_border">
+								<div class="l">原始交易密码：</div>
+								<div class="c">
+									<input type="password" name="oldpassword" /> 请输入原交易密码。(初始交易密码与您注册时的登录密码一致)
+								</div>
+							</div>
+							<div class="user_right_border">
+								<div class="l">新交易密码：</div>
+								<div class="c">
+									<input type="password" name="newpassword" /> 
+								</div>
+							</div>
+							<div class="user_right_border">
+								<div class="l">确认交易密码：</div>
+								<div class="c">
+									<input type="password" name="newpassword1" /> 
+								</div>
+							</div>
+							<div class="user_right_border">
+								<div class="l">验证码：</div>
+								<div class="c">
+									<input name="valicode" type="text" size="11" maxlength="4"  tabindex="3" style="float:left;"/>&nbsp;<img src="/plugins/?q=imgcode" alt="点击刷新" onClick="this.src='/plugins/?q=imgcode&t=' + Math.random();" align="absmiddle" style="cursor:pointer float:right;" />
+								</div>
+							</div>
+							<div class="user_right_border">
+								<div class="l"></div>
+								<div class="c">
+									<input type="submit"  class="btn sub_btn" name="name"  value="确认提交" size="30" /> <a href="/?user&q=code/user/getpaypwd">忘记交易密码？</a>
+								</div>
+							</div>
+							</form>
+							<div class="user_right_foot alert">
+							* 温馨提示：我们将严格对用户的所有资料进行保密
+							</div>
+							<!--修改安全密码 结束-->
+							<script>
+								function check_form(){
+									 var frm = document.forms['form1'];
+									 var oldpassword = frm.elements['oldpassword'].value;
+									 var newpassword = frm.elements['newpassword'].value;
+									  var newpassword1 = frm.elements['newpassword1'].value;
+									 var errorMsg = '';
+									  if (oldpassword.length == 0 ) {
+										errorMsg += '* 请输入旧密码，如果没有设定交易密码，请输入登录密码' + '\n';
+									  }
+									  if (newpassword.length == 0 ) {
+										errorMsg += '* 新密码不能为空' + '\n';
+									  }
+									   if (newpassword.length >15 || newpassword.length<7) {
+										errorMsg += '* 新密码长度在8到15之间' + '\n';
+									  }
+									    if (newpassword.length !=newpassword1.length) {
+										errorMsg += '* 两次密码不一样' + '\n';
+									  }
+									  if (errorMsg.length > 0){
+										layer.alert(errorMsg); return false;
+									  } else{  
+										return true;
+									}
+								
+								}
+							</script>
+						</div>
+					 
+						<div class="list-tab-con tab-pane fade" id="protected">
+							 <form action="" method="post">
+								<div class="user_help alert">请选择一个新的帐号保护问题,并输入答案。帐号保护可以为您以后在忘记密码、重要设置等操作的时候,提供安全保障。 </div>
+								<div class="user_right_border">
+									<div class="l">请选择问题：</div>
+									<div class="c">
+										<script src="/plugins/?q=linkage&name=question&nid=pwd_protection&isid=false"></script> 
+									</div>
+								</div>
+								<div class="user_right_border">
+									<div class="l">请输入答案：</div>
+									<div class="c">
+										<input type="text" name="answer" /><input type="hidden" name="type" value="2" /> 
+									</div>
+								</div>
+								<div class="user_right_border">
+									<div class="l">验证码：</div>
+									<div class="c">
+										<input name="valicode" type="text" size="11" maxlength="4"  tabindex="3"/>&nbsp;<img src="/plugins/?q=imgcode" alt="点击刷新" onClick="this.src='/plugins/?q=imgcode&t=' + Math.random();" align="absmiddle" style="cursor:pointer" />
+									</div>
+								</div>
+										<div class="user_right_border">
+									<div class="l"></div>
+									<div class="c">
+										<input type="submit"  class="btn sub_btn" name="name"  value="确认提交" size="30" /> 
+									</div>
+								</div>
+								<div class="user_right_foot alert">
+								* 温馨提示：我们将严格对用户的所有资料进行保密
+								</div>
+								
+								</form>
+						</div>
+						<div class="list-tab-con tab-pane fade" id="serialstatus">
+							<form action="" name="form1" method="post" onSubmit="">
+								<div class="user_help alert">动态口令可以确认用户的合法身份，从而在合法身份登录的基础上保障业务业务访问的安全性。</div>
+								将动态口令应用于：<br /> <font color="red">您的账号还未绑定动态口令，无法执行相关设置！</font>
+								<div class="user_right_border">
+									<div class="e">提现：</div>
+									<div class="c">
+										<input type="checkbox" name="carryout" value="1" id="carryout"
+											disabled="disabled" />
+									</div>
+									<div class="e">登录：</div>
+									<div class="c">
+										<input type="checkbox" name="login" value="1" id="login"
+											disabled="disabled" />
+									</div>
+									<input type="hidden" id="json_data" value='' />
+								</div>
+								<input type="hidden" name="action" value="1" /> <br />
+								<div class="">
+									<div class="e"></div>
+									请输入动态口令码: <input type="text" maxlength="6" name="uchoncode"
+										disabled="disabled" />
+									<div class="c">
+										<br /> <input type="submit" class="btn sub_btn" name="name"
+											value="确认提交" size="30" disabled="disabled" />
+									</div>
+								</div>
+
+
+							</form>
+							<div class="user_right_foot alert">
+								* 温馨提示：我们将严格对用户的所有资料进行保密
+							</div>
+						</div>
+					
+						<!--收件箱 结束-->
+					</div>
+				</div>
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<script
+		src="${webroot}${theme_dir}/media/js/modal.js"></script>
+
+	<#include "../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<#assign nid="integralExchange" >
+<#assign web_title='积分商城 - ${webname!}' >
+<#assign web_description='积分兑换${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<link href="${webroot}${theme_dir}/media/css/button.css" rel="stylesheet">
+<body>
+<#include "../include/header.html"> 
+<div class="scoreMall_header_wrapper">
+  <div class="scoreMall_header">
+    <h2><i class="iconfont">&#xe602;</i>积分商城</h2>
+   
+    <div class="user_score clearfix">
+     <#if session_user?exists >
+      <img src="" alt="">
+      <dl>
+        <dt>欢迎您，<b>${session_user.userName}！</b></dt>
+        <dd>您当前的可用积分为：<em id="userScore">${userScore.validScore!0}</em> <i class="iconfont">&#xe614;</i><a href="###">如何获得积分？</a></dd>
+      </dl>
+    <#else>
+        <a href="/user/login.html" class="loginBtn">登陆账户</a>
+        <i class="iconfont">&#xe614;</i><a href="###">如何获得积分？</a>
+    </#if>
+      </div>
+    <ul>
+      <li><a href="/scoreMall/goodsPage.html">积分兑换</a></li>
+      <li><a href="/scoreMall/recordPage.html" class="hover">我的兑换记录</a></li>
+    </ul>
+  </div>
+</div>
+<div class="scoreMall_wrapper clearfix">
+<div class="convert_dynamic float_left">
+  <div class="title">商城动态</div>
+  <div class="convert_dynamic_box">
+      <ul id="convert_dynamic_ul" data-href="${adminurl}" ></ul>
+  </div>
+</div>
+<div class="goodsDetails float_right">
+  <div class="goodsIntro_box clearfix">
+    <ul id="etalage">
+      <#if picList?? && picList.size() gt 0 >
+         <#list picList as item>
+      <li>
+          <img class="etalage_thumb_image" src="${adminurl}${item.picUrl}" />
+          <img class="etalage_source_image" src="${adminurl}${item.picUrl}" />
+      </li>
+      	</#list>
+      </#if>
+    </ul>
+    <div class="goodsIntro">
+      <h2>${goods.name}</h2>
+      <p>上架时间：<em>${goods.shelvesTime?string('yyyy-MM-dd')}</em></p>
+      <p>所属类别：<em>${category.name}</em></p>
+      <ul class="clearfix">
+        <li><em>${goods.marketPrice}元</em>市场价格</li>
+        <li><em id="needScore">${goods.score}</em>所需积分</li>
+        <li style="border-right:0;"><em id="remainCount">${goods.store - goods.sellAcount - goods.freezeStore}</em>剩余数量</li>
+      </ul>
+      <p>我要兑换：
+      <a href="javascript:;" class="reduce"></a>
+      <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" id="convertNumbers"/>
+      <a href="javascript:;" class="add"></a>
+      <#if goods?? && goods.status == 1 >
+
+      	<a href="javascript:;" class="convertBtn">立刻兑换</a>
+      <#else>
+      	<a class="convertBtn disabled">此商品暂时不对兑换</a>
+      </#if>
+      </p>
+    </div>
+  </div>
+  <div class="goodsExplain">
+      <div class="tit">商品详情</div>
+      <div class="con">${goods.description}
+      </div>
+  </div>
+</div>
+</div>
+
+<form action="/scoreMall/addRecord.html" id="receiveForm" style="display:none">
+	<div class="receiveMsg">
+		<h2><i class="close iconfont">&#xe625;</i>填写收货信息</h2>
+		<ul>
+			<li><label for="">收货人<i>*</i></label><input name="receiveUserName" type="text"></li>
+			<li><label for="">收货地址<i>*</i></label><input name="receiveAddress" type="text"></li>
+			<li><label for="">手机号码<i>*</i></label><input name="receivePhone" type="text"></li>
+			<li class="receiveBtn"><label for=""></label>
+			<input name="goodsId" value="${goods.id}" type="hidden"/>
+			<input name="userId" value="${session_user.userId}" type="hidden"/>
+			<input name="score" type="hidden"/><!-- 兑换商品消费的具体积分 -->
+			<input name="convertNum" type="hidden"/><!-- 兑换商品数目 -->
+			<input type="submit" value="提交"><input type="button" class="close" value="取消"></li>
+		</ul>
+	</div>
+</form>
+<script>seajs.use('scoreMall/goodsDetails');</script>
+<#include "../include/footer.html">
+</body>
+</html>

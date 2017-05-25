@@ -1,0 +1,6 @@
+<ul class="user_right_menu clearfix">
+	<li class="h_menu_li">提现</li>
+	<li <#if account_type?exists&&account_type=="newcash">class="active"</#if>><a href="${webroot}/member/cash/newCash.html">提现</a></li>
+    <li <#if account_type?exists&&account_type=="bank">class="active"</#if> ><a href="${webroot}/member/cash/bank.html">银行卡</a></li>
+    <li <#if account_type?exists&&account_type=="cash">class="active"</#if>><a href="${webroot}/member/cash/log.html">提现记录</a></li>
+</ul>

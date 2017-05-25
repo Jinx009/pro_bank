@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="800Bank">
+	<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+    <title>800Bank</title>
+    <link href="/themes/theme_default/nb/pc/css/user.css" rel="stylesheet"/>
+    <link href="/plugins/pager/pager.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/plugins/pager/pager.js"></script>
+    <script type="text/javascript" src="/themes/theme_default/nb/pc/js/invest/invest_record.js"></script>
+    <script type="text/javascript">
+   	$(function()
+   	{
+   		changeLeftMenue("投资详情");
+   	})
+   /* 	seajs.use("${webroot}${theme_dir}/nb/pc/js/invest/invest_record"); */
+   </script>
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/top_static.html"> 
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+		<div class="col-md-3 main_left padding_col0">
+			<#include "../include/member_menu.html">
+		</div>
+     <!-- 用户中心左导航菜单 end -->		
+   	   <div class="col-md-9 main_right col-lg-9 col-xs-9">
+   	   		<p class="space-div-4" ></p>
+   	  		<p class="margin5p" >投资详情</p>
+   	  		<div class="space-div-2" ></div>
+		  	<div class="row account_s">
+		  	<div class="col-md-2"></div>
+		  		<div class="col-md-8">
+		  			 <div class="form-group">
+					   <div class="col-sm-4">
+					      <input type="text" class="form-control dateInput" name="startTime" id="startDate"  value="" placeholder="起始时间" onClick="WdatePicker()" />
+					    </div>
+					    <div class="col-sm-4">
+					      <input type="text" class="form-control dateInput"  name="endTime" id ="endDate" value="" placeholder="结束时间" onClick="WdatePicker()" />
+					    </div>
+					    <div class="col-sm-4">
+					      <a class="btn btn-info serchInput"  id ="sub" >筛选</a>
+					    </div>
+					 </div>
+				</div>
+		  	</div>
+           <p class="content_title margin5pp"></p>
+           <div class="row account_s">
+	           <table class="table table-hover">
+	           	<thead class="clow_title">
+	           	<tr>
+	           		<th>购买日期</th>
+	           		<th>产品名称</th>
+	           		<th>金额</th>
+	           		<th>收益率</th>
+	           		<th>到期收益</th>
+	           		<th>到期日</th>
+	           		<th>赎回</th>
+	           		<th>投资协议</th>
+	           		<th>说明</th>
+	           	</tr>
+	           	</thead>
+	           	<tbody class="investData"></tbody>
+	           </table>
+	            <div id="kkpager"></div>
+           </div>
+		  </div>	  
+	 </div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div style="height: 80px;">	</div>
+<#include "../include/member_footer.html">
+</body>
+</html>

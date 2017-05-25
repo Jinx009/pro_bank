@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 start-->
+<title>${web_title!meta_keywords}</title>
+<meta name="description" content="${web_description!meta_description}" />
+<meta name="keywords" content="${meta_keywords!meta_keywords}" />
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 end-->
+<meta property="qc:admins" content="126201426074113363757" />
+<link href="${webroot}${theme_dir}/media/css/base.css" rel="stylesheet">
+<link href="${webroot}${theme_dir}/media/css/button.css" rel="stylesheet">
+<link href="${webroot}${theme_dir}/media/css/style.css" rel="stylesheet">
+<link href="${webroot}${theme_dir}/media/css/jquery.slider.css" rel="stylesheet">
+<link href="${webroot}${theme_dir}/media/css/jquery-ui.css" rel="stylesheet">
+<link href="${webroot}${theme_dir}/media/css/member.css" rel="stylesheet">
+
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/layer.js"></script>
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/layer.ext.js"></script>
+<script src="${webroot}${theme_dir}/media/js/jquery.form.js"></script><!-- 表单异步函数 -->
+<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+<script src="${webroot}${theme_dir}/media/js/handlebars-v1.3.0.js"></script><!-- json渲染的插件 -->
+<script src="${webroot}${theme_dir}/media/js/validate/validate.js"></script>
+<script src="${webroot}${theme_dir}/media/js/validate/message_cn.js"></script>
+<script src="${webroot}${theme_dir}/media/js/validate/addtional-method.js"></script>
+<script src="${webroot}${theme_dir}/media/js/formatterFunction.js"></script><!-- 添加分页的个性处理函数 -->
+ <!--日期区间拖动插件-->
+
+<script src="${webroot}${theme_dir}/media/js/json2.js"></script>
+<!-- IE6,7数据处理 -->
+
+<script>
+var webroot = "${webroot}",theme = "${webroot}${theme_dir}";    
+$(function(){
+    seajs.use("${webroot}${theme_dir}/media/js/init",function(){        
+    })
+}); 
+(function($){
+    $.fn.extend({
+        usePage:function(options){
+            var defaults = {
+                URL:"/text.html",   //数据接口地址
+                changeStatus:"",    //状态处理函数地址
+                colModel:"",
+                jsPageBox:"#js_page",
+                jsonData:"#json_data",
+                callBack:null
+            }
+            var options = $.extend(defaults,options)
+            var options= $.extend(options,{jsonUrl:options.URL})  
+            this.each(function(){
+                var that = $(this);
+                var o = options;
+                seajs.use("${webroot}${theme_dir}/media/js/jquery.ajaxPages",function(){
+                    that.jsonPage(o)
+                })
+            })
+        }
+    })
+})(jQuery);
+</script>
+</head>
+<body>
+<#assign nid="member">
+<#include "../include/header.html"> 
+<div id="main" class="clearfix">
+	<div class="sysTips">
+		<h1>系统提示信息</h1>
+		<div class="sysTipsTxt"><img src="${webroot}${theme_dir}/media/css/images/xubox_loading2.gif" />系统处理中...</div>
+		<div class="sysTipsBtns"></div>
+	</div>
+</div>
+<script type="text/javascript"> 
+var timer =  setInterval("testTime()",500); 
+var reqTimesLimit = 10;
+var reqTimes = 1;
+function testTime() {
+	 $.ajax({
+                type: "post",//使用get方法访问后台
+                dataType: "json",//返回json格式的数据
+                async:false,
+                url: "/public/ips/getResult.html",//要访问的后台地址
+                data: "resultFlag=" + '${resultFlag!}',//要发送的数据
+                timeout:1000*1,
+                success: function(msg){//msg为返回的数据，在这里做数据绑定
+                    var data = msg.msg_data;
+                    reqTimes++;
+                    if(reqTimes>=reqTimesLimit){
+                              $(".sysTipsTxt").html("服务器响应过慢，请您1分钟后查看");
+                              clearInterval(timer);
+                    };
+                    if(data){
+                   	 if(data == 'success'){
+                       		$(".sysTipsTxt").html("${r_msg!}");
+                                 if('${m_msg!}' !=null && '${m_msg!}' != ''){
+                                  $(".sysTipsBtns").html("<a href='${left_url!}'>${left_msg!}</a><a href='${m_url!}'>${m_msg!}</a><a href='${right_url!}'>${right_msg!}</a>");
+                                 }else{
+                                  $(".sysTipsBtns").html("<a href='${left_url!}'>${left_msg!}</a><a href='${right_url!}'>${right_msg!}</a>");
+                                 }
+                        }else{
+                               	$(".sysTipsTxt").html(data);
+                                  $(".sysTipsBtns").html("<a href='${back_url!}'>返回</a>");
+                        } 
+                        clearInterval(timer);
+                    }
+                },
+                 error:function(XMLHttpRequest){
+               		$(".sysTipsTxt").html("服务器响应过慢，请您1分钟后查看");
+                      clearInterval(timer);
+                }
+    });
+} 
+</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

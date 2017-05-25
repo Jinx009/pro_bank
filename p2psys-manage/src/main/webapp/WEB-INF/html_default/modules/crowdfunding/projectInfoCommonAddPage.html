@@ -1,0 +1,249 @@
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<div class="formitm">
+			<label class="lab">项目类型</label>
+			<div class="ipt">
+				<select name="type" id="type" class="type">
+					<option value="1" selected="selected">实物众筹</option>
+					<option value="2">股权众筹</option>
+					<option value="3">影视众筹</option>
+					<option value="4">公益众筹</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">项目名称</label>
+			<div class="ipt">
+				<input type="text" id="projectName" name="projectName" class="w400 easyui-validatebox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<div class="ipt">
+				<input type="hidden" value="-1" name="status">
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">违约金比例</label>
+			<div class="ipt">
+				<input type="text" id="breach" name="breach" class="w400 easyui-validatebox" value="0.00" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">一句话简介</label>
+			<div class="ipt">
+				<input type="text" id="info" name="info" class="w400 easyui-validatebox" value="" data-options="required:false"  />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">单笔最小投资金额</label>
+			<div class="ipt">
+				<input type="text" id="minMoney" name="minMoney" value="0.00" class="w400 easyui-validatebox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">单笔最大投资金额</label>
+			<div class="ipt">
+				<input type="text" id="maxMoney" name="maxMoney" value="0.00" class="w400 easyui-validatebox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">众筹金额</label>
+			<div class="ipt">
+				<input type="text" id="wannaAccount" name="wannaAccount" class="w400 easyui-validatebox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">融资进度</label>
+			<div class="ipt">
+				<select name="financing" id="financing" class="type">
+					<option value="1" selected="selected">种子轮</option>
+					<option value="2">天使轮</option>
+					<option value="3">Pre-A轮</option>
+					<option value="4">A轮</option>
+					<option value="5" >Pre-B轮</option>
+					<option value="6" >B轮</option>
+					<option value="7" >C轮</option>
+					<option value="8" >D轮</option>
+					<option value="9" >Pre-IPO轮</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">发起人</label>
+			<div class="ipt">
+				<input type="text" id="creater" name="creater" class="w400 easyui-validatebox" data-options="required: true" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">发起人公司</label>
+			<div class="ipt">
+				<input type="text" id="company" name="company" class="w400 easyui-validatebox" data-options="required: true" maxlength="64" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">发起人公司简介</label>
+			<div class="ipt">
+				<input type="text" id="address" name="address" class="w400 easyui-validatebox" data-options="required: true" maxlength="128" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">公司现估值</label>
+			<div class="ipt">
+				<input type="text" id="companyMoney" name="companyMoney" class="w400 easyui-validatebox" value="0.00" data-options="required:false" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">PC显示隐藏</label>
+			<div class="ipt">
+				<select name="isShowPc" id="isShowPc" class="type">
+					<option value="1" selected="selected">显示</option>
+					<option value="0">隐藏</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">微信显示隐藏</label>
+			<div class="ipt">
+				<select name="isShowWechat" id="isShowWechat" class="type">
+					<option value="1" selected="selected">显示</option>
+					<option value="0">隐藏</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">金额增加规则</label>
+			<div class="ipt">
+				<input type="text" id="addAmount" name="addAmount" class="w400 easyui-validatebox" value="0" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">超募接受状态</label>
+			<div class="ipt">
+				<select name="isExceedAccept" class="type">
+					<option value="0" selected="selected">不接受</option>
+					<option value="1">接受</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">最小接受人数</label>
+			<div class="ipt">
+				<input type="text" id="minInvestor" name="minInvestor" class="w400 easyui-numberbox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">最大接受人数</label>
+			<div class="ipt">
+				<input type="text" id="maxInvestor" name="maxInvestor" class="w400 easyui-numberbox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">超人数是否继续</label>
+			<div class="ipt">
+				<select name="isExceedAcceptInvestor" class="type">
+					<option value="0" selected="selected">不继续</option>
+					<option value="1">继续</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">推荐级别</label>
+			<div class="ipt">
+				<input type="text" id="isRecommend" name="isRecommend" class="w400 easyui-numberbox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">开始时间</label>
+			<div class="ipt">
+				<input type="text" id="startTime" name="startTime" class="w400 easyui-validatebox" onFocus="WdatePicker({dateFmt:'yyyy-M-d'})" readonly="readonly" data-options="required: true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">结束时间</label>
+			<div class="ipt">
+				<input type="text" id="endTime" name="endTime" class="w400 easyui-validatebox" onFocus="WdatePicker({dateFmt:'yyyy-M-d'})" readonly="readonly" data-options="required: true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">权益到期日期</label>
+			<div class="ipt">
+				<input type="text" id="rightDueTime" name="rightDueTime" class="w400 easyui-validatebox" onFocus="WdatePicker({dateFmt:'yyyy-M-d'})" readonly="readonly" data-options="required: true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">管理费总提成</label>
+			<div class="ipt">
+				<input type="text" id="manageFee" name="manageFee" class="w400 easyui-validatebox" data-options="required: true" maxlength="12" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">PC热销显示</label>
+			<div class="ipt">
+				<select name="pcIndexStatus" id="pcIndexStatus" class="type">
+					<option value="0" selected="selected">否</option>
+					<option value="1">是</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">微信热销显示</label>
+			<div class="ipt">
+				<select name="wechatIndexStatus" id="wechatIndexStatus" class="type">
+					<option value="0" selected="selected">否</option>
+					<option value="1">是</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">定向标准投密码</label>
+			<div class="ipt">
+				<input type="text" id="acceptanceCode" name="acceptanceCode" value="0" class="w400 easyui-validatebox" readonly="readonly" data-options="required: false" maxlength="32" />
+				<input type="button" value="获取" onclick="getCode()">
+				<input type="button" value="清除" onclick="hideCode()">
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#siteNewDialog').dialog({
+		title: '新增项目',
+		width: 520,
+		height: 798,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/crowdfunding/projectInfoAdd.html');
+});
+/**
+ * 获取随机码
+ */
+function getCode(){
+	var time = Math.round(new Date().getTime() / 1000);
+	$("#acceptanceCode").val(time);
+}
+/**
+ * 清除随机码
+ */
+function hideCode(){
+	$("#acceptanceCode").val("");
+}
+</script>

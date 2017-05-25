@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		所有现金产品管理
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<#include "../../../../include/resources.html" />
+</head>
+
+<body style="padding:0 20px;">
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div id="searchBox" data-options="region:'north',border:false,collapsible:false">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" id="searchName" name="searchName" class="sInput" placeholder="输入 [ 产品编码 ] 或 [ 产品名称 ] 进行模糊查询" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" title="精确查询" class="advBtn">
+						精确查询
+						<i class="iconfont">
+							&#xe638;
+						</i>
+					</a>
+					<a href="javascript:void(0);" title="刷新" class="reloadIcon" onclick="dataGrid.datagrid('reload');">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe63a;
+						</i>
+					</a>
+					<li>
+						<span>
+							产品编码
+						</span>
+						<input type="text" id="pidNo" name="pidNo" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称
+						</span>
+						<input type="text" id="name" name="name" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							&nbsp;
+						</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+var winWidth = 800;
+var winHeight = 600;
+
+var winWidthView = 750;
+var winHeightView = 500;
+
+var detailTitle = "查看产品";
+var detailUrl = "/modules/nb/product/ppfund/ppfundShowDetailPage.html";
+
+var ppfundInTitle = "购买记录";
+var ppfundInUrl = "/modules/nb/product/ppfund/ppfundInDetailPage.html";
+
+var ppfundOutTitle = "转出记录";
+var ppfundOutUrl = "/modules/nb/product/ppfund/ppfundOutDetailPage.html";
+
+$(function() {
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'ppfundTotallyManagerList.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		frozenColumns: [
+			[{
+				field: 'id',
+				title: '编号',
+				width: 50
+			}, {
+				field: 'pidNo',
+				title: '产品编码',
+				width: 100
+			}, {
+				field: 'name',
+				title: '产品名称',
+				width: 150
+			}, {
+				field: 'statusStr',
+				title: '状态',
+				width: 80
+			}]
+		],
+		columns: [
+			[{
+				field: 'typeStr',
+				title: '产品类型',
+				width: 120
+			}, {
+				field: 'cycleStr',
+				title: '周期天数',
+				width: 60,
+				align: 'right'
+			}, {
+				field: 'timeLimitStr',
+				title: '投资期限',
+				width: 60,
+				align: 'right'
+			}, {
+				field: 'lowestAccount',
+				title: '最低投标金额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'mostAccount',
+				title: '最高投标金额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					if (value == 0) {
+						return "无限制";
+					} else {
+						return value + "元";
+					}
+				}
+			}, {
+				field: 'account',
+				title: '投资总额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					if (value == 0) {
+						return "金额不限";
+					} else {
+						return value + "元";
+					}
+				}
+			}, {
+				field: 'apr',
+				title: '收益率',
+				width: 60,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "%";
+				}
+			}, {
+				field: 'interestWay',
+				title: '计息方式',
+				width: 80,
+				formatter: function(value, row, index) {
+					return "T+" + value;
+				}
+			}, {
+				field: 'startTime',
+				title: '开始时间',
+				width: 80
+			}, {
+				field: 'endTime',
+				title: '结束时间',
+				width: 80
+			}, {
+				field: 'action',
+				title: '操作',
+				width: 100,
+				align: 'center',
+				fixed: true,
+				formatter: function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.formOptions.viewFun(' + row.id + ',detailTitle,winWidthView,winHeightView,detailUrl);" title="' + detailTitle + '">查看</a><i class="iconfont">&#xe639;</i>';
+					str += '</dt>';
+					str += '<dd style="width:80px;background:white;">';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun(' + row.id + ',ppfundInTitle,winWidth,winHeight,ppfundInUrl);" title="' + ppfundInTitle + '">购买记录</a>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun(' + row.id + ',ppfundOutTitle,winWidth,winHeight,ppfundOutUrl);" title="' + ppfundOutTitle + '">转出记录</a>';
+					str += '</dd>'
+					str += '</dl>'
+					return str;
+				}
+			}]
+		]
+	});
+});
+</script>
+<script src="${theme_dir}/js/search.js"></script>

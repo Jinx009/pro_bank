@@ -1,0 +1,40 @@
+<script type="text/javascript">
+$(function(){
+	$.fn.dataGridOptions.formSubFun("#form",'/modules/account/accountRecharge/accountRechargeAdd.html');
+})	
+</script>
+<form id="form"  method="post" onsubmit="checkMoneyFun();">
+<div class="popForm" style="padding-top:0;">
+	<div class="formitm">
+	     <label class="lab">用户名：</label>
+	     <div class="ipt">
+	     	<input type="text" name="userName" class="easyui-validatebox" data-options="required: true" maxlength="10"/><font  color="red" size="4">*</font>
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">类型：</label>
+	     <div class="ipt">
+	     	<select name="type">
+				<option value="3">后台线下充值</option>
+				<!-- <#list dictList as item>
+					<option value="${item.value}">${item.name}</option>
+				</#list> -->
+			</select>
+			<font  color="red" size="4">*</font>
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">金额：</label>
+	     <div class="ipt">
+	     	<input type="text" name="money" class="easyui-validatebox" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" data-options="required: true" maxlength="8"/><font  color="red">*目前仅支持8位数的充值</font>
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">备注：</label>
+	     <div class="ipt">
+	     	<textarea name="remark" class="borrowFormTextarea easyui-validatebox" data-options="required: true"></textarea><font  color="red" size="4">*</font>
+	     </div>
+	</div>
+</div>
+	<input type="hidden" name="rechargeToken" value="${rechargeToken}" />
+</form>

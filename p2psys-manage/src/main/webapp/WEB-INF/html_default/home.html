@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>后台管理系统</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<#include "./include/resources.html">
+	<script type="text/javascript" src="${theme_dir}/js/home.js" charset="utf-8"></script>
+</head>
+
+<body class="rdbg">
+	<div id="index_layout">
+		<div data-options="region:'north'" style="height:72px;overflow:hidden;" id="topLogo">
+			<div class="topRightbar">
+				<span id="sessionInfoDiv">欢迎您,${(session_operator.userName)!""}</span>
+				|
+				<span class="contrlIco">
+					<a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_north_kzmbMenu',iconCls:'advanced'">控制面板</a>
+				</span>
+				<span id="topNav"></span>
+				|
+				<a class="loginOutIco" onclick="logoutFun();">
+					<i class="iconfont">&#xe624;</i>
+					注销
+				</a>
+			</div>
+		</div>
+		<div data-options="region:'west',collapsible:false" title="" style="width:170px;">
+			<div id="nav"></div>
+		</div>
+		<div id="mainPanle" region="center" style="overflow-y:hidden;">
+			<div id="index_tabs" class="easyui-tabs" fit="true" border="false">
+				<div title="首页" style="overflow:hidden;" data-options="closable:true">
+					<div id="portal" style="position:relative;height:500px;">
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="index_tabsMenu" style="display:none;">
+		<div title="refresh" data-options="iconCls:'refresh'">刷新</div>
+		<div class="menu-sep"></div>
+		<div title="close" data-options="iconCls:'delete'">关闭</div>
+		<div title="closeOther" data-options="iconCls:'delete'">关闭其他</div>
+		<div title="closeAll" data-options="iconCls:'delete'">关闭所有</div>
+	</div>
+	<div id="layout_north_kzmbMenu" style="display:none;">
+		<div onclick="editCurrentUserPwd();">修改密码</div>
+		<div class="menu-sep"></div>
+		<div onclick="currentUserRole();">我的角色</div>
+		<div class="menu-sep"></div>
+		<div onclick="currentUserResource();">我的权限</div>
+	</div>
+	<input type="hidden" id="new_title" value="测试" >
+	<input type="hidden" id="new_url" value="http://www.qq.com" >
+	
+	<input type="hidden" id="temp_title" value="修改" >
+	
+	<input type="hidden" id="close_title" value="测试" >
+	<input type="hidden" id="close_url" value="http://www.qq.com" >
+	<input type="hidden" id="close_new_title" value="http://www.qq.com" >
+</body>
+<script type="text/javascript">
+//初始化头部菜单
+$(function() {
+	$.ajax({
+		type: 'get',
+		url: "/modules/system/menu/getMenuList.html?parentId=0",
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			var menuStr = "";
+			$.each(data.rows, function(i, n) {
+				menuStr += '|<a class="loginOutIco" onclick="InitLeftMenu(' + n.id + ');"><i class="iconfont">&#xe614;</i>' + n.name + '</a>';
+				if (i == 0) InitLeftMenu(n.id); //加载左侧菜单
+			});
+			menuStr += "<a class=loginOutIco id=new_test ref='http://www.baidu.com' title='测试页面' icon=undefined onclick=goAnother() style='display:none'  ><i class='iconfont'>测试</i></a>";
+			menuStr += "<a class=loginOutIco id=new_close ref='http://www.baidu.com' title='测试页面' icon=undefined onclick=closeTab() style='display:none'  ><i class='iconfont'>测试</i></a>";
+			menuStr += "<a class=loginOutIco id=new_open ref='http://www.baidu.com' title='测试页面' icon=undefined onclick=updateTab() style='display:none'  ><i class='iconfont'>测试</i></a>";
+			$("#topNav").html(menuStr);
+		}
+	})
+})
+</script>
+
+</html>

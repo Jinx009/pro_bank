@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/dream.css" />
+<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+	showLi("dream_li");
+	$(".advantage .advantage-circle").hover(function(){
+		$(this).addClass("active").siblings().removeClass("active");
+		var index = $(this).index();
+		if(index==0){
+			$(".advantage-content h3").removeClass("visited");
+			$(".add-one h3").addClass("visited");
+		}
+		if(index==1){
+			$(".advantage-content h3").removeClass("visited");
+			$(".add-two h3").addClass("visited");
+		}
+		if(index==2){
+			$(".advantage-content h3").removeClass("visited");
+			$(".add-three h3").addClass("visited");
+		}
+		if(index==3){
+			$(".advantage-content h3").removeClass("visited");
+			$(".add-four h3").addClass("visited");
+		}
+	})
+})
+
+</script>
+</head>
+<body>
+<#include "include/header.html">
+<div class="dream-banner">
+	<div class="middle-content">
+	<!-- 	<a href="/manage/code/create.html"><button class="dream-btn">发起梦想</button></a> -->
+	</div>
+</div>
+<div class="middle-content">
+	<div class="dream-content">
+		<div class="dream-col">
+			<div class="dream-title"><img src="/themes/theme_default/cf/img/title_icon.png"/><h1>800众服的优势</h1></div>
+			<div class="advantage">
+				<div class="advantage-left">
+					<div class="advantage-one advantage-circle active">CEO天团</div>
+					<div class="advantage-three advantage-circle">专业服务</div>
+					<div class="advantage-two advantage-circle">开放合作</div>
+					<div class="advantage-four advantage-circle">项目助力</div>
+				</div>
+				<div class="advantage-right">
+					<div class="advantage-content add-one">
+						<h3 class="visited">CEO天团</h3>
+						<p>汇聚深耕行业数十年的翘楚、企业家精英，把脉项目价值</p>
+					</div>
+					<div class="advantage-content add-two">
+						<h3>专业服务</h3>
+						<p>800团队提供专业的投融资服务、并携手第三方服务机构（法务/财务/税务/咨询/孵化器等）一同为投融资双方提供优质服务</p>
+					</div>
+					<div class="advantage-content add-three">
+						<h3>开放合作</h3>
+						<p>平台所有项目开放合作，初创企业携手共成长</p>
+					</div>
+					<div class="advantage-content add-four">
+						<h3>项目助力</h3>
+						<p>联动创业天堂杭州中国金谷等孵化器，加速项目成长</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dream-col">
+			<div class="dream-title"><img src="/themes/theme_default/cf/img/title_icon.png"/><h1>如何发起项目</h1></div>
+			<div class="send-dream">
+				<div class="send-item send-item-odd circle-one">
+					<div class="step">Step01</div>
+					<p>发送商业计划书至dream@800zf.cn</p>
+				</div>
+				<div class="send-item send-item-even circle-two">
+					<p>5个工作日内通过审核后，项目经理将与您联系</p>
+					<div class="step">Step02</div>
+				</div>
+				<div class="send-item send-item-odd circle-three">
+					<div class="step">Step03</div>
+					<p>项目后续跟进，CEO天团项目指导，项目预热，线下路演，项目募集</p>
+				</div>
+				<div class="send-item send-item-even circle-four">
+					<p>完成项目众筹，定期向投资人更新项目动态</p>
+					<div class="step">Step04</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+	
+<#include "include/footer.html"> 
+</body>
+</html>

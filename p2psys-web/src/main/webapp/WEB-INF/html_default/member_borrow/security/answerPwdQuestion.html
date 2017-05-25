@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+	<div class="usermain clearfix">
+		<!--左边的导航 开始-->
+		<div class="user_left">
+			<#assign mid="m_info" >
+			<#include "../user_menu.html">
+		</div>
+		
+		
+		<div class="user_right">
+			<div class="user_right_menu">
+				<ul class="user_right_menu clearfix">
+					<li class="h_menu_li">回答密保</li>
+				</ul>
+			</div>
+			<div class="user_right_main">
+				<form action="${webroot}/member/security/doAnswerPwdQuestion.html" id="J_answerQuestion">
+					<ul class="pwd_question">
+						<li>
+							<span class="question_tit">
+								问题一：
+							</span>
+							<span class="question_txt">
+								<div class="c">${list[0].question}<input type="hidden" name="question1" value="${list[0].question}"/></div>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								答案：
+							</span>
+							<span class="question_txt">
+								<input type="text" name="answer1" value="">
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								问题二：
+							</span>
+							<span class="question_txt">
+								<div class="c">${list[1].question}<input type="hidden" name="question2" value="${list[1].question}"/></div>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								答案：
+							</span>
+							<span class="question_txt">
+								<input type="text" name="answer2" value="">
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								问题三：
+							</span>
+							<span class="question_txt">
+								<div class="c">${list[2].question}<input type="hidden" name="question3" value="${list[2].question}"/></div>
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								答案：
+							</span>
+							<span class="question_txt">
+								<input type="text" name="answer3" value="">
+							</span>
+						</li>
+						<li>
+							<span class="question_tit">
+								　
+							</span>
+							<span class="question_txt">
+								<input type="submit" class="btn sub_btn" name="submit"  value="提交">
+								<input type="hidden"  id="hiddenNumb">
+							</span>
+						</li>
+					</ul>
+				</form>	
+				
+			</div>
+			<div class="user_help alert">
+	            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+	            <p>
+	            	如要修改密保问题，请先回答之前设置的密保问题
+	            </p>
+			</div>
+		</div>
+		<!--判断跳转页面用Flag（0：跳转到设置密保页面;1：跳转到安全中心页面）-->
+		<input type="hidden" id="returnFlag" value="${returnFlag!}">
+		<script>
+			seajs.use("${webroot}${theme_dir}/media/js/member/question.js")
+			$("#J_answerQuestion").validate({
+				rules:{
+					answer1:{
+						required:true
+					},
+					answer2:{
+						required:true
+					},
+					answer3:{
+						required:true
+					}
+				},
+				submitHandler:function(form,event,validator){
+					// 跳转到设置密保页面
+					if ($("#returnFlag").val() == 0) {
+						$(form).ajaxSubmit(function(data){
+							var result = data.result;
+							if(result){
+								window.location.href="/member/security/setPwdQuestion.html?returnFlag=1"
+							}else{
+								layer.alert(data.msg);
+							}
+						})
+					// 跳转到安全中心页面
+					} else if ($("#returnFlag").val() == 1) {
+						$(form).ajaxSubmit(function(data){
+							var result = data.result;
+							if(result){
+								window.location.href="/member/security/setting.html"
+							}else{
+								layer.alert(data.msg);
+							}
+						})
+					}
+				}
+			})
+		</script>
+		<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width; height=device-height;" name="viewport">
+		<link href="/themes/theme_default/media/css/zcStyle.css" rel="stylesheet">
+		<title>众筹支付</title>
+	</head>
+	<body>
+	<input type="hidden" value="${zcProjectid}" id="zcProjectid" >
+	<input type="hidden" value="${type}" id="type" >
+	<input type="hidden" value="${recordid}" id="recordid" >
+	<input type="hidden" value="${user_id}" id="user_id" >
+	<input type="hidden" value="${userName}" id="userName"/>
+	<input type="hidden" value="${tel}" id="tel"/>
+	
+		<!--header	start-->
+		<div id="header">
+			<div id="head_info">
+				<div class="clearfix head_top">
+					<div class="float_left">
+						<a href="/"><div class="logo"></div></a>
+						<span class="navChild"><a href="/aboutUs/siteIntro.html">关于我们</a></span>
+						<span class="navChild"><a href="/crowdfunding/index.html?id=2">我要投资</a></span>
+						<span class="navChild"><a href="/member/main.html">我的账户</a></span>
+						<span class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+						<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+					</div>
+					<div class="float_right">
+						<span class="loginStatus">
+							<span class="welcomePhone">欢迎您，131****9876</span>
+							<a href="${webroot}/user/logout.html">退出</a>
+							<a class="guide" href="/crowdfunding/index.html">在e800Bank投资</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--header	end-->
+		<!--payDetails	start-->
+			<div class="paySure" id="paySure" >
+				<div class="pay_left">
+					<div class="xmTitle">XXX项目</div>
+					<div class="pay_left_col">
+						<div class="qtr_pay" style="padding-top:0px;"><span class="qtr_pay_l">投资金额</span><span class="qyzb_pay_r">￥${money}</span></div>
+						<div class="qyzb_pay" id="tzNum" style="display:none;"><span class="qtr_pay_l">投资份数</span><span id="qyzb_pay_r">${zcNum}</span></div>
+						
+						<div class="qyzb_pay" id="qyzb"><span class="qyzb_pay_l">权益占比</span><span id="qyzb_r"><!-- 9% --></span></div>
+						<div class="zchbDesc">
+						<span class="qyzb_pay_l">众筹回报</span>
+						<div class="zchbDesc_r"></div>
+						</div>
+						<div class="qtr_pay" id="qtr_pay"><span class="qtr_pay_l">领投人</span><span id="ltr">张三</span></div>
+						<div class="qtr_pay"><span class="qtr_pay_l"></span><span ></span></div>				
+					</div>
+				</div>
+				
+				<div class="pay_right">
+					<div class="tzr">投资人信息</div>
+					<div class="pay_right_col">
+						<div class="tzr_name"><span class="tzr_name_l">姓名</span>${name}</div>
+						<div class="tzr_phone"><span class="tzr_phone_l">手机号</span>${mobilephone}</div>
+						<div class="tzr_phone"><span class="tzr_phone_l">通讯地址</span>${address}</div>
+						<div class="tzr_phone"><span class="tzr_code_l">邮编</span>${zipCode}</div>
+						<div class="tzr_phone"><span class="tzr_phone_l">运费</span><span>免运费</span></div>
+						<div class="tzr_phone"><span class="tzr_phone_l">风险说明</span><p id="riskDesc"><!-- 风险说明风险说明风险说明风险说明风险说明风险说明风险说明 --></p></div>
+						<div class="tzr_phone"><span class="tzr_name_l">交易密码</span><input type="password" class="tzr_name_r" id=pwd /><span style="color: #326EAF;font-size:14px;padding-left:8px;">忘记交易密码</span></div>
+					</div>
+					<div class="btn_pay">
+						<div class="btn_xyb" onclick="confirmBtn()" >确认支付</div><a href="javascript:history.back(-1);"><div class="btn_back">返回</div></a>
+					</div>					
+				</div>				
+			</div>
+			
+		<!--payDetails	end-->
+		
+		<!--paySuccess	start-->
+		<div class="paySuccess" id="paySuccess" >
+			<div class="payTop"> 
+				<div class="paytopmiddle">
+					<div class="payStatus"><img src="/themes/theme_default/images/raise/paySuccess.png"/></div>
+					<div class="payMoney">
+						<b>支付成功</b>
+						<p>支付金额￥<span class="money">${money}</span></p>
+					</div>	
+				</div>
+			</div>
+			<div class="payBottom">
+				<p style="display:none">小小，您使用<span class="money">交通银行</span>银行卡完成本次交易。</p>
+				<p><span id="cpdd">XXX</span>产品订单</p>
+				<p style="display:none">交易单号 <span>1234567890</span></p>
+			</div>
+		</div>
+		<a href="/crowdfunding/index.html?id=2" id="sureBtn" style="display:none;"><div class="back"><div class="payBack">确定</div></div></a>
+		<!--paySuccess	end-->
+		<div class="blank">
+		</div>
+		<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+		<#include "../include/raise_footer.html">
+		<script type="text/javascript">
+		var recordid = $("#recordid").val();
+		var zcProjectid = $("#zcProjectid").val();
+		var Zctype = $("#type").val();
+		if(Zctype==0){
+			
+			$("#tzNum").show();
+		}
+		var user_id = $("#user_id").val();
+		var userName = $("#userName").val();
+		var tel = $("#tel").val();
+		var tel_l = tel.substring(0,3);
+		var tel_r = tel.substring(7,11);
+		$(".welcomePhone").html("欢迎您，"+tel_l+"****"+tel_r);
+		function confirmBtn()
+		{
+			var params = "user_id="+$("#user_id").val()+"&record_id="+recordid+"&pwd="+$("#pwd").val();
+			$.ajax({
+				type : 'post',
+				url : '/crowdfunding/investWechat.html',
+				data:params,
+				dataType : 'json',
+				//async:false,
+				success : function(data){
+					if("success"==data.result)
+					{
+					//	alert("投资成功!");
+					//	window.location.href="/crowdfunding/index.html";
+						$("#paySure").hide();
+						$("#paySuccess").show();
+						$("#sureBtn").show();
+					///	window.location.href="/crowdfunding/projectPaySure.html?zcProjectid="+zcProjectid;
+					}
+					else
+					{
+					//	alert(data.result);
+					//	window.location.href = "/crowdfunding/projectSure.html?zcProjectid="+ zcProjectid+"&type="+Zctype+"&user_id="+user_id;
+						window.location.href = "/crowdfunding/projectpayError.html?error="+data.result;
+					}
+				}
+			})
+			
+		}
+		
+		$.ajax({
+			type:'get',
+			cache:false,
+			url:'/crowdfunding/projectInfoDetail.html?projectId='+zcProjectid,
+			dataType:'json',
+			async:false,
+			success:function(data){
+				var json = eval(data);
+				var stakeShare = parseFloat(json.stakeShare)*100;
+				$("#qyzb_r").html(stakeShare+"%");
+				for(var i = 0;i<json.materials.length;i++){
+					var materialCode = json.materials[i].materialCode;
+					var materialContent  = json.materials[i].materialContent;
+					if(materialCode==4000){
+						$(".xmTitle").html(materialContent);
+						$("#cpdd").html(materialContent);
+					}
+					if("riskDesc"==materialCode){
+						$("#riskDesc").html(materialContent);
+					}
+					if(Zctype==0){
+						$("#qyzb").hide();
+						$("#qtr_pay").hide();
+					}
+					if(Zctype==2){
+						$("#qyzb").show();
+						$("#qtr_pay").show();
+						if(materialCode==6000){
+							$("#ltr").html(materialContent);
+						}
+					}
+				}
+			}
+		})	
+		
+		/*投资和收益规则*/
+		 $.ajax({
+						type : 'get',
+						cache : false,
+						url : '/crowdfunding/getProjectRules.html?id='+ zcProjectid,
+						dataType : 'json',
+						async : false,
+						success : function(data)
+						{
+							var json = eval(data.rules);
+							for (var i = 0; i < json.length; i++)
+							{
+								
+								var id = json[i].id;
+								var investType = json[i].investType;
+								var entryPrice = json[i].entryPrice;/*单人最小投资金额*/
+								var ceilingPrice = json[i].ceilingPrice;/*单人最大投资金额*/
+								
+								if(Zctype==0){
+									$(".zchbDesc_r").append("<div class=zchbDesc_r_sy><p class=hbnr_p>"+ entryPrice + "元</p></div><div   class='zchbDesc_r_sy'><p class='hbnr_p' id=rights_fly_rule"+id+"></p></div>");
+								}
+								if(Zctype==2){
+									
+								$(".zchbDesc_r").append("<div class=zchbDesc_r_sy><p class=hbnr_p>"+ entryPrice + "元到"+ ceilingPrice + "元</p></div><div   class='zchbDesc_r_sy'><p class='hbnr_p' id=rights_fly_rule"+id+"></p></div>");
+								}
+								
+								for (var j = 0; j < json[i].ruleList.length; j++)
+								{
+									var groupId = json[i].ruleList[j].groupId;
+									var div = $("#"+groupId+id);
+									if (div.length>0)
+									{
+
+									} 
+									else
+									{
+										$("#rights_fly_rule"+id).append("<div id="+groupId+""+id+" ></div>");
+									}
+								}
+				
+							}
+
+							for (var m = 0; m < json.length; m++)
+							{
+								var id = json[m].id;
+								for (var n = 0; n < json[m].ruleList.length; n++)
+								{
+									var rightDescription = json[m].ruleList[n].rightDescription;
+									var groupId = json[m].ruleList[n].groupId;
+									$("#"+groupId + "" + id).append("<span id="+groupId+""+id+" >"+ rightDescription+ "</span>")
+
+								}
+							}
+							
+
+						}
+					})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/myjs.js"></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<script type="text/javascript">
+$(function(){
+	var id = $('#id').val();
+	$.ajax({
+		url:'/order/user.action?id='+id,
+		type:'GET',
+		dataType:'json',
+		success:function(res){
+			var htmlStr = '';
+			res.data = res;
+			if(null!=res.data){
+				for(var i = 0;i<res.data.length;i++){
+					if(1==res.data[i].payStatus||2==res.data[i].payStatus){
+						htmlStr += '<tr>';
+						htmlStr += '<td>'+res.data[i].payMoney+'</td>';
+						htmlStr += '<td>'+res.data[i].money+'</td>';
+						if(1==res.data[i].payStatus){
+							htmlStr += '<td>预约</td>';
+						}else{
+							htmlStr += '<td>全额投资</td>';
+						}
+						htmlStr += '<td>'+res.data[i].projectName+'</td>';
+						if(2==res.data[i].modelStatus){
+							htmlStr += '<td>众筹中</td>';
+						}else{
+							htmlStr += '<td>众筹完成</td>';
+						}
+						htmlStr += '</tr>';
+					}
+				}
+			}
+			$('#order_list').html(htmlStr);
+		}
+	})
+})
+</script>
+<style>
+body {
+	font-family: "Microsoft Yahei";
+}
+.space30{
+	height: 30px;		
+}
+#new{
+	width: 50%;
+	margin-left: 2%; 
+}
+.space100{
+	height: 100px;
+}
+#materials_list{
+	margin-left: 2%;
+	width: 50%;
+}
+.nav{
+	width: 96%;
+	margin-left: 2%;
+}
+.width60{
+	width: 60%;
+	margin-left: 2%;
+}
+</style>
+</head>
+<body>
+<input type="hidden" id="id" value="${id}" >
+<!-- 数据 以及 菜单 -->
+<div id="list">
+	<div class="space30"></div>
+	<div class="nav">
+		<div class="btn-group" role="group" aria-label="...">
+		</div>
+	</div>
+	<div class="space30"></div>
+	<table class="table table-bordered" > 
+		<thead>
+			<tr>
+				<th>支付金额</th>
+				<th>投资金额</th>
+				<th>投资方式</th>
+				<th>项目名称</th>
+				<th>项目状态</th>
+			</tr>
+		</thead>
+		<tbody id="order_list" ></tbody>
+	</table>
+	<div class="space100"></div>
+</div>
+</body>
+</html>

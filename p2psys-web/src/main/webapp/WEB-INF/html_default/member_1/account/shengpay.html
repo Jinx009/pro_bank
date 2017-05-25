@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>盛付通充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <form action="https://mas.sdo.com/web-acquire-channel/cashier.htm" method="post" id="form1">
+	<input type="hidden" name="Name"  value="${spay.name}">
+	<input type="hidden" name="Version"  value="${spay.version}">
+	<input type="hidden" name="Charset"  value="${spay.charset}">
+	<input type="hidden" name="MsgSender"  value="${spay.msgSender}">
+	<input type="hidden" name="SendTime"  value="${spay.sendTime}">
+	<input type="hidden" name="OrderNo"  value="${spay.orderNo}">
+	<input type="hidden" name="OrderAmount"  value="${spay.orderAmount}">
+	<input type="hidden" name="OrderTime"  value="${spay.orderTime}">
+	<input type="hidden" name="PayType"  value="${spay.payType}">
+	<input type="hidden" name="InstCode"  value="${spay.instCode}">
+	<input type="hidden" name="PageUrl"  value="${spay.pageUrl}">
+	<input type="hidden" name="NotifyUrl"  value="${spay.notifyUrl}">
+	<input type="hidden" name="ProductName"  value="${spay.productName}">
+	<input type="hidden" name="BuyerContact"  value="${spay.buyerContact}">
+	<input type="hidden" name="BuyerIp"  value="${spay.buyerIp}">
+	<input type="hidden" name="Ext1"  value="${spay.ext1}">
+	<input type="hidden" name="SignType"  value="${spay.signType}">
+	<input type="hidden" name="SignMsg"  value="${spay.signMsg}">
+	<input type="hidden" name="SignKey"  value="${spay.signKey}">
+	<input type="submit" value="submit"/>
+    </form>
+    <script language="javascript">
+     document.getElementById("form1").submit();
+    </script>
+  </body>
+</html>

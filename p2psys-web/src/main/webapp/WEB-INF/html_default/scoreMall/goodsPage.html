@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<#assign nid="integralExchange" >
+<#assign web_title='积分商城 - ${webname!}' >
+<#assign web_description='积分兑换${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<link href="${webroot}${theme_dir}/media/css/button.css" rel="stylesheet">
+<body>
+<#include "../include/header.html"> 
+<div class="scoreMall_header_wrapper">
+  <div class="scoreMall_header">
+    <h2><i class="iconfont">&#xe602;</i>积分商城</h2>
+    <div class="user_score clearfix">
+    <#if session_user?exists >
+      <img src="" alt="">
+      <dl>
+        <dt>欢迎您，<b>${session_user.userName}</b></dt>
+        <dd>您当前的可用积分为：<em>${userScore.validScore!0}</em> <i class="iconfont">&#xe614;</i><a href="###">如何获得积分？</a></dd>
+      </dl>
+    <#else>
+        <a href="/user/login.html" class="loginBtn">登陆账户</a>
+        <i class="iconfont">&#xe614;</i><a href="###">如何获得积分？</a>
+    </#if>
+    </div>
+
+    <ul>
+      <li><a href="/scoreMall/goodsPage.html">积分兑换</a></li>
+      <li><a href="/scoreMall/recordPage.html" class="hover">我的兑换记录</a></li>
+    </ul>
+  </div>
+</div>
+<div class="scoreMall_wrapper">
+    <div class="goods_search">
+      <span id="categoryId">
+        商品类别：<a href="javascript:;" class="current" data-val="-1">全部</a>
+        <#if itemList??>
+        <#list itemList as item>
+        	<a href="javascript:;" data-val="${item.id}">${item.name}</a>
+        </#list>
+        </#if>
+      </span>
+      <span id="range">
+        积分范围：<a href="javascript:;" class="current">全部</a> <a href="javascript:;" class="range">范围</a> <span style="display:none" class="range_span"><input type="text" onkeyup="value=value.replace(/[^\d]/g,'')"   name="startScore"> - <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')"  name="endScore"> <em class="searchBtn">搜索</em></span>
+      </span>
+    </div>
+    <ul id="goods_list" class="goods_list clearfix" data-href='${adminurl}'></ul>
+    <div id="kkpager"></div>
+</div>
+<script>seajs.use('scoreMall/goodsConvert');</script>
+<#include "../include/footer.html">
+</body>
+</html>

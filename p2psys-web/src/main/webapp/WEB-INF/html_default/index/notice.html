@@ -1,0 +1,23 @@
+<!--S-最新公告-->
+<h3 class="tit_h3">
+	<span class="box_title">最新公告</span>
+	<a href="${webroot}/article/detail.html?nid=notice" class="more">更多...</a>
+</h3>
+<div class="tab_content J_article">
+  <ul class="notice" id="J_notice"></ul>
+  <script id="article_json" type="text/x-handlebars-template">
+	{{#each data}}
+    <li class="c_red">
+        <a href="${webroot}/article/detail.html?nid={{nid}}&id={{id}}" target="_blank" class="new">{{{title}}}</a>
+		<div class="notice_content">{{{introduction}}}</div>
+	</li>
+	{{/each}}
+	</script>
+</div>
+<!--E-最新公告-->
+<script>
+$("#J_notice").jsonArticle({
+	jsonUrl:"/index/noticeList.html?nid=notice&size=5",
+	handBox:$("#article_json").html()
+})
+</script>

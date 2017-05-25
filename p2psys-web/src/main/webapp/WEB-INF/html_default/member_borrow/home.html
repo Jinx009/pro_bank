@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign nid="company_home" >
+<#assign web_title='我的账户 - ${webname!}' >
+<#assign web_description='我的账户，${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<body>
+<#if id??>
+<#include "../include/header.html">
+
+<#else>
+<#include "../include/member_borrow_header.html">
+</#if>
+<div id="company">
+  <div class="company-banner">
+      <img src="/themes/theme_default/images/member_borrow_bg.jpg" alt="" >
+  </div>
+  <div class="company-info-box bdr1-e6e6e6 mb20 pb20 pl20 pr20 bg-white">
+    <img  class="bg-white bdr1-e6e6e6 float_left mr20" src="/themes/theme_default/images/tx_04.jpg" alt="" width="160" height="160">
+    <dl class="float_left">
+      <dt class="f24 mb35"><i></i>　</dt>
+      <dd>公司类型：<b></b></dd>
+      <dd>所属城市：<b></b></dd>
+      <dd>公司注册号：<b></b></dd>
+      <dd>税务登记证号：<b></b></dd>
+      <dd class="address">公司地址：<b></b></dd>
+    </dl>
+  </div>
+  <div id="container" class="container">
+    <div class="company-introduce-box bdr1-e6e6e6 bg-white float_left">
+      <h3 class="c315A8B f18 mb20 ">公司简介</h3>
+      <p class="mb20 pb25"></p>
+      <h3 class="c315A8B f18 mb20">相关图片</h3>
+      <div class="f16 pl40">
+        <span><br>经营执照</span>
+        <span><br>税务登记证</span>
+        <span><br>组织机构证</span>
+      </div>
+    </div>
+    <div class="company-left-sidebar bdr1-e6e6e6 bg-white float_right">
+      <h3 class="c315A8B f18 mb20">相关信息</h3>
+      <p>公司电话：</p>
+      <p>公司传真：</p>
+      <p>公司邮箱：</p>
+      <p>联系人：</p>
+      <p>联系人电话：</p>
+      <p>联系人邮箱：</p>
+    </div>
+  </div> 
+</div>
+<script>seajs.use("member_borrow/home");</script>
+<#include "../include/footer.html">
+</body>
+</html>

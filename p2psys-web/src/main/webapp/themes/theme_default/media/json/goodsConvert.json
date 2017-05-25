@@ -1,0 +1,49 @@
+{
+	"data":{
+	"list":[
+		{
+			"imgSrc":"/themes/theme_default/images/shop.png",
+			"shopName":"耳机产品",
+			"needScore":"1000",
+			"remain":"10",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"imgSrc":"/themes/theme_default/images/shop.png",
+			"shopName":"耳机产品",
+			"needScore":"1000",
+			"remain":"10",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"imgSrc":"/themes/theme_default/images/shop.png",
+			"shopName":"耳机产品",
+			"needScore":"1000",
+			"remain":"10",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"imgSrc":"/themes/theme_default/images/shop.png",
+			"shopName":"耳机产品",
+			"needScore":"1000",
+			"remain":"10",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"imgSrc":"/themes/theme_default/images/shop.png",
+			"shopName":"耳机产品",
+			"needScore":"1000",
+			"remain":"10",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		}
+	],
+	"page":{
+		"currentPage": 1,
+	      "end": 10,
+	      "pages": 1,
+	      "pernum": 10,
+	      "start": 0,
+	      "total": 5
+		}
+	}
+}

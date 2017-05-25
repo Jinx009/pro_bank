@@ -1,0 +1,93 @@
+<div class="popForm">
+	<div class="formitm">
+		<label class="lab">用户名称：</label>
+		<div class="ipt">${borrowBespeak.user.userName}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">真实姓名：</label>
+		<div class="ipt">${borrowBespeak.user.realName}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">借款金额：</label>
+		<div class="ipt">${borrowBespeak.money}元</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">借款期限：</label>
+		<div class="ipt">${borrowBespeak.timeLimit}个月</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">借款利率：</label>
+		<div class="ipt">${borrowBespeak.apr}%</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">借款种类：</label>
+		<div class="ipt">
+			<#if borrowBespeak.loanType==102>信用标
+				<#elseif borrowBespeak.loanType==103>固定收益类产品
+				<#elseif borrowBespeak.loanType==112>担保标
+			</#if>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">所属地区：</label>
+		<div class="ipt">
+			<#if borrowBespeak.province??>
+			${borrowBespeak.province}-${borrowBespeak.city}-${borrowBespeak.area}
+			<#else>
+			${borrowBespeak.city}-${borrowBespeak.area}
+			</#if>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">所属行业：</label>
+		<div class="ipt">${borrowBespeak.industry}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">固定资产总额：</label>
+		<div class="ipt">${borrowBespeak.fixedMoney}元</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">状态：</label>
+		<div class="ipt">
+			<#if borrowBespeak.status==1>已处理
+				<#elseif borrowBespeak.status==2>不处理
+			</#if>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">添加时间：</label>
+		<div class="ipt">${borrowBespeak.addTime}&nbsp;</div>
+		<label class="lab">添加IP：</label>
+		<div class="ipt">${borrowBespeak.addIp}&nbsp;</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">借款用途：</label>
+		<div class="ipt"><textarea rows="10" cols="30" readonly>${borrowBespeak.borrowUse}</textarea></div>
+	</div>
+	<div class="formitm">
+		<label class="lab">还款来源：</label>
+		<div class="ipt">
+			<#if borrowBespeak.repaySource==7>业务经营收入
+				<#elseif borrowBespeak.repaySource==8>转让财产收入
+				<#elseif borrowBespeak.repaySource==9>股息、红利等权益性投资收益
+				<#elseif borrowBespeak.repaySource==10>租金收入
+				<#elseif borrowBespeak.repaySource==11>其他收入
+			</#if>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt"><textarea rows="10" cols="30" readonly>${borrowBespeak.remark}</textarea></div>
+	</div>
+	<div class="formitm">
+		<label class="lab">相关资料：</label>
+		<div class="ipt">
+		<#list bbpList as pic>
+			<a href="${weburl}${pic.picPath}" class="fileshow"><img src="${weburl}${pic.picPath}" width="100" height="100" class="zl-img"/></a>
+       	</#list>
+       	</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

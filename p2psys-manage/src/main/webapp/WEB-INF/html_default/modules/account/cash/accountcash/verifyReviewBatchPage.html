@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提现复审</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/cash/accountcash/verifyReviewBatch.html'); //表单提交  参数1：表单id 参数2：表单action地址	
+	</script>
+    <form id="form" method="post" enctype="multipart/form-data">
+    <!-- 隐藏域：理财顾问用户id -->
+    <input type="hidden" value="${idStr!}" name='ids'>
+	 <div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+		  <table border="1" cellspacing="0" style="margin:30px 0 30px 58px;">
+		  	<tr align="center"><th>用户名</th><th>真实姓名</th><th>银行卡号</th><th>所属银行</th><th>提现金额</th><th>到账金额</th><th>手续费</th></tr>
+		  <#assign total=0> 
+		  <#if list?? && list?size gt 0>
+		  	<#list list as item>
+	  			<tr align="center" style="height:30px;">
+	  				<td>${item.user.userName!}</td><td>${item.user.realName!}</td><td>${item.bankNo!}</td><td>${item.bank!}</td><td>${item.money!0}</td><td>${item.credited!0}</td><td>${item.fee!0}</td>
+	  				<#assign total = total + item.money!0> 
+	  			</tr>
+		  	</#list>
+		  </#if>
+		  </table>
+		  <div class="borrowFormMuti" style="margin-left:20px;"><span style="width:175px;">合计金额：${total}</span></div>
+		   <div class="borrowFormMuti" style="margin-left:20px;"><span style="width:75px;">是否通过：</span><input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过&nbsp;&nbsp;&nbsp;<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true"  checked />不通过<input type="radio" name="status" class="easyui-validatebox" value="3" data-options="required: true"  checked />撤回</div>
+	 	 <div class="borrowFormMuti" style="margin-left:20px;"><span style="width:75px;">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</span><textarea name="remark" class="borrowFormTextarea"></textarea></div>
+	 </div>
+	<input name="verifyCashToken" value="${verifyCashToken}" type="hidden" />	
+	</form>
+</div>
+</body>
+</html>

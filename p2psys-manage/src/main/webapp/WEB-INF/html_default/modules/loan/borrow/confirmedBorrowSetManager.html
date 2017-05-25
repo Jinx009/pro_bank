@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>组合发标待审标信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+    	<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入公司借款名称/标名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                                    <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>标的类型</span><select name="type" class="type"><option value="全部">全部</option><#list borrowConfigList as item><option value="${item.id}">${item.name}</option></#list></select></li>
+		       		<li><span>公司借款名称</span><input type="text" name="companyName" autocomplete="off"/></li>
+		       		<li><span>标名</span><input type="text" name="name" autocomplete="off"/></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 800;
+    var addTitle = "添加";
+	var addUrl =  "/modules/loan/borrow/borrowAddPage.html";
+    var verifyTitle = "初审";
+    var verifyUrl =  "/modules/loan/borrow/borrowVerifyPage.html";
+    var confirmUrl = "/modules/loan/borrow/registerBorrowResult.html";
+    var openUrl= "/modules/loan/borrow/registerBorrow.html";
+   
+    var confirmGuaranteeUrl = "/modules/loan/borrow/registerGuaranteeResult.html";
+    var openGuaranteeUrl= "/modules/loan/borrow/registerGuarantee.html";
+    var registerGuaranteeParmeters = "'{0}','"+confirmGuaranteeUrl+"','" + openGuaranteeUrl+"'";
+    
+    var verifyWinParmeters = "'{0}','"+verifyTitle+"',700,530,'"+verifyUrl+"'";
+    var registerBorrowParmeters = "'{0}','"+confirmUrl+"','" + openUrl+"'";
+    var detailTitle = "修改借款信息";
+    var detailUrl = "/modules/loan/borrow/borrowUpdatePage.html"
+    var detailWinParmeters = "'{0}','" + detailTitle + "',800,500,'" + detailUrl + "'";
+    $(function() {
+    	$("#type").change(function(){
+    		$("#a").attr("onclick","$.fn.dataGridOptions.addFun("+$(this).val()+",addTitle,winWidth,winHeight,addUrl);");
+    	});
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'confirmedBorrowList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50,fixed:true, sortable:false }, 
+			  { field: 'bidNo', title: '组合名称',  fixed:true,sortable:false },
+	  	 	  { field: 'companyName', title: '组合类型',  fixed:true,sortable:false },
+              { field: 'name', title: '最高预期收益', width: 40, sortable:false },   
+              { field: 'type', title: '最低预期收益', width: 40, sortable:false  },
+              { field: 'account', title: '组合亮点', width: 100, sortable:false },
+              { field: 'apr', title: '组合产品', width: 150, sortable:false}, 
+              { field : 'action',
+                title : '操作',
+                width :50,
+                fixed:true,
+                formatter : function(value, row, index) {
+                    var str = '';
+                    str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',verifyTitle,winWidth,winHeight,verifyUrl);" title="'+verifyTitle+'">初审</a>';
+                    return str;
+                }
+            } ] ]
+        });
+    });
+</script>
+<script src="${theme_dir}/js/search.js"></script>

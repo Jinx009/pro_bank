@@ -1,0 +1,25 @@
+<form name="form" method="post" action="/modules/account/tppGlodLog/glodRecharge.html" enctype="multipart/form-data" target="_blank">
+    <div class="valBox w750">
+        <div class="top" style="padding:30px;">
+            <strong>金账户充值</strong>
+        </div>
+        <div class="val clearfix">
+            <ul>
+                <li>
+                    <div class="title" style="width:80px;float:left;text-align:right;">金额：</div>
+                    <div class="v" style="width:430px; float:left;">
+                        <input type="text" name="money" onKeyUp="value=value.replace(/[^0-9.]/g,'')" />
+                        <span>*支持不超过11位数（不超过百亿级别）的充值</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="other">
+                <input type="hidden" name="rechargeToken" value="${rechargeToken!}">
+                <input type="submit" name="reset" value="确认充值" class="input-button confirm" style="margin-left: 80px;margin-top: 30px;"/>
+            </div>
+        </div>
+    </div>
+<script>
+  $(".dialog-button").remove()
+</script>
+</form>

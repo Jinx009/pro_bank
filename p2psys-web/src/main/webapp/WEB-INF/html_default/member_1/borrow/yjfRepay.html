@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>易极付创建还款交易号...</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>易极付充值跳转中...,请您不要关闭页面</div>
+    <form action="${yjf.url}" method="post" id="frm1" >
+    	service：<input id="service" name="service" value="${yjf.service}"  />
+    	partnerId：<input id="partnerId" name="partnerId" value="${yjf.partnerId}"  />
+    	orderNo：<input id="orderNo" name="orderNo" value="${yjf.orderNo}"  />
+    	sign：<input id="sign" name="sign" value="${yjf.sign}"  />
+    	signType：<input id="signType" name="signType" value="${yjf.signType}"  />
+    	signType：<input id="tradeName" name="tradeName" value="${yjf.tradeName}"  />
+    	returnUrl：<input id="returnUrl" name="returnUrl" value="${yjf.returnUrl}"  />
+    	notifyUrl：<input id="notifyUrl" name="notifyUrl" value="${yjf.notifyUrl}"  />
+    	payerUserId：<input id="payerUserId" name="payerUserId" value="${yjf.payerUserId}"  />
+    	product：<input id="product" name="product" value="${yjf.product}"  />
+    	tradeAmount：<input id="tradeAmount" name="tradeAmount" value="${yjf.tradeAmount}"  />
+    	tradeType：<input id="tradeType" name="tradeType" value="${yjf.tradeType}"  />
+    	gatheringType：<input id="gatheringType" name="gatheringType" value="${yjf.gatheringType}"  />
+    	tradeBizProductCode：<input id="tradeBizProductCode" name="tradeBizProductCode" value="${yjf.tradeBizProductCode}"  />
+    	currency：<input id="currency" name="currency" value="${yjf.currency}"  />
+    	goods：<input id="goods" name="goods" value="${yjf.goods}"  />
+		<input type="submit" value="提交" />
+    </form>
+    <script type="text/javascript">
+    	//document.getElementById("frm1").submit();  
+    </script>
+   
+  </body>
+</html>

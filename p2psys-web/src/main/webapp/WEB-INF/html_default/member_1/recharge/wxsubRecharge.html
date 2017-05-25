@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>账户充值</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+<!-- <link href="${webroot}${theme_dir}/wx/css/index.css" rel="stylesheet"> -->
+<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+</head>
+<body>
+<form id="payForm" method="post" action="${webroot}/member/recharge/dollPayRecharge.html" name="payForm">
+      <div class="sureUser bottom">
+      	<p><strong>充值金额：</strong> ${money!}元</p>
+      </div>
+    <span id="cardlist">
+    
+    </span>
+	<div id="otherbankTr">
+      <div class="edit">
+      	<input class="input-text" type="text" name="accName" id="accName" autocomplete="off"  placeholder="姓名" onpaste="return false;" maxLength="12" />
+      </div>
+    
+      <div class="edit">
+      	<input class="input-text" type="text" name="mobile" id="mobile" autocomplete="off"  placeholder="预留电话" onpaste="return false;" maxLength="11" />
+      </div>
+      <div class="edit">
+      	<input class="input-text" type="text" name="accId" id="accId" autocomplete="off"  placeholder="身份证号" onpaste="return false;" maxLength="18" />
+      </div>
+      <div class="edit">
+          <input class="input-text" type="number" name="card_no" id="card_no" autocomplete="off"  placeholder="银行卡号" onpaste="return false;" maxLength="22" />
+      </div>
+  </div>
+ 
+	<input type="hidden" class="paymentStatus" name="type" value="1"/>
+	<input  type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" value="preposit" name="paymod">
+    <input type="hidden" value="0.01" name="money_order">
+    <input type="hidden" value="充值" name="name_goods">
+    <input type="hidden" value="${payType!}" name="payType">
+	<input class="sureBtn" style="display:block;" type="submit" id="recPayBtn2" value="提交去充值"  />
+</form>
+
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+  <script type="text/javascript">
+    seajs.use("${webroot}${theme_dir}/wx/js/recharge_subRecharge")
+  </script>
+</body>
+</html>

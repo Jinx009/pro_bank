@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js"></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<title>选取领投人</title>
+<script type="text/javascript">
+$(function(){
+	getFactory();
+	getData();
+})
+var webUrl = "http://127.0.0.1:8089";
+/**
+ *获取领投人申请数据
+ */
+function getData(){
+	var params = "id="+$("#projectId").val();
+	$.ajax({
+		url:"/cf/leader/data.action",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			var htmlStr = "";
+			if(null!=res&&null!=res.errorMsg){
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<tr>";
+					htmlStr += "<td>"+res.errorMsg[i].id+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].name+"</td>";
+					if(null!=res.errorMsg[i].picPath&&""!=res.errorMsg[i].picPath){
+						htmlStr += "<td><img src='"+webUrl+res.errorMsg[i].picPath+"' width='40px'  /></td>";
+					}else{
+						htmlStr += "<td><img src='"+webUrl+"/themes/theme_default/cf/img/login_icon.png' width='40px'  /></td>";
+					}
+					htmlStr += "<td>"+res.errorMsg[i].reason+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].info+"</td>";
+					if("1"==res.errorMsg[i].status){
+						htmlStr += "<td style='color:red;' >目前是领投人</td>";
+						htmlStr += "<td></td>";
+					}else{
+						htmlStr += "<td>不是领投人</td>";
+						htmlStr += "<td> <a class='btn btn-danger' onclick=doChange('"+res.errorMsg[i].id+"')  >设定为领投人</a> </td>";
+					}
+					
+					htmlStr += "</tr>";
+				}
+			}
+			$("#dataTable").html(htmlStr);
+		}
+	})
+}
+
+
+/**
+ * 获取仓库信息
+ */
+function getFactory(){
+	$.ajax({
+		url:"/cf/leaderFactory/list.action",
+		type:"POST",
+		dataType:"json",
+		success:function(res){
+			var htmlStr = "";
+			if(null!=res&&null!=res.errorMsg){
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<tr>";
+					htmlStr += "<td>"+res.errorMsg[i].id+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].name+"</td>";
+					htmlStr += "<td><img src='"+res.errorMsg[i].picPath+"' width='40px'  /></td>";
+					htmlStr += "<td>"+res.errorMsg[i].flagNames+"</td>";
+					htmlStr += "<td><input class='form-control'  value='"+res.errorMsg[i].reason+"' id=reason"+res.errorMsg[i].id+"  /></td>";
+					htmlStr += "<td><input class='form-control' value='"+res.errorMsg[i].info+"' id=info"+res.errorMsg[i].id+"  /></td>";
+					htmlStr += "<td>"+res.errorMsg[i].history+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].projectNames+"</td>";
+					htmlStr += "<td> <a class='btn btn-danger' onclick=doAdd('"+res.errorMsg[i].id+"')  >设定成为领投人</a> </td>";
+					htmlStr += "</tr>";
+				}
+			}
+			$("#factoryDiv").html(htmlStr);
+		}
+	})
+}
+
+/**
+ * 从仓库选择领投人
+ */
+function doAdd(id){
+	var projectId = $("#projectId").val();
+	var info = $("#info"+id).val();
+	var reason = $("#reason"+id).val();
+	var factoryId =id;
+	var params = "projectId="+projectId+"&info="+info+"&reason="+reason+"&factoryId="+factoryId;
+	alert(params)
+	$.ajax({
+		url:"/cf/leader/update.action",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				alert("设定成功!");
+				location.reload();
+			}
+		}
+	})
+}
+
+/**
+ * 更换领投人
+ */
+function doChange(id){
+	var projectId = $("#projectId").val();
+	var id = id;
+	var params = "id="+id+"&projectId="+projectId;
+	
+	$.ajax({
+		url:"/cf/leader/change.action",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				alert("设定成功！");
+				location.realod();
+			}
+		}
+	})
+}
+
+/**
+ * 切换标签
+ */
+function showDiv(id){
+	$("#newTag").removeClass("active");
+	$("#dataTag").removeClass("active");
+	//标签
+	$("#"+id+"Tag").addClass("active");
+	//数据
+	$("#dataDiv").css("display","none");
+	$("#newDiv").css("display","none");
+	$("#"+id+"Div").css("display","block");
+}
+</script>
+<style type="text/css">
+body{
+	font-family: "Microsoft Yahei";
+}
+.space30{
+	height: 30px;
+}
+.main{
+	width: 96%;
+	margin-left: 2%;
+}
+.data-table{
+	width: 80%;
+	margin-left: 0%;
+}
+.navbar-nav>li>a{
+	cursor: pointer;
+}
+.data-div{
+	margin-left: 5%;
+}
+</style>
+</head>
+<body>
+<!-- 导航 -->
+<input type="hidden" id="projectId" value="${id}" >
+<div class="space30" ></div>
+<div class="main" >
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" id="projectName" ><b>选取领投人</b></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active" id="dataTag" ><a onclick="showDiv('data')" >申请列表<span class="sr-only"></span></a></li>
+        <li id="newTag" ><a onclick="showDiv('new')">从仓库选取 </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 数据容器 -->
+<div id="dataDiv" >
+	<table class="table table-bordered data-table" >
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>领头人头像</th>
+				<th>领投理由</th>
+				<th>个人简介</th>
+				<th>领投人状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="dataTable" ></tbody>
+	</table>
+</div>
+
+<!-- 新建容器 -->
+<div id="newDiv" style="display: none;"  >
+	<table class="table table-bordered data-table " >
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>领投人头像</th>
+				<th>行业标签</th>
+				<th>领头理由</th>
+				<th>个人简介</th>
+				<th>历史领投产品</th>
+				<th>平台领投产品</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="factoryDiv" ></tbody>
+	</table>
+</div>
+</div>
+</body>
+</html>

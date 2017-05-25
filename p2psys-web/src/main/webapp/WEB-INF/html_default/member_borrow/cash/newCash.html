@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign web_title='账户提现 - ${webname!}'>
+<#assign web_description='账户提现，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="member">
+	<#include "../../common/function.html"> 
+	<#include "../../include/member_borrow_header.html">
+	<!--#container-->
+	<div id="container">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--S-user_left-->
+			<div class="user_left">
+				<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>
+            <div class="user_right">
+            	<h2 class="user_title">账户提现</h2>
+                <!--S-user_right_main-->
+                <div class="user_right_main newcash">
+                <form action="/member/cash/doCash.html" method="post" target="_blank" name="form1" id="J_cash">
+                	<h4>提现银行卡</h4>
+						<ul class="cashCardList clearfix">
+	                	<#if bankList?? && bankList?size gt 0>
+                       		 <#list bankList as item>
+                			<li>
+                            <div class="bank_radio"><b></b><label><i><img alt="" src="${item.picPath!''}" height="16" width="16">${item.bank!''}</i><em>尾号：${item.hideBankNo!''}</em></label><input type="radio" name="bankNo" value="${item.bankNo}" data-value="<i><img alt='' src='${item.picPath!''}' height='16' width='16'/>${item.bank!''}</i><em>尾号：${item.hideBankNo!''}</em>" style="display:none;"/></div>
+                            </li>
+                			</#list>
+                        </#if>
+	                	</ul>
+                	<h5>填写提现金额</h5>
+                	<ul class="newcashForm">
+                		<li><label>可用余额</label><em id="available_Balance">${account.useMoney!0}</em>元</li>
+                		<li>
+                			<label>提现金额</label><input type="text" name="money" id="money" class="cashMoney" autocomplete="off"  onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"  />元<span></span>
+                		</li>
+                		<li>
+                			<label>交易密码</label><#if session_user.payPwd?exists><input type="password" name="payPwd" class="cashMoney" /><span></span>
+                            <#else>
+                                <a href="${webroot}/member/security/setting.html"><font color="#FF0000">请先设置一个支付密码</font></a>
+                            </#if>
+                		</li>
+                		<li><label>&nbsp;</label><input type="submit" class="newCashBtn"  name="name"  value="确认提现" size="30" /> </li>
+                	</ul>
+                    </form>
+                <!--E-user_right_main-->
+            </div>
+			<!--E-user_right-->
+			<div class="user_help">
+				<h3><b class="user_help_tip"></b>温馨提示：</h3>
+                <p>1、预计到账时间：</p>
+                <p style="padding-left:24px;">T日10:00AM之前申请提现，预计当日到账；T日10:00AM以后申请提现，预计最晚T+1个工作日到账；</p>
+                <p style="padding-left:24px;">遇双休日或法定节假日顺延,实际到账时间根据账户托管方(第三方支付平台)及提现银行而有所差异。</p>
+            </div>
+		</div>
+		<!--E-usermain-->
+	</div>
+	</div>
+	<script>
+		seajs.use("member_borrow/cash_newCash");
+	</script>
+	<#include "../../include/footer.html">

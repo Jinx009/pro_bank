@@ -1,0 +1,137 @@
+@CHARSET "UTF-8";
+
+@media screen and (min-width: 1240px) {
+	* {
+		max-width: 640px;
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	/*max-width: 640px;*/
+}
+
+body {
+	font-family: Microsoft YaHei, Helvetica;
+	font-size: .875em;
+	-webkit-text-size-adjust: 100%;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.header {
+	background: #2370B6;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	height: 55px;
+	line-height: 55px;
+}
+
+.title-div {
+	margin-top: 15px;
+	height: 120px;
+	border-bottom: 0.5px #E3E7E8 solid;
+}
+
+.title-tab {
+	width: 92%;
+	height: 100px;
+	margin-left: 4%;
+}
+
+.cover {
+	width: 25%;
+}
+
+.img {
+	width: 96px;
+	height: 96px;
+}
+
+.title {
+	font-size: 17px;
+	color: #5A5A5A;
+}
+
+.tag {
+	color: #888888;
+	font-size: 16px;
+}
+
+.invest-money {
+	margin-top: 10px;
+	border-top: 0.5px #E3E7E8 solid;
+	border-bottom: 0.5px #E3E7E8 solid;
+	height: 70px;
+	color: #D3D3D3;
+	font-size: 18px;
+	line-height: 70px;
+}
+
+.invest-money-val {
+	height: 100%;
+	width: 92%;
+	margin-left: 4%;
+}
+
+.invest-link {
+	margin-top: 10px;
+	border-top: 0.5px #E3E7E8 solid;
+	border-bottom: 0.5px #E3E7E8 solid;
+	height: 70px;
+	color: #5A5A5A;
+	font-size: 18px;
+	line-height: 70px;
+}
+
+.invest-link-msg {
+	height: 100%;
+	width: 92%;
+	margin-left: 4%;
+}
+
+.invest-link table {
+	height: 100%;
+	width: 100%;
+}
+
+.legal table {
+	margin-left: 4%;
+	margin-top: 20px;
+	height: 100%;
+	width: 92%;
+}
+
+.legal .check {
+	width: 8%;
+}
+
+.legal .text {
+	font-size: 16px;
+}
+
+.legal .legal {
+	text-decoration: none;
+	color: #81D8D0;
+}
+
+.btn {
+	background: #2370B6;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	height: 50px;
+	line-height: 50px;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 20px;
+	/*	-moz-border-radius: 5px;*/
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}

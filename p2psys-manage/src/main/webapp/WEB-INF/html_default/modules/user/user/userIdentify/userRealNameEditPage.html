@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/userIdentify/userRealNameEdit.html');	
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+	<div class="formitm">
+		 <label class="lab">用户名：</label>
+		 <div class="ipt">
+		    ${userIdentify.user.userName}
+		 </div>
+	</div>	
+	<div class="formitm">
+		 <label class="lab">真实姓名：</label>
+		 <div class="ipt">
+		    ${userIdentify.user.realName}
+		 </div>
+	</div>	
+	<div class="formitm">
+		 <label class="lab">证件号码：</label>
+		 <div class="ipt">
+		    ${userCache.user.cardId!}&nbsp;
+		 </div>
+	</div>
+	<#if showPic??>
+	<div class="formitm">
+		 <label class="lab">证件图片：</label>
+		 <div class="ipt">
+		    <a target="_blank" href="${weburl}${userCache.cardPositive!}">正面</a>|<a target="_blank" href="${weburl}${userCache.cardOpposite!}">背面</a>
+		 </div>
+	</div>	
+	</#if>
+	<div class="formitm">
+		 <label class="lab">状态：</label>
+		 <div class="ipt">
+		    <input type="radio" name="realNameStatus" value="1" checked="checked"/>&nbsp;&nbsp;认证通过
+			<input type="radio" name="realNameStatus" value="-1"/>&nbsp;&nbsp;认证不通过
+		 </div>
+	</div>
+	<div class="formitm">
+		 <label class="lab">审核说明：</label>
+		 <div class="ipt">
+			<textarea  name="realNameVerifyRemark" class="w300"></textarea>	
+		 </div>
+	</div>
+	<input name="id" value="${userIdentify.id}" type="hidden"/>
+</div>
+</form>

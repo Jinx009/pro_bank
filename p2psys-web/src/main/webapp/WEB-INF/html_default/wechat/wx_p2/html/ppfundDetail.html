@@ -1,0 +1,34 @@
+<#include "lego/standard_opening.html">
+<link href="${webroot}${theme_dir}/wx/css/detail.css" rel="stylesheet">
+</head>
+<style type="text/css">
+.popup-div{display:none;background:#000;opacity:0.9;-ms-filter:”progid:DXImageTransform.Microsoft.Alpha(Opacity=90)”;filter: alpha(opacity=90);
+	width:100%;height:100%;position:fixed;z-index:4;}
+.popup-div .form-div{ float:left;border:2px solid #ff0;width: 90%;margin-left:5%; height: auto; position: absolute; top: 20%;background:#fff;border-radius: 5px;}
+.popup-div .form-div .get-invest{float:left;height:30px;line-height:30px;margin-top: 10px;padding-left:15%;}
+.popup-div .form-div .input-amount{width:68%;height:40px;line-height:40px;padding-left:5px;margin-left: 15%;}
+.popup-div .form-div .msg_error{width:100%;height:24px;line-height:24px;color:red;padding-left:16%;}
+.popup-div .form-div .msg_error .ppfund_recharge{color:#1A1AFF;margin-left:5px;}
+.popup-div .form-div .pay-pwd{width:68%;height:40px;line-height:40px;padding-left:5px;margin-left: 15%;}
+.popup-div .form-div .pwd_error{width:100%;height:24px;line-height:24px;color:red;padding-left:16%;}
+.popup-div .form-div .payPwd_error{width:100%;height:24px;line-height:24px;display:none;color:red;padding-left:16%;}
+.popup-div .form-div .outTime_error{width:100%;height:24px;line-height:24px;display:none;color:red;padding-left:5px;}
+.popup-div .form-div .set_pwd{height:50px;line-height: 50px;text-decoration: none;padding-left:15%;}
+.popup-div .form-div .pay-sure{width:71%;border:none;height:40px;line-height:40px;background:#2370B6;color:#fff;font-size:18px;margin-left: 15%;margin-bottom: 15px;
+	border-radius: 5px;}
+
+.btn_close{display: block;position: absolute;background:url("${webroot}${theme_dir}/wx/img/close.gif") no-repeat;left: 92%;top: 3%;width: 20px;height: 20px;}
+#content p span img{max-width: 100%;}
+#content p img{max-width: 100%;}
+</style>
+<body>
+	<div style="position:relative;z-index:1;">
+	<form action="/wx/account/pay.html" method="post" id="form1">
+	<div id="xm-con"></div>
+	</form>
+	</div>
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/ppfundDetail");
+</script>
+</html>

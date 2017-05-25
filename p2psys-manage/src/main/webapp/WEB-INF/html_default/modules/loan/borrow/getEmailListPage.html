@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>满标待审借款</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+    $(function() {
+    	dataGrid = $('#getEmailList').datagrid({
+            url : '/modules/loan/borrow/getEmailList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'userId',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'userId', title: '序号', sortable:false},
+              { field: 'realName', title: '借款人', sortable:false},
+            
+              <#if is_open_deposit?exists && is_open_deposit=="1">
+              { field: 'email', title: '邮箱地址', sortable:false },
+              { field: 'userCache.companyName', title: '公司名称', sortable:false,width:100 }
+              <#else>
+              	{ field: 'email', title: '邮箱地址', sortable:false,width:100 }
+              </#if>
+             ]]
+        }); 
+    });
+    var getSelected = function($dialog, $input) {
+    	var selected = $('#getEmailList').datagrid('getSelected');
+    	$input.val(selected.email);
+    	$dialog.dialog('destroy');
+    };
+    
+</script>
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<div data-options="region:'north',border:false,collapsible:false" id="searchBox"  style="margin-top:0;">
+		<div class="sLeft">
+         <form id="searchForm">
+         	<input type="text"  name="searchName" class="sInput" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+         </form>
+        </div>
+     </div>
+	<div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+	    <table id="getEmailList"></table>
+	</div>
+</div>
+</body>
+</html>
+
+

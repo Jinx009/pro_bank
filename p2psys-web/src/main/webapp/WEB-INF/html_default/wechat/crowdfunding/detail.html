@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/wechat/index.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/progress/js/radialIndicator.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/media/js/weburl.js" ></script>
+<link href="/themes/theme_default/crowdfunding/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+
+ <link href="/themes/theme_default/crowdfunding/time.css" media="all" rel="stylesheet">
+
+<link href="/themes/theme_default/crowdfunding/styles.css" media="all" rel="stylesheet">
+
+<title>众筹详情</title>
+<script type="text/javascript">
+var invest_id;
+var profit_data;
+$(function()
+{
+
+	var main_data;
+	var invest_data;
+	var project_id = $("#project_id").val();
+	$.ajax({
+		url:"/crowdfunding/projectInfoDetail.html?projectId="+project_id,
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			
+			var data = res;
+			var ans_num = 1;
+			for(var i =0 ;i<data.materials.length;i++)
+			{
+				if("2000"==data.materials[i].materialCode)
+				{
+					$("#title_img").attr("src",back_web_url+data.materials[i].materialContent);
+				}
+				if("B001"==data.materials[i].materialCode)
+				{
+					var array = data.materials[i].materialContent.split("@@");
+					var img_url = "";
+					var title = "";
+					var date = "";
+					var desc = "";
+					
+					for(var j = 0;j<array.length;j++)
+					{
+						if("title"==array[j].split("=")[0])
+						{
+							title = array[j].split("=")[1];
+						}
+						if("pic"==array[j].split("=")[0])
+						{
+							img_url = array[j].split("=")[1];
+						}
+						if("time"==array[j].split("=")[0])
+						{
+							date = array[j].split("=")[1];
+						}
+						if("desc"==array[j].split("=")[0])
+						{
+							desc = array[j].split("=")[1];
+						}
+					}
+					var htmlStr = "";
+					
+					htmlStr += "<div class='cd-timeline-block'><div class='cd-timeline-img cd-picture'>";
+					htmlStr += "<img src='/themes/theme_default/crowdfunding/img/cd-icon-picture.svg' alt=Picture /></div>";
+					htmlStr += "<div class='cd-timeline-content'><h4>"+title+"</h4>";
+					if("无"!=img_url)
+					{
+						htmlStr += "<img class='img-responsive' src="+back_web_url+img_url+" />";
+					}
+					htmlStr += "<p>"+desc+"</p>	<span class='cd-date'>"+date+"</span></div></div>";
+			
+					$("#cd-timeline").append(htmlStr);	
+				}
+			
+				if("ANS001"==data.materials[i].materialCode)
+				{
+					var htmlStr =  "<tr><td width='90%'   onclick=changeImg('"+ans_num+"')  >"+data.materials[i].materialContent.split("::")[0]+"</td><td width='10%' >";
+						htmlStr += "<img src='/themes/theme_default/images/raise/right_actived.png' id=ask_img"+ans_num+" > </td></tr>";
+						htmlStr += "<tr id=ask"+ans_num+" style='display:none' ><td colspan=2  class=ask_td >"+data.materials[i].materialContent.split("::")[1]+"</td></tr>";
+					
+					ans_num++;
+					
+					$("#ask_answer").append(htmlStr);
+				}
+				if("projectDesc"==data.materials[i].materialCode)
+				{
+					var htmlStr = "";
+						htmlStr +=  "<p>"+data.materials[i].materialContent.split("%%")[0]+"</p>";
+						if("无"!=data.materials[i].materialContent.split("%%")[1])
+						{
+							htmlStr += "<img  class='normal_img' src="+back_web_url+data.materials[i].materialContent.split("%%")[1]+" />";
+						}
+						
+					$("#detail_div").append(htmlStr);
+				}
+			}
+			
+			var progress = 0;
+			var person_num = 0;
+			var left_days = 0;
+			
+			$.ajax({
+				url:"/crowdfunding/projectTotalInfo.html?id="+project_id,
+				type:"GET",
+				dataType:"json",
+				async:false,
+				success:function(res)
+				{
+					progress = parseFloat(res.totalInfo.scale)*100;
+					person_num = res.totalInfo.supportCount;
+					left_days = res.totalInfo.leftDays;
+				}
+			})
+			$("#progress_img").html("<div id=indicatorContainer  class='progress_div'   ></div>");
+			$('#indicatorContainer').radialIndicator
+			({
+				radius: 40,
+		        barColor: 'rgb(129,216,207)',
+		        barWidth: 6,
+		        initValue:progress,
+		        roundCorner : true,
+		        percentage: true
+		    });
+			
+			var wanna_money = (parseFloat(data.planedMaxAmount)/10000).toFixed(1);
+			var give_num = parseFloat(data.stakeShare)*100;
+			
+			var min_money = 0;
+			
+			
+			if("0"==data.type)
+			{
+				$("#text_two").html("人数");
+				$("#text_two").html("剩余天数");
+				
+				$.ajax({
+					url:"/crowdfunding/getProjectRules.html?id="+project_id,
+					type:"GET",
+					dataType:"json",
+					success:function(res)
+					{
+						profit_data = res.rules;
+						min_money = res.rules[0].baseMoneyUnitPrice;
+						var htmlStr = "<table style='width:100%' >";
+						
+						for(var i = 0;i<res.rules.length;i++)
+						{
+							if(parseFloat(res.rules[i].baseMoneyUnitPrice)<=parseFloat(min_money))
+							{
+								min_money = res.rules[i].baseMoneyUnitPrice;
+							}
+							htmlStr +=  "<tr  ><td width='20%' ></td><td width='5%' class='single_support_css' ></td>";
+							htmlStr +=  "<td width='50%' class='single_support_css' valign='middle'  onclick=showMySupport('"+res.rules[i].id+"') >支持&nbsp;&nbsp;￥"+res.rules[i].baseMoneyUnitPrice+"</td>";
+							htmlStr +=  "<td width='5%' class='single_support_css' ></td><td width='20%' ></td></tr>";
+							htmlStr += "<tr height='5px' ></tr>";
+							htmlStr +=  "<tr><td></td> <td colspan=3 id=invest"+i+"  ></td> <td></td></tr>";
+							htmlStr += "<tr height='5px' ></tr>";
+							
+						}
+						htmlStr += "</table>";
+						
+						$("#single_support").append(htmlStr);
+						
+						giveProfit();
+					}
+				})
+				
+				
+				$("#wanna_money").html("<p class='top_p' >"+wanna_money+"万</p>");
+				$("#give_num").html("<p class='top_p' >"+left_days+"天</p>");
+				$("#min_money").html("<p class='top_p' >"+min_money+"元</p>");
+				
+				$("#support").hide();
+			}
+			else
+			{
+				$.ajax({
+					url:"/crowdfunding/getProjectRules.html?id="+project_id,
+					type:"GET",
+					dataType:"json",
+					success:function(res)
+					{
+						
+						min_money = res.rules[0].entryPrice;
+						
+						for(var i = 0;i<res.rules.length;i++)
+						{
+							if(parseFloat(res.rules[i].entryPrice)<=parseFloat(min_money))
+							{
+								min_money = res.rules[i].entryPrice;
+							}
+						}
+					}
+				})
+				
+				if(give_num!=null&&""!=give_num&&give_num)
+				{
+					$("#give_num").html("<p class='top_p' >"+give_num+"%</p>");
+				}
+				$("#wanna_money").html("<p class='top_p' >"+wanna_money+"万</p>");
+				$("#min_money").html("<p class='top_p' >"+min_money+"元</p>");
+				
+				$("#single_support").hide();
+			}
+		}
+	})	
+})
+function showMySupport(rule_id)
+{
+	invest_id = rule_id;
+	
+	$("#back").css("display","none");
+	$("#support_info").show(125);		
+}
+
+
+
+function showSupport()
+{
+	$("#back").css("display","none");
+	$("#support_info").show(125);	
+}
+function hideSupport()
+{
+	$("#support_info").hide(125);	
+	$("#back").css("display","block");
+}
+function goPay()
+{
+	var project_id = $("#project_id").val();
+	
+	location.href = "/wechat/crowdfunding/buy.html?project_id="+project_id+"&invest_id="+invest_id;
+}
+
+function changeImg(index)
+{
+		$(".ask_answer tr").each(function()
+		{
+			var id = $(this).attr("id");
+			
+			if(id!=null&&id!=undefined&&""!=id)
+			{
+				
+				$("#"+id).css("display","none");
+				
+				var real_id = id.split("ask")[1];
+				
+				$("#ask_img"+real_id).attr("src","/themes/theme_default/images/raise/right.png");
+			}
+			
+		})
+		$("#ask"+index).css("display","block");
+		$("#ask_img"+index).attr("src","/themes/theme_default/images/raise/right_actived.png");
+}
+function giveProfit()
+{
+	for(var i = 0;i<profit_data.length;i++)
+	{
+		
+		var profit_num = 1;
+		
+		for(var j = 0;j<profit_data[i].ruleList.length;j++)
+		{
+			var group_id = profit_data[i].ruleList[j].groupId;
+			
+			if($("#"+profit_data[i].id+group_id).length>=1)
+			{
+				$("#"+profit_data[i].id+group_id).append(profit_data[i].ruleList[j].rightDescription+";");
+			}
+			else
+			{
+				$("#invest"+i).append("<p id="+profit_data[i].id+group_id+" >"+profit_num+":"+profit_data[i].ruleList[j].rightDescription+";</p>");
+				profit_num++;
+			}
+		}
+	}
+}
+</script>
+<style type="text/css">
+
+body
+{
+	font-family: "Microsoft YaHei";
+}
+.normal_div
+{
+	width: 100%;
+}
+.top_img
+{
+	width: 100%;
+	height: 100%;
+}
+.sm_height
+{
+	height: 14em;
+}
+.div_one
+{
+	height: 2em;
+}
+.info_table
+{
+	width: 94%;
+	margin-left: 3%;
+	height: 10em;
+	vertical-align: middle;
+}
+.info_td
+{
+	text-align: center;
+	vertical-align: middle;
+}
+.info_table td
+{
+	text-align: center;
+}
+.div_gray
+{
+	height: 0.6em;
+	background: rgb(222,222,222);
+	width: 100%;
+}
+.in_info_table
+{
+	width: 100%;
+	height: 10em;
+	color: black;
+}
+.top_font
+{
+	font-size: 1em;
+	color: rgb(89,89,89); 
+	
+}
+.progress_div
+{
+	width: 100%;
+}
+.top_p
+{
+	font-size: 1.1em;
+	color: rgb(35,112,181);
+}
+.min_p
+{
+	font-size: 0.8em;
+	color: black;
+}
+.info_div
+{
+	width: 94%;
+	text-align: left;
+	margin-left: 3%;
+}
+.middle_h4
+{
+	color: black;
+}
+.info_div	p
+{
+	color: rgb(94,94,94);
+	font-size: 1em;
+}
+.normal_img
+{
+	width: 100%;
+	height: 12em;
+}
+#support
+{
+	width: 100%;
+	height: 3.6em;
+	position: fixed;
+	bottom: 60px;
+	background: rgb(51,110,176);
+	z-index: 999;
+	
+}
+#support table
+{
+	height: 3.6em;
+	text-align: center;
+	width: 100%;
+}
+.bottom_span
+{
+	font-size: 1.4em;
+	letter-spacing: 1em;
+	color: white;
+}
+.bottom_td
+{
+	height: 100%;
+	text-align: center;
+}
+.bottom_right_td
+{
+	border-left: 2px solid white;
+}
+.inner_info p
+{
+	font-size: 1.2em;
+	color: black;
+}
+.support_info
+{
+	display:none;
+	width: 100%;
+	left: 0%;
+	position: absolute;
+	top: 1em;
+	border-radius:1em;
+	z-index: 999;
+	background: white;
+	text-align: center;
+	opacity:0.9;
+	
+}
+.inner_info
+{
+	width: 96%;
+	padding-left: 3%;
+	text-align: left;
+}
+.support_h
+{
+	padding-top:1em;
+	color: black;
+}
+.back_one
+{
+	background:rgb(153,153,153);
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	top:0px;
+	bottom:0px;
+	position: fixed;
+}
+.left_btn
+{
+	background: rgb(51,110,176);
+	color: white;
+	height: 3em;
+	border-radius:0.3em;
+	letter-spacing: 0.4em;
+	font-size: 1.2em;
+}
+.right_btn
+{
+	background: rgb(177,177,177);
+	color: white;
+	height: 3em;
+	border-radius:0.3em;
+	letter-spacing: 0.4em;
+	font-size: 1.2em;
+}
+.inner_table
+{
+	width: 96%;
+	margin-left: 3%;
+}
+.inner_table td
+{
+	text-align: center;
+}
+.ask_answer
+{
+	width: 96%;
+	text-align: left;
+	color: black;
+	padding-top: 20px;
+	margin-left: 2%;
+}
+.ask_answer td
+{
+	height: 32px;
+}
+.ask_td
+{
+	height: 32px;
+	color: gray;
+}
+h2
+{
+	color: gray;
+}
+
+.bar {
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	min-height: 60px;
+	max-height: 100px;
+	width: 100%;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 5%;
+	height: 30%;
+	width: 30%;
+}
+
+.bar {
+	margin-top:50px;
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	height: 66px;
+	width: 100%;
+	z-index: 100;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+	font-size: 12px;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 3px;
+	height: 36px;
+	width: 36px;
+}
+.dd {
+	width: 25%;
+	height: 120px;
+	position: absolute;
+	left: 25%;
+	bottom: 80px;
+	color: #5D5D5D;
+	font-size: 15px;
+	z-index: 999;
+	display: none;
+}
+
+.ddd {
+	height: 40px;
+	background-color: white;
+}
+
+.ddd:hover {
+	
+}
+
+.dddd {
+	height: 40px;
+	line-height: 40px;
+	width: 92%;
+	margin-left: 4%;
+}
+
+.dddd:hover {
+	background-color: #D7D7D7;
+}
+
+.veil {
+	background-color: black;
+	filter: alpha(opacity = 10);
+	-moz-opacity: 0.1;
+	opacity: 0.1;
+}
+.single_support_css
+{
+	background: rgb(51,110,176);
+	color: white;
+	height: 20px;
+	font-size: 1.2em;
+}
+
+</style>
+</head>
+<body>
+<input type="hidden" id="project_id" value="${project_id}" >
+<input type="hidden" id="user_id" value="${user_id}" >
+<div class="back" id="back" >
+<div id="main" >
+	<div class='normal_div sm_height' >
+		<img src=""  class='top_img' id="title_img" />
+	</div>
+	<div style="height: 2em" ></div>
+	<table class="info_table">
+		<tr>
+			<td width="31%"  valign="middle"  id="progress_img"  ></td>
+			<td width="23%"  valign="middle"  id="wanna_money" ></td>
+			<td width="23%"  valign="middle"  id="give_num"></td>
+			<td width="23%"  valign="middle"  id="min_money"></td>
+		</tr>
+		<tr  >
+			<td width="31%" valign="bottom"><P class="min_p" >领投人</P></td>
+			<td width="23%" valign="bottom"><P class="min_p" >目标金额</P></td>
+			<td width="23%" valign="bottom"><P class="min_p" id="text_two"  >股权转让</P></td>
+			<td width="23%" valign="bottom"><p class="min_p" id="text_three" >最小投资</p></td>
+		</tr>
+	</table>
+</div>
+<div style="height: 2em" ></div>
+<div class="div_gray" ></div>
+<div class="info_div" id="info_div"  >
+	<div id="single_support" >
+		<h4 class="middle_h4" >我要投资</h4>
+	</div>
+	<h4 class="middle_h4" >项目详情</h4>
+	<b id="project_title" ></b>
+	<div id="detail_div"></div>
+	<!-- 
+	<p>投资项目成立以后，在投资的第3—5年，主要以实物（红酒）和旅游券的方式获取回报；之后几年将以现金+红酒+旅游券结合的方式。</p>
+	<img  class="normal_img" src="/themes/theme_default/images/crowdfunding/detail_01.jpg" />
+	<p>【金融跨界酒庄传奇】</p>
+	<p>Xavier Rolet原为伦敦证交所首席执行官，对葡萄酒一窍不通。他于1994年买下法国的一个酒庄。携手Philippe Cambie经过近10年的打造，Domaine La Verrier一跃成为世界顶级酒庄之一，其命名为Chene Bleu的酒被世界一流鉴酒师称为“膜拜酒”，并多次夺得世界葡萄酒比赛金奖，一瓶难求。</p>
+	<p>【再造顶级酒庄传奇】</p>
+	<p>与酿造出Chene Bleu酒庄的相似度高达 90%以上；</p>
+	<p>地理位置一致：位于阿维尼翁，罗讷河左岸，与教皇新堡遥相呼应；</p>
+	<p>土壤性质一致：属于粘土石灰岩地带，有丰富的微生矿物元素；</p>
+	<p>自然条件一致：日照时间长，昼夜温差大，微气候特别；</p>
+	<p>葡萄品种一致：以歌海娜和希拉为主；</p>
+	<p>初始状态一致：酒庄接手时，疏于投入管理，十分破败；</p>
+	<p>酿酒团队一致：缔造Chene Bleu的酿酒大师Philippe Cambie 全程参与</p>
+	<img  class="normal_img" src="/themes/theme_default/images/crowdfunding/detail_02.jpg" />
+	<p>【便捷的地理位置】</p>
+	<p>距地中海最大商业港口Marseille（马赛）只有100多公里，约1小时车程；开车去Nice（尼斯）也只需2个半小时；酒庄更处于世界薰衣草之乡的普罗旺斯区域的中心地带。从酒庄去往巴黎、意大利、或是德国都十分便捷。</p>
+	<p>【宜人的气候】</p>
+	<p>酒庄面对广阔的平原，通风良好，免于气候的过湿过热，以及随之而来的腐坏危机；右边隆河支流，流经葡萄园，起到调节温度的作用；不远处的山丘替葡萄藤阻挡了寒冷的北风。</p>
+	<img  class="normal_img" src="/themes/theme_default/images/crowdfunding/detail_03.jpg" />
+	<p>土壤结构平衡，沙砾，淤泥和黏土要构成最佳比例，既能排水，又能储水，具有足够的张力；土壤性质，属于粘土石灰岩地带，土壤中有丰富的微生矿物元素，大量的矿物质因此被吸收积聚。</p>
+	<img  class="normal_img" src="/themes/theme_default/images/crowdfunding/detail_04.jpg" />
+	<p>葡萄种植园品种以歌海娜和希拉为主；以歌海娜为基础的干红，呈现出非常美丽的金褐色，强劲而丰满，丹宁圆润而融为一体。西拉能赋予酒独特诱人的香气、复杂且有筋骨的口感，使酒不很浓郁但很丰满。</p>
+	<img  class="normal_img" src="/themes/theme_default/images/crowdfunding/detail_05.jpg" />
+	<p>葡萄种植园品种以歌海娜和希拉为主；以歌海娜为基础的干红，呈现出非常美丽的金褐色，强劲而丰满，丹宁圆润而融为一体。西拉能赋予酒独特诱人的香气、复杂且有筋骨的口感，使酒不很浓郁但很丰满。</p>
+	 -->
+	<h4 class="middle_h4" >大事记</h4>
+	<section id="cd-timeline" class="cd-container"></section>
+	<div style="height:auto;" >
+	<h4 class="middle_h4" >项目问答</h4>
+	<table class="ask_answer" id="ask_answer" ></table>
+	</div>
+</div>
+<div style="height: 8em" ></div>
+
+<div id="support" >
+	<table   >
+		<tr>
+			<td width="70%" class="bottom_td" ><span class="bottom_span" onclick="showSupport()" >支持</span> </td>
+			<td  width="30%" class="bottom_right_td" >
+				<img  src="/themes/theme_default/crowdfunding/progress/img/share.png" height="18px"  >
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="bar">
+	<div class="toggle" id="ichi">
+		<div>
+			<img class="press-icon" alt=""
+				src="${webroot}${theme_dir}/wx/img/home_normal.png" id="ichiichi">
+		</div>首页
+	</div>
+	<div class="toggle" id="ni">
+		<div style="position: relative;">
+			<img class="press-icon" alt=""	src="${webroot}${theme_dir}/wx/img/lise_normal.png" id="nini">
+		</div>
+		<a href="/wechat/crowdfunding/index.html"	style="color: white" >产品系列</a>
+	</div>
+	<div class="toggle" id="san">
+		<div  onclick="goLoginPage()">
+			<img class="press-icon" src="${webroot}${theme_dir}/wx/img/account_normal.png" id="sansan">
+		</div>
+		<a	style="text-decoration: none; color: white">我的账户</a>
+	</div>
+	<div class="toggle" id="yon">
+		<div onclick="goMorePage()">
+			<img class="press-icon"	src="${webroot}${theme_dir}/wx/img/more_normal.png" id="yonyon">
+		</div>
+		<a 	style="text-decoration: none; color: white">更多</a>
+	</div>
+</div>
+
+
+</div>
+
+<div id="support_info" class="support_info"  >
+	<h4 class="support_h" >合格投资人申明</h4>
+	<div class="inner_info" >
+		<p>本人自愿申报成为合格投资人，并申明如下：</p>
+		<p>本人申明在投资800Bank发布的理财产品之前，本人符合下列任意条件之一，且能够识别、判断和承担理财产品的投资风险：</p>
+		<p>一、具有至少10万元可用于投资的个人资产（必要时需提供财产证明：包括但不仅限于提供银行开具的存款证明；提供近一个月内存折或存单复印件，需银行盖章；提供有价证券证明，一年内的有价证券资产证明，需证券公司盖章）。</p>
+		<p>二、个人收入在最近3年内每年收入超过20万元人民币；夫妻双方合计收入在最近3年内每年收入超过30万元人民币；在认购信托计划时，个人或家庭金融资产总计超过100万元。根据相关规定，本人愿意提供所需的合格投资人收入证明。</p>
+		<p>本人申明在进行投资行为前，认真阅读并理解所有产品文件，并愿意依法承担相应的投资风险。</p>
+		<p>本人申明成为合格投资人后，对交易涉及的事项保密，并依法缴纳投资活动所产生的各项税费。</p>
+		<table class="inner_table" >
+			<tr>
+				<td width="49%" class="left_btn" onclick="goPay()" >确定</td>
+				<td width="2%" ></td>
+				<td width="49%" class="right_btn" onclick="hideSupport()"  >取消</td>
+			</tr>
+		</table>
+		
+	</div>
+	<div style="height: 3em" ></div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/recharge/offlinebank/offlinebankEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">账户拥有者：</label>
+		     <div class="ipt">
+		     	<input type="text" name="owner" value="${lb.owner!}" class="w400 easyui-validatebox" data-options="required: true,validType:'chinese'" maxlength="8"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">账号：</label>
+		     <div class="ipt">
+		     	<input type="text" name="bankNo" value="${lb.bankNo!}" class="w400 easyui-validatebox" data-options="required: true" maxlength="20"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">银行：</label>
+		     <div class="ipt">
+		     	<input type="text" name="bank" value="${lb.bank!}" class="w400 easyui-validatebox" data-options="required: true" maxlength="20"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">支行：</label>
+		     <div class="ipt">
+		     	<input type="text" name="branch" value="${lb.branch!}" class="easyui-validatebox" data-options="required: true" maxlength="20"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">状态：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="1" <#if lb.status==1 >checked="checked"</#if>/>&nbsp;&nbsp;禁用
+				<input type="radio" name="status" value="2" <#if lb.status==2 >checked="checked"</#if>/>&nbsp;&nbsp;启用
+		     </div>
+		</div>
+		<div class="formitm" id="city">
+		     <label class="lab">开户所在地：</label>
+		     <div class="ipt">
+		     	<select class="prov" name="province"></select> 
+				<select class="city" name="city" disabled="disabled"></select>
+				<select class="dist" name="area" disabled="disabled"></select> 
+		     </div>
+		</div>
+		<input type="hidden" name="id" value="${lb.id!}"/>
+	</form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		prov:"浙江", //省份 
+	    city:"杭州", //城市 
+	    dist:"西湖区", //区县 
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	});
+});
+</script>

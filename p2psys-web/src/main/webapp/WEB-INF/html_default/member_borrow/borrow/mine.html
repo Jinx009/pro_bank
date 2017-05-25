@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="borrow_manage"> 
+	<#include "../../include/member_borrow_header.html">
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+				<#assign mid="m_borrow" >
+			<#include "../trade_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">借款详情</h2>
+				<ul class="member_search">
+					<li id="shortTime">
+						日期范围
+						<span id="timeStatus">
+							<a href="javascript:;" class="current" data-val="9">全部</a>
+							<a href="javascript:;" data-val="7">最近7天</a>
+							<a href="javascript:;" data-val="1">1个月</a>
+							<a href="javascript:;" data-val="2">2个月</a>
+							<a href="javascript:;" data-val="3">3个月</a>
+							<em>具体日期&gt;&gt;</em>	
+						</span>	
+					</li>
+					<li id="fullTime" style="display:none;">
+						起止日期
+						<input type="text" class="dateInput" name="startTime" id="startTime" value="${startTime?default('')}"/> - 
+						<input type="text" class="dateInput" name="endTime" id="endTime" value="${endTime?default('')}"/>
+						<em>&lt;&lt;日期范围</em>	
+					</li>
+					<li>
+						借款标题
+						<input type="text" name="borrowName" placeholder="请输入标题关键字" class="sInput"/>
+						<input id="searchBtn" value="搜索" type="button" class="searchBtn">
+					</li>
+					<li>
+						交易状态
+						<span id="status">
+							<a href="javascript:;" class="current" data-val="99">全部</a>
+							<#if isOpenAip=='true'>
+							<a href="javascript:;" data-val="11">待初审</a>
+							<#else><a href="javascript:;" data-val="0">待初审</a>
+							</#if>
+							<a href="javascript:;" data-val="1">初审通过</a>
+							<a href="javascript:;" data-val="2">初审未通过</a>
+							<a href="javascript:;" data-val="59">复审未通过</a>
+							<a href="javascript:;" data-val="6">还款中</a>
+							<a href="javascript:;" data-val="7">部分还款</a>
+							<a href="javascript:;" data-val="8">还款成功</a>
+						</span>
+					</li>
+				
+				</ul>
+				<#assign borrow_type="publish">
+			    <#if type?exists>
+			    	<#assign borrow_type=type>
+			    </#if>
+				<!--S-我的借款数据  -->
+				<div class="user_right_main">
+					<table id="member_table" class="table_content"></table>
+					<div id="kkpager"></div>
+						
+						
+		</div>
+		<!--E- 我的借款数据 -->
+		</div>
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member_borrow/borrow_mine');</script>
+	<script src="/plugins/laydate-v1.1/laydate.js"></script>
+	<script src="/themes/theme_default/media/js/date.js"></script>
+	<#include "../../include/footer.html">

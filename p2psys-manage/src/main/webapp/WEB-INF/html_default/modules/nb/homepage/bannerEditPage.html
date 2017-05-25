@@ -1,0 +1,74 @@
+<script type="text/javascript">
+	$(function()
+	{
+		$('#siteNewDialog').dialog(
+		{
+			title : '修改',
+			width : 800,
+			height : 798,
+			modal : true
+		});
+		 $('#siteNewDialog').dialog("close");    
+	     $.fn.dataGridOptions.formSubFun("#form",'/modules/nb/homepage/bannerEdit.html'); 	
+	  
+	});
+
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="${banner.id}" id="id" name="id" >
+		<input type="hidden" value="${banner.isEnable!1} id="isEnable" name="isEnable" />
+		<div class="formitm">
+			<label class="lab">名称</label>
+			<div class="ipt">
+				<input type="text" name="bannerName" id="bannerName" class="w400 easyui-validatebox" value="${banner.bannerName}" 
+				data-options="required: true" maxlength="30" /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">关键字</label>
+			<div class="ipt">
+			<input type="text" name="bannerKeywords"  id="bannerKeywords" class="w400 easyui-validatebox" value="${banner.bannerKeywords}"
+			data-options="required: true" maxlength="30"/> <b>*</b>
+			</div>
+		</div>	
+		<div class="formitm">
+			<label class="lab">排序</label>
+			<div class="ipt">
+			<input type="text" name="bannerOrder"  id="bannerOrder" class="w400 easyui-validatebox" value="${banner.bannerOrder}"
+			data-options="required: true" maxlength="30" onkeyup="this.value=this.value.replace(/\D/g,'')"/> <b>*</b>
+			</div>
+		</div>	
+		<div class="formitm">
+			<label class="lab">链接地址</label>
+			<div class="ipt">
+			<input type="text" name="bannerLinkUrl"  id="bannerLinkUrl" class="w400 easyui-validatebox" value="${banner.bannerLinkUrl}"
+			data-options="required: true" maxlength="255"/> <b>*</b>
+			</div>
+		</div>	
+		 <div class="formitm">
+			<label class="lab">标签图片</label>
+			<div class="ipt">
+				<input type="file" id="file" name="file"  class="w400 easyui-validatebox" data-options="required: false"  value="${banner.bannerPicUrl!''}"/>	
+			</div>
+			<div class="ipt">
+				<img src="${banner.bannerPicUrl!''}" id="showBannerUrl" name="showBannerUrl" style="height:100px" />	
+			</div>
+		</div>
+		<div class="formitm" style="display:none;">
+			<label class="lab">标签是否启用</label>
+			<div class="ipt">
+				<input value="${banner.isEnable!''}" name="isEnable" id="isEnable" class="w400 easyui-validatebox" style="display:none;"/>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">标签备注</label>
+			<div class="ipt">
+				<textarea name="remark"  id="remark" class="w400 easyui-validatebox" data-options="required: false" >${banner.remark!''}</textarea>
+				
+			</div>
+		</div>
+		<input type="hidden" value="${useStatus}" name = "useStatus" id="useStatus" >
+	</form>
+</div>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">	
+	<title>推荐收益记录</title>
+
+	<script src="/themes/theme_default/dist/jquery.js" ></script>
+	<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+	<script src="/themes/theme_default/media/js/sea.js"></script>
+	<script src="/themes/theme_default/media/js/seajs-text.js"></script>
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/account/recommendProfitRecord.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+	<style>
+		/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  margin:0;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+.no-data{
+	width: 96%;
+	margin-left: 2%;
+	color: #8a8a8a;
+	text-align: center;
+	font-size: 12px;
+}
+/* 底部导航*/
+	</style>
+</head>
+<body>
+	<div class="top-info" >
+		<p class="my-p" >累计推荐收益</p>
+		<h2 class="h2" >￥${total}</h2>
+	</div>
+	<div class="table-div">
+	<table class="my-table" >
+		<thead>
+		    <tr>
+			     <th>被推荐人</th>
+			     <th>推荐收益</th>
+			     <th>收益日期</th>
+		    </tr>
+		</thead>
+		<tbody id="table_content" ></tbody>
+	</table>
+	<div id="kkpager" class="no-data"></div>
+	<div style="height: 15px;" ></div>
+	<div style="height: 1px;background: rgb(237,237,237);width: 100%;"></div>
+	<div class="warning-div" >
+	<div style="height: 15px;" ></div>
+		<span>*活动开始后(8月18日)：</span><br>
+		<span>*成功邀请好友注册，您可以获得20元推荐红包（投资红包）。</span><br>
+		<span>*好友投资（随投随享除外），您还有返利，投资越多，返利越高。返利为好友投资额的年化0.1%。</span><br>
+		<span>*若推荐收益小于1分钱不计入收益。</span><br>
+		<span>*推荐收益已于您的好友投资产品（非随投随享）成立当日转入您的账户-可用余额中。此处为推荐明细供您查询。</span>
+		<div style="height: 15px;" ></div>
+		<a class="my-btn"  href="${wechatUrl}"  >快去邀请好友吧</a>
+		<p class = "space-p">&nbsp;</p>
+	</div>
+	</div>
+	<!-- <div class="data-div" >
+	<table class="table" >
+		<thead>
+			<tr>
+				<th>被推荐人</th>
+				<th>推荐收益</th>
+				<th>收益日期</th>
+			</tr>
+		</thead>
+		<tbody id="data_info" ></tbody>
+	</table>
+	<div class="high-div" ></div>
+	<p>*活动开始后(8月18日)：</p>
+	<p>>您可获得20元推荐红包(投资红包)。</p>
+	<p>>好友投资（随投随享除外），您还有返利。投资越多，返利越高。返利为好友投资额的年化0.1%。</p>
+	<p>>若推荐收益小于1分钱不计入收益。</p>
+	<p>&nbsp;</p>
+	<a class="btn btn-info inner-btn" id="btn" href="${wechatUrl}" >赶快邀请更多好友吧</a>
+	</div> -->
+	<!--底部导航-->
+    <div class="foot-blank"></div>    
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+    <!-- 底部导航 -->
+    <script type="text/javascript">
+	seajs.use("/themes/theme_default/nb/wechat/js/account/recommendProfitRecord.js")
+	</script>
+</body>
+</html>

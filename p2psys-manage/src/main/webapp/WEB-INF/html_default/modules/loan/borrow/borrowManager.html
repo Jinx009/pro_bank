@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>标信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	//$.fn.iframeWidthResize(640);//页面最小宽度设置
+	var dataGrid;
+	var winWidth = 900;
+	var winHeight = 500;
+	var verifyTitle = "投标记录";
+	var verifyUrl = "/modules/loan/borrow/tenderDetailPage.html";
+	var verifyWinParmeters = "'{0}','" + verifyTitle + "',900,500,'" + verifyUrl + "'";
+	var detailTitle = "更新抵押物";
+	var detailUrl = "/modules/loan/borrow/getMortgageListPage.html";
+	var detailWinParmeters = "'{0}','" + detailTitle + "','" + detailUrl + "'";
+	var viewUrl = "${weburl}/invest/detail.html?borrowPreview=1";
+	var viewWinParmeters = "'{0}','" + viewUrl + "'";
+	var addWechatUrl = "/modules/loan/borrow/borrowWechatMaterialPage.html";
+	var wechatTitle = "微信素材";
+	
+	var isHideUrl = "/modules/loan/borrow/hideBorrow.html"; 
+	var isHideWinParmeters = "'{0}','"+isHideUrl+"','确定要隐藏该借款标吗？'";
+	var isHideTitle = "确定要隐藏该借款标吗？";
+	
+	var isShowUrl = "/modules/loan/borrow/showBorrow.html"; 
+    var isShowWinParmeters = "'{0}','"+isShowUrl+"','确定要显示该借款标吗？'";
+	var isShowTitle = "确定要显示该借款标吗？";
+
+	
+	$(function () {
+		dataGrid = $('#borrowManagerList').datagrid({
+			url : 'borrowList.html',
+			fit : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums : 1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect : true,
+			frozenColumns : [ [
+				{
+					field : 'id',
+					title : '编号',
+					fixed : true,
+					sortable : false
+				},
+				{
+					field : 'bidNo',
+					title : '产品编码',
+					fixed : true,
+					sortable : false
+				},
+				{
+					field : 'companyName',
+					title : '借款公司名称',
+					fixed : true,
+					sortable : false
+				},
+				{
+					field : 'name',
+					title : '标名',
+					width : 200,
+					sortable : false
+				} ] ],
+			columns : [ [
+				{
+					field : 'type',
+					title : '类型',
+					width : 150,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return borrowType(value);
+					}
+				},
+				{
+					field : 'account',
+					title : '借款金额',
+					width : 120,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "元";
+					}
+				},
+				{
+					field : 'repaymentAccount',
+					title : '应还款金额',
+					width : 120,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "元";
+					}
+				},
+				{
+					field : 'repaymentYesAccount',
+					title : '已还款金额',
+					width : 120,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "元";
+					}
+				},
+				{
+					field : 'scales',
+					title : '进度',
+					width : 70,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "%";
+					}
+				},
+				{
+					field : 'tenderTimes',
+					title : '投标笔数',
+					width : 80,
+					sortable : false
+				},
+				{
+					field : 'lowestAccount',
+					title : '最低投标金额',
+					width : 120,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "元";
+					}
+				},
+				{
+					field : 'mostAccount',
+					title : '最高投标金额',
+					width : 120,
+					sortable : false,
+					formatter : function (value, row, index) {
+						if (value == 0) {
+							return "无限制";
+						} else {
+							return value + "元";
+						}
+					}
+				},
+				{
+					field : 'redPacketName',
+					title : '红包',
+					width : 80,
+					sortable : false
+				},
+				{
+					field : 'validTime',
+					title : '有效时间',
+					width : 80,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "天";
+					}
+				},
+				{
+					field : 'apr',
+					title : '利率',
+					width : 80,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return value + "%";
+					}
+				},
+				{
+					field : 'timeLimit',
+					title : '期限',
+					width : 80,
+					fixed : true,
+					sortable : false,
+					formatter : function (value, row, index) {
+						if (row.borrowTimeType == 1) {
+							return row.timeLimit + "天";
+						} else {
+							return value + "个月";
+						}
+					}
+				},
+				{
+					field : 'addTime',
+					title : '添加时间',
+					width : 150,
+					fixed : true,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return getLocalTime(value, 4);
+					}
+				},
+				{
+					field : 'reviewTime',
+					title : '复审时间',
+					width : 150,
+					fixed : true,
+					sortable : false,
+					formatter : function (value, row, index) {
+						return getLocalTime(value, 4);
+					}
+				},
+				{
+					field : 'status',
+					title : '状态',
+					width : 80,
+					fixed : true,
+					sortable : false,
+					formatter : function (value, row, index) {
+						if (row.status == -1) {
+							return '用户撤回';
+						} else if (row.status == 0) {
+							return '待登记';
+						} else if (row.status == 9) {
+							return '待确认';
+						} else if (row.status == 11) {
+							return '待初审';
+						} else if (row.status == 1 && row.flow) {
+							return '已流标';
+						} else if (row.status == 1 && row.accountYes == row.account) {
+							return '满标待审';
+						} else if (row.status == 1) {
+							return '初审通过';
+						} else if (row.status == 2) {
+							return '初审未通过';
+						} else if (row.status == 3) {
+							return '复审通过';
+						} else if (row.status == 49 || row.status == 4) {
+							return '复审未通过';
+						} else if (row.status == -2) {
+							return '管理员撤回处理中';
+						} else if (row.status == 59 ||row.status == 5) {
+							return '管理员撤回';
+						} else if (row.status == 6) {
+							return '还款中';
+						} else if (row.status == 7) {
+							return '部分还款';
+						} else if (row.status == 8) {
+							return '还款成功';
+						}  else {
+							return value;
+						}
+					}  
+				},
+				{
+					field : 'style',
+					title : '还款方式',
+					width : 130,
+					sortable : false,
+					formatter : function (value, row, index) {
+						if (row.style == 1) {
+							return '按月分期还款';
+						} else if (row.style == 2) {
+							return '一次性还款';
+						} else if (row.style == 3) {
+							return '每月还息到期还本';
+						} else {
+							return value;
+						}
+					}
+				},
+				{
+					field : 'action',
+					title : '操作',
+					width : 75,
+					fixed : true,
+					align : 'center',
+					formatter : function (value, row, index) {
+						var str = '';
+						str += '<dl>';
+						str += '<dt><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun(' + row.id + ',verifyTitle,winWidth,winHeight,verifyUrl);" title="' + verifyTitle + '">记录</a><i class="iconfont">&#xe639;</i></dt>';
+						str += '<dd class="my_dd">';
+						/* if (${isOpenApi}) {
+							str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.viewBorrowFun(' + row.id + ',viewUrl);" >预览</a>';
+						} */
+						if (row.isHide == null || row.isHide == false) {
+							str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',isHideUrl,isHideTitle);" title="隐藏">隐藏</a>';
+						} else {
+							str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',isShowUrl,isShowTitle);" title="显示">显示</a>';
+						}
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.borroweditFun(' + row.productId + ',wechatTitle,winWidth,winHeight,addWechatUrl);" title="' + wechatTitle + '">微信素材</a>';
+						str += '</dd>';
+						str += '</dl>';
+						return str;
+					}
+				}
+			] ]
+		});
+	});
+
+	function exportExcel() {
+		var url = "/modules/loan/borrow/exportExcleBorrowList.html";
+		var searchName = $("#searchName").val();
+		var type = $("#type").val();
+		var companyName = $("#companyName").val();
+		var status = $("#status").val();
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		var sou = "?searchName=" + searchName + "&type=" + type + "&companyName=" + companyName + "&status=" + status + "&startTime=" + startTime + "&endTime=" + endTime;
+		window.location.href = url + sou;
+	}
+</script>
+<script src="${theme_dir}/js/search.js"></script>
+<style>
+.my_dd a
+{
+	width:78px;
+	background: white;
+}
+</style>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入借款公司名称/标名进行搜索"/><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	
+		       		<li><span>借款公司名称</span><input type="text" name="companyName" id="companyName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" id="status" class="type">
+	                  <option value="99" selected="selected">全部</option>
+	                  <option value="-1">用户撤回</option>
+	                  <option value="0">待登记</option>
+	                  <option value="9">待确认</option>
+	                  <option value="11">待初审</option>
+	                  <option value="1">初审通过</option>
+	                  <option value="2">初审未通过</option>
+	                  <option value="19">满标待审</option>
+	                  <option value="3">复审通过</option>
+	                  <option value="49">复审未通过</option>
+	                  <option value="-2">撤回处理中</option>
+	                  <option value="59">管理员撤回</option>
+	                  <option value="6">还款中</option>
+	                  <option value="7">部分还款</option>
+	                  <option value="8">已结束</option>
+	                </select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="borrowManagerList"></table>
+        </div>
+    </div>
+</body>
+</html>

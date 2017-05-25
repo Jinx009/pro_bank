@@ -1,0 +1,33 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>800Bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+  <link href="/themes/theme_default/wx/static/css/iconfont.css" rel="stylesheet">
+  <link href="/themes/theme_default/wx/static/css/demo.css" rel="stylesheet">
+  <style type="text/css">
+    .show_detail{border-bottom:1px solid #ccc;text-overflow:clip; overflow:hidden;height:52px;width:100%;}
+  </style>
+</head>
+<body class="cfff">
+      <div class="header nonebottom"><a class="backto" href="javascript:history.back(-1);"></a>资金记录</div>
+      <div class="list">
+            <div class="list-header">
+                <div class="col w30">日期</div>
+                <div class="col w40">类型</div>
+                <div class="col w30"><div class="list-ltr">资金金额</div></div>
+            </div>
+            <div class="list-block clearfix" id="invest_list">
+            </div>
+      </div>
+      <div id="kkpager"></div>
+      <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+      <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+      <script>
+            seajs.use('${webroot}${theme_dir}/wx/js/wx_account_log');
+      </script>
+</body>
+</html>

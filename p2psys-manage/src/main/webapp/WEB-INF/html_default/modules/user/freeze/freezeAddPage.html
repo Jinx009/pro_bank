@@ -1,0 +1,39 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/freeze/freezeAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">用户名：</label>
+		     <div class="ipt">
+		     	<input type="text" name="userName" class="easyui-validatebox" data-options="required: true" maxlength="20"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用： </label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="0" checked="checked"/>&nbsp;&nbsp;不启用
+				<input type="radio" name="status" value="1"/>&nbsp;&nbsp;启用
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">冻结点：</label>
+		     <div class="ipt">
+		     	<!-- <input type="checkbox" name="mark" value="login"/>登录 -->
+				<input type="checkbox" name="mark"  value="recharge" />充值
+				<input type="checkbox" name="mark" value="cash" />提现
+				<input type="checkbox" name="mark" value="tender" />投标
+				<!-- <input type="checkbox" name="mark" value="borrow" />发标 -->
+				<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注： </label>
+		     <div class="ipt">
+		     	<textarea id="content" name="remark" class="easyui-validatebox borrowFormTextarea w300" data-options="required: true,validType:'maxLength[100]'"></textarea>
+	
+		     </div>
+		</div>
+	</form>
+</div>

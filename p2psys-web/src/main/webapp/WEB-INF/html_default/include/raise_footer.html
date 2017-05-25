@@ -1,0 +1,78 @@
+<meta charset="utf-8">
+<script src="${webroot}${theme_dir}/media/js/weburl.js"></script>
+<!--footer	start-->
+		<div id="footer" class="clearfix">
+			<div class="footer-con">
+				<div class="footer-logo"></div>
+				<ul class="about">
+ 		   			<li><a href="/aboutUs/siteIntro.html">关于我们</a></li>
+		   			<li><a href="/article/detail.html?nid=zifei">安全保障</a></li>
+		   			<li><a href="/article/detail.html?nid=news">媒体报道</a></li>
+		   			<li><a href="/article/detail.html?nid=notice">最新动态</a></li>
+		   			<li><a href="/article/detail.html?nid=join">招贤纳士</a></li>
+		   			<li><a href="/aboutUs/questionIntro.html">帮助中心</a></li>
+   				</ul>
+   				<div class="address"> @2015 e800Bank 上海仁和智本投资管理有限公司沪<span>ICP备14088888号-1</span></div>
+		   		<ul class="icon">
+		   			<li><span class="phone"></span></li>
+		   			<a href="http://weibo.com/800bank" target="_blank"><li><span class="sina"></span></li></a>
+		   			<li>
+		   			<span class="weixin">
+		   				<img src="/themes/theme_default/images/wx-tu.png" class="erweima" width="133" height="138" style="max-width:133px;"/>
+		   			</span></li>
+		   			<li><span class="email"></span></li>
+		   		</ul>
+			</div>
+			
+			<div class="rz">
+	            <a  key ="5538cb96efbfb06dd6db7cd3"  logo_size="83x30"  logo_type="business"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
+	            <a id='___szfw_logo___' href='https://search.szfw.org/cert/l/CX20150120006837006580' target='_blank'><img src='/themes/theme_default/images/aqrz.png'></a>
+	            <script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
+
+	         <span id="symantecSeal" style="text-align:center;" title="单击即可验证 - 该站点选择 Symantec SSL 实现安全的电子商务和机密通信">
+	         <script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=www.800bank.com.cn&amp;size=M&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=zh_cn"></script>
+
+
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+				codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0"
+				id="s_m" width="115" height="82" align="">
+				<param name="movie"
+					value="/themes/theme_default/images/raise/vseal.gif">
+				<param name="loop" value="false">
+				<param name="menu" value="false">
+				<param name="quality" value="best">
+				<param name="wmode" value="transparent">
+				<param name="allowScriptAccess" value="always">
+				<embed src="/themes/theme_default/images/raise/vseal.gif"
+					loop="false" menu="false" quality="best" wmode="transparent"
+					swliveconnect="FALSE" width="115" height="82" name="s_m" align=""
+					type="application/x-shockwave-flash"
+					pluginspage="https://www.macromedia.com/go/getflashplayer"
+					allowscriptaccess="always">
+			</object>
+
+		</span> 
+	         
+	         <!--    <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.800bank.com.cn&lang=zh_cn" target="_blank" id="symantecSeal" style="text-align:center;" title="单击即可验证 - 该站点选择 Symantec SSL 实现安全的电子商务和机密通信"><img src="/themes/theme_default/images/raise/vseal.gif" id="s_m" width="100"/></a> --> 
+	            
+       	    </div>
+			
+		</div>
+<!--footer	end-->	
+<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".icon li").bind("hover",function(){
+			var index = $(this).index();
+			if(!$(this).hasClass("icon_active")){
+				$(this).addClass("icon_active").siblings().removeClass("icon_active");	
+				if(index==2){
+					$(".erweima").show();
+				}else{
+					$(".erweima").hide();
+				}
+			}
+		});
+	})
+	
+</script>

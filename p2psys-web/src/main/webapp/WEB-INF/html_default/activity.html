@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title>800Bank</title>
+		<link rel="stylesheet" href="/themes/theme_default/media/css/jquery.fullPage.css" />
+		<script type="text/javascript" src="/themes/theme_default/media/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/media/js/jquery.fullPage.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/media/js/kefu.js" ></script>
+		<script>
+			$(function(){
+				$('#dowebok').fullpage({
+					'navigation': true
+				});
+				
+
+				$("#qq_popup1").bind("click",function(){
+					var width = $(window).width();
+					var height = $(document).height();
+					var left = (width-500)/2;
+					$("#qqPopup").css("left",left+"px");
+
+					$("#qqPopup").show();
+				})
+				
+				$("#qqClose").bind("click",function(){
+					$("#qqPopup").hide();
+				})
+				
+				$("#leftQQ1").click(function(){
+					$("#rightQQ1").toggle();	
+				})
+				
+				
+				$("#qq_popup2").bind("click",function(){
+					var width = $(window).width();
+					var height = $(document).height();
+					var left = (width-500)/2;
+					$("#qqPopup1").css("left",left+"px");
+
+					$("#qqPopup1").show();
+				})
+				
+				$("#qqClose1").bind("click",function(){
+					$("#qqPopup1").hide();
+				})
+				
+				$("#leftQQ2").click(function(){
+					$("#rightQQ2").toggle();	
+				})
+				
+				$("#qq_popup3").bind("click",function(){
+					var width = $(window).width();
+					var height = $(document).height();
+					var left = (width-500)/2;
+					$("#qqPopup2").css("left",left+"px");
+
+					$("#qqPopup2").show();
+				})
+				
+				$("#qqClose2").bind("click",function(){
+					$("#qqPopup2").hide();
+				})
+				
+				$("#leftQQ3").click(function(){
+					$("#rightQQ3").toggle();	
+				})
+				
+				$("#qq_popup4").bind("click",function(){
+					var width = $(window).width();
+					var height = $(document).height();
+					var left = (width-500)/2;
+					$("#qqPopup3").css("left",left+"px");
+
+					$("#qqPopup3").show();
+				})
+				
+				$("#qqClose3").bind("click",function(){
+					$("#qqPopup3").hide();
+				})
+				
+				$("#leftQQ4").click(function(){
+					$("#rightQQ4").toggle();	
+				})
+				
+				
+				$("#qq_popup5").bind("click",function(){
+					var width = $(window).width();
+					var height = $(document).height();
+					var left = (width-500)/2;
+					$("#qqPopup4").css("left",left+"px");
+
+					$("#qqPopup4").show();
+				})
+				
+				$("#qqClose4").bind("click",function(){
+					$("#qqPopup4").hide();
+				})
+				
+				$("#leftQQ5").click(function(){
+					$("#rightQQ5").toggle();	
+				})
+				
+				
+				
+				
+			});
+		</script>
+	<style type="text/css">
+		*{padding: 0px;margin: 0px;font-family:'Microsoft YaHei',Helvetica, sans-serif, Verdana, Arial;}
+		a{text-decoration: none;color: inherit;}
+		img{vertical-align: middle;border:0;}
+		li{list-style-type: none;}
+		.header{width:100%;height:79px;position:absolute;top:0px;left:0px;}
+		.header_info{width:100%; min-width: 1280px; color:#999;border-bottom: 0px solid #eee;background:rgba(255,255,255,0);}
+		.header_top{width:1280px; margin: 0 auto; padding: 10px 0;}
+		.header_top .logo{width:215px; height:55px;background:url(/themes/theme_default/media/bg/foot-logo.png) no-repeat; float: left;}
+		.header_top .float_left a{line-height: 45px; font-size: 16px; padding-left: 32px; display: inline-block; float: left;color:#fff;}
+		.header_top .float_right{float:right; margin-top: 15px;}
+		.header_top .float_right a{display:inline-block;padding: 7px 16px; background-color: #fff; border-radius: 8px;margin-right: 10px;color:#333; border: 1px solid #e9e7e1;}
+		.header_top .float_right a:nth-child(3){margin-right: 0; background: #2370b6; color:#fff; border:1px solid #2370b6; }
+		.clearfix{clear:both;}		
+		#section1{background: url(/themes/theme_default/media/css/images/section1.jpg) 50%;}
+		#section2{background: url(/themes/theme_default/media/css/images/section2.jpg) 50%;}
+		#section3{background: url(/themes/theme_default/media/css/images/section3.jpg) 50%;}
+		#section4{background: url(/themes/theme_default/media/css/images/section4.jpg) 50%;}
+		#section5{background: url(/themes/theme_default/media/css/images/section5.jpg) 50%;}
+		.text{text-align: center;}
+		.loginStatus span{color:#fff;}		
+		
+		.qq_popup{width: 500px;position: absolute;border-radius: 5px;border: 1px solid #C5C5C5;overflow: hidden;background: #fff;top: 200px;display:none;}
+		.title{color: #000000;font-weight:bold;height: 30px;line-height: 30px;margin-top: 20px;margin-bottom: 20px;margin-left: 20px;}
+		.qqimg{clear:both;width: 280px;margin: 0 auto;overflow: hidden;}
+		.qqimg dl{float: left;margin-right: 80px;margin-bottom: 100px;width: 100px;height: 86px;cursor: pointer;}
+		.qqimg dl:last-child{margin-right: 0px;}
+		.qqimg dl dt{border: 1px solid #C5C5C5;border-radius: 5px;width: 86px;height: 86px;margin: 0 auto;}
+		.qqimg dl dt img{display: block;border: 1px solid #C5C5C5;border-radius: 5px;width: 80px;height: 80px;margin: 0 auto;vertical-align: middle;margin-top: 3px;}
+		.qqimg dl dd{color: rgb(0,160,230);margin-left:0px;text-align: center;font-weight: bold;margin-top: 5px;height:30px;line-height: 30px;}
+		.qq_close{position: absolute;right: 0;top: 0;cursor: pointer;}
+		
+		.wechat_div{
+			position: absolute;
+			right: 0px;
+			bottom: 20px;
+			width: 110px;
+			text-align: center;
+		}
+		.wechat_div img{
+			width: 100%;
+		}
+		.color-p{
+			color: rgb(35,152,196);
+			text-align: center;
+		}
+		.rz img{vertical-align: middle;}
+		
+		.qq_popup{width: 500px;position: absolute;border-radius: 5px;border: 1px solid #C5C5C5;overflow: hidden;background: #fff;top: 200px;display:none;}
+		.title{color: #000000;font-weight:bold;height: 30px;line-height: 30px;margin-top: 20px;margin-bottom: 20px;margin-left: 20px;}
+		.qqimg{clear:both;width: 280px;margin: 0 auto;overflow: hidden;}
+		.qqimg dl{float: left;margin-right: 80px;margin-bottom: 100px;width: 100px;height: 86px;cursor: pointer;}
+		.qqimg dl:last-child{margin-right: 0px;}
+		.qqimg dl dt{border: 1px solid #C5C5C5;border-radius: 5px;width: 86px;height: 86px;margin: 0 auto;}
+		.qqimg dl dt img{display: block;border: 1px solid #C5C5C5;border-radius: 5px;width: 80px;height: 80px;margin: 0 auto;vertical-align: middle;margin-top: 3px;}
+		.qqimg dl dd{color: rgb(0,160,230);margin-left:0px;text-align: center;font-weight: bold;margin-top: 5px;height:30px;line-height: 30px;}
+		.qq_close{position: absolute;right: 0;top: 0;cursor: pointer;}
+		
+	
+
+/*侧边浮动条*/
+.qq{position:absolute;right:0px;top:125px;}
+
+.leftQQ{float:left;cursor: pointer;}
+.rightQQ{display:none;float:left;width:120px;color:#8b8b8b;background-color:#fff;border:1px solid #3c94d1;overflow: hidden;padding-top:5px;padding-bottom:4px;border-left:0px solid #fff;}
+.rightQQ li{float:left;height:40px;line-height:40px;width:120px;text-align: center;cursor: pointer;}
+</style>
+</head>
+<body>
+	<div id="dowebok">
+	<div class="section" id="section1">
+		<div class="header">
+			<!--S 头部信息显示-->
+			<div class="header_info">
+				<div  class="clearfix header_top">
+			        <div class="float_left">
+			        	<a href="/"><div class="logo"></div></a>
+						<a href="/aboutUs.html">关于我们</a>
+					<a href="/aboutUs.html#question_title">帮助中心</a>
+					</div>
+			        <div class="float_right">
+			        	<span class="loginStatus">
+			        		<a href="/nb/pc/product/product_list.html?id=4" class="guide">在800Bank投资</a>
+						</span>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div class="text"><img src="/themes/theme_default/media/css/images/section1Logo.png"/></div>
+		<div class="text" style="margin-top: 140px;">
+		 <a href="/nb/pc/product/product_list.html?id=4" style="margin-right:46px;"><img src="${webroot}${theme_dir}/media/css/images/activityLeftBtn.png" /></a>
+		 <a href="http://www.5star.cn"  ><img src="${webroot}${theme_dir}/media/css/images/activityRightBtn.png"/></a>
+		</div>
+
+    	<div class="qq">
+	    	<img src="/themes/theme_default/media/css/images/leftQQ.png" class="leftQQ" id="leftQQ1"/>
+	    	<ul  class="rightQQ" id="rightQQ1">
+	    		<li>客服热线</li>
+	    		<li>400-6366-800</li>
+	    		<li id="qq_popup1" ><img src="/themes/theme_default/media/bg/qq.png"/></li>
+	    	</ul>
+    	</div>
+    	
+    	<div class="qq_popup" id="qqPopup">
+			<p class="title">请发起聊天的方式：</p>
+			<div class="qqimg">
+				<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+					<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+					<dd>QQ账号聊天</dd>
+				</dl>
+				<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+					<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+					<dd><a>匿名聊天</a></dd>
+				</dl>	
+			</div>
+			<img src="/themes/theme_default/images/qq_close.png" class="qq_close" id="qqClose"/>
+		</div>
+
+		<div class="wechat_div"  >
+			<img src="/themes/theme_default/images/wx-tu.png">
+			<p class="color-p" >扫一扫加关注</p>
+		</div>
+		
+			
+		
+			
+	</div>
+	<div class="section" id="section2">
+		<div class="header">
+			<!--S 头部信息显示-->
+			<div class="header_info">
+				<div  class="clearfix header_top">
+			        <div class="float_left">
+			        	<a href="/"><div class="logo"></div></a>
+						<a href="/aboutUs.html">关于我们</a>
+					<a href="/aboutUs.html#question_title">帮助中心</a>
+					</div>
+			        <div class="float_right">
+			        	<span class="loginStatus">
+			        		<a href="/nb/pc/product/product_list.html?id=4" class="guide">在800Bank投资</a>
+						</span>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div style="text-align: center;margin-top: 20px;"><img src="/themes/theme_default/media/css/images/section2Text.png"/></div>
+		<div style="text-align: center;margin-top: 40px;"> <a href="/nb/pc/product/product_list.html?id=4"><img src="/themes/theme_default/media/css/images/section2Product1.png" style="margin-right: 44px;"/></a> <a href="/nb/pc/product/product_list.html?id=4"><img src="/themes/theme_default/media/css/images/section2Product2.png" style="margin-right: 44px;"/></a><a href="/nb/pc/product/product_list.html?id=4"><img src="/themes/theme_default/media/css/images/section2Product3.png"/></a></div>
+
+		<div class="qq">
+	    	<img src="/themes/theme_default/media/css/images/leftQQ.png" class="leftQQ" id="leftQQ2"/>
+	    	<ul  class="rightQQ" id="rightQQ2">
+	    		<li>客服热线</li>
+	    		<li>400-6366-800</li>
+	    		<li id="qq_popup2" ><img src="/themes/theme_default/media/bg/qq.png"/></li>
+	    	</ul>
+    	</div>
+    	
+    	<div class="qq_popup" id="qqPopup1">
+			<p class="title">请发起聊天的方式：</p>
+			<div class="qqimg">
+				<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+					<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+					<dd>QQ账号聊天</dd>
+				</dl>
+				<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+					<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+					<dd><a>匿名聊天</a></dd>
+				</dl>	
+			</div>
+			<img src="/themes/theme_default/images/qq_close.png" class="qq_close" id="qqClose1"/>
+		</div>
+
+		<div class="wechat_div"  >
+			<img src="/themes/theme_default/images/wx-tu.png">
+			<p class="color-p" >扫一扫加关注</p>
+		</div>
+		
+			
+		
+	</div>
+	<div class="section" id="section3">
+		<div class="header">
+			<!--S 头部信息显示-->
+			<div class="header_info">
+				<div  class="clearfix header_top">
+			        <div class="float_left">
+			        	<a href="/"><div class="logo"></div></a>
+						<a href="/aboutUs.html">关于我们</a>
+					<a href="/aboutUs.html#question_title">帮助中心</a>
+					</div>
+			        <div class="float_right">
+			        	<span class="loginStatus">
+			        		<a href="/nb/pc/product/product_list.html?id=4" class="guide">在800Bank投资</a>
+						</span>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div style="width: 1190px;margin: 0 auto;"><img src="/themes/theme_default/media/css/images/section3Text.png" style="margin-left: 98px;"/></div>
+		
+		<div class="qq">
+	    	<img src="/themes/theme_default/media/css/images/leftQQ.png" class="leftQQ" id="leftQQ3"/>
+	    	<ul  class="rightQQ" id="rightQQ3">
+	    		<li>客服热线</li>
+	    		<li>400-6366-800</li>
+	    		<li id="qq_popup3" ><img src="/themes/theme_default/media/bg/qq.png"/></li>
+	    	</ul>
+    	</div>
+    	
+    	<div class="qq_popup" id="qqPopup2">
+			<p class="title">请发起聊天的方式：</p>
+			<div class="qqimg">
+				<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+					<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+					<dd>QQ账号聊天</dd>
+				</dl>
+				<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+					<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+					<dd><a>匿名聊天</a></dd>
+				</dl>	
+			</div>
+			<img src="/themes/theme_default/images/qq_close.png" class="qq_close" id="qqClose2"/>
+		</div>
+
+		<div class="wechat_div"  >
+			<img src="/themes/theme_default/images/wx-tu.png">
+			<p class="color-p" >扫一扫加关注</p>
+		</div>
+		
+		
+		
+	</div>
+	<div class="section" id="section4">
+		<div class="header">
+			<!--S 头部信息显示-->
+			<div class="header_info">
+				<div  class="clearfix header_top">
+			        <div class="float_left">
+			        	<a href="/"><div class="logo"></div></a>
+						<a href="/aboutUs.html">关于我们</a>
+					<a href="/aboutUs.html#question_title">帮助中心</a>
+					</div>
+			        <div class="float_right">
+			        	<span class="loginStatus">
+			        		<a href="/nb/pc/product/product_list.html?id=4" class="guide">在800Bank投资</a>
+						</span>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div style="width: 1190px;margin: 0 auto;"><img src="/themes/theme_default/media/css/images/section4Text.png"  style="float: right;margin-right: 95px;"/></div>
+		
+		<div class="qq">
+	    	<img src="/themes/theme_default/media/css/images/leftQQ.png" class="leftQQ" id="leftQQ4"/>
+	    	<ul  class="rightQQ" id="rightQQ4">
+	    		<li>客服热线</li>
+	    		<li>400-6366-800</li>
+	    		<li id="qq_popup4" ><img src="/themes/theme_default/media/bg/qq.png"/></li>
+	    	</ul>
+    	</div>
+    	
+    	<div class="qq_popup" id="qqPopup3">
+			<p class="title">请发起聊天的方式：</p>
+			<div class="qqimg">
+				<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+					<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+					<dd>QQ账号聊天</dd>
+				</dl>
+				<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+					<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+					<dd><a>匿名聊天</a></dd>
+				</dl>	
+			</div>
+			<img src="/themes/theme_default/images/qq_close.png" class="qq_close" id="qqClose3"/>
+		</div>
+
+		<div class="wechat_div"  >
+			<img src="/themes/theme_default/images/wx-tu.png">
+			<p class="color-p" >扫一扫加关注</p>
+		</div>
+		
+		
+	</div>
+	<div class="section" id="section5">
+		<div class="header">
+			<!--S 头部信息显示-->
+			<div class="header_info">
+				<div  class="clearfix header_top">
+			        <div class="float_left">
+			        	<a href="/"><div class="logo"></div></a>
+						<a href="/aboutUs.html">关于我们</a>
+					<a href="/aboutUs.html#question_title">帮助中心</a>
+					</div>
+			        <div class="float_right">
+			        	<span class="loginStatus">			        	
+							<a href="/nb/pc/product/product_list.html?id=4" class="guide">在800Bank投资</a>						
+						</span>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div style="text-align: center;"><img src="/themes/theme_default/media/css/images/section5Text.png"/></div>
+		<p style="position: absolute;bottom: 20px;right: 120px;color: #77e2ff;font-size: 16px;">最终解释权归五星电器&800Bank所有</p>
+		<div class="qq">
+	    	<img src="/themes/theme_default/media/css/images/leftQQ.png" class="leftQQ" id="leftQQ5"/>
+	    	<ul  class="rightQQ" id="rightQQ5">
+	    		<li>客服热线</li>
+	    		<li>400-6366-800</li>
+	    		<li id="qq_popup5" ><img src="/themes/theme_default/media/bg/qq.png"/></li>
+	    	</ul>
+    	</div>
+    	
+    	<div class="qq_popup" id="qqPopup4">
+			<p class="title">请发起聊天的方式：</p>
+			<div class="qqimg">
+				<dl onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=800054882&amp;site=qq&amp;menu=yes', '_blank')">
+					<dt><img src="/themes/theme_default/images/qq_head.png"/></dt>
+					<dd>QQ账号聊天</dd>
+				</dl>
+				<dl onclick="javascript:window.open('http://webchat.b.qq.com/webchat.htm?sid=2188z8p8p8p8R8Q8z8z8K', '_blank','height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no')">
+					<dt><img src="/themes/theme_default/images/qq_active.png"/></dt>
+					<dd><a>匿名聊天</a></dd>
+				</dl>	
+			</div>
+			<img src="/themes/theme_default/images/qq_close.png" class="qq_close" id="qqClose4"/>
+		</div>
+
+		<div class="wechat_div"  >
+			<img src="/themes/theme_default/images/wx-tu.png">
+			<p class="color-p" >扫一扫加关注</p>
+		</div>
+	
+	</div>
+</body>
+</html>

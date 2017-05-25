@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/swiper.min.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/user/recharge.css" />
+	    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/swiper.min.js" ></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/recharge/recharge_newRecharge.js"></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/js/common.js"></script>
+	    <script type="text/javascript"> 
+	    $(function(){
+	    	$("#menue").bind("click",function(){
+				$(".menue").toggle();
+			});
+	    	var info   = '${prompt!}';
+			var msg    = '${msgInfo!}';
+			var result = '${isLogin!}';
+			
+			if('no_login'===result){
+				layer.alert('您未登录请登录！',{title:false,closeBtn: 0})
+			}
+			
+			if(null!==msg&&''!==msg){
+				if(msg.indexOf('成功')>0){
+					layer.alert('充值成功！',{
+					    title:false,
+					},function(){
+						location.href = '/cf/wechat/user/index.html';
+					})
+				}else{
+					layer.alert(info+''+msg,{title:false,closeBtn: 0})
+				}
+			}
+		})
+		 //线下提交数据校验
+	    function checkBankNo(){
+	    	var money = $('#money2').val();
+	    	var realName = $('#realName').val();
+	    	var cardId = $('#cardId').val();
+	    	var bankno = $('#infoyhzh').val();
+	    	
+	    	if(money.length==0 || parseFloat(money)<${minRechargeMoney!100}){
+	        	$('#lineError').html('线下充值金额不能小于'+${minRechargeMoney!100}+'元');
+	    	}else if(realName.length==0){
+	    		$('#lineError').html('请输入真实姓名');
+	    	}else if(cardId.length==0){
+	    		$('#lineError').html('请输入您的身份证号');
+	    	}else if(!isIdCardNo(cardId.toUpperCase().trim())){
+	      		$('#lineError').html('身份证号格式不正确');
+	    	}else if(bankno.length==0){
+	    		$('#lineError').html('请输入充值银行卡号');
+	    	}else{
+	    		checkBankInfo(bankno,'1');
+	    	}
+	    }
+		</script>
+	</head>
+	<body>
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>充值</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="main">
+			<div class="tabs">
+				<a href="#" class="active">线上充值</a>
+				<a href="#">线下充值</a>
+			</div>	
+			<div class="swiper-container recharge-content">
+			<div class="swiper-wrapper">
+			<!-- 线上充值 -->
+			<div class="swiper-slide">
+				<form action="/cf/wechat/user/bindBank.html" method="post" name="form1" id="form1">
+						<div class="recharge-content">
+							<div class="main-col">
+								<div class="main-col-left"><span>充值金额</span></div>
+								<div class="main-col-right"><input type="text" name="money" id="money1" placeholder="请输入充值金额" class="invest-inp-money" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'')" onfocus="delClass()" maxlength="8"/></div>
+							</div>
+							<div class="main-col">
+								<div class="main-col-left">选择银行卡</div>
+								<div class="main-col-right">
+									<div class="select-bank">
+										<p>请选择银行卡</p>
+										<ul>
+											<li class="selected" data-value="请选择银行卡" id="bank_code"  name="bankCodeKey" onclick="delClass()" >请选择银行卡</li>
+											<#list ccList as cc>
+												<#if (cc.sb.enable)==1>
+									     			<li data-value="${cc.sb.bankCode}" data-text="${cc.sb.bankName!''}">${cc.sb.bankName!''}</li>
+												</#if>
+											</#list>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="recharge-tip" style="display: none;" id="bankTbl2">
+								<div class="recharge-tip-left"></div>
+								<div class="recharge-tip-right">
+								<h4 style="font-size: 14px;line-height: 14px;padding-top: 13px" >限额（单笔：<span id="danbi" style="font-size: 14px;line-height: 14px;"  ></span>,单日：<span id="danri" style="font-size: 14px;line-height: 14px;"  ></span>,单月：<span id="danyue" style="font-size: 14px;line-height: 14px;"  ></span>）</h4>
+								</div>
+							</div>
+							<p class="error-tip" id="onlineError"></p>
+						</div>
+						<input type="hidden" name="cfRechargeToken" value="${cfRechargeToken!}" />
+					    <input type="hidden" value="0" id="bankCode" name="bankCode"/>
+						<div class="blank"></div>
+				</form>
+				<div class="height50" ></div>
+			</div>
+			<!-- 线下充值 -->	
+			<div class="swiper-slide">
+				<form action="/cf/wechat/recharge/doOfflineRecharge.html" method="post" name="form2" id="form2">
+					<div class="recharge-content">
+						<div class="recharge-top">
+							<p>完整填写如下信息后，请完成银行转账操作（网银/手机银行/银行柜台），收款信息如下：</p>
+							<p>开户银行：<span>中国建设银行上海黄浦支行</span></p>
+							<p>银行卡号：31050170360000000491</p>
+							<p>账户：上海众朴信息科技有限公司</p>
+						</div>
+						<div class="main-col">
+							<div class="main-col-left"><span>充值金额</span></div>
+							<div class="main-col-right">
+								<input type="text"  id="money2"	name="money" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="${minRechargeMoney!0}元起" onfocus="delClass()" autocomplete="off" />
+							</div>
+						</div>
+						<#if realName??>
+					      	<div class="main-col">
+								<div class="main-col-left"><span>姓名</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入姓名" name="realName" id="realName" value="${realName}" autocomplete="off" maxLength="12" /></div>
+							</div>
+				   		<#else>
+				   			<div class="main-col">
+								<div class="main-col-left"><span>姓名</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入姓名" name="realName" id="realName" onfocus="delClass()" maxLength="12" /></div>
+							</div>
+				   		</#if>
+				   		<#if cardId??>
+					      	<div class="main-col">
+								<div class="main-col-left"><span>身份证号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" name="cardId" id="cardId" value="${cardId}" autocomplete="off" maxLength="18" /></div>
+							</div>
+				   		<#else>
+				   			<div class="main-col">
+								<div class="main-col-left"><span>身份证号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" name="cardId" id="cardId" onfocus="delClass()" maxLength="18" /></div>
+							</div>
+				   		</#if>
+						<div class="main-col">
+							<div class="main-col-left"><span>银行卡号</span></div>
+							<div class="main-col-right"><input type="text" placeholder="请输入银行卡号" name="bankNo" id="infoyhzh" autocomplete="off" onpaste="return false;" onfocus="delClass()" onblur="checkBankInfo(this.value,0)" maxLength="25" /></div>
+						</div>
+						<p class="error-tip" id="lineError"></p>
+					</div>
+					<div class="blank"></div>
+					<input type="hidden" value="2" id="rechargeType2" name="rechargeType">
+					<input type="hidden" name="cfRechargeToken" value="${cfRechargeToken!}" />
+					</form>
+					<div class="height50" ></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="product-detail-btn" onclick="updateType()">下一步</div>
+		<script type="text/javascript">
+			$(function(){
+				/* $('.back').bind('click',function(){
+					window.history.go(-1);
+				}) */
+				
+				$('.select-bank > p').bind('click', function(e){
+					$('.select-bank').toggleClass('open');
+					e.stopPropagation();
+				});
+				//选择银行
+				$('.select-bank ul li').bind('click', function(e){
+					var _this = $(this);
+					$('.select-bank > p').text(_this.attr('data-text'));
+					_this.addClass('selected').siblings().removeClass('selected');
+					$('.select-bank').removeClass('open');
+					e.stopPropagation();
+					getOneBankInfo(_this.attr('data-value'));
+					$('#bankCode').val(_this.attr('data-value'));
+				});
+				
+				$(document).on('click', function(){
+					$('.select-bank').removeClass('open');
+				});
+	
+				 //tab切换线下线上充值方式
+			    var tabsSwiper = new Swiper('.swiper-container', {
+			        speed: 500,
+			        onSlideChangeStart: function() {
+			            $(".tabs .active").removeClass('active');
+			            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+			        }
+			    });
+			    
+			    $(".tabs a").on('touchstart mousedown', function(e) {
+			        e.preventDefault()
+			        $(".tabs .active").removeClass('active');
+			        $(this).addClass('active');
+			        tabsSwiper.slideTo($(this).index());
+			        if($(this).index()===0){
+			        	$(".product-detail-btn").text("下一步");
+			        	$(".product-detail-btn").attr("onclick","updateType()");			        	
+			        }else if($(this).index()===1){
+			        	$(".product-detail-btn").text("确认充值");
+			        	$(".product-detail-btn").attr("onclick","checkBankNo()");
+			        }
+			    });
+	
+			    $(".tabs a").click(function(e) {
+			        e.preventDefault();
+			    });
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>800Bank</title>
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/base.css">
+        <!-- <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" > -->
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/product_menue.css">
+    <script src="/themes/theme_default/dist/jquery.js"></script>
+    <script src="/plugins/vue/vue.min.js"></script>
+    <script src="/plugins/underscore-v1.7.0/underscore-1.7.js"></script>    
+    <script src="/themes/theme_default/nb/wechat/js/product/product_menue.js" ></script>
+</head>
+
+<body>
+    <header>
+        <div class="head-title">产品系列</div>
+        <div class="hr"></div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/nb/wechat/product/product_list.html?id=2">
+                    <img src="/themes/theme_default/nb/wechat/images/icon-random.png" class="icon-circle-random" />
+                    <div class="desc">随投随享</div></a></li>
+                <li>   
+                    <a href="/nb/wechat/product/product_list.html?id=3">
+                    <img src="/themes/theme_default/nb/wechat/images/icon-bank.png" class="icon-circle-bank" />
+                    <div class="desc">银行信托</div></a></li>
+                <li>   
+                    <a href="/nb/wechat/product/product_list.html?id=1">
+                    <img src="/themes/theme_default/nb/wechat/images/icon-choice.png" class="icon-circle-choice" />
+                    <div class="desc">800精选</div></a></li>
+                <li>   
+                    <a href="/nb/wechat/product/product_list.html?id=4">
+                    <img src="/themes/theme_default/nb/wechat/images/icon-exclusive.png" class="icon-circle-exclusive" />
+                    <div class="desc">五星专享</div></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="wrap">
+        <h3 class="rexiao"><img src="/themes/theme_default/nb/wechat/images/rexiao-fire.png" alt="">&nbsp;热销榜</h3>
+        <div class="product-list" id="product_list">
+            <a href="/nb/wechat/product/productDetail.action?product_id={{product.id}}"  v-repeat="product in products">
+            <div class="product-item">
+                <div v-if="product.proStatus===1" class="hotbar" v-style="background:'#97a7b5'">抢光</div>
+                <div v-if="product.proStatus===2" class="hotbar" v-style="background:'#97a7b5'">结束</div>
+                <div v-if="product.proStatus===3" class="hotbar" v-style="background:'#ff6c54'">热销</div>
+                <div class="product-title">
+                    <h3 class="product-name" v-text="product.productName"></h3>
+                    <p v-if="product.accountCan" v-text="product.accountCan | moneyFormat | addPer '可投余额：￥' ''"></p>
+                </div>
+                <div class="product-detail">
+                    <div class="profit">
+                        <div v-text="product.highestRefundRate | fixDot"></div>
+                        <span v-if='!product.interestRateValue'>预期年化收益率</span>
+                        <span v-if='product.interestRateValue' v-text='product.interestRateValue | fixDot | addPer "+" "%"' v-style="v_css.floatRate"></span>
+                        <!-- <span>预期收益</span> -->
+                    </div>
+                    <div class="time-limit">
+                        <div v-text='product.timeLimit+"天"'></div>
+                        <span>投资期限</span>
+                    </div>
+                    <div class="lowest-account">
+                        <div v-text="product.lowestAccount | moneyFormat | addPer '￥' '' "></div>
+                        <span>起投金额</span>
+                    </div>
+                </div>
+                <div v-if="product.isNone && product.reTime" class="remain-time">
+                    <span v-text='product.reTimeStr'></span>
+                    <!-- <span>剩余时间：16天15小时18分13秒</span> -->
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+    <!--底部导航-->
+    <div class="foot-blank"></div>
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+</body>
+
+
+</html>

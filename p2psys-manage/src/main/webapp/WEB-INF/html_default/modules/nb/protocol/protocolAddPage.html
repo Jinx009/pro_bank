@@ -1,0 +1,29 @@
+<script type="text/javascript">
+$(function() 
+{
+	  $.fn.dataGridOptions.addBorrowFormSubFun("#form",'/modules/nb/protocol/addProtocol.html');	
+});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+	<div class="borrowForm" style="border-top: none;">
+	<ul>
+		<li>
+			<span>协议编号：</span>
+		    <input type="text"  readonly="readonly"   name="protocolType" value="${protocol.protocolType!0}">
+		</li>
+		<li>
+			<span>协议名称：</span>
+		    <input type="text"  name="protocolName" value="">
+		</li>
+		<li><span>产品类型：</span>
+			<select name="typeCode">
+			<#if productTypes ??>
+				<#list productTypes as item>
+				<option value="${item.typeCode}">${item.typeName!}</option>
+				</#list>
+			</#if>
+			</select>
+		</li>
+	</ul>
+	</div>
+</form>

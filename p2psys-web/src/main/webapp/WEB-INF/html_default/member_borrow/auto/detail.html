@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container">
+    	<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+				<#include "../trade_menu.html">
+            </div>
+			<div class="user_right">
+				<h2 class="user_title">自动投标</h2>
+				<!-- Form start -->
+                <form id="form11" method="post" action="/member/auto/modify.html">
+                <div class="autoInfo clearfix">
+                <div class="float_left">
+                    <div class="auto_switch_wrap">
+                       <input class="hide" type="checkbox" name="enable"  <#if auto.enable>checked="checked"</#if> value="<#if auto.enable>1<#else>0</#if>"/>
+                    </div>
+                    <div class="accountMoney">
+                       <label for="">账户余额</label><em>1000.00</em><i>元</i>
+                       <a href="/member/recharge/newRecharge.html" class="account_recharge">充值</a> 
+                    </div>
+                </div>
+                <div class="auto_explain float_right">
+                    <h2>自动投标说明：</h2>
+                    <ol>
+                        <li>当符合条件的自动投标金额总额大于当前可投标金额时，系统会自动开启公平的排队系统。</li>
+                        <li>为严格保护出资人利益，系统会指定每笔自动投标对于贷款总额的百分比上限，以分散风险，获得更高收益。</li>
+                        <li>自动投标为免费业务，本站点不收取任何附加费用。</li>
+                    </ol>
+                </div>
+                </div>
+                    <dl class="select_condition <#if auto.enable><#else>hide</#if>">
+                        <dt>
+                            <span class="col1">筛选规则</span>
+                            <span class="col2">投标条件</span>
+                            <span class="col3">启用状态</span>
+                        </dt>
+                        <dd>
+                            <span class="col1">投资金额</span>
+                            <span class="col2"><input type="checkbox"  /></span>
+                            <span class="col3">每次投标 <input type="text" id="price_limit" name="money" value="<#if auto.money gt 50>${auto.money}<#else>50</#if>">元 (最低50元)</span>
+                        </dd>
+                        <dd>
+                            <span class="col1">还款方式</span>
+                            <span class="col2"><input type="checkbox" name="styleEnable" <#if auto.styleEnable>checked="checked"</#if> value="<#if auto.styleEnable>1<#else>0</#if>"/></span>
+                            <span class="col3 <#if auto.styleEnable><#else>hide</#if>" >
+                                选择方式
+                                <select name="style">
+                                    <option value="1" <#if auto.style==1>selected="selected"</#if>>按月分期还款</option>
+                                    <option value="2" <#if auto.style==2>selected="selected"</#if>>一次性还款</option>
+                                    <option value="3" <#if auto.style==3>selected="selected"</#if>>每月还息到期还本</option>
+                                </select>
+                            </span>
+                        </dd>
+                        <dd>
+                            <span class="col1">月标期限</span>
+                            <span class="col2"><input type="checkbox" name="timelimitMonthEnable" <#if auto.timelimitMonthEnable>checked="checked"</#if> value="<#if auto.timelimitMonthEnable>1<#else>0</#if>" /></span>
+                            <span class="col3 <#if auto.timelimitMonthEnable><#else>hide</#if>">
+                                月数范围
+                               <input type="text" name="timelimitMonthDown" value="${auto.timelimitMonthDown}"/>-
+                               <input type="text" name="timelimitMonthUp" value="${auto.timelimitMonthUp}" />
+                            </span>
+                        </dd>
+                        <dd>
+                            <span class="col1">天标期限</span>
+                            <span class="col2"><input type="checkbox" name="timelimitDayEnable" <#if auto.timelimitDayEnable>checked="checked"</#if> value="<#if auto.timelimitDayEnable>1<#else>0</#if>"/></span>
+                            <span class="col3 <#if auto.timelimitDayEnable><#else>hide</#if>">
+                                天数范围
+                                <input type="text" name="timelimitDayDown" value="${auto.timelimitDayDown}"/>-
+                                <input type="text" name="timelimitDayUp" value="${auto.timelimitDayUp}"/>
+                            </span>
+                        </dd>
+                        <dd>
+                            <span class="col1">年化利率</span>
+                            <span class="col2"><input type="checkbox" name="aprEnable" <#if auto.aprEnable>checked="checked"</#if> value="<#if auto.aprEnable>1<#else>0</#if>"/></span>
+                            <span class="col3 <#if auto.aprEnable><#else>hide</#if>">
+                                利率范围
+                                <input type="text" name="aprDown" value="${auto.aprDown}"/>-
+                                <input type="text" name="aprUp" value="${auto.aprUp}"/>
+                            </span>
+                        </dd>
+                        <dd>
+                            <span class="col1">投资奖励</span>
+                            <span class="col2"><input type="checkbox" name="awardEnable" <#if auto.awardEnable>checked="checked"</#if> value="<#if auto.awardEnable>1<#else>0</#if>"/></span>
+                            <span class="col3 <#if auto.awardEnable><#else>hide</#if>">
+                                奖励范围
+                                <input type="text" name="awardDown" value="${auto.awardDown}"/>-
+                                <input type="text" name="awardUp" value="${auto.awardUp}"/>
+                            </span>
+                        </dd>
+                        <dd>
+                            <span class="col1">投资标种</span>
+                            <span class="col2"><input type="checkbox"  /></span>
+                            <span class="col3">
+                                
+                                <input type="checkbox" id="Standard for" name="borrowTypes" value="102" <#if auto.borrowTypes?? && auto.borrowTypes?contains("102")>checked="checked"</#if>/ data-value="信用标">
+                                <input type="checkbox" id="Standard for" name="borrowTypes" value="103" <#if auto.borrowTypes?? && auto.borrowTypes?contains("103")>checked="checked"</#if>/ data-value="固定收益类产品">
+                                <input type="checkbox" id="Standard for" name="borrowTypes" value="112" <#if auto.borrowTypes?? && auto.borrowTypes?contains("112")>checked="checked"</#if>/ data-value="担保标">
+                            </span>
+                        </dd>
+                    </dl>
+                     <div class="save_reset">
+                     	<input type="hidden" name="id" value="${auto.id}" id="id">
+                        <input type="submit" id="save_button" value="保存">
+                        <input type="reset" id="reset_button" value="重置">
+                     </div>
+               	</form>
+			<!--右边的内容 结束-->
+		</div>
+        
+         
+		</div>
+	<!--用户中心的主栏目 结束-->
+   </div>
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/member/autodetail")
+</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

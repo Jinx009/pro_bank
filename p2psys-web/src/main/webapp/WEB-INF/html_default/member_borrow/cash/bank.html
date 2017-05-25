@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html> 
+<#assign web_title='银行账户 - ${webname!}'>
+<#assign web_description='银行账户，${webname!}p2p网贷平台'>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_borrow_header.html">
+	<#include "../../common/function.html">
+	 
+	<!-- #main start-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--S-左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>
+			<!--E-左边的导航user_left 结束-->
+
+			<!--S-user_right-->
+		<div class="user_right">
+				<h2 class="user_title">银行卡</h2>
+				<input type="hidden" id="deposit" value="${is_open_deposit}" />
+				<!--S-右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+					<ul class="cardList">
+						   <#list bankList as item>
+						   <li>
+							      <dl>
+							      	<dt><span>银行卡</span>Bank</dt>
+							      	<dd><img alt="" src="${item.picPath!''}">${item.bank!""}</dd>
+							      	<dd>${item.hideBankNo!""}</dd>
+							      </dl>
+							      <!--<span class="unbind"><a href="javascript:;" data-value="${webroot}/member/cash/disableBank.html?id=${item.id}" id="resetBank">解除绑定</a></span>-->
+						   </li>
+						   </#list>
+						   <#if bankList?? && bankList?size == 0>
+						   <li class="addCard">
+							   	<a href="addBankPage.html" title="添加银行卡"><i class="iconfont">&#xe613;</i>添加银行卡</a>
+						   </li>
+						   </#if>
+					</ul>
+					<div class="user_help">
+			            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+						<p>1、为了您的账户及资金安全，如果需要更换银行卡，请直接联系客服，电话400-6366-800。</p>
+						<p>2、目前绑卡仅支持以下银行：招商银行、工商银行、农业银行、建设银行、中国银行、邮储银行、光大银行、广发银行、平安银行</p>
+					</div>
+				</div>
+				<!--E-右边的内容user_right_main 结束-->
+			</div>
+			<!--E-user_right-->
+		</div>
+	</div>
+	<!-- #main start-->
+	<script>seajs.use("member_borrow/cash_bank")</script>
+	<#include "../../include/footer.html">

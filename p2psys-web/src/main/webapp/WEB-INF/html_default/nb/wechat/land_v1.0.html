@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <script src="/themes/theme_default/dist/jquery.js" ></script>
+    <script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+    <script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+    <script src="/themes/theme_default/nb/wechat/js/land.js" ></script>
+    
+    <link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/land.css" >
+
+    <title>账号登陆</title>
+    
+</head>
+<body>
+    <a class="btn btn-primary land-a " style="position:relative;"><div onClick="javascript :history.back(-1);" style="position:absolute;left:3%;width:5%;"><</div>账号登陆</a>
+    
+    <form name="login" id="login" method="post"  class="form-horizontal" >
+        <input type="hidden"  value="${redirectURL}" id="redirectURL" >
+        
+        <div class="space-div" ></div>
+        <div class="space-div" ></div>
+        
+        <input type="text" class="form-control land-input" placeholder="手机号" id="tel" name="tel"      onkeyup="this.value=this.value.replace(/\D/g,'')"   onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11"  />
+        <input type="password" class="form-control land-input" placeholder="密码" id="pwd" name="pwd"  >
+        
+        <div class="space-div" ></div>
+        <div class="space-div red-div" id="error_msg" ></div>
+        <div class="space-div" ></div>
+        <div class="space-div" ></div>
+
+        <a class="btn btn-primary land-login " onclick="executeLogin()"  >登陆</a>
+        <div class="space-div" ></div>
+        <a class="btn btn-default land-login " onclick="goToRegister()"  >新注册用户</a>
+        <div class="space-div" ></div>
+        <div class="right-btn" style="width:95%;display: none;"><a onclick="forgetPwd()" >忘记密码</a></div>
+    </form>
+    <img  src="/themes/theme_default/media/bg/foot-logo.png" class="login-image" style="width:30%;margin-left:40%;">
+</body>
+</html>

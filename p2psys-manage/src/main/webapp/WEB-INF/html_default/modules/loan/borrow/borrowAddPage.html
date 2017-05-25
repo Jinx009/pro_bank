@@ -1,0 +1,282 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.addBorrowFormSubFun("#form",'/modules/loan/borrow/addBorrow.html');
+	    /** 是否定向标 **/
+	    $("#isDXB").click(function(){
+	    	if($('#isDXB').attr("checked"))
+			{	
+		        $('#pwd').attr("disabled",false);
+		    }else{
+		        $('#pwd').attr("disabled",true);
+		        $('#pwd').val("");
+		    }
+	    });
+	    
+	    if($("#typeId").val()==119 || $("#typeId").val()==122){
+			$(this).addClass("dayhover")
+			$('#borrowTimeType').val('0');
+			$('#time_limit_day_box').html('');
+			$('#time_limit_day').addClass("J_input")
+			$('#time_limit_box').html('<input name="timeLimit" type="text" autocomplete="off"  size="15" class="borrowFormTxt1 easyui-validatebox" /><em>个月</em>')
+			$('#style').html('<option value="2">一次性还款</option>');
+			$('#changetoDay').click(function(){
+				var borrowTimeType=$('#borrowTimeType').val();
+				if(borrowTimeType==0){
+					$(this).addClass("dayhover")
+					$('#borrowTimeType').val('1');
+					$('#time_limit_day_box').html('');
+					$('#time_limit_day').addClass("J_input");
+					$('.zq-day').removeClass("hide");
+					$('#time_limit_box').html('<input name="timeLimit" type="text" autocomplete="off" id="timeLimit" size="15" class="borrowFormTxt1 easyui-validatebox" /><em>天</em>');
+					$('#style').html('<option value="2">一次性还款</option>');
+					$('#changetoDay').html('按天');
+				}
+				else{
+					$(this).addClass("dayhover")
+					$('#borrowTimeType').val('0');
+					$('#time_limit_day_box').html('');
+					$('#time_limit_day').addClass("J_input")
+					$('#time_limit_box').html('<input name="timeLimit" type="text" autocomplete="off" id="timeLimit" size="15" class="borrowFormTxt1 easyui-validatebox" /><em>个月</em>')
+					$('.zq-day').addClass("hide");
+					$('#style').html('<option value="2">一次性还款</option>');
+					$('#changetoDay').html('按月');
+				}
+			})
+
+		}
+	    else{
+		    $('#changetoDay').click(function(){
+				if(!$('#borrow_day').is(":animated")){
+					var borrowTimeType=$('#borrowTimeType').val();
+					if(borrowTimeType==0){
+						$(this).addClass("dayhover")
+						$('#borrowTimeType').val('1');
+						$('#time_limit_day_box').html('<input name="timeLimit" type="text" autocomplete="off" id="timeLimit" size="15" class="borrowFormTxt1 easyui-validatebox" /><em>天</em>');
+						$('#time_limit_day').addClass("J_input")
+						$('#time_limit_box').html('')
+						$('#style').html('<option value="2">一次性还款</option>');
+						$('#changetoDay').html('按月');
+					}else if($("#typeId").val()!=101){
+						$(this).removeClass("dayhover")
+						$('#borrowTimeType').val('0');
+						$('#time_limit_day_box').html('<input name="timeLimit" type="text" autocomplete="off" id="timeLimit" size="15" class="borrowFormTxt1 easyui-validatebox" /><em>个月</em>')
+						$('#time_limit_box').html('')
+						$('#time_limit').addClass("J_input");
+						$('#time_limit').show();
+						$('#style').html('<option value="1">按月分期还款</option><option value="2">一次性还款</option><option value="3">每月还息到期还本</option>');
+						$('#changetoDay').html('按天');
+					}
+					borrowTimeType=$('#borrowTimeType').val();
+				}
+		    });
+	    }
+	    
+	    
+	    var value = $("#typeId").find("option:selected").text();
+		var realValue = $("#typeId").val();
+		
+		$("#typeId2").val(realValue);
+		$("#borrowType").val(realValue)
+		
+		$("#guding").hide();
+		$("#float").hide();
+		$("#haiwai").hide();
+		
+		$("#hidden1").hide();
+		$("#hidden2").hide();
+		if(value=="浮动收益"){
+			$("#hidden1").hide();
+			$("#hidden2").hide();
+		}
+		if(value=="固定收益"){
+			$("#hidden1").show();
+			$("#hidden2").show();
+		}
+		if(value=="海外投资"){
+			
+			$("#hidden1").show();
+			$("#hidden2").show();
+		}
+		
+		
+		
+	});
+	
+	function getTypeId(){
+		var value = $("#typeId").find("option:selected").text();
+		var realValue = $("#typeId").val();
+		$("#typeId2").val(realValue);
+		$("#borrowType").val(realValue)
+		
+		$("#hidden1").hide();
+		$("#hidden2").hide();
+		
+		$("#protocolType option").remove();
+		//$("#protocolType").empty();
+		if(value=="浮动收益"){
+			$("#hidden1").hide();
+			$("#hidden2").hide();
+			$("#protocolTypeFloat option").each(function (){ 
+				$("#protocolType").append("<option value='"+$(this).val()+"'>"+ $(this).text()+"</option>");
+	        });
+		}
+		
+		
+		
+		if(value=="固定收益"){
+			$("#hidden1").show();
+			$("#hidden2").show();
+			$("#protocolTypeGuding option").each(function (){ 
+				$("#protocolType").append("<option value='"+$(this).val()+"'>"+ $(this).text()+"</option>");
+	        });
+		}
+		if(value=="海外投资"){
+			
+			$("#hidden1").show();
+			$("#hidden2").show();
+			$("#protocolTypeHaiwai option").each(function (){ 
+				$("#protocolType").append("<option value='"+$(this).val()+"'>"+ $(this).text()+"</option>");
+	        });
+		}
+		
+	}
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<div class="borrowForm" style="border-top:none;">
+
+	<h1 class="borrowFormTitle">基本信息</h1>
+	<ul>
+		
+		<li>
+			<span>产品标签：</span>
+			<select id="flagId" name="flagId">
+				<#list productTypeFlagList as item>
+				<option value="${item.id}">${item.flagName}</option>
+				</#list>
+			</select>
+		</li>
+		
+		<li>
+			<span>产品类别：</span>
+			<select id="typeId" name="type"  onchange="getTypeId();">
+				<#list productTypeList as item>
+				<option value="${item.id}">${item.typeName}</option>
+				</#list>
+			</select>
+			<input type="hidden" value="103" id="borrowType" name="borrowType" >
+			<input type="hidden" value="103" id="typeId2" name="typeId" >
+		</li>
+		
+		<li><span>产品顺序：</span><input type="text" name="showOrder" id="showOrder" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'"  onkeyup="this.value=this.value.replace(/\D/g,'')"/></li>
+		
+		<li><span>产品编码：</span><input type="text" name="bidNo" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<li><span>借款标题：</span><input type="text" name="name" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<li><span>借款公司名称：</span><input type="text" name="companyName" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[50]'" /></li>
+		<li><span>借款总金额：</span><input type="text" name="account" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 easyui-validatebox" data-options="required: true,validType:'accout[500,10000000]'"><em>元</em></li>
+		
+		
+		
+		
+		<li><span>借款年利率：</span><input type="text" name="apr" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px"><em>%</em></li>
+		<li id="hidden1"><span>预期收益率下：</span><input type="text" name="expectedLow" value="5" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'jkapr[0,500]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li id="hidden1"><span>预期收益率上：</span><input type="text" name="expectedUp" value="20" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'riskRate[0,500]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+
+		<li><span>借款管理费率：</span><input type="text" name="borrowManageRate" value="2.5" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'jkapr[0,5]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>风险备用费率：</span><input type="text" name="riskReserveRate" value="1" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'riskRate[0,5]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>借款用途：</span><@linkage name="borrowUse" id="use" class="borrowFormTxt J_input" type="value" nid="borrow_use" /></li>
+	
+		
+		<li><span>选择红包：</span>
+				<select name="red_packet_id">
+				<option value="0">无</option>
+				<#if redPackets ??>
+					<#list redPackets as item>
+					<option value="${item.id}">${item.name!}</option>
+					</#list>
+				</#if>
+				</select></li>
+		<li><span>是否按天：</span><input type="checkbox" id="changetoDay" class="day_chose" ></li>
+		<li class="hide zq-day"><span>中期还款天数：</span>
+		<label><input name="middleDay" id="middleDay" type="text" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"><em>天</em></label>
+		<li><span>借款期限：</span>
+	        <label id="time_limit_box">
+	        	<input name="timeLimit" type="text" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 easyui-validatebox" data-options="required: true,validType:'timeLimit[1,12]'" /><em>个月</em>
+	        </label>
+	        <label id="time_limit_day_box"></label>
+		</li>
+		<li id="borrow_day" style="display:none;">
+			<span>是否天标：</span><input type="hidden" name="borrowTimeType" id="borrowTimeType" value="0" />
+			<input type="checkbox" checked="checked" disabled="disabled">
+		</li>
+		<li><span>是否是定向标：</span><input id="isDXB" type="checkbox" name="isDXB" value="1" size="15" class="easyui-validatebox"></li>
+		<li><span>定向标密码：</span><input type="text" onKeyUp="value=value.replace(/[^\w\/]/ig,'')" name="pwd" size="15"  class="borrowFormTxt easyui-validatebox" id="pwd" disabled="disabled"> </li>
+		<li><span>最低投标金额：</span>
+			<input name="lowestAccount" type="text" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 easyui-validatebox" data-options="required: true,validType:'lowestAccount[50]'" /><em>元</em>
+		</li>
+		<li><span>最多投标总额：</span>
+			<input name="mostAccount" type="text" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 easyui-validatebox" data-options="required: true,validType:'upAccount[50]'" /><em>元</em>
+		</li>
+		
+		<li>
+			<span>产品协议类型：</span>
+			<select id="protocolType" name="protocolType" >	
+				<option value="0">无</option>
+				<#if gudings ??>
+				<#list gudings as item>
+				<option value="${item.protocolType}">${item.protocolName!}</option>
+				</#list>
+				</#if>		
+			</select>
+			<select id="protocolTypeGuding" name="protocolTypeGuding" style="display:none;">
+				<option value="0">无</option>
+				<#if gudings ??>
+				<#list gudings as item>
+				<option value="${item.protocolType}">${item.protocolName!}</option>
+				</#list>
+				</#if>			
+			</select>
+			<select id="protocolTypeHaiwai" name="protocolTypeHaiwai" style="display:none;">
+				<option value="0">无</option>
+				<#if haiwais ??>
+				<#list haiwais as item>
+				<option value="${item.protocolType}">${item.protocolName!}</option>
+				</#list>
+				</#if>			
+			</select>
+			<select id="protocolTypeFloat" name="protocolTypeFloat" style="display:none;">
+				<option value="0">无</option>
+				<#if floats ??>
+				<#list floats as item>
+				<option value="${item.protocolType}">${item.protocolName!}</option>
+				</#list>
+				</#if>			
+			</select>
+		</li>
+	
+		
+		<li><span>还款方式：</span><@linkage name="style" id="style" nid="borrow_style" type="value" class="J_input" /></li>
+		<li><span>有效时间：</span><input name="validTime" type="text" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="3" class="borrowFormTxt1 easyui-validatebox" data-options="required: true,validType:'timeLimitDay[1,90]'" /><em>天</em><input></li>
+		<#--<input name="borrowAddPageToken" value="${borrowAddPageToken!}" type="hidden"/>-->
+		
+	</ul>
+	<div class="borrowFormMuti"><span>借款图片：</span><input type="file" name="file" title="点击上传图片" /></div>
+	<div class="borrowFormMuti"><span>借款详情：</span>
+		<#include "umeditor.htm"> 
+		<@showUeditor width=870 heigth=300 id="message" name="content" content="" />
+	</div>
+</div>
+<div class="borrowForm">
+	<div class="guarantee_type">
+		<span>资料<br>图片：</span>
+	        <div id="uploadGuaranteeBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="borrowPagePic" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="zlfile" id="uploadFile" onchange="return ajaxFileUpload1('uploadFile','/imageUp.jsp','picPath');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+	</div>	
+</div>
+</form>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

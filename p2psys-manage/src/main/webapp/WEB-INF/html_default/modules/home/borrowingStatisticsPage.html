@@ -1,0 +1,46 @@
+<div id="borrow" style="height:230px"></div>
+<script src="/plugins/echarts/echarts-plain-original.js"></script>
+<script type="text/javascript">
+$.ajax({
+	url:"/modules/home/borrowingStatistics.html",
+	type:"get",
+	dataType:"json",
+	success:function(data){
+		// 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('borrow')); 
+        var option = {
+        	color  : ['#70bc31'],
+            tooltip: {
+                show: true
+            },
+            grid: {
+            	x:80,
+            	y:30,
+            	x2:30,
+            	y2:70
+           	},
+            xAxis : [
+                {
+                   type : 'category',
+                   data : data.dates
+                }
+            ],
+            yAxis : [
+                {
+                	'type':'value',
+                    'name':'金额（元）',
+                }
+            ],
+            series : [
+                {
+                    "name":"金额（元）",
+                    "type":"bar",
+                    "data":data.accounts
+                }
+            ]
+        };
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+	}
+});
+</script>

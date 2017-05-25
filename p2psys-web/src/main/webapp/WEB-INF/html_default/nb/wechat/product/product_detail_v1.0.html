@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<title>800Bank</title>
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/product/productDetail.css" >			
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+<script src="/themes/theme_default/dist/jquery.js" ></script>
+<script src="/themes/theme_default/nb/wechat/js/product/productDetail.js" ></script>
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+<script type="text/javascript">
+$(function()
+{
+	var promot = $("#promot").val();
+	var listSize = $("#listSize").val();
+	
+	if(""!=promot&&null!=promot)
+	{
+		var sessionStorage = window.localStorage;
+		sessionStorage.setItem("localPromot",promot);
+	}
+})
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp:${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'hideMenuItems',
+      'showMenuItems',
+      'hideAllNonBaseMenuItem',
+      'showAllNonBaseMenuItem',
+      'translateVoice',
+      'startRecord',
+      'stopRecord',
+      'onRecordEnd',
+      'playVoice',
+      'pauseVoice',
+      'stopVoice',
+      'uploadVoice',
+      'downloadVoice',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage',
+      'getNetworkType',
+      'openLocation',
+      'getLocation',
+      'hideOptionMenu',
+      'showOptionMenu',
+      'closeWindow',
+      'scanQRCode',
+      'chooseWXPay',
+      'openProductSpecificView',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
+});
+
+wx.ready(function () 
+{
+	wx.checkJsApi({
+    jsApiList: ['chooseImage'],
+    success: function(res)
+	{
+    	wx.showMenuItems({
+    	    menuList: [ 'menuItem:readMode','menuItem:openWithSafari','menuItem:share:appMessage',
+		                  'menuItem:share:timeline'] 
+    	});
+	}
+	});
+	wx.onMenuShareTimeline({
+	 title: '${title}',
+	 desc:'${desc}',
+	 link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.action?product_id=${product_id}&promot=${userCode}', 
+	 imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg', 
+	 success: function (){},
+	  cancel: function () {}
+ 	});
+	wx.onMenuShareAppMessage({
+		title: '${title}',
+		desc:'${desc}',
+		link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.action?product_id=${product_id}&promot=${userCode}', 
+		imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg', 
+	    success: function (){},
+	    cancel: function (){}
+	});
+});
+
+wx.error(function(res){});
+</script>
+<style>
+	/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+
+/* 底部导航*/
+</style>
+</head>
+
+<body>
+	<input type="hidden" value="${url}" id="url" >
+	<input type="hidden" value="${userCode}" id="userCode" >
+	<input type="hidden" value="${listSize}" id="listSize" >
+	<input type="hidden" value="${promot}" id="promot" >
+	<input type="hidden" value="${redirectURL}" id="redirectURL" >
+	<input type="hidden" value="${appId}" id="appId" >
+    <input type="hidden" value="${timestamp}" id="timestamp" >
+    <input type="hidden" value="${nonceStr}" id="nonceStr" >
+    <input type="hidden" value="${signature}" id="signature"  >
+<div id="main_div" >   
+	<input type="hidden" value="${product_id}" id="product_id" >
+
+	 <p class="title"> <span class="back" onclick="goBack()" >&lt;</span><span class="backTitle">产品详情</span></p> 
+	
+	<div class="productList" id="main" style="display: none" >
+			
+		<div class="borrow">
+		<span class="productType" id="productType"></span>
+		<span class="productTitle" id="productTitle"></span>
+		<dl class="borrow_right"  style="width:35%;margin-right:1%;">
+			<dt class="userMoney_title">可投余额</dt>
+			<dd class="userMoney">￥<font id="totalMoney" ></font>元</dd>
+		</dl>
+		</div>
+		
+		<dl class="privateList_dl" style="margin-left: 3%;width: 38%;">
+			<dt>预期年化收益率</dt>
+			<dd id="rate" ></dd>
+		</dl>
+		<dl class="privateList_dl1" style="width: 28%;text-align: center;">
+			<dt>投资期限</dt>
+			<dd id="timeLimit" ></dd>
+		</dl>
+		<dl class="privateList_dl1" style="width: 28%;margin-right: 3%;text-align: center;">
+			<dt>起投金额</dt>
+			<dd id="startMoney"><p id="minAccount">￥</p><span>元</span></dd>
+		</dl>
+		<div style="clear:both;"></div>
+		<div id="expirationTime" style="margin-left:3%;height:30px;line-height:30px;"></div>
+		<div class="productHighlights">
+			<p class="productHighlights_title">产品亮点</p>
+			<p id="lightSpot"> </p>
+		</div>
+			
+		<div class="productHighlights_desc">
+			<p id="WC206P" ><span class="productHighlights_desc_left">收益详情</span><span class="productHighlights_desc_right" id="WC206" onclick="gotoChildDetail('WC207',${product_id})">募集成立当天开始计算收益</span></p>
+			<p id="WC204P" ><span class="productHighlights_desc_left">产品详情</span><span class="productHighlights_desc_right"  id="WC204" onclick="gotoChildDetail('WC205',${product_id})">你想了解的都在这里</span></p>
+			<p id="WC208P" ><span class="productHighlights_desc_left">保障方式</span><span class="productHighlights_desc_right"  id="WC208" onclick="gotoChildDetail('WC209',${product_id})">全程保障本金收益安全</span></p>
+			<p id="WC209P" ><span class="productHighlights_desc_left">合同详情</span><span class="productHighlights_desc_right"  id="WC210" onclick="gotoProtocolDetail(${product_id})">查看合同</span></p>
+		<!-- 	<p><span class="productHighlights_desc_left">投资记录</span><span class="productHighlights_desc_right">看看都有谁投了</span></p>  -->
+		</div>
+	</div>
+		
+	<div class="productList" id="main2" style="display: none" >
+		<p>
+			<span class="productType" id="productType2" ></span>
+			<span class="productTitle" id="productTitle2" ></span>
+			<!-- <span class="hasCast">已投金额：¥<font id="totalMoney2" ></font>元</span> -->
+		</p>
+		<dl class="privateList_dl" style="margin-left: 3%;width: 65%;">
+			<dt>组合预计年化收益率</dt>
+			<dd id="rate2" ></dd>
+		</dl>
+
+		<dl class="privateList_dl1" style="width: 29%;margin-right: 3%;">
+			<dt>起投金额</dt>
+			<dd id="startMoney2">￥<font id="minMoney2" ></font>元起</dd>
+		</dl>
+		
+		<div class="productHighlights_desc">
+			<p>
+				<span class="productHighlights_desc_left">收益详情</span>
+				<span class="productHighlights_desc_right"  id="WCP206"  onclick="gotoChildDetail('WC207',${product_id})">投资成功即可开始以计算收益</span>
+			</p>
+			<p>
+				<span class="productHighlights_desc_left">保障方式</span>
+				<span class="productHighlights_desc_right"  id="WCP208" onclick="gotoChildDetail('WC209',${product_id})">全程保障本金收益安全</span>
+			</p>
+			<p class="productHighlights_desc_zeroWallet">
+				<span class="productHighlights_desc_left">锁定期限</span>
+				<span class="productHighlights_desc_right" id="timeLimit2" ></span>
+			</p>
+			<p class="productHighlights_desc_zeroWallet">
+				<span class="productHighlights_desc_left">合同详情</span>
+				<span class="productHighlights_desc_right" id="WCP210" onclick="gotoProtocolDetail(${product_id})">查看合同</span>
+			</p>
+		</div>
+		<div class="productHighlights"  >
+			<p class="productHighlights_zeroWallet" id="tipsTitle" ></p>
+			<p id="tips" ></p>
+		</div>
+	</div>
+	
+	<div class="productList" id="main3" style="display: none" >
+		<p>
+			<span class="productType" id="productType3" ></span>
+			<span class="productTitle" id="productTitle3" ></span>
+			<!-- <span class="hasCast">已投金额：¥<font id="totalMoney3" ></font>元</span> -->
+		</p>
+		<dl class="privateList_dl" style="margin-left: 3%;width: 65%;">
+			<dt>组合预计年化收益率</dt>
+			<dd id="rate3" ></dd>
+		</dl>
+
+		<dl class="privateList_dl1" style="width: 29%;margin-right: 3%;">
+			<dt>起投金额</dt>
+			<dd id="startMoney3">￥<font id="minMoney3" ></font>元起</dd>
+		</dl>
+		
+		<div class="productHighlights_desc">
+			<p>
+				<span class="productHighlights_desc_left">收益详情</span>
+				<span class="productHighlights_desc_right"  id="WCE206"  onclick="gotoChildDetail('WC207',${product_id})">投资成功即可开始以计算收益</span>
+			</p>
+			<p>
+				<span class="productHighlights_desc_left">保障方式</span>
+				<span class="productHighlights_desc_right"  id="WCE208" onclick="gotoChildDetail('WC209',${product_id})">全程保障本金收益安全</span>
+			</p>
+			<p class="productHighlights_desc_zeroWallet">
+				<span class="productHighlights_desc_left">锁定期限</span>
+				<span class="productHighlights_desc_right" id="timeLimit3" ></span>
+			</p>
+			<p class="productHighlights_desc_zeroWallet">
+				<span class="productHighlights_desc_left">合同详情</span>
+				<span class="productHighlights_desc_right" id="WCE210" onclick="gotoProtocolDetail(${product_id})">查看合同</span>
+			</p>
+		</div>
+		<div class="productHighlights"  >
+			<p class="productHighlights_zeroWallet" id="tipsTitle1" ></p>
+			<p id="tips1" ></p>
+		</div>
+	</div>
+	
+	<div class="sureBtn" onclick="invest('${product_id}')" id="investBtn"  >立即投资</div>
+	<!-- <a href="/nb/wechat/account/experienceGold.html"><div class="sureBtn" style="display:none;" id="experienceBtn">我的体验金</div></a> -->
+</div>	
+
+		
+	<!--底部导航-->
+    <div class="foot-blank"></div>    
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+    <!-- 底部导航 -->	
+</body>
+</html>

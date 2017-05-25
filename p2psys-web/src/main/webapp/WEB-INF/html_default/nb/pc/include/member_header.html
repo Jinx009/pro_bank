@@ -1,0 +1,109 @@
+<script type="text/javascript">
+$(function()
+{
+	//判断用户是否登陆过
+	$.ajax({
+		url:"/nb/sessionUser.action?time="+jsStrToTime(),
+		type:"GET",
+		ansyc:false,
+		dataType:"json",
+		success:function(res){
+			if(null!=res.result&&""!=res.result){
+				$("#hideUserName").html(res.result+"<img src='/themes/theme_default/nb/pc/img/nav_right.png' class='right_nav'/>");
+				$("#show_li03").hide();
+				$("#show_li04").hide();
+				$("#show_li01").show();
+				$("#show_li02").show();
+				$("#header_memeber").show();
+			}else{
+				$("#show_li01").hide();
+				$("#show_li02").hide();
+				$("#show_li03").show();
+				$("#show_li04").show();
+				$("#header_memeber").hide();
+			}
+		}
+	})
+	
+	//二级导航
+	var qcloud={};
+	$('[_t_nav]').hover(function(){
+		var _nav = $(this).attr('_t_nav');
+		clearTimeout( qcloud[ _nav + '_timer' ] );
+		qcloud[ _nav + '_timer' ] = setTimeout(function(){
+			$('[_t_nav]').each(function(){$(this)[ _nav == $(this).attr('_t_nav') ? 'addClass':'removeClass' ]('nav-up-selected ');});$('#'+_nav).stop(true,true).slideDown(200);},150);
+		},
+		function(){
+			var _nav = $(this).attr('_t_nav');clearTimeout(qcloud[ _nav + '_timer' ] );qcloud[ _nav + '_timer' ] = setTimeout(function(){$('[_t_nav]').removeClass('nav-up-selected');$('#'+_nav).stop(true,true).slideUp(200);}, 150);
+	});
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	//热门产品
+	$.ajax({
+		url:"/product/showProductTypeFlagListForPc.action?time="+jsStrToTime(),
+		type:"GET",
+		dataType:"json",
+		success:function(res){
+			var list_data = res.data;
+			var htmlStrTitle = "";
+			/* var htmlStrTitle1 = "";
+			var flagId = $("#id").val(); */
+			for(var i = 0;i<list_data.length;i++){
+				htmlStrTitle+="<div class='col-md-2 col-xs-2 col-sm-2 col-lg-2 nav_bottom text padding_col0'><a href='/nb/pc/product/product_list.html?id="+list_data[i].id+"'>"+list_data[i].flagName+"</a></div>"
+				/* if(flagId){					
+					if(list_data[i].id==flagId){
+						htmlStrTitle1+= "<div class='col-md-2 col-xs-2 col-sm-2 col-lg-2 padding_col0 text product_nav_col product_nav_col_actived'><a href='/nb/pc/product/product_list.html?id="+list_data[i].id+"'>"+list_data[i].flagName+"</a></div>";
+					}else{
+						htmlStrTitle1+="<div class='col-md-2 col-xs-2 col-sm-2 col-lg-2 padding_col0 text product_nav_col'><a href='/nb/pc/product/product_list.html?id="+list_data[i].id+"'>"+list_data[i].flagName+"</a></div>";
+					}
+				} */
+				
+			}
+			$("#flagList1").html(htmlStrTitle);	
+//			$("#flagList").html(htmlStrTitle1);
+		}
+	})
+})
+</script>
+<nav class="navbar-default navbar-fixed-top"> 	
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed navbar-button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style="margin-top:13px;">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="logoImg" href="http://www.800bank.com.cn" title="800Bank">
+		<img src="/themes/theme_default/nb/pc/img/head_logo.png" alt="800Bank"/>
+   	  </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right" id="util_ul" >
+        <li _t_nav=""><a href="/index.html" class="nav_a">首页</a></li>
+        <li _t_nav="invest"><a href="/nb/pc/product/product_list.html?id=1" class="nav_a">产品中心</a></li>
+        <li _t_nav=""  style="display: none;" _ id="header_memeber" ><a href="/user/center.html" class="nav_a">账户中心</a></li> 
+        <li _t_nav=""><a href="/nb/pc/safetyControl.html" class="nav_a">安全保障</a></li>
+        <li _t_nav=""><a href="/aboutUs.html" class="nav_a">关于我们</a></li>
+        <li id="show_li01" style="display: none;" _t_nav="" class="headIcon"><a href="/user/center.html" class="nav_a" ><img src="/themes/theme_default/nb/pc/img/headIcon.png"/></a></li>
+        <li id="show_li02" style="display: none;" class="dropdown" _t_nav="">
+       		<a href="#" class="dropdown-toggle nav_a" data-toggle="dropdown" id="hideUserName" ></a>
+       		<ul class="dropdown-menu dropdown_bottom">
+				<li><a tabindex="-1" class="text" href="/nb/pc/securityCenter.html">安全中心</a></li>
+				<li><a tabindex="-1" onclick="loginOut()" class="text"  >退出账户</a></li>
+			</ul>
+        </li>
+        <li _t_nav="" id="show_li03" ><a onclick="showDiv('util_login')" class="nav_a">登陆</a></li>
+        <li _t_nav="" id="show_li04" ><a onclick="showDiv('util_register')" class="nav_a">注册</a></li>
+      </ul>     
+    </div>
+    
+    <div class="navigation-down">
+		<div class="row nav-down-menu" id="invest"  _t_nav="invest" style="display: none;">						
+			<div class="col-md-offset-6 row col-md-4 col-lg-4">
+				<div id="flagList1"></div>
+			</div>						
+		</div>
+	</div>
+  </div>
+</nav>

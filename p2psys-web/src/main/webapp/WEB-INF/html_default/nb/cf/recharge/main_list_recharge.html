@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script src="/themes/theme_default/cf/js/common.js" ></script>
+		<script src="/themes/theme_default/cf/js/raphael-min.js" ></script>
+		<script src="/themes/theme_default/cf/js/morris.min.js" ></script>
+		<script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/js/recharge/recharge_oneRecharge.js"></script>
+		
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>线上充值</h3>
+					</div>
+					
+					<div class="cash-wrap">
+						<div class="cash-left col-no-padding">
+							<form action="" method="post" class="form-horizontal" name="crForm" id="crForm">
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">已绑银行卡:</label>
+								    <div class="col-sm-9 col-no-padding" id="ybyhkDiv">
+								    	
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">可用余额:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<p class="help-block investMoney" id="kyye">0元</p>
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">充值金额:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<!-- <input type="hidden"  name="money" id="money_order" value="0.01"> -->
+								    	<input type="text" class="form-control" id="money" name="money" value=""  placeholder="充值金额"  onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="9">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<p class="help-block text-right has-error"  id="trdMoney_tips"></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">交易密码:</label>
+								    <div class="col-sm-9 col-no-padding" id="jymm">
+								    	<input type="password" class="form-control">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<p class="help-block text-right has-error"  id="trdPwd_tips"></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<button class="sure-btn" type="button" onclick="checkCRForm();">确认充值</button>
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<a href="#"><p class="text-right pwd">忘记密码</p></a>
+								    </div>
+								</div>
+								<input type="hidden" id="xsRToken" name="nbRechargeToken" value="">
+							</form>
+							
+						</div>
+						
+						<div class="cash-right">
+							<div>
+								<h3>温馨提示：</h3>
+								<p>限额表仅供参考，实际以支付界面提示为准。</p>
+								<p id="yhkxe"><span>中国银行：</span><span>单笔限额5万</span><span>每日限额5万</span></p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				var info = '${prompt!}';
+				var msg = "${msg!}";
+				var msg2 = "${msgInfo!}";
+				//console.log(info);
+				if(null!==info&&""!==info){
+					if(info.indexOf("成功") > -1){
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0},function(){
+							location.href = '/cf/user/main.html';//
+						})
+					}else{
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0})
+						msgAlert(info);
+					}
+				}
+			})
+				
+			function msgAlert(obj){
+				if(obj!=null && obj!=""){
+					var isSecond = $("#isSecond").val();
+					if(isSecond==1){
+		    			
+					}else if(isSecond==2){
+					}else{
+						//模拟点击线下充值标签，显示线下充值页面
+					}
+				}
+			}
+		
+			showLi("user_li");
+			changeLeftMenue("充值","线上充值");
+			
+		</script>
+	</body>
+</html>

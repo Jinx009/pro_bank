@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../settings_menu.html">
+			</div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<#include "../../common/function.html" />
+			<div class="user_right">
+				<h2 class="user_title">绑定邮箱</h2>
+				<form action="/member/security/doBindEmail.html" method="post" id="J_bindEmail">
+				<div class="user_right_main border_gray">
+					<div class="user_right_border">
+						<div class="l">修改方式：</div>
+						<div class="c">
+							【密保】 + <font color="red">【邮箱校验码】</font>绑定邮箱
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">绑定邮箱：</div>
+						<div class="c">
+							<input type="text" maxlength="30" id="email" name="email">
+							<br />
+							<input type="button" class="btn" id="getCodeSms" value="获取校验码">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">校验码：</div>
+						<div class="c">
+							<input type="text" size="10"  maxlength="6" name="code">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l"></div>
+						<div class="c">
+							<input type="submit" value="确&nbsp;&nbsp;认" class="btn sub_btn">
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+		
+<script type="text/javascript">
+$(function(){
+	$('#J_bindEmail').validate({
+		 rules:{
+			 email:{
+				 required:true,
+				 email:true
+			 },
+			 code:"required"
+		 },
+		 messages:{
+			 email:{
+				 required:"邮箱不能为空",
+				 email:"邮箱格式有误,请输入正确邮箱"
+			 },
+			 code:"请输入校验码"
+		 },
+		 submitHandler:function(form,event,validator){
+				$(form).ajaxSubmit(function(data){
+					var result = data.result;
+					if(result){
+						window.location.href="/member/main.html"
+					}else{
+						layer.alert(data.msg);
+					}
+				})
+			}
+	});
+	$("#getCodeSms").click(function(data){
+		$.ajax({
+			url:'/member/security/bindEmailCode.html?email='+$('#email').val(),
+			type:'post',
+			success:function(data){
+				if(data.result){
+					var time=60;
+					var timeFun=setInterval(function(){
+						time--;
+						if(time>0){
+							$('#getCodeSms').val(time+"秒后重新获取").attr("disabled",true);
+						}else{
+							time=60;
+							$('#getCodeSms').val("获取校验码").removeAttr("disabled");
+							clearInterval(timeFun);
+						}
+					},1000);
+				}
+			}
+		});
+	});
+})
+</script>		
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">
+</body>
+</html>

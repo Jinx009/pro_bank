@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<script src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/common.js" ></script>		
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>我的众筹</h3>
+					</div>
+					<div class="table-wrap">
+						<table class="table">
+			              	<thead>
+				                <tr>
+				                  <th>项目名称</th>
+				                  <th>购买时间</th>
+				                  <th>购买金额</th>
+				                  <th>行权日期</th>
+				                  <th>权益简介</th>
+				                  <th>项目状态</th>
+				                </tr>
+				              </thead>
+				              <tbody>
+				                <tr>
+				                  <td>金克丝丝袜</td>
+				                  <td>2015.11.27</td>
+				                  <td>100,000,00.00</td>
+				                  <td>2015.11.27</td>
+				                  <td>防狼丝袜</td>
+				                  <td class="crowdfunding-state">已成立</td>
+				                </tr>
+				                <tr>
+				                  <td>付正阳sb</td>
+				                  <td>2015.11.30</td>
+				                  <td>100,000,00.00</td>
+				                  <td>2015.11.27</td>
+				                  <td></td>
+				                  <td>众筹失败</td>
+				                </tr>
+			                </tbody>
+						</table>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+		<script type="text/javascript">
+			showLi("user_li");
+			changeLeftMenue("我的众筹","");
+		</script>
+	</body>
+</html>

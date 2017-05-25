@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 start-->
+<#assign web_title='等额本息还款计算器_贷款利率计算器 - ${webname!}p2p网贷平台'>
+<#assign web_description='等额本息还款法指借款者每月以相等的金额偿还贷款本息。等额本息还款法是一种被广泛采用的还款方式，也是银行房贷等计算贷款利率的方法。${webname!}为您提供：贷款利率计算器,等额本息还款计算器,贷款利息计算器等服务'>
+<#assign meta_keywords="贷款利率计算器,等额本息还款计算器,贷款利息计算器">
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 end-->
+<#include "../include/resource.html"> 
+<body>
+<#include "../include/header.html">
+	<!--header-end-->
+	<link href="${webroot}${theme_dir}/media/css/modal.css" rel="stylesheet"
+		type="text/css" />
+	<div id="main">
+		<!--子栏目 开始-->
+		<!--<div class="wrap950 header_site_sub">		<a href="/lixi/index.html">利息计算</a>		<a href="/phone/index.html">手机号码查询</a>		<a href="/ip/index.html">ip地址查询</a>	</div>-->
+		<!--子栏目 结束-->
+
+		<div class="wrap950 list_li_3">
+			<div class="m_l_bor" style="padding:10px; display: blcok;">
+				<div class="alert">
+					<font color="#FF0000">利息计算器,采用银行房贷等通用的"等额本息还款法",即借款者每月以相等的金额偿还贷款本息。</font>
+				</div>
+				<br />
+				<div class="well">
+					<#if type=="">
+						<div style="margin-top:10px">
+						<b>网贷计算器：</b>
+						<form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+								借款金额：<input type="text" name="account" size="10" value=""  id="account" /> 
+								年利率： <input type="text" name="lilv" size="10" value="" id="lilv" /> % 
+								借款期限：<input type="text" name="times" size="10" value="" id="times"  />个月 
+								还款方式：<select name="type">
+								          	<option value="month"> 按月还款</option>
+											<option value="day"> 到期全额还款</option>
+								          </select> 
+								<input type="submit" class="btn-action" value="开始计算" />
+						</form>
+					</div>
+				
+					
+					<#else>
+					 
+						  	<div style="margin-top:10px">
+						<b>网贷计算器：</b>
+							<form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+								借款金额：<input type="text" name="account" size="10" value="<#if (account?exists)&&(account&gt;0)>${account?c}</#if>" id="account"  /> 
+								年利率： <input type="text" name="lilv" size="10" value="<#if (lilv?exists)&&(lilv&gt;0)>${lilv?c}</#if>"  id="lilv"/> % 
+								借款期限：<input type="text" name="times" size="10" value="<#if (times?exists)&&(times&gt;0)>${times?c}</#if>"  id="times" />个月 
+								还款方式：<select name="type">
+								          	<option value="month"> 按月还款</option>
+											<option value="day"> 到期全额还款</option>
+								          </select> 
+								<input type="submit" class="btn-action" value="开始计算" />
+							</form>
+							</div>
+					</#if>
+				</div>
+			</div>
+            <div class="m_l_bor" style="padding:10px; display: none;">
+                <div class="alert">
+                    <font color="#FF0000">手机号码查询</font>
+                </div>
+                <br />
+                <div class="well">
+                    <#if !type?exists>
+                        <div style="margin-top:10px">
+                         <b>网贷计算器：</b>
+                            <form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+                                借款金额：<input type="text" name="account" size="10" value="" id="account"  />
+                                年利率： <input type="text" name="lilv" size="10" value="" id="lilv" /> %
+                                借款期限：<input type="text" name="times" size="10" value="" id="times"  />个月
+                                还款方式：<select name="type">
+                                <option value="month"> 按月还款</option>
+								<option value="day"> 到期全额还款</option>
+                            </select>
+                                <input type="submit" class="btn-action" value="开始计算" />
+                            </form>
+                        </div>
+                        <#else>
+                                <div style="margin-top:10px">
+                                   <b>网贷计算器：</b>
+                                    <form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+                                        借款金额：<input type="text" name="account" size="10" value="<#if (account?exists)&&(account&gt;0)>${account?c}</#if>" id="account"  />
+                                        年利率： <input type="text" name="lilv" size="10" value="<#if (lilv?exists)&&(lilv&gt;0)>${lilv?c}</#if>" id="lilv" /> %
+                                        借款期限：<input type="text" name="times" size="10" value="<#if (times?exists)&&(times&gt;0)>${times?c}</#if>" id="times"  />个月
+                                        还款方式：<select name="type">
+                                        <option value="month"> 按月还款</option>
+                                    </select>
+                                        <input type="submit" class="btn-action" value="开始计算" />
+                                    </form>
+                                </div>
+                    </#if>
+                </div>
+            </div>
+            <div class="m_l_bor" style="padding:10px; display: none;">
+                <div class="alert">
+                    <font color="#FF0000">地址查询</font>
+                </div>
+                <br />
+                <div class="well">
+                    <#if !type?exists>
+                        <div style="margin-top:10px">
+                           <b>网贷计算器：</b>
+                            <form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+                                借款金额：<input type="text" name="account" size="10" value=""  id="account" />
+                                年利率： <input type="text" name="lilv" size="10" value="" id="lilv" /> %
+                                借款期限：<input type="text" name="times" size="10" value=""  id="times" />个月
+                                还款方式：<select name="type">
+                                <option value="month"> 按月还款</option>
+								 <option value="day">到期全额还款</option>
+                            </select>
+                                <input type="submit" class="btn-action" value="开始计算" />
+                            </form>
+                        </div>
+                        <#else>
+                                <div style="margin-top:10px">
+                                   <b>网贷计算器：</b>
+                                    <form action="${webroot}/tools/interest.html" method="get" onSubmit="return checkfrm()">
+                                        借款金额：<input type="text" name="account" size="10" value="<#if (account?exists)&&(account&gt;0)>${account?c}</#if>"  id="account" />
+                                        年利率： <input type="text" name="lilv" size="10" value="<#if (lilv?exists)&&(lilv&gt;0)>${lilv?c}</#if>" id="lilv" /> %
+                                        借款期限：<input type="text" name="times" size="10" value="<#if (times?exists)&&(times&gt;0)>${times?c}</#if>" id="times"  />个月
+                                        还款方式：<select name="type">
+                                        <option value="month">按月还款</option>
+										 <option value="day">到期全额还款</option>
+                                    </select>
+                                        <input type="submit" class="btn-action" value="开始计算" />
+                                    </form>
+                                </div>
+                    </#if>
+                </div>
+            </div>
+		</div>
+	<#if (type?exists)&&(type="month")&&(ic?exists)>
+		<!-- wrap950 list_1 start -->
+		<div class="wrap950 list_1">
+			<ul id="tab" class="list-tab clearfix">
+				<li class="active"><a href="#jkxq" data-toggle="tab">贷款概述</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="list-tab-con tab-pane fade in active" id="jkxq">
+					每个月将偿还：${ic.moneyPerMonth?c}元 &nbsp; &nbsp; 年利率：${(ic.apr*100)?string("0.##")}% &nbsp; &nbsp;
+					还款本息总额：${(ic.moneyPerMonth*ic.period)?c}元</div>
+			</div>
+		</div>
+		<#elseif (type="day")&&(tblixi?exists)>
+		<div class="wrap950 list_1">
+			<ul id="tab" class="list-tab clearfix">
+				<li class="active"><a href="#jkxq" data-toggle="tab">贷款概述</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="list-tab-con tab-pane fade in active" id="jkxq">
+					${tblixi}</div>
+			</div>
+		</div>
+		</#if>
+		<!-- wrap950 list_1 end -->
+		<!-- wrap950 list_1 start -->
+		<#if (type?exists)&&(type="month")&&(ic?exists)>
+		<div class="wrap950 list_1">
+			<ul id="tab" class="list-tab clearfix">
+				<li class="active"><a href="#hksj" data-toggle="tab">还款计划时间表</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="list-tab-con tab-pane fade in active" id="hksj">
+					<table class="table table-striped  table-condensed">
+						<tr>
+							<td><strong>期数</strong>
+							</td>
+							<td><strong>月还款本息</strong>
+							</td>
+							<td><strong>月还款本金</strong>
+							</td>
+							<td><strong>利息</strong>
+							</td>
+							<td><strong>余额</strong>
+							</td>
+						</tr>
+						<#list ic.monthList as item>
+						<tr>
+							<td>${item_index+1}</td>
+							<td>${ic.moneyPerMonth?c}</td>
+							<td>${item.accountPerMon?c}</td>
+							<td>${item.interest?c}</td>
+							<td>${item.totalRemain?c}</td>
+						</tr>
+						</#list>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- wrap950 list_1 end -->
+		</#if>
+	</div>
+   <#include "../include/footer.html">
+   
+ 	<script type="text/javascript">
+        function checkfrm(){
+            var account=document.getElementById("account").value;
+            var lilv=document.getElementById("lilv").value;
+            var times=document.getElementById("times").value;
+            if(account==""){
+            layer.alert("金额不能为空！");
+            document.getElementById("account").focus();
+            return false;
+                }
+            if(lilv==""){
+            layer.alert("利率不能为空！");
+            document.getElementById("lilv").focus();
+            return false;
+            }
+            if(times==""){
+            layer.alert("期限不能为空！");
+            document.getElementById("times").focus();
+            return false;
+            }
+        }
+    </script>
+
+</body>
+</html>

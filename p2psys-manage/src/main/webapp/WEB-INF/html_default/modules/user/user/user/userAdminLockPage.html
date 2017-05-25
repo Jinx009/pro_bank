@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdminLock.html');	
+    $("input[type=radio][value='"+${userCache.status}+"']").attr("checked",'checked');
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+		<div class="formitm">
+		     <label class="lab">锁定状态： </label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="1"/>&nbsp;&nbsp;锁定用户  
+				<input type="radio" name="status" value="0"/>&nbsp;&nbsp;解锁用户
+		     </div>
+		</div>
+		<#if userCache.status==0>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea class="w300 easyui-validatebox" name="remark"></textarea>	
+		     </div>
+		</div>
+		<#else>
+		<div class="formitm">
+		     <label class="lab">锁定时间：</label>
+		     <div class="ipt">
+		     ${userCache.lockTime?string("yyyy-MM-dd HH:mm:ss")!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">锁定原因：</label>
+		     <div class="ipt">
+		     ${userCache.remark!}
+		     </div>
+		</div>
+		</#if>
+		<input name="id" value="${userCache.id}" type="hidden"/>
+</div>
+</form>

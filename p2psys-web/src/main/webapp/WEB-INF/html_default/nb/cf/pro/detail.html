@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/url.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/pro/detail.js" ></script>
+<script type="text/javascript">
+function showDialog(){
+	$('#dialog-box').show();
+}
+function cancelBtn(){
+	$('#dialog-box').hide();
+}
+$(function(){
+	$('.phone-icon').hover(function(){
+		$('.phone-code').toggle();
+	})
+})
+</script>
+</head>
+<body class="bg">
+<input type="hidden" id="id" value="${id}" >
+<input type="hidden" id="attention" value="${attention}" >
+<input type="hidden" id ="leaderStatus" value="${leaderStatus}">
+<div class="main">
+	<#include "../include/header.html">
+	<div class="product-detail-top-title">
+		<ol class="breadcrumb">
+		  <li><a href="${projectUrl}">${projectType}</a></li>
+		  <li class="active">项目详情</li>
+		</ol> 
+	</div>
+
+	<div class="product-detail-title">
+		<div class="product-detail-title-top">
+			<h1 id="projectName" ></h1>
+			<div class="phone" ></div>
+			<p id="step" ></p>
+		</div>
+	</div>
+	<div class="product-detail-box">
+		<div class="product-detail-left">
+			<div class="product-detail-left-top">
+				<img src="/themes/theme_default/cf/img/product_detail_img.png" id="detailLogo" />
+			</div>
+			<div class="product-detail-left-bottom">
+				<ul class="nav nav-tabs product-nav-tabs">
+				  	<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">项目主页</a></li>
+					<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">项目动态</a></li>
+					<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">支持者<span class="support-num"></span></a></li>
+				</ul>
+				<div class="tab-content">
+				    <div role="tabpanel" class="tab-pane active" id="home"><img src="/themes/theme_default/cf/img/detail.png" id="detailImg" /></div>
+				    <div role="tabpanel" class="tab-pane" id="profile"></div>
+				    <div role="tabpanel" class="tab-pane" id="messages">
+				    	<table class="support-table">
+				    		<thead>
+				    			<tr>
+				    				<th>头像</th>
+				    				<th>用户名</th>
+				    				<th>时间</th>
+				    			</tr>
+				    		</thead>
+				    		<tbody id="orderList" ></tbody>
+				    	</table>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="product-detail-right">
+			<div class="product-detail-right-box">
+				<div class="row support product-detail-right-box-col">
+					<div class="col-md-4 support-col">
+						<p onclick="doAttention()" ><img  id="attentionImg" src="/themes/theme_default/cf/img/support.png"/>
+						关注(<span id="attentionNum" >${projectBasicinfo.attentionNum}</span>)</p>
+					</div>
+					<div class="col-md-4 support-col">
+						<p onclick="doLike()" ><img src="/themes/theme_default/cf/img/focus.png"/>
+						赞(<span id="likeNum" >${projectBasicinfo.likeNum}</span>)</p>
+					</div>
+					<div class="col-md-4 support-col">
+						
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="row product-rate product-detail-right-box-col">
+					<dl class="col-md-4 text-center">
+						<dt id="wannaAccount" ></dt>
+						<dd>募集金额</dd>
+					</dl>
+					<dl class="col-md-4 text-center">
+						<dt id="account" ></dt>
+						<dd>已筹集</dd>
+					</dl>
+					<dl class="col-md-4 text-center">
+						<dt id="minMoney" ></dt>
+						<dd>起投金额</dd>
+					</dl>
+				</div>
+				<div id="mainDiv" class="none" >
+					<div class="space-1" ></div>
+					<div class="row product-detail-right-box-col" >
+						<div class="col-md-3 col-no-padding">融资轮次</div>
+						<div class="col-md-9 col-no-padding ">
+							<span id="financing" ></span>
+							<div class="space-1" ></div>
+						</div>
+					</div>
+					<div class="space-1" ></div>
+					<div class="row product-detail-right-box-col" >
+						<div class="col-md-3 col-no-padding">出让股权</div>
+						<div class="col-md-9 col-no-padding ">
+							<span id="giveNum" ></span>
+							<div class="space-1" ></div>
+						</div>
+					</div>
+				</div>
+				<div class="space-1" ></div>
+				<div class="row product-detail-right-box-col" >
+						<div class="col-md-3 col-no-padding" id="leftTimeName" >剩余时间</div>
+						<div class="col-md-9 col-no-padding ">
+							<span id="leftTime"></span>
+							<div class="space-1" ></div>
+						</div>
+				</div>
+				<div class="row product-detail-right-box-col product-detail-progress">
+					<div class="col-md-3 col-no-padding">募集进度</div>
+					<div class="progress progress-ing col-md-9 col-no-padding product-detail-progress-bottom">
+						<div class="progress-bar" id="stepStyle" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="product-detail-right-box"  >
+				<div class="product-detail-right-box-col product-detail-small-title none" id="business"  >
+					<h3>项目简介</h3>
+					<p id="info" ></p>
+					<div class="product-two-btn">
+						<div class="support-btn"><button class="product-detail-btn" style="display: none;" id="downFile" >查看商业计划书</button></div>
+					<!-- 	<div class="contract-btn"><button class="product-detail-btn">查看合同</button></div> -->
+					</div>
+				</div>
+				<div class="product-detail-right-box-col product-detail-about">
+					<div class="product-detail-about-img">
+						<img src="/themes/theme_default/cf/img/headIcon.png" id="companyLogo" class="img-circle"/>
+					</div>
+					<div class="product-detail-about-text" id="company" ></div>
+				</div>
+				<div class="product-detail-right-box-col product-detail-about"  id="leaderShowDiv" >
+					 <div class="product-detail-about-img" id="leaderImg" >
+					</div>
+					<div class="product-detail-about-text" id="leaderDiv" ></div> 
+				</div>
+				<div class="product-detail-right-box-col cash">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#cash" aria-expanded="false" aria-controls="cash"><p id="cashName" >什么是领投人？<span>&gt;</span></p></a>
+					<p id="cash" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"><font id="cashContent" >领投人是指在项目所在领域有相对丰富经验的投资人或者投资机构，由其指导和带领多名跟投人一同对企业进行投资。领投人应通过800众服合格投资人认证。</font><br/><a href="/cf/help.html" class="more">查看更多>></a></p>
+				</div>
+			</div>
+			<div id="profit" ></div>
+		</div>
+	</div>
+</div>
+<div class="dialog-box-position none" id="errorDiv" style="display: none;">
+	<div class="dialog">
+		<div class="dialog-left"><img src="/themes/theme_default/cf/img/dialog-img.png"/></div>
+		<div class="dialog-right">
+			<div class="dialog-txt">
+				<h1 id="errorMsg" ></h1>	
+			</div>
+			<div class="dialog-small-btn">
+				<div class="product-detail-btn cursor" id="successBtn"  onclick="goReload()" >确定</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="dialog-box-position none" id="endDiv" style="display: none;">
+	<div class="dialog">
+		<div class="dialog-left"><img src="/themes/theme_default/cf/img/dialog-img.png"/></div>
+		<div class="dialog-right">
+			<div class="dialog-txt">
+				<h1 id="endMsg" >项目正在预热中，快关注项目！第一时间抢筹项目！</h1>	
+			</div>
+			<div class="dialog-small-btn">
+				<div class="product-detail-btn cursor" id="successBtn"  onclick="hideEnd()" >确定</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<#include "../include/footer.html"> 
+<script type="text/javascript">
+	showLi('project_li');
+</script>
+</body>
+</html>

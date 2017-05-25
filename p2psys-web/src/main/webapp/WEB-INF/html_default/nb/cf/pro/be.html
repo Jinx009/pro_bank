@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />		
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/pro/be.js" ></script>
+</head>
+<body class="bg">
+<input type="hidden" value="${alreadyStatus}"  id="status" >
+<input type="hidden" value="${projectBaseinfo.id}" id="projectId" > 
+<div class="main">
+	<#include "../include/header.html">
+	<div class="middle-content">
+		<div class="order-content">
+			<h1 class="order-title">申请成为领投人：${projectBaseinfo.projectName}</h1>	
+			<form class="form-horizontal order-form">
+				<div class="form-group">
+				    <label class="col-sm-2 control-label">领投申请状态:</label>
+				    <div class="col-sm-6 sm-inp">
+				    	<p class="form-control-static start-money" id="leaderStatus" ></p>
+				    </div>
+				    <label class="col-sm-4 control-label"></label>
+			    </div>
+			      <div class="form-group" id="selectMoneyDiv" >
+			    	<label class="col-sm-2 control-label">姓名:</label>
+			    	<div class="col-sm-10" >
+			    		<input class="col-sm-6 form-control"  id="name" />
+			    	</div>
+			    	<label class="col-sm-4 control-label"></label>
+			    </div>
+			    <div class="form-group" id="selectMoneyDiv" >
+			    	<label class="col-sm-2 control-label">个人简介:</label>
+			    	<div class="col-sm-6" >
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="info" ></textarea>
+			    	</div>
+			    	<label class="col-sm-4 control-label"></label>
+			    </div>
+			    <div class="form-group" id="minMoneyDiv" >
+			    	<label class="col-sm-2 control-label">领投理由:</label>
+			    	<div class="col-sm-6">
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="reason" ></textarea>
+			    	</div>
+			    	<label class="col-sm-4 control-label"></label>
+			    </div>
+			    <div class="form-btn">
+				  	<span class="product-detail-btn " id="beBtn"  onclick="doBe()" >申请</span>
+				  	<span class="product-detail-btn " onclick="goBack()" >返回</span>
+			    </div>	
+			    
+			</form>
+		</div>
+	</div>
+</div>
+<div class="dialog-box-position none" id="errorDiv" >
+	<div class="dialog">
+		<div class="dialog-left"><img src="/themes/theme_default/cf/img/dialog-img.png"/></div>
+		<div class="dialog-right">
+			<div class="dialog-txt">
+				<h1 id="errorMsg" ></h1>	
+			</div>
+			<div class="dialog-small-btn">
+				<div class="product-detail-btn cursor" id="successBtn"  onclick="goReload()" >确定</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<#include "../include/footer.html">
+<script type="text/javascript">
+	showLi("project_li");
+</script> 
+</body>
+</html>

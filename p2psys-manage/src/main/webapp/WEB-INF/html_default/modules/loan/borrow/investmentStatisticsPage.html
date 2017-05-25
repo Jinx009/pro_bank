@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>投资人数统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;">
+<div class="countBd">
+	<div class="countBdTitle" id="time">
+		统计范围：
+		<a href="javascript:;" class="current" data-val="week">最近一周</a>
+		<a href="javascript:;" data-val="month">最近一个月</a>
+		<a href="javascript:;" data-val="year">最近一年</a>
+	</div>
+	<div class="countBdTitle">
+		详细查询：
+		<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'endTime\',{M:-1})}',maxDate:'#F{$dp.$D(\'endTime\')||\'2099-10-01\'}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'#F{$dp.$D(\'startTime\',{M:1})||\'2099-10-01\'}',readOnly:true})" class="searchTime"/>
+		<a href="javascript:void(0);" class="searchBtn">查询</a>(查询一个月内数据)
+	</div>
+	<div id="investment" style="height:300px;"></div>
+</div>
+<script src="/plugins/echarts/echarts-plain-original.js"></script>
+<script type="text/javascript">
+var loading = "time="+$("#time a.current").data("val");
+ajaxUrl(loading);//初始化调用
+$("#time a").click(function(){
+	$(this).addClass("current").siblings().removeClass("current");
+	var param = "time="+$("#time a.current").data("val");
+	ajaxUrl(param);
+});
+//具体日期搜索
+$(".searchBtn").click(function(){
+	var param = "startTime="+$("#startTime").val()+"&endTime="+$("#endTime").val();
+	if(($("#startTime").val()=="")||($("#endTime").val()=="")){
+		alert("请选择好您所要查询的时间区域")
+	}
+	else{ajaxUrl(param);}
+});
+function ajaxUrl(param){
+	$.ajax({
+		url:"/modules/home/investmentStatistics.html?"+param,
+		type:"get",
+		dataType:"json",
+		success:function(data){
+			// 基于准备好的dom，初始化echarts图表
+	        var myChart = echarts.init(document.getElementById('investment')); 
+	        var option = {
+	        	color  : ['#70bc31'],
+	            tooltip: {
+	                show: true
+	            },
+	            grid: {
+	            	x:50,
+	            	y:30,
+	            	x2:30,
+	            	y2:70
+	           	},
+	            xAxis : [
+	                {
+	                   type : 'category',
+	                   data : data.dates
+	                }
+	            ],
+	            yAxis : [
+	                {
+	                	'type':'value',
+	                    'name':'人数（人）',
+	                }
+	            ],
+	            series : [
+	                {
+	                    "name":"人数（人）",
+	                    "type":"bar",
+	                    itemStyle: {
+                            normal: {
+                                label : {
+                                    show: true, position: 'insideTop'
+                                }
+                            }
+                        },
+	                    "data":data.counts
+	                }
+	            ]
+	        };
+	        // 为echarts对象加载数据 
+	        myChart.setOption(option); 
+		}
+	});
+}
+</script>
+</body>
+</html>

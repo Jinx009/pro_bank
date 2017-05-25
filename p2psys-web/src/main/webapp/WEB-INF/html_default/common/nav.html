@@ -1,0 +1,39 @@
+<div class="navbg">
+      <div class="nav">
+          <#if !nid??><#assign nid="index"></#if>
+          <#macro showSiteUrl site>
+           <#if site.style??&&site.style=="2">${webroot}${site.url!}
+           <#elseif site.style??&&site.style=="3">${site.url!}
+           <#else>/article/list.html?catalog=${(site.site_id!0)?c}
+           </#if>
+          </#macro>
+          <#if tree??&&tree.hasChild()>
+           <ul class="clearfix navul">
+              <#list tree.child as item>
+               <#if (item.model.status)??&&item.model.status==1>
+               <li <#if ((item.model.nid)??&&(item.model.nid)==nid)> class="hover2" <#else> class="" </#if> ><a href="<@showSiteUrl site=item.model />">${item.model.name!}</a><b></b></li>
+               </#if>
+              </#list>
+             </ul>
+          </#if>
+          <#if tree??&&tree.hasChild()>
+            <#list tree.child as item>
+             <#if item??&&(item.model.status!0)==1>
+             <div class="navlist  <#if ((item.model.nid)??&&(item.model.nid)==nid)><#else> hide </#if> ">
+                     <#if item.hasChild()>
+                     <#list item.child as subitem>
+                     <#if (subitem.model.status)??&&subitem.model.status==1>
+                      <a class="b" href="<@showSiteUrl site=subitem.model />">${subitem.model.name}</a>
+                     <#if (subitem_has_next)>　|</#if> 
+                     </#if>　
+                     </#list>
+                    <#else>
+                    <a class="b" > </a>　
+                    </#if>
+                       </div>
+                  </#if>
+         
+          </#list>
+           </#if>
+   </div>
+</div>

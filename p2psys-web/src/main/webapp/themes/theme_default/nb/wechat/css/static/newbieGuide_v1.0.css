@@ -1,0 +1,190 @@
+@charset "utf-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+.swiper-wrapper {
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    -ms-perspective: 1200px;
+    perspective: 1200px;
+}
+.swiper-slide {
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    background: url(../../img/static/phone_bg.png) no-repeat;
+    background-size:100% auto;
+    overflow:hidden;
+    text-align:center;
+}
+.title{
+	color: #FFFFFF;
+	font-size: 1em;
+}
+.nav{
+	margin-bottom: 5px; 
+	text-align: center;
+	background: rgb(32,40,43);
+	color: #FFFFFF; 
+	font-size: 16px;
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+}
+.register{
+	position: absolute;
+	right :15px;
+	bottom: 0px;
+}
+.register a{
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.investBtn{
+	display: block;
+	font-size: 1.3em;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none;
+	color: #337ab7;
+}
+.swiper-slide-bg{
+	position: relative;
+}
+
+.index_bg{
+	width: 94%;
+	height: 80%;
+	margin: 10% auto;
+	position: relative;
+}
+.index_one{
+	position: absolute;
+	left: 35%;
+	top: -30%;
+	width: 25%;
+}
+.index_two{
+	position: absolute;
+	left: 4%;
+	top: -50%;
+	width: 25%;
+}
+.index_three{
+	position: absolute;
+	left: 15%;
+	top: -70%;
+	width: 25%;
+}
+.index_four{
+	position: absolute;
+	right: 18%;
+	top: -90%;
+	width: 25%;
+}
+.index_five{
+	position: absolute;
+	right: 29%;
+	top:-110%;
+	width: 25%;
+}
+.index_six{
+	position: absolute;
+	right: 4%;
+	top: -130%;
+	width: 25%;
+}
+
+
+.phone_one_left{
+	position: absolute;
+	left: -38%;
+	top: 14%;
+	width: 20%;
+	z-index: 33;
+}
+.phone_one_middle{
+	position: absolute;
+	left: 15%;
+	top: 10%;
+	width: 70%;
+	z-index: 22;
+}
+.phone_one_right{
+	position: absolute;
+	right: -38%;
+	top: 14%;
+	width: 20%;
+	z-index: 33;
+}
+
+.phone_two_top{
+	position: absolute;
+	left: 18%;
+	top: -30%;
+	width: 16%;
+	z-index: 33;
+}
+.phone_two_middle{
+	position: absolute;
+	left: 8%;
+	top: 18%;
+	width: 84%;
+	z-index: 22;
+}
+.phone_two_bottom{
+	position: absolute;
+	right: -30%;
+	top: 40%;
+	width: 16%;
+	z-index: 33;
+}
+
+.phone_three_top{
+	position: absolute;
+	right: 18%;
+	top: -30%;
+	width: 16%;
+	z-index: 33;
+}
+.phone_three_bottom{
+	position: absolute;
+	right: 12%;
+	top: 19%;
+	width: 0%;
+	z-index: 22;
+}
+
+.phone_four_bottom{
+	position: absolute;
+	right: 10%;
+	bottom: 23%;
+	width: 80%;
+}
+
+.phone_five_bottom{
+	position: absolute;
+	right: 28%;
+	top: -30%;
+	width: 20%;
+}
+.attention{
+	color:#23a3d3;
+	font-size: 1.5em;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	margin-top: 5%;
+}
+.attention_tip{
+	color:#23a3d3;
+	font-size: 1.0em;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	margin-top: 3%;
+}

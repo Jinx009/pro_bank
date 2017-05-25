@@ -1,0 +1,56 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>800Bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+</head>
+<body>
+<form action="" method="post" name="form1" id="modifyPayPwdForm" novalidate="novalidate">
+  <div class="header nonebottom">设置交易密码</div>
+  <div class="input-group m10">
+    <div class="input-row input-title-row nonetop">
+      <div class="input-row-inner">
+        <span class="f12"></span>
+        <input class="input-text" type="password" name="payPwd" id="payPwd" placeholder="原交易密码">
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-row-inner">
+        <input class="input-text" type="password" name="newPayPwd" id="newPayPwd" placeholder="请输入新密码">
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-row-inner">
+        <input class="input-text" type="password" name="confirmNewPayPwd" id="confirmNewPayPwd" placeholder="请输入确认新密码">
+      </div>
+    </div>
+  </div>
+  <a class="button button-main button-block mt25" onclick="sendForm()">提交</a>
+</form>
+<script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+      <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+    <script type="text/javascript">
+      seajs.use('${webroot}${theme_dir}/wx/js/security_setting');
+      function sendForm() {
+        $.ajax({
+            url:"/member/security/modifyPaypwd.html",
+            type:"post",
+            data:{'payPwd': $('#payPwd').val(), 'newPayPwd': $('#newPayPwd').val(), 'confirmNewPayPwd': $('#confirmNewPayPwd').val()},
+            dataType:"json",
+            success:function(data){
+                if(data.result){
+                  alert('设置成功')
+                  history.back()
+                }else{
+                  alert(data.msg)
+                }
+            }
+          })
+      }
+    </script>
+</body>
+</html>

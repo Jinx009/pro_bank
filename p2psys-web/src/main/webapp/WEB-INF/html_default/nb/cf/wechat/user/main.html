@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	<script src="/plugins/vue/vue.min.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/user/main.js" ></script>
+	<script src="/themes/theme_default/cf/wechat/js/circle.js" ></script>
+</head>
+<body>
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>我的</span>
+	</div>
+	<#include "../include/menue.html">
+	<div class="main">
+		<div class="main-top">
+			<img src="/themes/theme_default/cf/wechat/img/main_banner.png" class="banner-img"/>
+			<div class="main-top-content">
+				<div class="main-money">
+					<dl>
+						<dt><span class="total"></span>投资资产</dt>
+						<dd>&yen;<span v-text='model.money | moneyFormat' ></span></dd>
+					</dl>
+					<dl>
+						<dt><span class="useMoney"></span>账户余额</dt>
+						<dd>&yen;<span v-text='model.account | moneyFormat' ></span></dd>
+					</dl>
+				</div>
+				<canvas class="money-process" width="170px" height="170px"></canvas>  
+				<div class="main-btn">
+					<button onclick="openUrl('/cf/wechat/user/recharge.html')" >充值</button>
+					<button onclick="openUrl('/cf/wechat/user/cash.html')" >提现</button>
+				</div>
+			</div>
+		</div>
+		<div class="main-bottom">
+			<ul>
+				<li>
+					<a href="/cf/wechat/user/wallet.html">
+						<div class="main-bottom-li-left"></div>
+						<div class="main-bottom-li-middle"><span>我的钱包</span></div>
+						<div class="main-bottom-li-right"><span>&gt;</span></div>
+					</a>
+				</li>
+				<li>
+					<a href="my_invest_poject.html">
+						<div class="main-bottom-li-left"></div>
+						<div class="main-bottom-li-middle"><a href="/cf/wechat/user/buyList.html"><span>我投资的项目</span><b>{{model.order}}项</b></a></div>
+						<div class="main-bottom-li-right"><span>&gt;</span></div>
+					</a>
+				</li>
+				<li>
+					<a href="/cf/wechat/user/attention.html">
+						<div class="main-bottom-li-left"></div>
+						<div class="main-bottom-li-middle" ><span>我关注的项目</span><b>{{model.attention}}项</b></div>
+						<div class="main-bottom-li-right"><span>&gt;</span></div>
+					</a>
+				</li>
+			<!--<li>
+				<a href="my_invest_poject.html">
+					<div class="main-bottom-li-left"></div>
+					<div class="main-bottom-li-middle"><span>我发起的项目</span><b>10项</b></div>
+					<div class="main-bottom-li-right"><span>&gt;</span></div>
+				</a>
+			</li> -->
+				<li>
+					<a href="/cf/wechat/user/setting.html">
+						<div class="main-bottom-li-left"></div>
+						<div class="main-bottom-li-middle"><span>我的设置</span></div>
+						<div class="main-bottom-li-right"><span>&gt;</span></div>
+					</a>
+				</li>
+				<li>
+					<a href="/cf/wechat/user/help.html">
+						<div class="main-bottom-li-left"></div>
+						<a href="/cf/wechat/help.html"><div class="main-bottom-li-middle"><span>帮助中心</span></div></a>
+						<div class="main-bottom-li-right"><span>&gt;</span></div>
+					</a>
+				</li>
+			</ul>
+		</div>	
+	</div>
+	<div style="height: 50px;" ></div>
+	<div class="product-detail-btn" onclick="loginOut()"  >退出登录</div>
+</body>
+</html>

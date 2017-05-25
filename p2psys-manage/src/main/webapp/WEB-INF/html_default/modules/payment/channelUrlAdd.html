@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/payment/channelUrlSave.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post">
+		<div class="formitm">
+		     <label class="lab">支付通道</label>
+		     <div class="ipt">
+		     	<select class="" name="cid" >
+		     		<#list clist as nls>						
+			     		<option value="${nls.id!''}">${nls.channelName!''}</option>
+					</#list>
+		     	</select> 
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">充值/支付入口URL</label>
+		     <div class="ipt">
+		     	<input type="text" name="rechargeUrl" class="w400 easyui-validatebox" />
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">提现入口URL</label>
+		     <div class="ipt">
+		     	<input type="text" name="cashUrl" class="w400 easyui-validatebox" />	
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">URL类型</label>
+		     <div class="ipt">
+		     	<select class="" name="urlType">
+		     		<option value="0">WEB端</option>
+		     		<option value="1">微信端</option>
+		     	</select> 	
+		     </div>
+		</div>
+	</form>
+</div>

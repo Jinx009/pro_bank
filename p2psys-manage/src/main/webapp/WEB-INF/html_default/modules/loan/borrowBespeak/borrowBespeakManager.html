@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>预约借款信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 600;
+    var verifyTitle = "预约借款";
+    var verifyUrl =  "/modules/loan/borrowBespeak/borrowBespeakEditPage.html";
+    var verifyWinParmeters = "'{0}','"+verifyTitle+"',550,500,'"+verifyUrl+"'";
+    //查看
+    var viewTitle = "查看预约借款";
+    var viewUrl =  "/modules/loan/borrowBespeak/borrowBespeakViewPage.html";
+
+    
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'borrowBespeakList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50,fixed:true, sortable:false },
+              { field: 'userName', title: '用户名称', width: 100,fixed:true, sortable:false },
+              { field: 'realName', title: '真实姓名', width: 80, fixed:true,sortable:false },
+              { field: 'type', title: '类型', width: 100,fixed:true, sortable:false,formatter: function(value,row,index){
+				  if(value == 1){
+             		 return "个人预约借款"; 
+             	  }else if(value == 2){
+             	 	 return "企业预约借款";
+             	  }
+				  return "";
+              }},
+              { field: 'averageMoney', title: '月均收入', width: 80, fixed:true,sortable:false },
+              { field: 'marryStatus', title: '婚姻状况', width: 80, fixed:true,sortable:false,formatter: function(value,row,index){
+				  if(value == 1){
+	             		 return "未婚"; 
+             	  }else if(value == 2){
+             	 	 return "已婚";
+             	  }
+				  return "";
+	          }},
+              { field: 'money', title: '借款金额', width: 100, sortable:false ,formatter: function(value,row,index){
+            	  if (value == 0){
+            		  return "0元";
+            	  }
+            	  return value + "元";
+              }},
+              { field: 'timeLimit', title: '借款期限', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return value + "个月";
+              }},
+              { field: 'loanType', title: '贷款种类', width: 80, sortable:false,formatter: function(value,row,index){
+            	  if(value == 102){
+             		 return "信用标"; 
+          	  	  }else if(value == 103){
+          	 	  	return "固定收益类产品";
+          	 	  }else if(value == 112){
+          	 	  	return "担保标";
+          	 	  }
+				  return "";
+              }},
+               { field: 'borrowUse', title: '借款用途', width: 80, sortable:false,formatter: function(value,row,index){
+                if(value.length > 10){
+                 return value.substr(0,10)+'…<span title='+value+'>'+"详情"+'</span>'; 
+                }
+                return "";
+              }},
+              { field: 'repaySource', title: '还款来源', width: 80, sortable:false,formatter: function(value,row,index){
+            	  if(value == 1){
+              		 return "工资、薪金所得"; 
+           	  	  }else if(value == 2){
+           	 	  	return "个体工商户的生产、经营所得";
+           	 	  }else if(value == 3){
+           	 	  	return "对企事业单位的承包经营、承租经营所得";
+           	 	  }else if(value == 4){
+           	 	  	return "利息、股息、红利所得月";
+           	 	  }else if(value == 5){
+           	 	  	return "财产租赁所得";
+           	 	  }else if(value == 6){
+           	 	  	return "财产转让所得";
+           	 	  }else if(value == 7){
+           	 	  	return "业务经营收入";
+           	 	  }else if(value == 8){
+           	 	  	return "转让财产收入";
+           	 	  }else if(value == 9){
+           	 	  	return "股息、红利等权益性投资收益";
+           	 	  }else if(value == 10){
+           	 	  	return "租金收入";
+           	 	  }else if(value == 11){
+           	 	  	return "其他收入";
+           	 	  }
+ 				  return "";
+               }},
+              { field: 'status', title: '状态', width: 60,fixed:true, sortable:false,formatter: function(value,row,index){
+				  if(value == 0){
+             		 return "未处理"; 
+             	  }else if(value == 1){
+             	 	 return "已处理";
+             	  }else if(value == 2){
+             		 return "不处理";
+             	  }
+              }},
+              { field: 'addTime', title: '添加时间', width: 150,fixed:true, sortable:false,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+  				  }  
+              }, 
+              { field: 'addIp', title: '添加IP', width: 80,fixed:true,fixed:true, sortable:false },
+              { field: 'doTime', title: '处理时间', width: 150,fixed:true,fixed:true, sortable:false,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+				  }  
+              },
+              { field : 'action',
+                title : '操作',
+                width :50,
+                fixed:true,
+                formatter : function(value, row, index) {
+                  var str ='';
+                	if(row.status == 0)
+                  {
+                        str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',verifyTitle,winWidth,winHeight,verifyUrl);" title="'+verifyTitle+'">编辑</a>';
+                	}
+                  else
+                  {
+                        str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun('+row.id+',viewTitle,winWidth,winHeight,viewUrl);" title="'+viewTitle+'">查看</a>';
+                	}
+                  return str;
+                }
+              } 
+             ] ]
+        });
+    });
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名称/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名称</span><input type="text" name="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="type">
+		                  <option value="0" selected="selected">未处理</option>
+		                  <option value="1">已处理</option>
+		                  <option value="2">不处理</option>
+		                </select></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

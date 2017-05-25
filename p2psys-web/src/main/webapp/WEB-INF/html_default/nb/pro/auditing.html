@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="applicable-device"content="pc,mobile">
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/ace.min.css">
+	<link href="/themes/theme_default/cf/pro/css/datepicker.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/800zf.css">
+	<script src="/themes/theme_default/cf/pro/js/jquery.js"></script>
+	<script src="/themes/theme_default/dist/jquery.form.js"></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/plugins/vue/vue.min.js" ></script>
+	<script src="/themes/theme_default/cf/pro/js/bootstrap.min.js"></script>
+	<script src="/themes/theme_default/cf/js/url.js"></script>
+	<script src="/themes/theme_default/cf/pro/js/pro/auditing.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+</head>
+<body>
+<#include "include/header.html">
+<div class="container-fulider">
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+				<span class="btn btn-success"></span>
+				<span class="btn btn-info"></span>
+				<span class="btn btn-warning"></span>
+				<span class="btn btn-danger"></span>
+			</div>
+		</div>
+
+		<ul class="nav nav-list">
+			<li>
+				<a href="/manage/code/wait.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">未提交审核</span>
+
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/manage/code/auditing.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">审核中</span>
+
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="main-content">
+		<ol class="breadcrumb">
+		  <li><a href="#">项目管理</a></li>
+		  <li class="active">项目提交中</li>
+		</ol>
+		<div class="page-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>编号</th>
+								<th>项目名称</th>
+								<th>项目状态</th>
+								<th>提交时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-repeat="model in item.data" >
+								<td v-text="model.id" ></td>
+								<td v-text="model.projectName" ></td>
+								<td>提交审核中</td>
+								<td>
+									<span  v-if="null!=model.log" v-text="model.log[0].addTime | timeFormat 'yyyy年M月d日'"  ></span>
+								</td>
+								<td>
+									<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+										<button type="button" class="btn btn-white btn-yellow btn-sm" onclick="addSubmit({{model.id}})" >提交审核</button>
+										<button type="button" class="btn btn-white btn-yellow btn-sm" onclick="look({{mode.id}})" >查看项目</button>
+									</div>											
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/themes/theme_default/cf/pro/js/fuelux.wizard.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace-elements.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace.min.js"></script>
+</body>
+</html>

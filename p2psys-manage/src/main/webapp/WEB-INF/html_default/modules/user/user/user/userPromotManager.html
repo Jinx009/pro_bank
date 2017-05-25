@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500; //弹出窗口宽度
+	var winHeight = 500; //弹出窗口高度
+	var addTitle = "添加推广人"; //添加窗口标题
+	var addUrl =  "/modules/user/user/user/userPromotAddPage.html"; // 添加窗口链接地址
+	var editTitle = "编辑推广人"; //编辑窗口标题
+	var editUrl =  "/modules/user/user/user/userPromotEditPage.html"; //编辑窗口链接地址
+	var detailTitle = "查看推广人下的用户"; //编辑窗口标题
+	var detailUrl =  "/modules/user/user/user/userPromotDetailPage.html"; //编辑窗口链接地址
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userPromotList.html',  //表格数据接口地址
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50, fixed: true,sortable : true},
+			{ field: 'userName', title: '用户名', width: 120, sortable:false },
+			{ field: 'realName', title: '真实姓名', width: 100, sortable:false },
+			{ field: 'status', title: '状态（是否为推广人）', width: 150,fixed: true, sortable:false,
+				formatter: function(value,row,index){
+					if (value == 2){
+						return "不是";
+					} else if(value == 1){
+						return "是";
+					}
+					return "";
+				}	
+			},
+			{ field: 'couponCode', title: '优惠码', width: 150, sortable:false },
+			{ field: 'canUseTimes', title: '可使用次数', width: 100, sortable:false },
+			{ field: 'usedTimes', title: '已使用次数', width: 100, sortable:false },
+			{ field: 'rate', title: '收益比例（%）', width: 150, sortable:false },
+			{ field: 'addTime', title: '添加时间', width: 150, sortable:false,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}	
+			},
+			{  field : 'action',
+			   title : '操作',
+			   width :100,
+			   fixed: true,
+			    formatter : function(value, row, index) { //功能按钮添加
+					var str = '';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>  ';
+					str += '<a href="javascript:void(0);" onclick="showUserInvite(' + row.id + ');" title="'+detailTitle+'">查看</a>  ';
+					str += '<a href="javascript:void(0);" onclick="deletePromot(' + row.id + ','+row.userName+');">删除</a>';
+					return str;
+				}
+			} ] ]
+		});
+	});	
+	
+	 function exportExcel(){
+			var url = "/modules/user/user/user/exportExcelUserPromotList.html";
+			var status = $("#status").val()
+			var sou = "?status=" + status;
+			window.location.href = url + sou;
+		}
+	 function deletePromot(id,userName)
+	 {
+		 
+		 $.ajax({
+			 url:"/modules/user/user/user/userPromotDelete.html",
+			 type:"POST",
+			 data:"id="+id+"&userName="+userName,
+			 dataType:"json",
+			 success:function(res)
+			 {
+				 if(res!=null)
+				{
+					 location.reload();
+				}
+			 }
+		 })
+	 }
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox" style="overflow-y:hidden;">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	推广人状态：
+	            	<select name="status" id="status" style="width:120px;">
+	            		<option value="0">全部</option>
+	            		<option value="1">是</option>
+	            		<option value="2">否</option>
+	            	</select>
+	            	<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:;" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>	
+            </div>
+		</div>		 
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

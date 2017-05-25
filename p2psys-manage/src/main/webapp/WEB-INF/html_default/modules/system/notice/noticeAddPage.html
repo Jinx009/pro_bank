@@ -1,0 +1,82 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/notice/noticeAdd.html');
+	});
+</script>
+<div class="popForm">
+    <form id="form"  method="post">
+	    <div class="formitm">
+			<label class="lab">类型编码：</label>
+			<div class="ipt">
+				<input type="text" name="nid" class="easyui-validatebox" data-options="required: true"/>
+				<b>*</b>
+			</div>			
+		</div>
+		<div class="formitm">
+		     <label class="lab">通知类型：</label>
+		     <div class="ipt">
+		     	<select name="noticeType">
+			     	<option value="1">短信</option>
+			     	<option value="2">邮件</option>
+			     	<option value="3">站内信</option>
+			     </select> 
+		     </div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">类型名称：</label>
+		    <div class="ipt">
+				<input type="text" name="name" class="easyui-validatebox" data-options="required: true"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">通知类别：</label>
+		     <div class="ipt">
+				 <select name="type">
+			     	<option value="1">系统通知</option>
+			     	<option value="2">用户通知</option>
+			     </select> 
+				 <b>*</b>
+			 </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否切换发送类型：</label>
+		     <div class="ipt">
+				 <select name="canSwitch">
+			     	<option value="0">不可以切换</option>
+			     	<option value="1">可以切换</option>
+			     </select> 
+				 <b>*</b>
+			 </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用发送：</label>
+			 <div class="ipt">
+				 <select name="send">
+			     	<option value="1">启用</option>
+			     	<option value="0">不启用</option>
+			     </select> 
+			 </div> 
+		</div>
+		<div class="formitm">
+			<label class="lab">备注：</label>
+			<div class="ipt">
+				<input type="text" name="remark" class="w400 easyui-validatebox"/>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">标题模板：</label>
+		    <div class="ipt">
+				<input type="text" name="titleTemplet" class="w400 easyui-validatebox"  data-options="required: true" maxlength="10"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">内容模板：</label>
+			<div class="ipt">
+				<textarea name="templet" rows="8" cols="80" class="w400 easyui-validatebox" data-options="required: true"></textarea>	
+				<b>*</b>
+			</div>
+		</div>
+	</form>
+</div>

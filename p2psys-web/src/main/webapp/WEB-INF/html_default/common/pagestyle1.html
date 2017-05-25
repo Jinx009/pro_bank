@@ -1,0 +1,36 @@
+<#--
+ 	简单样式的分页模板1
+ 	样式如下：共19条 首页 上一页 下一页 尾页
+ -->
+ 
+<#macro pagestyle1 page url param>
+<div id="pageitem">
+共${(page.total)?c}条${page.pages!0}页 当前第${(page.currentPage)?c}页
+<#if page.pages gt 1>
+	&nbsp;<a href="${url}page=1${param}">首页</a>
+<#else>
+	&nbsp;<span>首页</span>
+</#if> 
+<#if page.hasPreview() >
+	&nbsp;<a href="${url}page=${(page.currentPage-1)?c}${param?default("")}">上一页</a>
+<#else>
+	&nbsp;<span >上一页</span> 
+</#if>
+<#if page.hasNext() >
+	&nbsp;<a href="${url}page=${(page.currentPage+1)?c}${param}">下一页</a>
+<#else>
+	&nbsp;<span >下一页</span> 
+</#if><#if page.pages gt 1>
+	&nbsp;<a href="${url}page=${(page.pages)?c}${param}">尾页</a>
+<#else>
+	&nbsp;<span>尾页</span>
+</#if>
+<span class="page_go">转到
+<input type="text" id="page_text" size="4"
+ onkeydown="if(event.keyCode==13){location.href ='${url}page='+this.value+'${param}'}" value="${page.currentPage!1}" onfocus="this.select();" />页
+</span>
+
+ <input type="button" class="btn" value="确定"
+ onclick="var pageId;pageId=document.getElementById('page_text').value;location.href ='${url}page='+pageId+'${param}';">
+</div>
+</#macro>  

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	 
+	<!--#container-->
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../user_menu.html">
+			</div>
+			<!--左边的导航user_left 结束-->
+
+			<!--右边的内容user_right 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<#assign account_type="specificKefu">
+					<#include "account_menu.html">
+				</div>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+				<#if kefuUser??>
+				<ul class="ul_li_1">
+				<li>用户名：${session_user.userName!}</li>
+				<li>专属客服 ：<div style="width: 290px; float: left; margin: 0 10px 0 10px; padding: 10px 0;"><br>
+                                    <div class="floatl clearfix" style="width: 120px">
+                                        <input type="radio" name="kefu_userid" value="${kefuUser.userId?c}" style="float:left;" /> <img
+                                            src="${webroot}/imgurl.html?userid=${kefuUser.userId?c}&size=middle"
+                                            style="width: 100px; height: 100px; float: right;" />
+                                    </div>
+                                    <div style="margin-left: 10px;">
+                                        <ul class="kefu_li"
+                                            style="float: left; padding: 0px 0px 0px 10px;">
+                                            <li style="padding-bottom: 5px;">${kefuUser.username!}</li>
+                                            <li style="padding-bottom: 5px;">姓名：${kefuUser.realname!}</li>
+                                            <li style="padding-bottom: 5px;">电话:${kefuUser.tel!}</li>
+                                            <li style="padding-bottom: 5px;"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${kefuUser.qq!}&site=qq&menu=yes">
+                                                <img border="0" src="http://wpa.qq.com/pa?p=2:${kefuUser.qq!}:41"  alt="点击这里给我发消息" title="点击这里给我发消息">
+                                            </a></li>
+                                         
+                                        </ul>
+                                    </div>
+                                </div>
+                        </li>
+			</ul>
+				<#else>
+		<div class="user_right_border">
+			<div class="user_help alert">用户名：${session_user.username!""}</div>
+		</div>
+
+		<form action="" method="post" name="form1"  onsubmit = "return chec(k);" >
+		<div id="returnpay">
+		<div class="user_right_border">
+		
+			<div class="l"><b>专属客服：</b></div>
+			<div class="c">
+			<!-- 是否启用网上充值 -->
+				 <#if kflist?exists>
+                            <#list kflist as item>
+                                <div style="width: 290px; float: left; margin: 0 10px 0 10px; padding: 10px 0;"><br>
+                                    <div class="floatl clearfix" style="width: 120px">
+                                        <input type="radio" name="kefu_userid" value="${item.user_id?c}" style="float:left;" /> <img
+                                            src="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle"
+                                            style="width: 100px; height: 100px; float: right;" />
+                                    </div>
+                                    <div style="margin-left: 10px;">
+                                        <ul class="kefu_li"
+                                            style="float: left; padding: 0px 0px 0px 10px;">
+                                            <li style="padding-bottom: 5px;">${item.username!}</li>
+                                            <li style="padding-bottom: 5px;">姓名：${item.realname!}</li>
+                                            <li style="padding-bottom: 5px;">电话:${item.tel!}</li>
+                                            <li style="padding-bottom: 5px;"><a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=${item.qq!}&site=qq&menu=yes">
+                                                <img border="0" src="http://wpa.qq.com/pa?p=2:${item.qq!}:41" alt="点击这里给我发消息" title="点击这里给我发消息">
+                                            </a></li>
+                                         
+                                        </ul>
+                                    </div>
+                                </div>
+                            </#list>
+                        </#if>
+			</div>
+		</div>
+		</div>
+
+		<div class="user_right_border">
+			<div class="l"></div>
+			<div class="c">
+				<input type="submit" class="btn sub_btn"  name="name"  value="确认提交" size="30" /> 
+				<input type="hidden" name="type" value="specificKefu"/>
+			</div>
+		</div>
+		</form>
+		</#if>
+		</div>
+					<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	</div>
+	<!--#container-->
+	<#include "../../include/footer.html">

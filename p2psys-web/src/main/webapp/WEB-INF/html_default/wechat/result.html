@@ -1,0 +1,94 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/payDetail.css?v=14" >
+  <link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/weixin-bootstrap.css" >
+  <meta name="viewport" content="width=100%;
+    initial-scale=1.0;
+    maximum-scale=1.0;
+    minimum-scale=1.0;
+    user-scalable=no;" >
+	<title>支付详情</title>
+  <script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+</head>
+<body>
+<input type="hidden" id="id" name="id" value="${id}">
+<input type="hidden" id="projectType" name="projectType" value="${data.projectType}">
+<input type="hidden" id="investPrice" name="investPrice" value="${data.money}">
+<input type="hidden" id="projectName" name="projectName" value="${data.projectName}">
+<input type="hidden" id="successCallback" name="successCallback" value="">
+<input type="hidden" id="failedCallback" name="failedCallback" value="">
+<div id="main" class="clearfix">
+    <div class="h_all">
+				<div class="pay_header">
+          <a class="backto" href="/wx/index.html"></a>
+				  系统提示信息
+				</div>
+		    <div class="sysTipsTxt" ><img src="${webroot}${theme_dir}/media/css/images/xubox_loading2.gif" />系统处理中...</div>
+		    <div class="sysTipsBtns"></div>
+	  </div>
+</div>
+<script type="text/javascript"> 
+var timer = setInterval("testTime()",500); 
+var reqTimesLimit = 10;
+var reqTimes = 1;
+function testTime() {
+	  $.ajax({
+          type: "post",//使用get方法访问后台
+          dataType: "json",//返回json格式的数据
+          async:false,
+          url: "/public/ips/getResult.html",//要访问的后台地址
+          data: "resultFlag=" + '${resultFlag!}',//要发送的数据
+          timeout:1000*1,
+          success: function(msg){//msg为返回的数据，在这里做数据绑定
+              var data = msg.msg_data;
+              reqTimes++;
+              if(reqTimes>=reqTimesLimit){
+                  $(".sysTipsTxt").html("<div style='text-align:center;margin-top:10px;'>恭喜您已支付成功</div><br/><div style='text-align:center;margin:0 auto;'>满标后我们会以短消息的方式通知您!</div><div class='tipsMsg' style='text-align:center;margin-top:20px;'>5秒后自动跳转至我的账户中心</div>");
+                  clearInterval(timer);
+                  /* 页面自动跳转至我的账户中心*/
+                  msg_show();
+                  function msg_show(){
+                    var time =5; 
+                    function closeTime () {
+                      time--;
+                      $(".tipsMsg").html(time+"秒后自动跳转至我的账户中心");
+                      if(time==0){
+                        window.location.href = "/wx/account/main.html";
+                      }
+                    }
+                    setInterval(function(){
+                      closeTime();
+                    }, 1000);
+                  }
+              };
+              if(data){
+             	  if(data == 'success'){
+                    // $(".sysTipsTxt").html("${r_msg!}");
+                 		$(".sysTipsTxt").html("恭喜您，本次投标成功！"); //2015-03-29
+                    if('${m_msg!}' !=null && '${m_msg!}' != ''){
+                        $(".sysTipsBtns").html("<a href='${left_url!}'>${left_msg!}</a><a href='${m_url!}'>${m_msg!}</a><a href='${right_url!}'>${right_msg!}</a>");
+                    }else{
+                        $(".sysTipsBtns").html("<a href='${left_url!}'>${left_msg!}</a><a href='${right_url!}'>${right_msg!}</a>");
+                    }
+                }else{
+                    $(".sysTipsTxt").html(data);
+                    $(".sysTipsBtns").html("<a href='${back_url!}'>返回</a>");
+                }
+                clearInterval(timer);
+              }else{
+                $(".sysTipsTxt").html(data);
+              }
+          },
+          error:function(XMLHttpRequest){
+         		  $(".sysTipsTxt").html("<div style='text-align:center;margin-top:10px;'>很遗憾，投标失败！</div><br/><div style='text-align:center;margin:0 auto;'>您可以试试重新投标!</div>");
+              clearInterval(timer);
+          }
+    });
+} 
+</script>
+
+</body>
+</html>

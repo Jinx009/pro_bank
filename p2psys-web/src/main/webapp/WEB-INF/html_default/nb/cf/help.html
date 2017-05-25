@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+	$(".help-question .panel").click(function(){
+		$(this).addClass("active").siblings().removeClass("active");
+	});	
+	$("#myInvest").click(function(){
+		$(".help-small-nav-li").toggle();
+	})
+})
+
+</script>
+<style type="text/css">
+#main{
+	width:60%;
+	margin-left:20%;
+}
+</style>
+</head>
+<body class="bg">
+<div class="main">
+	<#include "include/header.html">
+	<div class="help-banner">
+		<img src="/themes/theme_default/cf/img/help_banner.png" class="help-banner-img"/>
+		<div class="help-text"><img src="/themes/theme_default/cf/img/help_text.png"/></div>
+	</div>
+	<div class="middle-content">
+		<div class="help-content">
+			<div class="help-left">
+				<div class="help-title">
+					<h1>帮助中心</h1>
+					<p>Help Center</p>
+				</div>
+				<ul class="help-nav">
+					<li id="myInvest">我要投资</li>
+					<li class="active help-small-nav-li" role="presentation" href="#invest1" aria-controls="invest1" role="tab" data-toggle="tab">用户认证流程</li>
+					<li class="help-small-nav-li" role="presentation" href="#invest2" aria-controls="invest2" role="tab" data-toggle="tab">领投流程</li>
+					<li class="help-small-nav-li" role="presentation" href="#invest3" aria-controls="invest3" role="tab" data-toggle="tab">跟投流程</li>
+					<li role="presentation" class="help-col"><a href="#finance" aria-controls="finance" role="tab" data-toggle="tab">我要融资</a></li>
+					<li role="presentation" class="help-col"><a href="#risk" aria-controls="risk" role="tab" data-toggle="tab">风险提示</a></li>
+					<li role="presentation" class="help-col"><a href="#question" aria-controls="question" role="tab" data-toggle="tab">常见问题</a></li>
+				</ul>
+			</div>
+			<div class="help-right">
+				<div class="tab-content">
+				    <div role="tabpanel" class="tab-pane active" id="invest1">
+						<h1 class="help-flow-title">用户认证流程</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<img src="/themes/theme_default/cf/img/flow.png"/>
+							</div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="invest2">
+				    	<h1 class="help-flow-title">领投流程</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<img src="/themes/theme_default/cf/img/flow_two.png"/>	
+							</div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="invest3">
+				    	<h1 class="help-flow-title">跟投流程</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<img src="/themes/theme_default/cf/img/flow_one.png"/>
+							</div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="finance">
+				    	<h1 class="help-flow-title">我要融资</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<img src="/themes/theme_default/cf/img/flow_three.png"/>		
+							</div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="risk">
+				    	<h1 class="help-flow-title">风险提示</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<p>尊敬的800众服平台注册用户（“投资人”）：</p>	
+								<p>由于认购股权众筹项目作为一种直接投资方式，800众服平台（“平台”）及项目发起方或领投人等，均无法保证您的本金及收益，在投资过程中可能会面临多种风险因素。因此，根据有关法律法规规定的要求，在您选择参与股权众筹项目前，请仔细阅读以下重要内容。</p>
+								<p>股权众筹项目具有较高的风险，与固定收益类理财项目具有明显区别。</p>
+								<p>平台提示您：在参与股权众筹投资项目前，投资者应确保自己符合相关法律法规规定的合格投资人的标准，并完全明白该项投资的性质和所涉及的风险，详细了解和审慎评估股权众筹项目的资金投资计划、风险评估及预期收益等基本情况，在审慎考虑后决定投资与自身风险承受能力和资产管理需求匹配的项目股权。在投资项目后，投资者应随时关注该项目的信息披露情况，及时获取相关信息。</p>
+								<p>参与股权众筹项目的投资人应自行承担下述类型的风险：</p>
+								<p>1.政策风险：股权众筹项目是依照当前的法律法规、相关监管规定和政策设计的。如国家宏观政策以及市场法律法规、相关监管规定发生变化，可能影响被投项目的受理、投资运作、清算等业务的正常进行，并导致项目收益降低甚至本金损失，也可能导致项目违反国家法律、法规或者其他合同的有关规定，进而导致项目被宣告无效、撤销、解除或提前终止等。</p>
+								<p>2.信用风险：不排除在被投项目的经营过程中，被投项目的经营管理人存在信用风险或道德风险的可能性，或所投资的其它资产未达到预期收益，则投资人可能面临收益损失、本金部分损失、甚至本金全部损失的风险。</p>
+								<p>3.流动性风险：除另有约定外，投资者无提前终止权或提前赎回股权的权利，可能导致投资者需要资金时不能随时变现，并可能使投资者丧失其他投资机会导致实际收益率为负的风险。</p>
+								<p>4.市场风险：由于中国及周边国家、地区宏观经济环境和周边市场的变化，使任何市场主体的经营均处于剧烈波动中，从而导致被投企业的价值不同程度的贬损。</p>
+								<p>5.管理风险：受被投企业管理人经验、技能、判断力、执行力等方面的限制，可能对项目的运作及管理造成一定影响，并因此影响投资人收益，甚至造成本金损失。</p>
+								<p>6.信息传递风险：被投项目管理人应按照《融资人信息披露规则》中有关“信息披露”的约定，履行信息披露的义务。投资人应根据“信息披露”的约定及时进行查询。如果投资人未及时查询，或由于通讯故障、系统故障以及其他不可抗力等因素的影响使得投资人无法及时了解项目信息，并由此影响投资人的投资决策，因此而产生的责任和风险由投资人自行承担。另外，投资人预留在平台有效联系方式发生变更，应及时通知平台，若被投项目管理人无法及时联系到投资人，并可能会由此影响投资人的投资决策，由此而产生的责任和风险由投资人自行承担。</p>
+								<p>7.认购风险：如出现市场剧烈波动、相关法规政策变化或其他可能影响项目正常运作的情况，项目发起人有权终止项目并退回投资款，投资人将无法在约定募集期内认购该项目股权。因此造成的任何损失由投资人自行承担。</p>
+								<p>8.技术风险：由于平台的业务是通过电子通讯技术和电脑技术来实现的，这些技术存在被网络黑客和计算机病毒攻击的可能，平台将尽力保障平台正常运行，但您将承担由您的个人电脑终端故障或平台以外因素导致系统故障而造成的损失。</p>
+								<p>9.不可抗力及意外事件风险：包括但不限于自然灾害、金融市场危机、战争或国家政策变化等不能预见、不能避免、不能克服的不可抗力事件或银行系统故障、通讯故障、投资市场停止交易等意外事件的发生，可能对项目的成立、投资运作、资金返还、信息披露、公告通知等造成影响，甚至可能导致项目收益降低乃至本金损失。对于由于不可抗力及意外事件风险导致的任何损失，投资人须自行承担，平台对此不承担任何责任。</p>
+								<p>10.其他平台无法预见、无法避免或无法控制的风险。</p>
+								<p>本风险提示书并不保证揭示您使用平台在线投资服务进行投资所面临的全部风险，您参与此项投资前，应全面了解相关法律法规、认真阅读平台的《注册用户服务协议》及其他规则，并根据您自身的投资目的、投资期限、投资经验、资产状况等判断是否具备相应的投资风险承受能力。</p>
+								<p>您承诺并保证已认真阅读本投资风险提示书，理解以上所揭示的所有风险，并愿意承担投资风险给您造成的损失。</p>
+							</div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="question">
+				    	<h1 class="help-flow-title">常见问题</h1>
+						<div class="help-flow-content">
+							<div class="help-flow-wrap">
+									<ul class="help-question" id="accordion" role="tablist" aria-multiselectable="true">
+										<div class="panel">
+											<li class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#question-one" aria-expanded="false" aria-controls="question-one">什么是众筹？</li>
+											<div id="question-one" class="collapse question-content" role="tabpanel" >
+					    						<p>通过互联网方式发布筹款项目，向特定群体募资，以支持发起的个人或组织。</p>
+					    					</div>	
+										</div>
+										<div class="panel">
+											<li class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#question-two" aria-expanded="false" aria-controls="question-two">什么是股权众筹？</li>
+											<div id="question-two" class="collapse question-content" role="tabpanel" >
+					    						<p>通过购买项目公司的股权，从而获得未来收益。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-three" aria-expanded="false" aria-controls="question-three">为什么要股权投资？</li>
+											<div id="question-three" class="collapse question-content" role="tabpanel">
+					    						<p>投资人通过投资股权众筹项目，可以获得被投资企业的股权，从而分享其未来的成长收益。如果被投资项目的股份通过再融资/被并购/股权回购等方式退出，投资人可以获得潜在的巨大收益。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion"  href="#question-four" aria-expanded="false" aria-controls="question-four">股权投资适合我吗？</li>
+											<div id="question-four" class="collapse question-content" role="tabpanel">
+					    						<p>虽然投资人可以通过股权众筹项目获得潜在的巨大收益，但是股权投资的风险非常大。在美国，获得风险投资的创业公司在5年内的失败率平均达到60%-80%。同时，股权众筹项目的投资周期与理财产品相比更长。据统计，投资一家创业公司平均需要5年多的时间才能退出，实现收益。所以股权投资项目更适合以下人群：
+												<p>1．专业风险投资人</p>
+												<p>2．金融人士：就职于金融机构的专业人士</p>
+												<p>3．公司高管：收入较高的公司高管，年均收入需要不低于30万</p>
+												<p>4．高净值人士：金融资产在100万以上</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion"  href="#question-five" aria-expanded="false" aria-controls="question-five">如何成为合格投资人？</li>
+											<div id="question-five" class="collapse question-content" role="tabpanel">
+					    						<p>个人合格投资人需要符合下列条件之一：</p>
+												<p>（1）最近三年个人年均收入不低于30 万元人民币；</p>
+												<p>（2）金融资产不低于100 万元人民币；本条所指的金融资产包括银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等。</p>
+												<p>机构合格投资人需要符合下列条件：</p>
+												<p>（1）投资单个融资项目的最低金额不低于10万元人民币；</p>
+												<p>（2）社会保障基金、企业年金等养老基金，慈善基金等社会公益基金，以及按照金融监管部门要求设立或备案的投资计划，前述投资者豁免穿透核查和合并计算投资者人数。</p>
+												<p>只有通过800众服合格投资人身份认证的投资人，才能对800众服上的融资项目进行投资。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-six" aria-expanded="false" aria-controls="question-six">什么是领投人？</li>
+											<div id="question-six" class="collapse question-content" role="tabpanel">
+					    						<p>领投人是指在项目所在领域有相对丰富经验的投资人或者投资机构，由其指导和带领多名跟投人一同对企业进行投资。领投人应通过800众服合格投资人认证。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-seven" aria-expanded="false" aria-controls="question-seven">如何成为领投人？</li>
+											<div id="question-seven" class="collapse question-content" role="tabpanel">
+					    						<p>1. 在项目预热阶段，点击“申请成为领投人”，由项目方与有投资意愿的领投人接洽。</p>
+												<p>2. 点击“领投人智库”页面上“申请成为领投人”，填写相关信息后，由平台与申请人接洽。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-eight" aria-expanded="false" aria-controls="question-two">领投人需要符合哪些条件？</li>
+											<div id="question-eight" class="collapse question-content" role="tabpanel">
+					    						<p>1. 应充分认同800众服的发展原则及方向；</p>
+												<p>2．在某个行业或领域有丰富的经验，独立的判断力，丰富的行业资源和影响力，很强的风险承受能力；</p>
+												<p>3．具有投资管理能力以及投后管理能力；</p>
+												<p>4．领投人至少有1个过往非上市股权投资项目已退出，或领投人具有自主成功创业的经验；</p>
+												<p>5．勤勉尽职，乐于分享。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-nine" aria-expanded="false" aria-controls="question-nine">领投人的权利？</li>
+											<div id="question-nine" class="collapse question-content" role="tabpanel">
+					    						<p>1．优先看到预热融资项目（包括未审核通过的项目源）和领投人社交群推荐项目；</p>
+												<p>2．领投人在确认领投后与项目融资方确认领投事宜（包括但不限于领投金额，交易结构等），双方确认上述领投事宜后，领投人应在确认日后的三个工作日内通过平台缴纳全额领投金额。同时，领投人须对项目进行点评，并可在800众服上公布；</p>
+												<p>3．领投人或领投人委托/指定的第三方负责代全体投资人对融资项目行使管理、监督等</p>
+												<p>4．领投人的投资成绩和回报情况将会成为该投资人在相关领域的投资记录，并向跟投人展示；</p>
+												<p>5．项目融资成功后，领投人可以在800众服上以800众服认可的方式对自身投资经验和投资案例进行合理的宣传推广；</p>
+												<p>6．领投人不对项目投后管理成果及项目收益承诺保底</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-ten" aria-expanded="false" aria-controls="question-ten">领投人的义务？</li>
+											<div id="question-ten" class="collapse question-content" role="tabpanel">
+					    						<p>1．确认领投后，协助融资项目完善《融资项目商业计划书》、确定投后估值、投资条款和融资额，协助项目路演和完成本轮对跟投人的融资；</p>
+												<p>2．能够协助融资人按照《融资人信息披露规则》完成融资项目的信息披露；</p>
+												<p>3．领投人应接受跟投人的委托，对融资项目进行管理；</p>
+												<p>4．领投人应采取诸如电话沟通、实地走访等方式代表所有投资人对项目进行投后管理。每个季度领投人应至少一次将其采集的投后管理信息在800众服上向跟投人进行披露。领投人还应代表所有投资人出席股东会或董事会，以投资人的利益为优先，合理评估收益与风险，尽职勤勉的作出最优投资决策，尽最大努力维护投资人合法权益。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-eleven" aria-expanded="false" aria-controls="question-eleven">跟投人的权利？</li>
+											<div id="question-eleven" class="collapse question-content" role="tabpanel">
+					    						<p>1．跟投人与领投人在融资项目公司中的股权收益计算方式相同，即“同股同收益同风险”；</p>
+												<p>2．如果跟投人能够为融资项目提供稀缺的重大价值，在成功投资后，可以与融资人自行约定其他合作协议，但不得损害其他投资人的合法权益，并进行信息披露；</p>
+												<p>3． 跟投人具有双重知情权，跟投人可以通过800众服要求融资人进行信息披露，同时，亦可以通过800众服要求领投人对投后管理信息进行披露，具体的信息披露内容，详见《融资人信息披露规则》。</p>
+												<p>4．必要时，跟投人可以自行对融资项目进行独立的尽职调查，但该调查费用由跟投人自行承担；</p>
+												<p>5．跟投人对项目的信息披露和领投人的投资管理如存在疑虑可以通过800众服发出质询；</p>
+												<p>6．跟投人可以根据投资人规则，行使其股东或合伙人权利；</p>
+												<p>7．跟投人可依法转让其在有限合伙企业中的份额，并承担相应的成本及费用，但不可要求融资人赎回，也不能转给融资项目的竞争方。</p>
+												<p>8．跟投人在其认购后有三天的冷静期，冷静期内，跟投人可以随时放弃对该融资项目股权的认购。若跟投人在冷静期后放弃对该融资项目股权的认购，则缴纳的保证金不予退还。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion"  href="#question-twelve" aria-expanded="false" aria-controls="question-twelve">跟投人的义务？</li>
+											<div id="question-twelve" class="collapse question-content" role="tabpanel">
+					    						<p>1．跟投人应符合合格投资人要求，对投资风险有充分的认识；</p>
+												<p>2．若跟投人与领投人有约定退出时向领投人支付融资项目退出分成，则跟投人应按照协议履约</p>
+												<p>3．跟投人不参与公司的重大决策，不进行投资管理。领投人退出时，跟投人应以同等条件一起退出；</p>
+												<p>4．跟投人应该遵守投资文件及有限合伙协议中作为一方的所有权利和义务；</p>
+												<p>5．跟投人应承诺配合800众服、领投人或领投人委托/指定的第三方在设立有限合伙企业、执行及退出融资项目时的相关法律行为，签署相关文件。</p>
+					    					</div>	
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-thirteen" aria-expanded="false" aria-controls="question-thirteen">什么是保证金？</li>
+											<div id="question-thirteen" class="collapse question-content" role="tabpanel">
+					    						<p>投资人在投资股权众筹项目时，按一定比例缴付投资总额的一部分作为保证金预定该项目的投资认购权。在缴纳保证金后的三天内，若投资人自愿放弃认购权，则申请退还保证金，同时放弃该项目的认购权。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-fourteen" aria-expanded="false" aria-controls="question-fourteen">发起项目时，需要哪些必备的材料？</li>
+											<div id="question-fourteen" class="collapse question-content" role="tabpanel">
+					    						<p>具体流程参考“发起项目”页面。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-fifteen" aria-expanded="false" aria-controls="question-fifteen">项目融资成功后，项目方是否需要支付服务费？</li>
+											<div id="question-fifteen" class="collapse question-content" role="tabpanel">
+					    						<p>项目方支付的服务费以最终签署的《融资服务协议》为准。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-sixteen" aria-expanded="false" aria-controls="question-sixteen">项目融资成功后，投资人是否需要支付相应费用？</li>
+											<div id="question-sixteen" class="collapse question-content" role="tabpanel">
+					    						<p>投资人支付的费用以最终签署的《投资协议》为准。</p>
+					    					</div>
+										</div>
+										
+										
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-seveteen" aria-expanded="false" aria-controls="question-seveteen">若股权众筹失败，投资人的投资款如何处理？</li>
+											<div id="question-seveteen" class="collapse question-content" role="tabpanel">
+					    						<p>若股权众筹失败，投资人的投资款将在三个工作日内退还投资人账户。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-eighteen" aria-expanded="false" aria-controls="question-eighteen">什么是实物众筹？</li>
+											<div id="question-eighteen" class="collapse question-content" role="tabpanel">
+					    						<p>实物众筹是投资人对实物众筹项目进行投资，获得相应的产品或服务。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-nineteen" aria-expanded="false" aria-controls="question-nineteen">若实物众筹在募集阶段失败，投资人的投资款如何处理？</li>
+											<div id="question-nineteen" class="collapse question-content" role="tabpanel">
+					    						<p>若实物众筹在募集阶段失败，投资人的投资款将在三个工作日内退还投资人账户。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-twenty" aria-expanded="false" aria-controls="question-twenty">若实物众筹在投资人行权阶段投资人的权益得不到保护，投资人该如何处理？</li>
+											<div id="question-twenty" class="collapse question-content" role="tabpanel">
+					    						<p>800众服不对众筹项目的回报质量进行任何的担保，若支持者因回报质量问题与发起人产生的纠纷，800众服不承担连带责任，发起人按照《800众服众筹回报服务协议》应妥善处理。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-twenty-one" aria-expanded="false" aria-controls="question-twenty-one">什么是公益众筹？</li>
+											<div id="question-twenty-one" class="collapse question-content" role="tabpanel">
+					    						<p>公益众筹是投资人对公益众筹项目进行投资，资金用途仅用于公益性质。</p>
+					    					</div>
+										</div>
+										<div class="panel">
+											<li data-toggle="collapse" data-parent="#accordion" href="#question-twenty-two" aria-expanded="false" aria-controls="question-twenty-two">公益众筹的资金最终会投向哪里？哪里可以查询到该项目资金的最终使用情况？</li>
+											<div id="question-twenty-two" class="collapse question-content" role="tabpanel">
+					    						<p>公益众筹的资金会由项目发起方按照项目说明书中的资金用途使用。在保护投资人利益上，800众服会对项目方背景以及诚信度进行严格的审核和筛选，筹集的资金也会实施监控，并定期督促项目方出具项目进度报告。</p>
+					    					</div>
+										</div>
+									</ul>
+							</div>
+						</div>
+				    </div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "include/footer.html"> 
+	<script type="text/javascript">
+		showLi("help_li");
+	</script>
+</body>
+</html>

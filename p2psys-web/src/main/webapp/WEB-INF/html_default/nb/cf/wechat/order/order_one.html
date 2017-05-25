@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/order/buy.css" />
+		<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+		<script src="/plugins/layer/layer.js" ></script>
+	    <script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/themes/theme_default/cf/wechat/js/order/lazyloadv3.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/order/md5.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/order/sha1.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/order/buy.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/order/pay.js" ></script>
+	    <style type="text/css">
+	    .min-red{
+	    	color: red;
+	    	font-size: 12px;
+	    }
+	    </style>
+	</head>
+	<body class="bg">
+	<input type="hidden" id="projectId" value="${projectId}"/>
+	<input type="hidden" id="ruleId" value="${ruleId}" />
+	<input type="hidden" id="status" value="${status}" >
+	<input type="hidden" id="openid" value="${openid}" >
+	<input type="hidden" id="orderId" >
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>支持详情</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="order-content">
+			<div class="order-box">
+				<h1 v-text="data.pro.projectName" id="projectName" ></h1>
+				<div class="order-col">
+					<div class="order-col-left">交易方式</div>
+					<div class="order-col-right">
+						<div class="invest-pre-big">
+							<span class="sub-big" id="subBig" onclick="changeBuyType(0)" >全额支持</span>
+							<span class="add-big" id="addBig" onclick="changeBuyType(1)">预约支持</span>
+						</div>
+					</div>
+				</div>
+				<div class="order-col" v-if="3===data.moneyType" >
+					<div class="order-col-left">支持金额</div>
+					<div class="order-col-right">
+						<div class="invest-pre">
+							<select class="buy-select" onchange="changeMoney(1)" id="profit" disabled="disabled" >
+								<option value="{{profit.id}}"  v-repeat="profit in  data.pro.profitRuleList" v-text="'支持￥'+profit.money" ></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="order-col" v-if="2===data.moneyType" >
+					<div class="order-col-left">支持金额</div>
+					<div class="order-col-right">
+						<div class="invest-pre">
+							<span class="sub" onclick="changeMoney(1)" >-</span>
+							<input value="0" id="money" readonly="readonly" />
+							<span class="add" onclick="changeMoney(0)" >+</span>
+						</div>
+					</div>
+				</div>
+				<div class="order-col" v-if="1===data.moneyType" >
+					<div class="order-col-left">支持金额</div>
+					<div class="order-col-right">
+						<div class="invest-pre">
+							<input value="{{data.pro.minMoney}}" oninput="changeMoney(1)" id="money" /><font class="min-red" v-text="'最小支持：￥'+data.pro.minMoney" ></font>
+						</div>
+					</div>
+				</div>
+				<div class="order-p-col">
+					<div class="order-p"></div>
+					<div class="order-p-auto" style="display: none;" ></div>
+				</div>
+				<div class="order-col" v-if="1==data.virtualType" >
+					<div class="order-col-left">我的800币</div>
+					<div class="order-col-right"><input placeholder="800币可用于实物众筹投资" id="virtual" type="text"/></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">实际支付</div>
+					<div class="order-col-right account-income-money" id="realMoney" ></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">交易密码</div>
+					<div class="order-col-right"><input type="password" id="payPwd" placeholder="请输入您的交易密码" /></div>
+				</div>
+			</div>
+			<div class="order-box" v-if="1===data.type" >
+				<div class="order-col">
+					<div class="order-col-left">收件人</div>
+					<div class="order-col-right"><input type="text" value="" id="realName" placeholder="请输入收件人姓名" /></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">联系方式</div>
+					<div class="order-col-right"><input type="text" value="" id="mobilePhone" placeholder="请输入收件人联系方式"/></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">收件地址</div>
+					<div class="order-col-right"><input type="text" value="" id="address" placeholder="请输入您的收件地址" /></div>
+				</div>
+				<div class="order-col">
+					<div class="order-col-left">邮政编码</div>
+					<div class="order-col-right"><input type="text" value="" id="postNum" placeholder="请输入您的邮政编码" /></div>
+				</div>
+			</div>
+			<div class="order-box">
+				<h3>所获权益</h3>
+				<p id="profitContent" ></p>
+			</div>
+		</div>
+		<div class="blank"></div>
+	<!-- 	<div class="rights-btn" v-if="4===data.pro.type" >
+			<div class="rights-left-btn" onclick="doBuy(1)" >余额支持</div>
+			<div  class="rights-right-btn point" onclick="wechatPay()">微信支付</div>
+		</div> -->
+		<div class="product-detail-btn" v-if="1===data.pro.type" onclick="doBuy(1)" >确定支持</div>
+		<div class="product-detail-btn" v-if="2===data.pro.type" onclick="doBuy(0)" >确定支持</div>
+		<div class="product-detail-btn" v-if="4===data.pro.type" onclick="doBuy(0)" >确定支持</div>
+	</body>
+</html>

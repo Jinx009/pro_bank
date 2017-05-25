@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/certification/certificationVerify.html');	
+</script>
+<form id="form"  method="post">
+<ul class="certificationPicList">
+	<#list list as item>
+	<li><a href="${weburl}${item}" class="fileshow" rel="gallery"><img src="${weburl}${item}"/></a></li>
+	</#list>
+</ul>
+<div class="popForm sForm" style="padding-top:0;">
+	<div class="formitm">
+		<label class="lab">状态：</label>
+		<div class="ipt">
+		    <label><input type="radio" name="status" value="1" checked="checked"/>&nbsp;&nbsp;审核通过 </label>
+			<label><input type="radio" name="status" value="-1"/>&nbsp;&nbsp;审核未通过</label>
+			<input type="hidden" name="id" value="${id}">
+		</div>
+		<label class="lab">评分：</label>
+		<div class="ipt">
+			<label><input type="text" name="score" value="0"/></label>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">审核说明：</label>
+		<div class="ipt">
+		    <textarea  name="verifyRemark" class="w300"></textarea>	
+		</div>
+	</div>	
+</div>
+</form>
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

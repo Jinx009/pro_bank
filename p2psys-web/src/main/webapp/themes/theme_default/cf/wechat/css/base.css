@@ -1,0 +1,54 @@
+@charset "utf-8";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,label
+{font-family: "微软雅黑","Microsoft YaHei" ;font-size: 1.0em;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;font-size: 16px;}
+body{line-height:1;}
+ol, ul{list-style:none;}
+blockquote, q{quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+*{margin:0px;padding:0px;outline:none;}
+img{border: 0;}
+a{text-decoration: none;color: inherit;}
+a:hover{text-decoration: none;color: inherit;}
+a:link{text-decoration: none;color: inherit;}
+a:active{text-decoration: none;color: inherit;}
+html{overflow-x: hidden;}
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td {background: transparent;border: 0;margin: 0;padding: 0;list-style-type: none;}
+a{
+	color: inherit;
+}
+a:link{
+	color: inherit;
+}
+a:visited{
+	color: inherit;
+}
+a:hover{
+	color: inherit;
+}
+a:active{
+	color: inherit;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;          
+}
+.blank{
+	height: 150px;
+}
+body{
+	max-width: 640px;
+	margin: 0 auto;
+}
+.bg{
+	background: #F0F0F0;
+}
+

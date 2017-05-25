@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#assign nid="member" >
+
+<!--找回密码 开始-->
+	<#include "../include/header.html">    
+	<div id="forgetPwdWrap" class="clearfix">
+		<ul class="forgetPwdTab clearfix">
+			<li class="active"><i class="iconfont">&#xe627;</i><a href="/user/getpwd.html?showType=1" title="通过【邮箱】找回密码">邮箱找回</a></li>
+			<li><i class="iconfont">&#xe626;</i><a href="/user/getpwd.html?showType=2" title="通过【手机】找回密码">手机找回</a></li>
+		</ul>
+		<div class="successMsg">
+			<h2><i class="iconfont">&#xe60e;</i>恭喜您，账户 <em>${user.userName?if_exists}</em> 重置密码成功！</h2>
+			<a href="/user/login.html" title="马上去登录">马上登录</a>
+		</div>
+		
+	</div>
+	<#include "../include/loginFooter.html">
+<!--找回密码 结束-->
+</body>
+</html>

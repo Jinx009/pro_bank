@@ -1,0 +1,34 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/cash/accountcash/verifyCashStatus.html');
+	});
+</script>
+<form id="form" method="post">
+<div class="borrowForm" style="border-top:none;">
+	<ul>
+		<li><span>用户名：</span>${user.userName!}</li>
+		<li><span>真实姓名：</span>${user.realName!}</li>
+		<li><span>银行账号：</span>${accountCash.bankNo!}</li>
+		<li><span>提现银行：</span>${accountCash.bank!}</li>
+		<li><span>提现金额：</span>${accountCash.money!0}元</li>
+		<li><span>到账金额：</span>${accountCash.credited!0}元</li>
+		<li><span>手续费：</span>${accountCash.fee!0}元</li>
+		<li><span>状态：</span>初审中</li>
+		<li><span>添加时间：</span>${accountCash.addTime?string("yyyy-MM-dd HH:mm:ss")}</li>
+		<li><span>IP：</span>${accountCash.addIp}</li>
+		<li><span>是否通过：</span><input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过&nbsp;&nbsp;&nbsp;<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true"  checked />不通过</li>
+	</ul>
+	<div class="borrowFormMuti"><span style="float:left;">审核记录：</span>
+		<ul style="float:left;">
+		<#if verifyLogList?? && verifyLogList?size gt 0>
+			<#list verifyLogList as item>
+				<li style="display:block;float:none;min-height:70px;width:600px; overflow-y:auto;">时间：${item.time?string('yyyy-MM-dd hh:mm:ss')}&nbsp;&nbsp;审核人：${item.opName!}&nbsp;&nbsp;<br/>审核备注：${item.remark!}</li>
+			</#list>
+		</#if>
+		</ul>
+	</div>
+	<div class="borrowFormMuti"><span>备注：</span><textarea name="remark" class="borrowFormTextarea"></textarea></div>
+</div>
+<input name="id" value="${accountCash.id}" type="hidden"/>
+<input name="verifyCashToken" value="${verifyCashToken}" type="hidden" />	
+</form>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../account_menu.html">
+			</div>		
+			<div class="user_right">
+				<h2 class="user_title clearfix">账户设置</h2>
+				<div class="pd30">
+					<dl class="setting">
+						<dt class="clearfix">
+							<a href="${webroot}/member/info/face.html" class="user_face" title="修改头像">
+								<img src="${webroot}/avatar/${session_user.userId?c}.jpg" width="80" height="80" />	
+								<span></span>
+								<b>修改<br/>头像</b>
+							</a>
+							<div class="setting_status">
+								<div class="setting_infobar">您的账号安全度 <strong>
+								<#if session_user_identify.realNameStatus==0> 低<#else>高</#if>
+								</strong></div>
+								<div class="setting_statusbar"><span style="width:<#if session_user_identify.realNameStatus==0>30%<#else>100%</#if>;"></span></div>
+								<br/><br/>
+							</div>
+							<div class="setting_rel">
+								<p>真实姓名：<font color="#f63">${session_user_identify.user.getHideRealname()!'暂未实名'}</font></p>
+								<p>身份证号：<font color="#f63">${session_user_identify.user.getHideCardId()!'暂未实名'}</font></p>
+								<p>手机号码：<font color="#f63">${session_user_identify.user.getHideMobilePhone()!'暂未填写'}</font></p>
+							</div>
+						</dt>
+						<!-- S 实名认证 -->
+						<dd>
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe633;</i>
+								<span class="itemtxt">
+									实名认证
+									<em>充值提现，必须完成实名认证，<#if session_user_identify.realNameStatus != 1>绑定银行卡即实名认证过程。<#else>您已完成实名认证。</#if></em>
+								</span>
+								<#if session_user_identify.realNameStatus == 0 || session_user_identify.realNameStatus == -1>
+									<a href="${webroot}/member/cash/addBankPage.html" class="setting_btn" title="认证" id="modifyVerificationBtn">认证</a>
+								<#else>
+									<a href="javascript:;" class="setting_btn" title="认证" id="modifyVerificationBtn">已认证</a>
+								</#if>
+							</div>
+						</dd>
+						<!-- E 实名认证 -->
+						<!-- S 绑定手机 -->
+						<dd>
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe626;</i>
+								<span class="itemtxt">
+									绑定手机
+									<em>若您原注册手机号码有变化，可通过修改绑定手机号码轻松搞定。</em>
+								</span>								
+								<#if session_user_identify.mobilePhoneStatus == 0>
+									<a href="javascript:;" class="setting_btn" title="绑定" id="modifyPhoneBtn">绑定</a>
+								<#else>	
+									<a href="javascript:;" class="setting_btn" title="绑定" id="modifyPhoneBtn">修改</a>
+								</#if>
+							</div>
+							<div class="setting_form" id="modifyPhoneBox" style="display:none;" >
+								<#if session_user_identify.mobilePhoneStatus == 0>	
+								<form action="/member/security/doBindPhone.html" method="post" id="modifyPhoneForm">
+									<ul class="setting_formbd">
+										<li><label>手机号码</label><input type="text" name="mobilePhone" id="mobilePhone" class="setting_txt" value="${session_user.mobilePhone!}" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();" autocomplete="off"/><span><i class="iconfont">&#xe614;</i><em>请输入手机号码</em></span></li>
+										<li><label>短信验证码</label><input type="text" name="code" class="setting_vtxt"  autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getPhoneVcode" value="获取验证码" /><span><i class="iconfont">&#xe614;</i><em>请输入验证码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" /></li>
+									</ul>
+								</form>
+								<#else>
+								<form action="/member/security/checkModifyPhoneCode.html" method="post" id="mobilePhoneValidata">
+									<ul class="setting_formbd">
+										<li><label>已验证手机</label><span id="userMobilePhone">${session_user.hideMobilePhone!!}</span></li>
+										<li><label>校验码</label><input type="text" name="code" class="setting_vtxt" maxlength="6" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getHavePhoneVcode" value="获取短信校验码" /><span><i class="iconfont">&#xe614;</i><em>请输入校验码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="下一步" /></li>
+									</ul>
+								</form>
+								<form action="/member/security/doBindPhone.html" method="post" id="modifyPhoneForm" style="display:none;">
+									<ul class="setting_formbd">
+										<li><label>手机号码</label><input type="text" name="mobilePhone" id="mobilePhone" class="setting_txt" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();" autocomplete="off"/><span><i class="iconfont">&#xe614;</i><em>请输入手机号码</em></span></li>
+										<li><label>短信验证码</label><input type="text" name="code" class="setting_vtxt" maxlength="6"  autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getPhoneVcode" value="获取短信验证码" /><span><i class="iconfont">&#xe614;</i><em>请输入验证码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" /></li>
+									</ul>
+								</form>
+								</#if>
+							</div>
+						</dd>
+						<!-- E 绑定手机 -->
+						<!-- S 修改登录密码 -->
+						<dd>
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe617;</i>
+								<span class="itemtxt">
+									登录密码
+									<em>登录账户时需要输入的密码，定期更换密码让您的账户更安全。</em>
+								</span>								
+								<a href="javascript:;" class="setting_btn" title="修改" id="modifyPwdBtn">修改</a>	
+							</div>
+							<div class="setting_form" id="modifyPwdBox" style="display:none;" >
+								<form action="/member/security/modifyPwd.html" method="post" id="modifyPwdForm">
+									<ul class="setting_formbd">
+									<#if pwdLock>
+										登录密码已锁定，请于24小时后再尝试！
+									<#else>
+										<li><label>原密码</label><input type="password" name="pwd" id="oldpassword" class="setting_txt"/><span><i class="iconfont">&#xe614;</i><em>请输入原密码</em></span></li>
+										<li><label>新密码</label><input type="password" name="newPwd" id="password" class="setting_txt" /><span><i class="iconfont">&#xe614;</i><em>请输入新密码</em></span></li>
+										<li><label>确认新密码</label><input type="password" name="confirmNewPwd" id="confirm_password" class="setting_txt" /><span><i class="iconfont">&#xe614;</i><em>请输入确认新密码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" /></li>
+									</#if>
+									</ul>
+								</form>
+							</div>
+						</dd>
+						<!-- E 修改登录密码 -->
+						<!-- S 修改交易密码 -->
+						<dd>
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe618;</i>
+								<span class="itemtxt">
+									交易密码
+									<em>提现、投资时需要输入的密码，定期更换密码让您的账户更安全。</em>
+								</span>								
+								<#if payPwd?? && payPwd !="">
+									<a href="javascript:;" class="setting_btn" title="修改" id="modifyPayPwdBtn">修改</a>									
+								<#else>
+									<a href="javascript:;" class="setting_btn" title="设置" id="modifyPayPwdBtn">设置</a>
+								</#if>
+							</div>
+							<div class="setting_form" id="modifyPayPwdBox" style="display:none;" >
+								<form action="/member/security/modifyPaypwd.html" method="post" id="modifyPayPwdForm">
+									<ul class="setting_formbd">
+									<#if payPwdLock>
+										交易密码已锁定，请于24小时后再尝试！
+									<#else>
+									<#if payPwd?? && payPwd !="">
+									<li><label>原交易密码</label><input type="password" name="payPwd" id="oldpassword" class="setting_txt" maxlength="6"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/><span><i class="iconfont">&#xe614;</i><em>请输入原密码</em></span></li>
+									</#if>
+									<li><label>新交易密码</label><input type="password" name="newPayPwd" id="pay_password" class="setting_txt" maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/><span><i class="iconfont">&#xe614;</i><em>请输入6位数字的新密码</em></span></li>
+									<li><label>确认新密码</label><input type="password" name="confirmNewPayPwd" id="pay_confirm_password" class="setting_txt" maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/><span><i class="iconfont">&#xe614;</i><em>请输入确认新密码</em></span></li>
+									<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${webroot}/user/getPayPwd.html?showType=2"><font color="red">忘记交易密码？</font></a></li>
+									</#if>
+									</ul>
+								</form>
+							</div>
+						</dd>
+						<!-- E 修改交易密码 -->
+						<!-- S 绑定邮箱 -->
+						<dd>
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe627;</i>
+								<span class="itemtxt">
+									绑定邮箱
+									<em>绑定您的邮箱让您可以及时接收800Bank的最新资讯。</em>
+								</span>	
+								<#if session_user_identify.emailStatus == 0>	
+									<a href="javascript:;" class="setting_btn" title="绑定" id="modifyEmailBtn">绑定</a>
+								<#else>
+									<a href="javascript:;" class="setting_btn" title="修改" id="modifyEmailBtn">修改</a>
+								</#if>	
+							</div>
+							<div class="setting_form" id="modifyEmailBox" style="display:none;" >
+								<#if session_user_identify.emailStatus == 0>
+								<form action="/member/security/doBindEmail.html" method="post" id="modifyEmailForm">
+									<ul class="setting_formbd">
+										<li><label>邮箱地址</label><input type="text" name="email" id="email" class="setting_txt" value="" autocomplete="off"/><span><i class="iconfont">&#xe614;</i><em>请输入邮箱</em></span></li>
+										<li><label>验证码</label><input type="text" name="code" class="setting_vtxt"  maxlength="6"  autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getNewMailVcode" value="发送验证邮件"/><span><i class="iconfont">&#xe614;</i><em>请输入验证码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" /></li>
+									</ul>
+								</form>
+								<#else>
+								<form action="/member/security/checkModifyEmailCode.html" method="post" id="mailValidata">
+									<ul class="setting_formbd">
+										<input type="hidden" name="email" id="email" class="setting_txt" value="${session_user.email!}" autocomplete="off"/>
+										<li><label>已验证邮箱</label><span id="userMail">${session_user.email!}</span></li>
+										<li><label>验证码</label><input type="text" name="code" class="setting_vtxt"  maxlength="6"  autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getMailVcode" value="发送验证邮件" /><span><i class="iconfont">&#xe614;</i><em>请输入验证码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="下一步" /></li>
+									</ul>
+								</form>
+								
+								<form action="/member/security/doBindEmail.html" method="post" id="modifyEmailForm" style="display:none;">
+									<ul class="setting_formbd" >
+										<li><label>填写新邮箱</label><input type="text" name="email" id="email" class="setting_txt" value="" autocomplete="off"/><span><i class="iconfont">&#xe614;</i><em>请输入新邮箱</em></span></li>
+										<li><label>验证码</label><input type="text" name="code" class="setting_vtxt" maxlength="6" autocomplete="off" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();"/><input type="button" class="setting_vcode" id="getNewMailVcode" value="发送验证邮件" /><span><i class="iconfont">&#xe614;</i><em>请输入验证码</em></span></li>
+										<li><label>&nbsp;</label><input type="submit" class="setting_sub_btn" value="确认" /></li>
+									</ul>
+								</form>
+								</#if>
+							</div>
+						</dd>
+						<!-- E 绑定邮箱 -->
+
+
+							<!-- S 视频认证 -->
+						<dd style="display:none;">
+							<div class="settingbar clearfix">
+								<i class="itemico iconfont">&#xe618;</i>
+								<span class="itemtxt">
+									视频认证
+									<em>充值提现，必须完成视频认证。</em>
+								</span>								
+								<#if session_user_identify.videoStatus == 1>
+									<a  class="setting_btn" title="已认证">已认证</a>									
+								<#elseif session_user_identify.videoStatus == 0 || session_user_identify.videoStatus == -1 >
+									<a href="javascript:;" class="setting_btn" title="未认证" id="modifyPayPwdBtn">未认证</a>
+								<#elseif session_user_identify.videoStatus == 2>
+									<a  class="setting_btn" title="未认证">待审核</a>
+								</#if>
+							</div>
+							<div class="setting_form" id="modifyPayPwdBox" style="display:none;" >
+								<form action="" method="post" id="modifyPayPwdForm1">
+									<ul class="setting_formbd">
+									<input type="button" id="video-btn" class="setting_sub_btn" value="提交申请" />
+									</ul>
+								</form>
+							</div>
+						</dd>
+						<!-- E 视频认证 -->
+					</dl>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/security_setting');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

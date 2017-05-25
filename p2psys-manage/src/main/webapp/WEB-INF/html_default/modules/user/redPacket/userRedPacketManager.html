@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户红包管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<script type="text/javascript">
+	var dataGrid;
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userRedPacketList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '编号', width: 50, checkbox : false},
+			{ field: 'userName', title: '用户名', width: 100, checkbox : false},
+			{ field: 'realName', title: '真实姓名', width: 100, checkbox : false},
+			{ field: 'amount', title: '红包金额', width: 100, sortable: false},
+			{ field: 'name', title: '红包名称', width: 100, sortable: false },
+			{ field: 'addTime', title: '领取时间', width: 150, sortable:false, 
+		          	  	formatter: function(value,row,index){
+		          	  		return getLocalTime(value,4);
+						}  
+		            },
+			{ field: 'expiredTime', title: '过期时间', width: 150, sortable: false,
+		            	formatter: function(value,row,index){
+		          	  		return getLocalTime(value,4);
+				} 	
+			},
+			{ field: 'usedTime', title: '兑换时间', width: 150, sortable: false,
+		            	formatter: function(value,row,index){
+		          	  		return getLocalTime(value,4);
+				} 	
+			},
+			{ field: 'status', title: '是否兑换', width: 100, sortable: false,
+				formatter: function(value,row,index){
+					var timestamp = Date.parse(new Date());
+					if (value == 2) {
+						return "未兑换";
+					} else if(value == -1){
+						return "已过期";
+					} else{
+						return "已兑换";
+					}
+				} 		
+			}
+			 ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			}
+		});
+	});
+	
+	function exportExcel(){
+		var url = "/modules/user/redPacket/exportUserRedPacketStatisticsList.html";
+		var searchName = $("#searchName").val()
+		var userName = $("#userName").val();
+		var realName = $("#realName").val();
+		var status = $("#status").val();
+		var receiveStartTime = $("#receiveStartTime").val();
+		var receiveEndTime = $("#receiveEndTime").val();
+		var expiredStartTime = $("#expiredStartTime").val();
+		var expiredEndTime = $("#expiredEndTime").val();
+		var sou = "?searchName=" + searchName +"&userName=" + userName + "&realname=" + realName + "&status=" + status + 
+				"&receiveStartTime=" + receiveStartTime + "&receiveEndTime=" + receiveEndTime + "&expiredStartTime=" + expiredStartTime + 
+				"&expiredEndTime=" + expiredEndTime;
+		window.location.href = url + sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" id="realName" autocomplete="off"/></li>
+		        	<li><span>红包类型</span><select name="typeId" class="type">
+							<option value="0">全部</option>
+							<#list list as item>
+							<option value="${item.id}">${item.name}</option>
+							</#list>
+						</select></li>
+		        	<li><span>是否兑换</span><select name="status" id="status" class="type">
+							<option value="0">全部</option>
+							<option value="1">已兑换</option>
+							<option value="2">未兑换</option>
+							<option value="-1">已过期</option>
+						</select></li>
+		       		<li><span>领取时间</span><input type="text" name="receiveStartTime" id="receiveStartTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'receiveEndTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="receiveEndTime" id="receiveEndTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'receiveStartTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>过期时间</span><input type="text" name="expiredStartTime" id="expiredStartTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'expiredEndTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="expiredEndTime" id="expiredEndTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'expiredStartTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

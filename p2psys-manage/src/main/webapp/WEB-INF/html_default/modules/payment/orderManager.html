@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>订单信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var exWidth = 650;
+	var exHeight = 320;
+	var winWidth =  650; //弹出窗口宽度
+	var winHeight = 320; //弹出窗口高度
+	
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'orderList.html',  //表格数据接口地址
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false, 
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'realName', title: '用户名称', width: 80, sortable:false },
+			{ field: 'no_order', title: '订单号', width: 150,fixed: true, sortable:false	},
+			{ field: 'oid_paybill', title: '连连支付单号', fixed:true,width: 160},
+			{ field: 'name_goods', title: '商品名称', width: 80, sortable:false },             
+			{ field: 'money_order', title: '交易金额', width: 80,fixed: true, sortable:false,
+				formatter: function(value,row,index){
+					return "￥"+value;
+				}	
+			},
+			{ field: 'status', title: '订单状态', width: 80, sortable:false,
+				formatter: function(value,row,index){
+					if(value==0){
+						return "待付款";
+					}else if(value==1){
+						return "交易成功";
+					}else if(value==2){
+						return "交易失败";
+					}else if(value==3){
+						return "处理中...";
+					}else{
+						return value;
+					}
+				} }, 
+			{ field: 'info_order', title: '订单描述', width: 100, sortable:false },
+			{ field: 'dt_order', title: '订单时间', width: 80, sortable:false }
+			] ],
+			toolbar : '#toolbar',
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});		
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名称进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<!-- <li><span>姓名</span><input type="text" name="userName" autocomplete="off"/></li> -->
+		        	<li><span>项目名称</span><input type="text" name="projectName" autocomplete="off"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>		
+		</div>		
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

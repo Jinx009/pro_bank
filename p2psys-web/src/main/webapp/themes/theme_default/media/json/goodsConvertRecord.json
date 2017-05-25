@@ -1,0 +1,70 @@
+{
+	"data":{
+		"list":[
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		},
+		{
+			"recordtime":"2014-12-14 17:49:00",
+			"shopName":"高大上牌蓝牙耳机",
+			"needScore":"5000",
+			"sendStatus":"已经发货",
+			"sendTime":"2014-12-16 17:51:03",
+			"number":"11012225486",
+			"convertHref":"/scoreMall/goodsDetails.html"
+		}
+	],
+	"page":{
+		"currentPage": 1,
+	      "end": 10,
+	      "pages": 1,
+	      "pernum": 10,
+	      "start": 0,
+	      "total": 5
+		}
+
+   }
+
+}

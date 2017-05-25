@@ -1,0 +1,124 @@
+<div class="to-top"><a  href="#">返回<br/>顶部</a></div>
+<style>
+.footer{
+	clear: both;
+	width: 100%;
+	background-color:#323232;
+ 	background-color:rgba(50,50,50,0.9); 
+	//background: #323232;
+	padding-top:8px;
+	padding-left:0px;
+	color: #FFFFFF;
+	overflow: hidden;
+	z-index: 3;
+	text-align: center;
+	min-width: 1280px;
+}
+.footer-left{
+	text-align: center;
+	display: inline-block;
+	width: 612px;
+	padding-left: 0px;
+	position: relative;
+	top: -25px;
+}
+.footer-right{
+	display: inline-block;
+	width: 612px;
+	text-align: center;
+	padding-right:0px;
+}
+.footer ul{
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin-top: 20px;
+}
+.footer-left ul li{
+	display: inline-block;
+	margin-left:10px;
+	margin-right:10px;
+	padding-right: 40px;
+	font-size: 14px;
+	border-right: 1px solid #8a8a8a;
+}
+.safeControl{
+	margin-top: 20px;
+}
+.right-left{
+	display: inline-block;
+	width: 60%;
+	float: left;
+}
+.right-right{
+	display: inline-block;
+	width: 40%;
+	float: right;
+}
+.height40{
+	height: 40px;
+}
+.height10{
+	height: 10px;
+}
+.footer-right p{
+	margin-bottom: 10px;
+}
+.szfw-bg{background:url('/themes/theme_default/cf/img/cert.png') no-repeat center center;width:141px;height:41px;display: inline-block;vertical-align: middle;}
+</style>
+<div class="footer">
+	<div class="footer-left">
+		<ul>
+			<li><a href="/index.html">首页</a></li>
+			<li><a href="/pro/list.html?id=2">项目中心</a></li>
+			<li><a href="/cf/user/main.html">账户中心</a></li>
+			<li><a href="/cf/aboutUs.html?id=cooperation">合作伙伴</a></li>
+		</ul>
+		<div class="safeControl">
+			<a><img src="/themes/theme_default/cf/img/logo.png"/></a>
+            <a  key ="56ab0298efbfb010cf474ed9"  logo_size="83x30"  logo_type="business"  href="https://www.anquan.org" ><script src="https://static.anquan.org/static/outer/js/aq_auth.js"></script></a>
+            <a id='___szfw_logo___' href='https://credit.szfw.org/CX20160127013512390423.html' target='_blank' class="szfw-bg"></a>
+			<script type='text/javascript'>(function(){document.getElementById('___szfw_logo___').oncontextmenu = function(){return false;}})();</script>
+	     </div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="footer-right">
+		<div class="right-left" >
+			<div class="height40" ></div>
+			<div class="height10" ></div>
+			<p><span>上海市静安区成都北路333号招商局广场东楼23层</span></p>
+			<p><span>400-6366-800&nbsp;&nbsp;&nbsp;&nbsp;客服邮箱：service@800zf.cn</span></p>
+		</div>
+		<div class="right-right" >
+			<div class="height10" ></div>
+			<div class="height10" ></div>
+			<div class="height10" ></div>
+			<a><img alt="800众服" src="/themes/theme_default/cf/img/er_code.png"> </a>
+		</div>
+	</div>
+	<div class="height10" ></div>
+	<p>Copyright&nbsp;&nbsp;&copy;2015 上海众朴信息科技有限公司&nbsp;&nbsp;&nbsp;沪ICP备15005952号</p>
+	<div class="height10" ></div>
+</div>
+<script>
+$("#wechat").mouseover(function(){
+	$(".wechat").addClass("wechat-active");
+	$(".wechat-box").show();
+})
+$("#wechat").mouseleave(function(){
+	$(".wechat").removeClass("wechat-active");
+	$(".wechat-box").hide();
+})
+$(function(){
+	//监听滚动条
+	$(window).scroll(function(){ 
+		var top = $(window).scrollTop();
+		var scrollBottom = $(window).height();
+		if(top>=300){
+			$(".to-top").show();
+		}else{
+			$(".to-top").hide();
+		}
+	});
+})
+</script>

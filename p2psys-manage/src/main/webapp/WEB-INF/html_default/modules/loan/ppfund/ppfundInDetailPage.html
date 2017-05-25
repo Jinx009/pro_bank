@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    $(function() {
+        $('#tenderListGrid').datagrid({
+            url : '/modules/loan/ppfund/ppfundInList.html?id=${id}',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            columns : [ [
+              { field: 'userName', title: '投标人', width: 80, sortable:false },
+              { field: 'money', title: '购买金额', width: 80, sortable:false,formatter:function(value,row,index){
+            	  return value+"元";
+              }},  
+              { field: 'account', title: '有效投标金额', width: 110, sortable:false,formatter:function(value,row,index){
+            	  return value+"元";
+              }},
+              { field: 'addTime', title: '购买时间', width: 150, sortable:false,fixed:true,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+              	} 
+              }, 
+              { field: 'outTime', title: '预约转出时间', width: 150, sortable:false,fixed:true,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+              	} 
+              }
+             ]]
+        }); 
+        
+    });
+</script>
+
+<table id="tenderListGrid"></table>
+

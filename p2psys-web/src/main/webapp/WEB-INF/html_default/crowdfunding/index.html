@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html">
+<body>
+<#include "../include/header.html">
+
+<div id="crowdfunding">
+456
+</div>
+<div id="projectTotalInfo">
+</div>
+
+<script>
+	
+	
+	
+	function ajaxUrl(){
+		$.ajax({
+			type:'get',
+			cache:false,
+			url:'/crowdfunding/projectTotalInfo.html?id=3269',
+			dataType:'json',
+			success:function(json){
+				alert("123");
+				}
+		})	
+	}
+	
+</script>
+
+<#include "../include/footer.html"> 
+</body>
+</html>

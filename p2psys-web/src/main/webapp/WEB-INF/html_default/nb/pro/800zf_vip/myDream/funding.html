@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="applicable-device"content="pc,mobile">
+	<title>800众服</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="../css/ace.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/800zf.css">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-bg navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="../img/logo.png" class="logo" /></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="../launch/information.html">发起梦想</a></li>
+        <li><a href="../audit/auditing.html">未提交审核</a></li>
+        <li><a href="../notice/notice.html">通知中心</a></li>
+        <li><a href="../myDream/finish.html">我的梦想</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">小人 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"></a></li>
+            <li><a href="#">我的资料</a></li>
+            <li><a href="#">我的项目</a></li>
+            <li><a href="#">退出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fulider">
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+				<span class="btn btn-success"></span>
+				<span class="btn btn-info"></span>
+				<span class="btn btn-warning"></span>
+				<span class="btn btn-danger"></span>
+			</div>
+		</div>
+
+		<ul class="nav nav-list">
+			<li>
+				<a href="finish.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">众筹完成</span>
+
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li class="active">
+				<a href="funding.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">众筹中</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li>
+				<a href="out.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">已撤回</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li>
+				<a href="failure.html">
+					<i class="icon-desktop"></i>
+					<span class="menu-text">众筹失败</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="main-content">
+		<ol class="breadcrumb">
+		  <li><a href="#">Home</a></li>
+		  <li><a href="#">2013</a></li>
+		  <li class="active">十一月</li>
+		</ol>
+		<div class="page-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="tabbable">
+						<ul class="nav nav-tabs" id="myTab">
+							<li class="active">
+								<a data-toggle="tab" href="#home"><i class="icon-list blue"></i>查看订单</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#profile"><i class="icon-desktop blue"></i>预览</a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#setting"><i class="icon-cog blue"></i>设置领投人</a>
+							</li>					
+						</ul>
+						<div class="tab-content">
+							<div id="home" class="tab-pane in active">
+								<table class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>编号</th>
+											<th>项目名称</th>
+											<th>购买用户</th>
+											<th>支付状态</th>
+											<th>购买金额</th>
+											<th><i class="icon-cog blue"></i>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>叶问3</td>
+											<td>131****7426</td>
+											<td>已支付</td>
+											<td>10000元</td>
+											<td>
+												<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+													<i class="icon-pencil bigger-130 green edit">查看收获地址</i>
+													&nbsp;&nbsp;&nbsp;&nbsp;
+													<i class="icon-cog bigger-110">设置已发货</i>
+												</div>											
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div id="profile" class="tab-pane">
+								
+							</div>
+
+							<div id="setting" class="tab-pane">
+								<table class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>编号</th>
+											<th>姓名</th>
+											<th>领投人头像</th>
+											<th>行业标签</th>
+											<th>领投理由</th>
+											<th>个人简介</th>
+											<th>历史领投产品</th>
+											<th>平台领投产品</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>高政</td>
+											<td><img src="" class="border-radius"/></td>
+											<td>互联网</td>
+											<td>啦啦啦</td>
+											<td>你自己想吧</td>
+											<td></td>
+											<td></td>
+											<td>
+												<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+													<i class="icon-cog bigger-110 green">设定成为领投人</i>
+												</div>											
+											</td>
+											
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>高政</td>
+											<td><img src="" class="border-radius"/></td>
+											<td>互联网</td>
+											<td>啦啦啦</td>
+											<td>你自己想吧</td>
+											<td></td>
+											<td></td>
+											<td>
+												<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+													<i class="icon-cog bigger-110 green">设定成为领投人</i>
+												</div>											
+											</td>
+											
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>高政</td>
+											<td><img src="" class="border-radius"/></td>
+											<td>互联网</td>
+											<td>啦啦啦</td>
+											<td>你自己想吧</td>
+											<td></td>
+											<td></td>
+											<td>
+												<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+													<i class="icon-cog bigger-110 green">设定成为领投人</i>
+												</div>											
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

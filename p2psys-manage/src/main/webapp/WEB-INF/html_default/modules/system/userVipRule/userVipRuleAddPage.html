@@ -1,0 +1,29 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/userVipRule/userVipAddRule.html',"添加成功！","添加失败！");
+	});
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">级别名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" class="w200 easyui-validatebox" data-options="required: true'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">投资金额：</label>
+		     <div class="ipt">
+		     	<input type="text" name="tenderMoney" class="w200 easyui-validatebox" onkeyup="value=value.replace(/[^0-9]/g,'')" data-options="required: true'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">温馨提示：</label>
+		     <div class="ipt">
+		     	VIP级别会自动根据设定限制金额自动评级
+		     </div>
+		</div>
+	</form>
+</div>

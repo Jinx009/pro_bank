@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/userCredit/userCreditApplyEdit.html');	
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+	<div class="formitm">
+		<label class="lab">用户名：</label>
+		<div class="ipt">
+		   ${userCreditApply.user.userName}
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">真实姓名：</label>
+		<div class="ipt">
+		   ${userCreditApply.user.realName} 
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">申请类型：</label>
+		<div class="ipt">
+		  	 借款信用额度
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">申请额度：</label>
+		<div class="ipt">
+		    ${userCreditApply.account} 
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">申请时间：</label>
+		<div class="ipt">
+		   ${userCreditApply.addTime?string("yyyy-MM-dd HH:mm:ss")}
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">内容：</label>
+		<div class="ipt">
+		   ${userCreditApply.content}
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt">
+		   ${userCreditApply.remark} 
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab"> 状态：</label>
+		<div class="ipt">
+		  <input type="radio" name="status" value="1" checked="checked"/>&nbsp;&nbsp;审核通过  
+			<input type="radio" name="status" value="-1"/>&nbsp;&nbsp;审核未通过
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">审核说明： </label>
+		<div class="ipt">
+		   <textarea  name="verifyRemark" class="w400" maxlength="250"></textarea>	
+		</div>
+	</div>
+	<input name="id" value="${id}" type="hidden"/>
+</div>
+</form>

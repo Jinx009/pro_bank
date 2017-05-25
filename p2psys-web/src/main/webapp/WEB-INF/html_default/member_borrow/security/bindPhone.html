@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../settings_menu.html">
+			</div>
+			
+			<#include "../../common/function.html" />
+			<div class="user_right">
+			<h2 class="user_title">绑定手机</h2>
+			<form action="/member/security/doBindPhone.html" method="post" id="J_bindPhone">	
+				<div class="user_right_main border_gray">
+					<div class="user_right_border">
+						<div class="l">修改方式：</div>
+						<div class="c">
+							【密保】 + <font color="red">【手机短信校验码】</font>绑定手机
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">绑定手机：</div>
+						<div class="c">
+							<input type="text" size="15" maxlength="11" id="mobile_phone" name="mobilePhone">
+							<br />
+							<input type="button" class="btn" id="getCodeSms" value="获取校验码">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">校验码：</div>
+						<div class="c">
+							<input type="text" size="10" maxlength="6" id="code" name="code">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l"></div>
+						<div class="c">
+							<input type="submit" value="确&nbsp;&nbsp;认" class="btn sub_btn">
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+<script type="text/javascript">
+$(function(){
+	jQuery.validator.addMethod("isMobile", function(value, element) { 
+		var length = value.length; 
+		var mobile = /^1[3|4|5|8][0-9]{9}$/; 
+		return this.optional(element) || (length == 11 && mobile.test(value)); 
+		}, "请正确填写您的手机号码"); 
+	
+	$('#J_bindPhone').validate({
+		rules:{
+			mobilePhone:{
+				testphone:true
+			},
+			code:"required"
+		},
+		messages:{
+			mobilePhone:{
+				required:"手机号码不能为空"
+			},
+			code:"校验码不能为空"
+		},
+		submitHandler:function(form,event,validator){
+			$(form).ajaxSubmit(function(data){
+				var result = data.result;
+				if(result){
+					window.location.href="/member/main.html"
+				}else{
+					layer.alert(data.msg);
+				}
+			})
+		}
+		
+	});
+	$('#getCodeSms').click(function(){
+		var mobile = /^1[3|4|5|8][0-9]{9}$/; 
+		if($('#mobile_phone').val()!="" && mobile.test($('#mobile_phone').val())){
+			$.ajax({
+				url:'/member/security/bindPhoneCode.html?mobilePhone='+$('#mobile_phone').val(),
+				type:'post',
+				success:function(data){
+					if(data.result){
+						var time=60;
+						var timeFun=setInterval(function(){
+							time--;
+							if(time>0){
+								$('#getCodeSms').val(time+"秒后重新获取").attr("disabled",true);
+							}else{
+								time=60;
+								$('#getCodeSms').val("获取验证码").removeAttr("disabled");
+								clearInterval(timeFun);
+							}
+						},1000);
+					}
+				}
+			});
+		}else{
+			console.log(1);
+			layer.alert("请输入正确的手机号码")
+			return false;
+		}
+	});
+});
+</script>		
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">
+</body>
+</html>

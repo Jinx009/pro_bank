@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<#assign nid="introduction" >
+<#include "../include/resource1.html">
+<#include "../include/header.html">
+<div class="aboutUs_nav_bg">
+	<div class="aboutUs_nav">
+		<h3>关于800Bank</h3>
+		<p>用专业帮您成就财富的长度、深度及广度，我们是您的财富管家。</p>
+		<div class="header-line">了解我们提供的服务</div>
+		<ul class="clearfix">
+			<li><a href="/aboutUs/siteIntro.html">关于我们</a></li>
+			<li><a href="/article/detail.html?nid=zifei">安全保障</a></li>
+			<li><a href="/article/detail.html?nid=news">媒体报道</a></li>
+			<li><a href="/article/detail.html?nid=notice">最新动态</a></li>
+			<li><a href="/article/detail.html?nid=join">招贤纳士</a></li>
+			<li><a href="/aboutUs/questionIntro.html"  class="active">帮助中心</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="cjwt clearfix">
+	 <div class="cjwt-left">
+	 	<ul id="siteList">
+	 		
+	 	</ul>
+	 </div>
+	 <div class="cjwt-right">
+	 	<div class="cjwt-title">
+	 		<h3>对800Bank有任何疑问？</h3>
+	 		<p>您可以拨打客服热线<font>${fuwutel!}</font>，或关注我们的微信号e800Bank、回复问题进行咨询。</p>
+	 	</div>
+        <ul class="cjwt-content">
+        	<li class="cjwt-con" id="cjwt-con71">
+        		<h3>最受欢迎</h3>
+        		<input value="hotQ" type="hidden">
+        	</li>
+        </ul>
+	 </div>
+</div>
+
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/productsIntro");
+</script>
+
+ <#include "../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	$.userLock = true;
+</script>
+
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500;
+	var winHeight = 450;
+	var editUrl =  "/modules/system/financial/getFinancialUserList.html";
+	var editTitle = "选择理财顾问";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userFinancialList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'userId',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'userId',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			autoRowHeight : true,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'userId', title: '编号', width: 50, fixed :true,checkbox : false},
+				{ field: 'userName', title: '用户名', width: 110, fixed :true,checkbox : false},
+				{ field: 'realName', title: '真实姓名', width: 100, sortable: false }
+			]],
+			columns : [ [
+				{ field: 'sex', title: '性别', width: 50, fixed :true,sortable: false ,
+					formatter: function(value,row,index){
+						if(value == 0){
+							return "女";
+						}else if(value == 1){
+							return "男";
+						}
+						return "";
+					}
+				},
+				{ field: 'email', title: '电子邮件', width: 175, sortable: false },
+				{ field: 'mobilePhone', title: '手机号码',fixed :true, width: 100, sortable: false },
+				{ field: 'cardId', title: '身份证号码',fixed :true, width: 150, sortable: false },
+				{ field: 'userCache.userType', title: '用户类型', width: 100, sortable: false ,
+					formatter: function(value,row,index){
+						if(value == 1){
+							return "个人投资人";
+						}else if(value == 2){
+							return "个人借款人";
+						}else if(value == 3){
+							return "投资/借款人";
+						}else if(value == 4){
+							return "机构借款人";
+						}else if(value == 5){
+							return "机构投资人";
+						}
+						return "";
+					}	
+				},
+				{ field: 'apiStatus', title: '实名状态', width: 100, sortable:false, 
+					formatter: function(value,row,index){
+						if(value == 0){
+							return "未认证";
+						}else if(value == 1){
+							return "认证通过";
+						}else if(value == 2){
+							return "待审核";
+						}else if(value == -1){
+							return "认证未通过";
+						}
+						return "";
+					}
+				},
+				{ field: 'addTime', title: '注册时间', width: 150, fixed:true,sortable:false, 
+			          formatter: function(value,row,index){
+			          		return getLocalTime(value,4);
+					}  
+			    },
+			    { field: 'rechargeTotal', title: '充值金额', width: 100, sortable: false },
+			    { field: 'opName', title: '理财顾问', width: 110, sortable: false}
+			] ],
+			loadFilter: function(data){
+				$.each(data.rows,function(index,row){
+					if(row.userIdentify){
+						row.realNameStatus=row.userIdentify.realNameStatus;
+					}
+					if(row.userCache){
+						row.sex=row.userCache.sex;
+						row.userType=row.userCache.userType;
+						row.status=row.userCache.status;
+					} 
+				}); 
+				return data;
+			},
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" autocomplete="off"/></li>
+		        	<li><span>实名状态</span><select name="userIdentify.realNameStatus" id="realNameStatus" class="type">
+							<option value=-2>全部</option>
+							<option value="0">未认证</option>
+							<option value="1">认证通过</option>
+							<option value="2">待审核</option>
+							<option value="-1">认证未通过</option>
+						</select></li>
+					<li><span>用户类型</span><select name="userCache.userType" class="type">
+							<option value="0">全部</option>
+							<option value="1">个人投资人</option>
+							<option value="2">个人借款人</option>
+							<option value="4">机构借款人</option>
+							<option value="5">机构投资人</option>
+						</select></li>
+					<!--<li><span>状态</span><select name="status" class="type">
+	                  <option value="99" selected="selected">全部</option>
+	                  <option value="0">未锁定</option>
+	                  <option value="1">锁定</option>
+	                </select></li>-->
+	                <li><span>充值时间</span><input type="text" name="rStartTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="rEndTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#showAdw');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+			<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <form id="showUserFinancial" class="easyui-layout" data-options="fit:true,border : false">
+                <table id="dataGrid"></table>
+            </form>
+        </div>
+	</div>
+</body>
+</html>
+<script>
+$("#checkAll").click(function(){
+    $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",true);
+    })
+})
+$("#unCheckAll").click(function(){
+     $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",false);
+    })
+})
+$("#triggerButton").click(function(){
+    var flag = false;
+    var ids = [];
+    $('input[type="checkbox"]').each(function(){
+        if($(this).attr("checked"))
+        {
+            flag = true;
+            ids.push($(this).val());
+        }
+    })
+    if(flag)
+    {
+        var url = "/modules/system/financial/getFinancialPage.html?ids="+ids;
+		parent.$.modalDialog({
+			title : "分配理财顾问",
+			width : 500,
+			height : 450,
+			href : url,
+			buttons : [ {
+				text : '确定',
+				handler : function() {
+					parent.$.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+					var f = parent.$.modalDialog.handler.find('#form');
+					f.submit();
+				}
+			} ]
+		});
+    }
+    else
+    {
+        $.messager.alert('提示','请选择至少选中一个');
+    }
+    
+})
+</script>
+<script src="${theme_dir}/js/search.js"></script>

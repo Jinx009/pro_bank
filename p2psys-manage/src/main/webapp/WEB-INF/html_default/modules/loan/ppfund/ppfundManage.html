@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PPfund资金管理产品</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.my_dd
+{
+	width: 120px;
+}
+.my_dd a
+{
+	width:100px;
+	background: white;
+}
+</style>
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  900;
+    var winHeight = 600;
+    var tenderTitle = "购买记录";
+    var tenderUrl =  "/modules/loan/ppfund/ppfundInDetailPage.html";
+    var verifyWinParmeters = "'{0}','"+verifyTitle+"',900,500,'"+verifyUrl+"'";
+    
+    var addTitle = "发布产品";
+    var addUrl =  "/modules/loan/ppfund/ppfundAddPage.html"; 
+    
+    var verifyTitle = "审核产品";
+    var verifyUrl = "/modules/loan/ppfund/ppfundVerifyPage.html";
+    
+    var editTitle = "修改产品";
+    var editUrl = "/modules/loan/ppfund/ppfundEditPage.html";
+    
+    var outTitle = "转出记录";
+    var outUrl = "/modules/loan/ppfund/ppfundOutDetailPage.html";
+    
+    var closeTitle = "真的确定关闭该产品？";
+	var closeUrl = "/modules/loan/ppfund/ppfundClose.html";	//删除记录接口地址
+    
+    var isRecommendUrl = "/modules/loan/ppfund/ppfundRecommend.html"; 
+	var isRecommendTitle = "确定要推荐该产品吗？";
+	
+	var cancleRecommendUrl = "/modules/loan/ppfund/ppfundRecommendCancle.html"; 
+	var cancleRecommendTitle = "确定要取消推荐该产品吗？";
+	
+	var endTitle = "确定停止该产品？";
+	var endUrl = "/modules/loan/ppfund/ppfundEnd.html";
+	
+    var addWechatUrl ="/modules/loan/ppfund/ppfundWechatMaterialPage.html";
+    var wechatTitle="微信素材"
+	
+    $(function() {
+        dataGrid = $('#borrowManagerList').datagrid({
+            url : 'ppfundList.html',
+            fit : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+		singleSelect:true,
+            frozenColumns:[[ 
+                { field: 'id', title: '编号',  fixed:true,sortable:false },
+                { field: 'pidNo', title: '产品编码', width: 150, sortable:false },
+                { field: 'name', title: '产品名称', width: 150, sortable:false }
+            ]],
+            columns : [ [
+            { field: 'status', title: '状态', width: 100, sortable:false , 
+                formatter: function(value,row,index){
+                	if(value == 0)
+                		return "待审核";
+                	else if(value == 1)
+                		return "融资中";
+                	else if(value == 2)
+                		return "审核失败";
+                	else
+                		return "已终止";
+                  }  
+            },
+              { field: 'account', title: '产品金额', width: 120, sortable:false,formatter: function(value,row,index){
+            	  if(value == 0)
+            		  return "金额不限";
+            	  return value+"元";
+              }},
+              { field: 'accountYes', title: '募资金额', width: 120, sortable:false,formatter: function(value,row,index){
+            	  return value+"元";
+              }},
+              { field: 'cycle', title: '周期天数', width: 70, sortable:false,formatter: function(value,row,index){
+            	  return value+"天";
+              }},
+              { field: 'lowestAccount', title: '最低投标金额', width: 120, sortable:false,formatter: function(value,row,index){
+            	  return value+"元";
+              }},
+              { field: 'mostAccount', title: '最高投标金额', width: 120, sortable:false,formatter: function(value,row,index){
+            	  if(value==0){
+            		 return "无限制"; 
+            	  }else{
+            	  return value+"元";
+            	  }
+              } },
+              { field: 'apr', title: '利率', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return value+"%";
+              } }, 
+              { field: 'interestWay', title: '计息方式', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return "T+"+value;
+              } },
+              { field: 'timeLimit', title: '期限', width: 80,fixed:true, sortable:false,formatter: function(value,row,index){
+            	  if(value == 0)
+            		  return "无期限";
+            	  return value + "天";
+              }},
+              { field: 'startTime', title: '开始时间', width: 80,fixed:true, sortable:false},
+              { field: 'endTime', title: '结束时间', width: 80,fixed:true, sortable:false},
+              { field: 'addTime', title: '添加时间', width: 150,fixed:true, sortable:false,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+  				  }  
+              }, 
+              { field : 'action',
+                title : '操作',
+                width :120,
+                fixed:true,
+                align:'center',
+                formatter : function(value, row, index) {
+                	var str = '';
+                  str += '<dl>';
+                  if(row.status == 0)
+                  {
+                	  str += '<dt  class="my_dt" ><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',verifyTitle,winWidth,winHeight,verifyUrl);" title="'+verifyTitle+'">审核</a><i class="iconfont">&#xe639;</i></dt>' ;
+                	  str += '<dd class="my_dd" ><a href="javascript:void(0);"  id="edit" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">修改&nbsp;&nbsp;</a><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.productId+',wechatTitle,winWidth,winHeight,addWechatUrl);" title="'+wechatTitle+'">微信素材&nbsp;&nbsp;</a>' ;
+                  }
+                  else
+                  {
+                	  str += '<dt class="my_dt"  ><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun('+row.id+',tenderTitle,winWidth,winHeight,tenderUrl);" title="'+tenderTitle+'">购买记录</a><i class="iconfont">&#xe639;</i></dt>' ;
+                	  str += '<dd class="my_dd" ><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.productId+',wechatTitle,winWidth,winHeight,addWechatUrl);" title="'+wechatTitle+'">微信素材&nbsp;&nbsp;</a>' ;
+                	  str += '<dd class="my_dd" ><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun('+row.id+',outTitle,winWidth,winHeight,outUrl);" title="'+outTitle+'">转出记录&nbsp;&nbsp;</a>' ;
+                	  if(row.account== 0 || row.account > row.accountYes)
+                	  {
+                		  str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',endUrl,endTitle);">停止慕资&nbsp;&nbsp;</a>';
+                	  }
+                	  if(row.isFixedTerm == 0 && row.status != 3)
+                	  {
+                		  str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',closeUrl,closeTitle);">关闭产品&nbsp;&nbsp;</a>';  
+                	  } 
+                      if(row.isRecommend==0 && (row.account== 0 || row.account > row.accountYes))
+                      {
+                          str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',isRecommendUrl,isRecommendTitle);" title="推荐">推荐产品&nbsp;&nbsp;</a>';
+                   	  }
+                      if(row.isRecommend==1)
+                      {
+                    	  str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',cancleRecommendUrl,cancleRecommendTitle);" title="取消推荐">取消推荐&nbsp;&nbsp;</a>';
+                      }
+                      
+                      str +='<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.productId+',wechatTitle,winWidth,winHeight,addWechatUrl);" title="'+wechatTitle+'">微信素材&nbsp;&nbsp;</a>';
+                  }
+               
+                 /*  str += '<dd class="my_dd" ><a href="javascript:void(0);"  id="edit" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">修改&nbsp;&nbsp;</a><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.productId+',wechatTitle,winWidth,winHeight,addWechatUrl);" title="'+wechatTitle+'">微信素材&nbsp;&nbsp;</a>' ; */
+                  str += '</dd>' 
+                  str +=  '</dl>'
+                  return str;
+                }
+            } ] ]
+        });
+    });
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入产品名称进行搜索"/><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>产品编码</span><input type="text" name="pidNo" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="type">
+	                  <option value="99" selected="selected">全部</option>
+	                  <option value="0">待初审</option>
+	                  <option value="1">融资中</option>
+	                  <option value="2">审核失败</option>
+	                  <option value="3">已终止</option>
+	                </select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="borrowManagerList"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

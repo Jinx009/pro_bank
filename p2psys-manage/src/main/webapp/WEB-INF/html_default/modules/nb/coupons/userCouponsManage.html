@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<#include "../../../../include/resources.html" />
+	<title>800Bank</title>
+	<script type="text/javascript">
+	var dataGrid;
+	var winWidth = 600;
+	var winHeight = 400;
+
+	var addTitle = "导入数据";
+	var addUrl = "/modules/nb/coupons/userCouponsAdd.html";
+
+	var editTitle = "修改信息";
+	var editUrl = "/modules/nb/coupons/userCouponsModify.html";
+
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url: '/modules/nb/coupons/userCouponsList.html',
+			fit: true,
+			fitColumns: true,
+			border: false,
+			pagination: true,
+			idField: 'id',
+			pageSize: pageSize,
+			pageNums: 1,
+			pageList: pageList,
+			sortName: 'id',
+			sortOrder: 'desc',
+			checkOnSelect: false,
+			selectOnCheck: false,
+			nowrap: false,
+			singleSelect: true,
+			columns: [
+				[{
+					field: 'id',
+					title: 'ID',
+					width: 50
+				}, {
+					field: 'category.name',
+					title: '名称',
+					width: 150
+				}, {
+					field: 'code',
+					title: '加息券编号',
+					width: 150
+				}, {
+					field: 'status',
+					title: '状态',
+					width: 80,
+					formatter: function(value, row, index) {
+						if (value == 0) {
+							return '未使用';
+						} else if (value == 1) {
+							return '已使用';
+						} else if (value == 2) {
+							return '过期';
+						} else if (value == 3) {
+							return '已转赠';
+						}
+					}
+				}, {
+					field: 'fromMobile',
+					title: '发券人',
+					width: 120,
+					formatter: function(value, row, index) {
+						if (value == 1) {
+							return '系统';
+						} else {
+							return value;
+						}
+					}
+				}, {
+					field: 'toMobile',
+					title: '用券人',
+					width: 120
+				}, {
+					field: 'toRate',
+					title: '加息比例',
+					width: 80,
+					formatter: function(value, row, index) {
+						return value + '%';
+					}
+				}, {
+					field: 'toRateAdjust',
+					title: '调整后比例',
+					width: 80,
+					formatter: function(value, row, index) {
+						return value + '%';
+
+					}
+				}, {
+					field: 'addTime',
+					title: '添加时间',
+					width: 150,
+					formatter: function(value, row, index) {
+						return getLocalTime(value, 4);
+					}
+				}, {
+					field: 'updateTime',
+					title: '更新时间',
+					width: 150,
+					formatter: function(value, row, index) {
+						return getLocalTime(value, 4);
+					}
+				}, {
+					field: 'action',
+					title: '操作',
+					fixed: true,
+					width: 120,
+					sortable: false,
+					formatter: function(value, row, index) {
+						var str = '';
+						str += '<dl>';
+						str += '<dt style="width:100px;">';
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',editTitle,winWidth,winHeight,editUrl);">调整加息比例</a><i class="iconfont">&#xe639;</i>';
+						str += '</dt>';
+						str += '</dl>'
+						return str;
+					}
+				}]
+			],
+			toolbar: '#toolbar',
+			onLoadSuccess: function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu: function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left: e.pageX,
+					top: e.pageY
+				});
+			}
+		});
+	});
+	</script>
+</head>
+
+<body>
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" name="searchName" class="sInput" placeholder="输入手机号码" />
+					<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+				</form>
+			</div>
+			<div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn">
+					<i class="iconfont">
+						&#xe629;
+					</i>
+					导入TXT
+				</a>
+			</div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>

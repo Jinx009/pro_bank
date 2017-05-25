@@ -1,0 +1,60 @@
+<script type="text/javascript">
+	$(function()
+	{
+		$('#siteNewDialog').dialog(
+		{
+			title : '编辑',
+			width : 800,
+			height : 798,
+			modal : true
+		});
+		 $('#siteNewDialog').dialog("close");     
+	     $.fn.dataGridOptions.formSubFun("#form",'/modules/nb/vip/wealthManager/wealthManagerUpdate.html'); 	  
+	});
+
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="${wealthManager.id}" id="id" name="id" >
+		<div class="formitm">
+			<label class="lab">财富管家名称</label>
+			<div class="ipt">
+				<input type="text" name="name" class="w400 easyui-validatebox" value="${wealthManager.name}" 
+				data-options="required: true" maxlength="30" /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">财富管家头像</label>
+			<div class="ipt">
+			<input type="text" name="icon" class="w400 easyui-validatebox" value="${wealthManager.icon}"
+			data-options="required: false" maxlength="30"/>
+				<input type="file" name="file" id="file" class="w400 easyui-validatebox"  value="${wealthManager.icon}" 
+					 maxlength="30"   style="display:none;"/> 
+					<!-- <input type="button" onclick="javascript:document.getElementById('file').click();" value="浏览"/> -->
+					<div class="input-group-addon" onclick="javascript:document.getElementById('file').click();">浏览</div>
+			</div>
+		</div>		
+		 <div class="formitm">
+			<label class="lab">财富管家电话</label>
+			<div class="ipt">
+				<input type="text" name="phone" class="w400 easyui-validatebox"  value="${wealthManager.phone}" 
+					data-options="required: true" maxlength="30"  /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">财富管家email</label>
+			<div class="ipt">
+				<input type="text" name="email" class="w400 easyui-validatebox"  value="${wealthManager.email}" 
+					data-options="required: false" maxlength="30"  /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">财富管家描述</label>
+			<div class="ipt">
+				<input type="text" name="description" class="w400 easyui-validatebox"  value="${wealthManager.description}" 
+					data-options="required: false" maxlength="30"  /> <b>*</b>
+			</div>
+		</div>
+	</form>
+</div>
+

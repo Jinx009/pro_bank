@@ -1,0 +1,131 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrow/verifyFullBorrow.html');		
+	});
+</script>
+<div class="popShow" style="padding-bottom:0">
+	<h1 class="borrowTitle"><span>标名：</span>${borrow.name}</h1>
+	
+	<div class="showItem">
+		<span>产品标签：</span>
+		${productTypeFlag}
+	</div>
+	<div class="showItem">
+		<span>产品类型：</span>
+		${productType}
+	</div>
+	
+	<#if borrow.type!=122>
+		<div class="showItem">
+			<span>借款人：</span>
+			${user.userName}
+		</div>
+	</#if>
+	<div class="showItem">
+		<span>状态：</span>
+		<#if borrow.status==-1>
+			已撤回
+		<#elseif borrow.status==0>
+			等待初审
+		<#elseif borrow.status==1 && borrow.accountYes == borrow.account>
+			满标待审
+		<#elseif borrow.status==1>
+			招标中
+		<#elseif borrow.status==2>
+			初审未通过
+		<#elseif borrow.status==3>
+			复审通过
+		<#elseif borrow.status==4 || borrow.status==49>
+			复审未通过
+		<#elseif borrow.status==5 || borrow.status==59>
+			用户取消
+		<#elseif borrow.status==6>
+			还款中
+		<#elseif borrow.status==7>
+			部分还款
+		<#elseif borrow.status==8>
+			<#if borrow.type==110 >
+			停止流转
+			<#else>
+			还款成功
+			</#if>
+		<#else>
+			错误状态
+		</#if>
+	</div>
+	<div class="showItem">
+		<span>借款用途：</span>
+		<@linkage plantext='plantext' default=borrow.borrowUse nid="borrow_use"/>
+	</div>
+	<div class="showItem">
+		<span>借款期限：</span>
+		<#if borrow.borrowTimeType==1>${borrow.timeLimit!"-"} 天<#else>${borrow.timeLimit!"-"} 个月</#if>
+	</div>
+	<div class="showItem">
+		<span>还款方式：</span>
+		<@linkage plantext='plantext' default=borrow.style nid="borrow_style"/>
+	</div>
+	<div class="showItem">
+		<span>借款总金额：</span>
+		${borrow.account} 元
+	</div>
+	<div class="showItem">
+		<span>年利率：</span>
+		${borrow.apr} %
+	</div>
+	<#if borrow.type!=110>
+	<div class="showItem">
+		<span>最低投标金额：</span>
+		<#if borrow.lowestAccount??&&borrow.lowestAccount?number gt 0>${borrow.lowestAccount}元<#else>无限制</#if>
+	</div>
+	<div class="showItem">
+		<span>最多投标总额：</span>
+		<#if borrow.mostAccount??&&borrow.mostAccount?number gt 0>${borrow.mostAccount}元<#else>无限制</#if>
+	</div>
+	</#if>
+	<#if borrow.type==110>
+	<div class="showItem">
+		<span>单笔最低投标金额：</span>
+		<#if borrow.lowestSingleLimit??&&borrow.lowestSingleLimit?number gt 0>${borrow.lowestSingleLimit}元<#else>无限制</#if>
+	</div>
+	<div class="showItem">
+		<span>单笔最多投标总额：</span>
+		<#if borrow.mostSingleLimit??&&borrow.mostSingleLimit?number gt 0>${borrow.mostSingleLimit}元<#else>无限制</#if>
+	</div>
+	</#if>
+	<div class="showItem">
+		<span>有效时间：</span>
+		<@linkage plantext='plantext' default=borrow.validTime nid="borrow_valid_time"/>
+	</div>
+	<div class="showItem">
+		<span>添加时间：</span>
+		${borrow.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+	<div class="showItem">
+		<span>IP：</span>
+		${borrow.addIp}
+	</div>
+	<div class="showItem">
+		<span>产品协议类型：</span>
+		${protocolName}
+	</div>
+</div>
+<form id="form" method="post">
+<div class="popForm" style="padding-top:0;">
+	 	<div class="formitm">
+			<label class="lab">是否通过：</label>
+			<div class="ipt">
+				<input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过&nbsp;&nbsp;
+				<input type="radio" name="status" class="easyui-validatebox" value="0" data-options="required: true" checked="checked"/>不通过
+			</div>
+		</div> 
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt">
+			<textarea name="remark" class="w400 easyui-validatebox" data-options="required: true"></textarea>
+		</div>
+	</div>
+	<input name="verifyFullBorrowToken" value="${verifyFullBorrowToken!}" type="hidden">
+	<input name="id" value="${borrow.id}" type="hidden"/>	
+</div>
+</form>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>我的账户</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet">
+  <link href="${webroot}${theme_dir}/wx/css/index.css" rel="stylesheet">
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/progress/js/radialIndicator.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/wechat/index.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/media/js/weburl.js" ></script>
+  <script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+  <script src="${webroot}${theme_dir}/wx/js/jquery.circliful.min.js"></script>
+  <script type="text/javascript">
+  $(function()
+  {
+		$.ajax({
+			url:"/crowdfunding/userMoney.html",
+			type:"POST",
+			dataType:"json",
+			success:function(res)
+			{
+				$("#zc").html(res.zcInvestMoney);
+				$("#span_dj").html(res.noUseMoney);
+				$("#count_mb").html(res.useMoney);
+				$("#count_AMT").html(res.totolMoney);
+			}
+		})  
+  })
+  </script>
+</head>
+<body class="cfff">
+		  <div class="header nonebottom">我的账户</div>
+		  <div class="my">
+			<div class="my-total">
+			  <span class="fs12">总资产</span>
+			  <div class="my-total-amount"><span class="fs16">￥</span><span class="money" id="count_AMT">0</span></div>
+			</div>
+			<!--
+			<div class="my-amount"><span>账户余额</span><span class="fr fs16" ><span class="fs12">￥</span><span id="count_mb">0</span></span></div>
+			-->
+		  </div>
+		  <div class="my-row" style="margin:0;padding-left:20px;">
+			<span>账户余额</span>
+			<span class="fr fs14"><em class="fs12" >￥</em><span id="count_mb">0</span></span>
+		  </div>
+		  <div class="my-row" style="margin:0;padding-left:20px;">
+			<span>冻结金额</span>
+			<span class="fr fs14"><em class="fs12" >￥</em><span id="span_dj">0</span></span>
+		  </div>
+		  <div class="my-row" style="margin:0;padding-left:20px;">
+			<span>微投</span>
+			<span class="fr fs14"><em class="fs12" >￥</em><span id="span_mb">0</span></span>
+		  </div>
+		  <div class="my-row" style="margin:0;padding-left:20px;">
+			<span>众筹</span>
+			<span class="fr fs14"><em class="fs12">￥</em><font id="zc" ></font></span>
+		  </div>
+		  <div class="my-row" style="margin:0;padding-left:20px;">
+			<span>优选</span>
+			<span class="fr fs14"><em class="fs12">￥</em>0</span>
+		  </div>
+	
+		  <div class="fluid-button">
+			<div class="fluid-col">
+			  <a class="button button-main" href="/wx/account/newCash.html">提现</a>
+			</div>
+			<div class="fluid-col"><a class="button button-main" href="/wx/account/newRecharge.html">充值</a></div>
+		  </div>
+		  <div class="list-tip" style="margin-top: 10px;">
+			<img src="${webroot}${theme_dir}/wx/static/css/images/T_arrow.png">以上收益金额为预期到期收益金额
+		  </div>
+		  <div style="height:100px;"></div>
+		
+		
+		<div class="bar">
+	<div class="toggle" id="ichi">
+		<div>
+			<img class="press-icon" alt="" 
+				src="${webroot}${theme_dir}/wx/img/home_normal.png" id="ichiichi">
+		</div>首页
+	</div>
+	<div class="toggle" id="ni">
+		<div style="position: relative;">
+			<img class="press-icon" alt=""	src="${webroot}${theme_dir}/wx/img/lise_normal.png" id="nini">
+		</div>
+		<a href="/wechat/crowdfunding/index.html"	style="color: white" >产品系列</a>
+	</div>
+	<div class="toggle" id="san">
+		<div  >
+			<img class="press-icon" src="${webroot}${theme_dir}/wx/img/account_normal.png" id="sansan">
+		</div>
+		<a	style="text-decoration: none; color: white">我的账户</a>
+	</div>
+	<div class="toggle" id="yon">
+		<div onclick="goThisMorePage()">
+			<img class="press-icon"	src="${webroot}${theme_dir}/wx/img/more_normal.png" id="yonyon">
+		</div>
+		<a 	style="text-decoration: none; color: white">更多</a>
+	</div>
+</div>
+		
+</body>
+</html>

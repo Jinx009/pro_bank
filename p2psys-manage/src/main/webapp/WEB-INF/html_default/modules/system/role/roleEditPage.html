@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/role/roleEdit.html');	
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+		<div class="formitm">
+		     <label class="lab">角色名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" class="w300 easyui-validatebox" value="${role.name}" data-options="required: true,validType:'chinese'"  maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea name="remark" class="w300 easyui-validatebox">${role.remark}</textarea>	
+		     </div>
+		</div>
+		<input name="addTime" value="${role.addTime!}" type="hidden">
+		<input name="addUser" value="${role.addUser!}" type="hidden">
+		<input name="id" value="${role.id}" type="hidden"/>
+</div>
+</form>

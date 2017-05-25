@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="member" >
+
+<!--找回密码 开始-->
+	   <#include "../include/header.html">
+    
+    <div class="bgcolor">
+    <!--container开始-->
+    <div id="container">
+         <div class="getpwd_content">
+             <div class="currentPath">当前位置：<a href="javascript:void(0);">忘记密码</a></div>
+             <div class="getpwd_con">
+             	<br />
+             	<div class="text_center">
+             		<b>请选择一种<font color="#f00">找回密码</font>的方式</b>
+             		<br>
+             		若无法通过上述方式找回，建议您<a href="/user/register.html" style="color:#f00">重新注册</a> 
+             	</div>
+             	
+             	<br />
+             	<div class="get_type clearfix">
+             		<div class="get_type_item get_type_item_e clearfix">
+             			<span class="right_span IE6block">
+             				<h3>我激活过邮箱</h3>
+             				<a href="/user/getPayPwd.html?showType=1">找回密码</a>
+             			</span>
+             			<span class="left_span IE6block">
+             				<b class="item_img em_item_img"></b>
+             			</span>
+             		</div>
+             		<div class="get_type_item get_type_item_p clearfix">
+             			<span class=" right_span IE6block">
+             				<h3>我认证过手机</h3>
+             				<a href="/user/getPayPwd.html?showType=2">找回密码</a>
+             			</span>
+             			<span class="left_span IE6block">
+             				<b class="item_img ph_item_img"></b>
+             			</span>
+             			
+             		</div>
+             	</div>
+             	
+             	
+             </div>
+         </div>
+    </div>
+    </div>
+
+
+<!--找回密码 结束-->
+<#include "../include/footer.html"> 
+</body>
+</html>

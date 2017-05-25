@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<meta name="viewport" content="width=100%;initial-scale=1.0;maximum-scale=1.0;minimum-scale=1.0;user-scalable=no;" >
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>我的账户</title>
+	<style type="text/css">
+		*{margin:0;padding:0;font-size:15px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+		.h_all{width:640px;height:1006px;margin:0 auto;box-shadow:0px 1px 4px 0px #666;}
+		a{text-decoration:none;}
+		ul li{display:block;list-style:none;}
+		/* count_header start */
+		.h_all .count_header{width:100%;height:90px;background-color:#2370B6;text-align:center;line-height:90px;padding:0 0;font-size:30px;color:#fff;}
+		/*end count_header */
+
+		/* count_sum start */
+		.h_all .count_sum{width:100%;height:245px;background-color:#81D8D0;border-bottom:1px solid #fff;}
+		.h_all .count_sum .count_sumb{font-family:Microsoft YaHei;font-size:24px;color:#fff;padding:40px 0 0 40px;}
+		.h_all .count_sum .count_ma{margin:0 auto;text-align:center;}
+		.h_all .count_sum .count_ma .count_money{font-family:Microsoft YaHei;font-size:30px;color:#fff;line-height:150px;}
+		.h_all .count_sum .count_ma .count_AMT{font-family:Microsoft YaHei;font-size:60px;color:#fff;}
+		.h_all .count_sum .count_ma .count_AMT .count_decimals{font-family:Arial;font-size:45px;color:#fff;}
+		/* end count_sum */
+
+		/* count_balance start */
+		.h_all .count_balance{width:100%;height:100px;background-color:#81D8D0;}
+		.h_all .count_balance .count_b{float:left;font-family:Microsoft YaHei;font-size:26px;padding:35px 0 0 40px;color:#fff;}
+		.h_all .count_balance .count_m{float:right;padding:35px 30px 0 0;}
+		.h_all .count_balance .count_m .count_my{font-family:Microsoft YaHei;font-size:16px;color:#fff;}
+		.h_all .count_balance .count_m .count_mb{font-family:Microsoft YaHei;font-size:26px;color:#fff;}
+		/* end count_balance */
+
+		/* count_detail start */
+		.h_all .count_detail{width:582px;margin-left:55px;}
+		.h_all .count_detail ul li{width:100%;height:80px;border-bottom:1px solid #D7D7D7;line-height:80px;}
+		.h_all .count_detail ul li .span_first{float:left;font-family:Microsoft YaHei;font-size:24px;color:#666;}
+		.h_all .count_detail ul li .span_second{float:right;margin-right:24px;}
+		.h_all .count_detail ul li .span_second .span_m{font-family:Microsoft YaHei;font-size:17px;color:#666;}
+		.h_all .count_detail ul li .span_second .span_mb{font-family:Microsoft YaHei;font-size:24px;color:#666;float:right;}
+		/* end count_detail */
+
+		/* count_config_details start */
+		.h_all .count_config_details{height:45px;border:1px solid #D4D4D4;border-radius:5px;width:180px;text-align:center;float:right;margin:24px 20px 0 0;}
+		.h_all .count_config_details:hover{cursor:pointer;opacity:0.8;-ms-filter:”progid:DXImageTransform.Microsoft.Alpha(Opacity=80)”;
+			filter: alpha(opacity=80);}
+		.h_all .count_config_details a{font-family:Microsoft YaHei;font-size:26px;line-height:45px;color:#959595;}
+		/* end count_config_details */
+
+		/* count_btn start */
+		.h_all .count_btn{width:100%;height:75px;float:left;margin-top:20px;}
+		.h_all .count_btn .btn_cash{width:290px;height:75px;border-radius:5px;text-align:center;background:#2370B6;float:left;margin:0 20px 0 20px;}
+		.h_all .count_btn .btn_cash:hover{background:#249FF1;}
+		.h_all .count_btn .btn_cash a{line-height:75px;color:#fff;font-family:Microsoft YaHei;font-size:25px;}
+		.h_all .count_btn .btn_recharge{width:290px;height:75px;border-radius:5px;text-align:center;background:#2370B6;float:left;}
+		.h_all .count_btn .btn_recharge:hover{background:#249FF1;}
+		.h_all .count_btn .btn_recharge a{line-height:75px;color:#fff;font-family:Microsoft YaHei;font-size:25px;}
+		/* end count_btn */
+
+		/* count_description start */
+		.h_all .count_description{width:100%;height:48px;float:left;margin-top:10px;}
+		.h_all .count_description img{display:block;width:22px;height:22px;margin: 13px 0 0 139px;}
+		.h_all .count_description span{float:left;line-height:46px;padding:0 auto;margin: -33px 0 0 169px;font-family:Microsoft YaHei;font-size:22px;color:#AEAEAE;}
+		/* end count_description */
+
+		/*count_bottom start*/
+		.h_all .count_bottom{width:640px;height:92px;background:#363D3F;bottom:0;position:fixed;float:left;}
+		.h_all .count_bottom ul li{height:92px;width:80px;display: inline-block;padding: 6px 0 0 65px;color:#fff;}
+		.h_all .count_bottom ul li:hover{cursor:pointer;}
+		.h_all .count_bottom ul li a{color:#fff;}
+		.h_all .count_bottom ul li a:hover{color:#81D8D0;}
+		.h_all .count_bottom ul li a i{display:block;width:52px;height:52px;}
+		.h_all .count_bottom ul .count_home a .icon_home{background:url(images/home.png) no-repeat;}
+		.h_all .count_bottom ul .count_home a .icon_home:hover{background-position:0 -54px;}
+		.h_all .count_bottom ul .count_home a p{padding: 5px 10px;}
+
+		.h_all .count_bottom ul .count_lise a .icon_lise{background:url(images/lise.png) no-repeat;margin-left: 13px;}
+		.h_all .count_bottom ul .count_lise a .icon_lise:hover{background-position:0 -54px;}
+		.h_all .count_bottom ul .count_lise a p{padding: 5px 10px;}
+
+		.h_all .count_bottom ul .count_account a .icon_account{background:url(images/account.png) no-repeat;margin-left:12px;}
+		.h_all .count_bottom ul .count_account a .icon_account:hover{background-position:0 -54px;}
+		.h_all .count_bottom ul .count_account a p{padding: 5px 10px;}
+
+		.h_all .count_bottom ul .count_more a .icon_more{background:url(images/more.png) no-repeat;}
+		.h_all .count_bottom ul .count_more a .icon_more:hover{background-position:0 -54px;}
+		.h_all .count_bottom ul .count_more a p{padding: 5px 10px;}
+		/* end count_bottom */
+
+	</style>
+ </head>
+ <body>
+		<div class="h_all">
+				<div class="count_header" >
+					我的账户
+				</div>
+				<!-- count_sum start -->
+				<div class="count_sum">
+						<p class="count_sumb">总资产</p>
+						<p class="count_ma">
+							<span class="count_money">￥</span>
+							<span class="count_AMT">
+									52788<span class="count_decimals">.00</span>
+							</span>
+						</p>
+				</div>
+				<!-- end count_sum -->
+				<!-- count_balance start -->
+				<div class="count_balance">
+						<span class="count_b">账户余额</span>
+						<span class="count_m">
+							<span class="count_my">￥</span>
+							<span class="count_mb">12360.89</span>
+						</span>
+				</div>
+				<!-- end count_balance -->
+				<!-- count_detail start -->
+				<div class="count_detail">
+						<ul>
+							<li>
+								<span class="span_first">微投资</span>
+								<span class="span_second">
+									<span class="span_m">￥</span>
+									<span class="span_mb">20000.00</span>
+								</span>
+							</li>
+							<li>
+								<span class="span_first">跟投(众筹)</span>
+								<span class="span_second">
+										<span class="span_m">￥</span>
+										<span class="span_mb">20000.00</span>
+								</span>
+							</li>
+							<li>
+								<span class="span_first">优选</span>
+								<span class="span_second">
+										<span class="span_m">￥</span>
+										<span class="span_mb">30788.00</span>
+								</span>
+							</li>
+						</ul>
+				</div>
+				<!-- end count_detail -->
+				<!-- count_config_details start -->
+				<div class="count_config_details">
+						<a href="javascript:void(0);">资产配置详情</a>
+				</div>
+				<!-- end count_config_details -->
+				<!-- count_btn start -->
+				<div class="count_btn">
+						<div class="btn_cash">
+							<a href="javascript:void(0);">提现</a>
+						</div>
+						<div class="btn_recharge">
+							<a href="javascript:void(0);">充值</a>
+						</div>
+				</div>
+				<!-- end count_btn -->
+				<!-- count_description start -->
+				<div class="count_description">
+						<img src="images/T_arrow.png" width="22" height="22" alt="以上收益金额为预期到期收益金额" />
+						<span>以上收益金额为预期到期收益金额</span>
+				</div>
+				<!-- end count_description -->
+				<!-- count_bottom start-->
+				<div class="count_bottom">
+					<ul>
+						<li class="count_home">
+							<a href="javascript:void(0);" >
+								<i class="icon_home"></i>
+								<p >首页</p>
+							</a>
+						</li>
+						<li class="count_lise">
+							<a href="javascript:void(0);" >
+								<i class="icon_lise"></i>
+								<p >产品系列</p>
+							</a>
+						</li>
+						<li class="count_account">
+							<a href="javascript:void(0);" >
+								<i class="icon_account"></i>
+								<p >我的账户</p>
+							</a>
+						</li>
+						<li class="count_more">
+							<a href="javascript:void(0);" >
+								<i class="icon_more"></i>
+								<p >更多</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- end count_bottom -->
+		</div>
+ </body>
+</html>

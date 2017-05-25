@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>800众服</title>		
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script src="/themes/theme_default/cf/js/common.js" ></script>
+		<script src="/themes/theme_default/cf/js/raphael-min.js" ></script>
+		<script src="/themes/theme_default/cf/js/morris.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/cash/cash_newCash.js"></script>
+		<style type="text/css">
+		.tips p{
+			color: #ff7777;
+		}
+		</style>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>线上提现</h3>
+					</div>
+					
+					<div class="cash-wrap">
+						<div class="cash-left col-no-padding" id="cashForm"> 
+							<form class="form-horizontal">
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">提现银行卡:</label>
+								    <div class="col-sm-9 col-no-padding" id="pic">
+								    	<img src=""/>******9372
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">可用余额:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<p class="help-block investMoney" id="useMoney">0元</p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">提现金额:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<input type="text" name="money" id="money" class="form-control" placeholder="提现金额" value="" maxlength="12" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" aria-required="true" aria-invalid="true" aria-describedby="money-error" size="10"  autocomplete="off">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding tips">
+								    	<p class="help-block text-right has-error" id="cash_tips" ></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">选择地区:</label>
+								    <div class="col-sm-9 col-no-padding" id="addBankCode" >
+								    	<select class="form-control col-sm-inp" id="province"  name="province"  onclick="loadCity('province');" onchange="getCityInfo(this.value,'city');" >
+								    		<option value="" selected="selected">请选择省份</option>
+								    	</select>
+								    	<span class="col-sm-bottom">-</span>
+								    	<select class="form-control col-sm-inp"  id="city"  name="city"  onchange="" >
+								    		<option value="" selected="selected">请选择市区</option>
+								    	</select>
+								    	
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding tips">
+								    	<p class="help-block text-right has-error" id="citys_tips" ></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">支行名称:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<input type="text" class="form-control" name="branch" id="branch" placeholder="支行名称" value="" maxlength="12"  autocomplete="off">
+								    </div>
+								    <p style="width:100%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:20px;font-size:0.8em;">如不确定，请联系银行客服查找</p>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding tips">
+								    	<p class="help-block text-right has-error" id="branch_tips" ></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">交易密码:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<input type="password" name="payPwd" id="payPwd" class="form-control" id="exampleInputPassword1"  placeholder="交易密码">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding tips">
+								    	<p class="help-block text-right has-error" id="trdPwd_tips" ></p>	
+								    </div>
+								</div>
+								<input type="hidden" id="isCityType" value="0">
+								<input type="hidden"  id="cashToken" name="nbCashToken" value="${nbCashToken!}">
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<button class="sure-btn" type="button" id="sub">确认提现</button>
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<a href="#"><p class="text-right pwd">忘记密码</p></a>
+								    </div>
+								</div>
+							</form>
+							
+						</div>
+						<div class="cash-right">
+							<div>
+								<h3>温馨提示：</h3>
+								<p>1.预计到账时间：工作日14:00之前申请提现，预计T+1个工作日到账；工作日14:00以后申请提现，预计T+2个工作日到账；
+									遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。</p>
+								<p>2.提现手续费2元/笔，推广期间免费。每日限提2次</p>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			showLi("user_li");
+			changeLeftMenue("提现","线上提现");
+		</script>
+	</body>
+</html>

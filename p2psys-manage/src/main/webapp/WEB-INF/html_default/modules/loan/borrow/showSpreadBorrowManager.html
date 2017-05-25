@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>流标管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 400;
+    var borrowDetailTitle = "查看借款标";
+    var borrowDetailUrl =  "/modules/loan/borrow/showBorrowDetailPage.html?flow=true";
+    var	borrowDetailWinParmeters = "'{0}','"+borrowDetailTitle+"',700,360,'"+borrowDetailUrl+"'";
+
+    var tenderListTitle="投标记录";
+    var tenderListUrl =  "/modules/loan/borrow/tenderDetailPage.html"; 
+    var tenderListWinParmeters = "'{0}','"+tenderListTitle+"',900,500,'"+tenderListUrl+"'";
+
+    var stopFlowTitle="确定要停止流转吗?停止流转后将不可恢复";
+    var stopflowUrl = "/modules/loan/borrow/stopFlowPage.html";	
+    var stopflowWinParmeters = "'{0}','"+stopFlowTitle+"',700,420,'"+stopflowUrl+"','确定'";
+
+    var confirmUrl = "/modules/loan/borrow/registerBorrowResult.html";
+    var openUrl= "/modules/loan/borrow/cancelBorrowSkip.html";
+    var registerBorrowParmeters = "'{0}','" + openUrl+"'";
+
+    var cancelBorrowTitle="确定要进行撤标操作吗?撤回后将不可恢复";
+    var cancelBorrowUrl="/modules/loan/borrow/cancelBorrowPage.html?flow=true";
+    var cancelBorrowWinParmeters = "'{0}','"+cancelBorrowTitle+"',1020,600,'"+cancelBorrowUrl+"','确定'";
+
+    var stopBorrowTitle="确定要截标吗？";
+    var stopBorrowUrl = "/modules/loan/borrow/stopBorrowPage.html?flow=true"; 
+    var stopBorrowWinParmeters = "'{0}','"+stopBorrowTitle+"',1100,600,'"+stopBorrowUrl+"','确定'";
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'showSpreadBorrowList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50,sortable:false },
+			  { field: 'bidNo', title: '产品编码',  fixed:true,sortable:false },
+			  { field: 'companyName', title: '借款公司名称',  fixed:true,sortable:false },
+              { field: 'name', title: '标名', width: 150, sortable:false },  
+              { field: 'type', title: '类型', width: 60, sortable:false , 
+					formatter: function(value,row,index){
+						return borrowType(value);  
+    				}  
+              },
+              { field: 'account', title: '借款金额', width: 80, formatter:function(value,row,index){
+            	  return value+"元";
+              } },
+//               { field: 'flowMoney', title: '最小认购单位', width: 100, sortable:false,formatter: function(value,row,index){
+//               		if(row.type!=110){
+//               			return '-';
+//               		}else{
+//               			return value+"元";
+//               		}
+//               	}	  
+//               },
+              { field: 'apr', title: '利率', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return value+"%";
+              } }, 
+              { field: 'timeLimit', title: '借款期限', width: 80, sortable:false,
+            	  formatter: function(value,row,index){
+	  					if (row.borrowTimeType == 1){
+	  						return value + "天";
+	  					} else {
+	  						return value + "个月";
+	  					}
+				  	}   
+              },
+              { field: 'addTime', title: '发布时间', width: 150,sortable:false, 
+            	  	formatter: function(value,row,index){
+            	  		return getLocalTime(value,4);
+  				  	}  
+              },
+              { field: 'scales', title: '进度', width: 80, sortable:false,formatter: function(value,row,index){
+            	  return value+"%";
+              }},
+              { field : 'action',
+                title : '操作',
+                width :75,
+                align:'center',
+                fixed:true,
+                formatter : function(value, row, index) {
+                 	var str = '';
+                  str += '<dl>';
+                  str += '<dt><a href="javascript:void(0);" onclick="$.fn.formOptions.viewFun('+row.id+',borrowDetailTitle,winWidth,winHeight,borrowDetailUrl);" title="'+borrowDetailTitle+'">查看</a><i class="iconfont">&#xe639;</i></dt>' ;
+                  str += '<dd>';
+                  str += '<a href="javascript:void(0);" onclick="$.fn.formOptions.viewFun('+row.id+',tenderListTitle,winWidth,winHeight,tenderListUrl);" title="'+tenderListTitle+'">记录</a>';       
+                	if(${isOpenApi} && ${api_code}==2){
+	                 	if(row.status==0||row.status==1||row.status==2||row.status==4)
+                        {
+                          str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.registerCancelBorrowFun('+row.id+',openUrl);" title="撤标">撤标</a>';
+	                  }
+                	}
+                  else
+                  {
+                		if(row.type==110)
+                        {
+                              str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',stopFlowTitle,winWidth,winHeight,stopflowUrl);" title="'+stopFlowTitle+'">停止</a>';
+                     	}
+                        else
+                        {
+                     		if(row.status==0||row.status==1||row.status==2||row.status==4){
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',cancelBorrowTitle,winWidth,winHeight,cancelBorrowUrl);" title="'+cancelBorrowTitle+'">撤标</a>';
+                         	}
+                     	}
+                	}
+                	if(row.status==1 && (row.account>row.accountYes)&&(row.accountYes>0) && row.type != 101){
+                        str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',stopBorrowTitle,winWidth,winHeight,stopBorrowUrl);" title="'+stopBorrowTitle+'">截标</a>';
+                    }
+	                str += '</dd>'
+                      str +=  '</dl>'
+                      return str;
+                }
+            } ] ]
+        }); 
+        
+    });
+       
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入借款公司名称/标名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        
+		       		<li><span>借款公司名称</span><input type="text" name="companyName" autocomplete="off"/></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,68 @@
+<ul class="main-nav">
+	<li><a href="/cf/user/main.html">我的资产</a></li>
+	<li><a href="/cf/user/myAttention.html">我的关注</a></li>
+	<li><a href="/cf/user/buy-list.html">我的众筹</a></li>
+	<li><a href="/cf/user/myLeader.html">我的领投</a></li>
+	<li><a href="/cf/user/fund.html">资金记录</a></li>
+	<li><a href="/cf/user/infor.html">我的资料</a></li>
+	<li><a href="/cf/user/meet.html">合格投资人</a></li>
+	<li data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><a>充值</a></li>
+	<div id="collapseTwo" class="panel-collapse collapse collapse-nav" role="tabpanel">
+		<p><a href="/cf/user/recharge.html">线上充值</a></p>
+		<p><a href="/cf/user/offlinerecharge.html">线下充值</a></p>
+	</div>
+	<li data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><a>提现</a></li>
+	<div id="collapseOne" class="panel-collapse collapse collapse-nav" role="tabpanel">
+		<p><a href="/cf/user/cash.html">线上提现</a></p>
+		<p><a href="/cf/user/offlinecash.html">线下提现</a></p>
+	</div>
+</ul>
+<script type="text/javascript">
+	/**
+	 * 修改账户中心左边导航选中状态
+	 * @param leftMenueName
+	 * @param itemName
+	 */
+	function changeLeftMenue(leftMenueName,itemName){
+		$("#collapseOne").removeClass("in");
+		$("#collapseTwo").removeClass("in");
+		$(".main-nav li").each(function(){
+			$(this).removeClass("active");
+			
+			var textValue = $(this).find("a").text();
+			
+			if(textValue==leftMenueName){
+				$(this).addClass("active");
+				if(textValue=="提现"){
+					$("#collapseOne").addClass("in");
+				}
+				if(textValue=="充值"){
+					$("#collapseTwo").addClass("in");
+				}
+				if(null!=itemName&&""!=itemName){
+					var itemName_val_one = $("#collapseOne p a").text();
+					var itemName_val_two = $("#collapseTwo p a").text();
+					
+					$("#collapseOne p").each(function(){
+						$(this).removeClass("active");
+						var textValue1 = $(this).children("a").text();
+						if(textValue1==itemName){
+							$(this).addClass("active");
+						}
+					})
+				
+					$("#collapseTwo p").each(function(){
+						$(this).removeClass("active");
+						var textValue2 = $(this).children("a").text();
+						if(textValue2==itemName){
+							$(this).addClass("active");
+						}
+					})
+					
+					
+					
+				}
+			}
+		})
+	}
+</script>

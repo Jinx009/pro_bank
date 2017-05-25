@@ -1,0 +1,68 @@
+<script type="text/javascript">
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '添加',
+		width: 900,
+		height: 800,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/productSort/productTypeAdd.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input id="isEnable" name="isEnable" value="1" type="hidden" />
+		<div class="formitm">
+			<label class="lab">
+				类别名称
+			</label>
+			<div class="ipt">
+				<input type="text" name="typeName" id="typeName" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别编码
+			</label>
+			<div class="ipt">
+				<input type="text" name="typeCode" id="typeCode" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" onkeyup="this.value=this.value.replace(/\D/g,'')" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别描述
+			</label>
+			<div class="ipt">
+				<input type="text" name="typeDescription" id="typeDescription" class="w400 easyui-validatebox" data-options="required: true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				类别备注
+			</label>
+			<div class="ipt">
+				<textarea name="remark" id="remark" class="w400 easyui-validatebox" data-options="required: false"></textarea>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				产品类别特征
+			</label>
+			<div class="ipt">
+				<input type="radio" value="现金类产品" checked="checked" name="typeCategory" style="margin-right: 3px;margin-left: 5px;" /> 现金类产品
+				<br/>
+				<input type="radio" value="非现金类产品" name="typeCategory" style="margin-right: 3px;margin-left: 5px;" /> 非现金类产品
+				<br/>
+				<input type="radio" value="新手专享" name="typeCategory" style="margin-left: 5px;" /> 新手专享
+				<br/>
+				<input type="radio" value="五星专享" name="typeCategory" style="margin-left: 5px;" /> 五星专享
+				<br/>
+				<input type="radio" value="VIP" name="typeCategory" style="margin-left: 5px;" /> VIP
+			</div>
+		</div>
+	</form>
+</div>

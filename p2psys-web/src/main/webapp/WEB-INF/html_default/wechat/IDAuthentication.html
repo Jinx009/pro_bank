@@ -1,0 +1,44 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="text/content" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" >
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>身份认证</title>
+<link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet" />
+ </head>
+ <body>
+		<form id="payAccountForm" method="post" name="form1" action="/member/security/doRegisterAccount.html" enctype="multipart/form-data" novalidate="novalidate">
+		<div class="header">
+				身份认证
+		</div>
+		<div class="input-group m10">
+				<div class="input-row">
+						<div class="input-row-inner">
+								<input type="text" name="idCardNo" id="cardId" autocomplete="off" class="input-text" placeholder="身份证号" />
+						</div>
+						<div class="input-error-tip"></div>
+				</div>
+				<div class="input-row">
+						<div class="input-row-inner">
+								<input type="text" name="realName" autocomplete="off" class="input-text" placeholder="真实姓名" />
+						</div>
+						<div class="input-error-tip"></div>
+				</div>
+		 </div>
+		 <!--
+		 <a class="button button-block button-main" style="margin-top: 25px;text-decoration:none;" href="javascript:void(0);" onclick="form1.submit();">提交</a>
+		 -->
+		<input class="button button-block button-main mt25" style="width: 93%;margin:auto;" type="submit" value="提交" />
+		<input type="hidden" name="user_id" value="${session_user.userId}" />
+		<input type="hidden" name="mobile"  id="mobilePhone" value="${session_user.mobilePhone!''}" />
+		</form>
+		<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    	<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+		<script type="text/javascript">
+			seajs.use('${webroot}${theme_dir}/wx/js/security_realNameIdentify');
+		</script>
+ </body>
+</html>

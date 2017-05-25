@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+
+@media screen and (min-width: 1240px) {
+	* {
+		max-width: 640px;
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	/*max-width: 640px;*/
+}
+
+body {
+	font-family: Microsoft YaHei, Helvetica;
+	font-size: .875em;
+	-webkit-text-size-adjust: 100%;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.header {
+	background: #2370B6;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	height: 55px;
+	line-height: 55px;
+}
+
+.icon-div {
+	text-align: center;
+}
+
+.icon {
+	width: 68px;
+	height: 68px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.msg {
+	margin-top: 10px;
+}
+
+.btn {
+	background: #2370B6;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	height: 50px;
+	line-height: 50px;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 50px;
+	/*	-moz-border-radius: 5px;*/
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}

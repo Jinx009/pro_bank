@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function() {
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/coupons/userCouponsAddConfirm.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<div class="formitm">
+			<label class="lab">
+				文件
+			</label>
+			<div class="ipt">
+				<input type="file" id="file" name="file" class="easyui-validatebox" data-options="required:true" style="width:200px;" />
+				<b>*</b>
+			</div>
+			<input type="hidden" id="txtUrl" name="txtUrl" />
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				加息券类型
+			</label>
+			<div class="ipt">
+				<select id="categoryId" name="categoryId" style="width:200px;">
+					<option>请选择加息券类型</option>
+					<#if categoryList ??>
+						<#list categoryList as item>
+							<option value="${item.id}">${item.name}(${item.id})</option>
+						</#list>
+					</#if>
+				</select>
+				<b>*</b>
+			</div>
+		</div>
+	</form>
+</div>

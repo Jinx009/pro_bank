@@ -1,0 +1,114 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/verifyGoods.html');
+    });
+</script>
+<div class="popShow" style="padding-bottom:0">
+        <div class="showItem">
+            <span>商品名称：</span>${goods.name}
+        </div>
+        <div class="showItem">
+            <span>商品类别：</span>${category.name}
+        </div>
+        <div class="showItem">
+            <span>商品状态：</span><#if goods.status?? && goods.status == 0 >待审核
+            <#elseif goods.status?? && goods.status == 1>审核通过<#elseif goods.status?? && goods.status == -1>审核未通过</#if>
+        </div>
+        <div class="showItem">
+            <span>商品类型：</span><#if goods.type?? && goods.type == 0 >待上架
+            <#elseif goods.type?? && goods.type == 1>上架<#elseif goods.type?? && goods.type == -1>下架</#if>
+        </div>
+        <div class="showItem">
+            <span>所需积分：</span>${goods.score}
+        </div>
+        <div class="showItem">
+            <span>市场价：</span>${goods.marketPrice}
+        </div>
+        <div class="showItem">
+            <span>商城售价：</span>${goods.cost}
+        </div>
+        <div class="showItem">
+            <span>商品库存：</span>${goods.store}
+        </div>
+</div>
+<div class="popForm" style="padding-top:0;padding-bottom:0;">
+      <div class="formitm">
+		<label style="width:130px;" class="lab">商品详情：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="description" name="description" type="text/plain">${goods.description}</script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品属性信息：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="attribute" name="attribute" type="text/plain">${goods.attribute}</script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品备注：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<textarea name="remark" style="width:690px;" class="easyui-validatebox" readonly maxlength="255">${goods.remark}</textarea>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品图片：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<ul id="uploadPiclist" style="list-style: none; padding: 0; margin: 0;">
+               <#if picList?? && picList.size() gt 0 >
+                 <#list picList as item>
+                    <li data-mum="${item.id?c}">
+                       <img style="width: 100px; height: 100px;"src="${item.picUrl}" alt="">
+                    </li>
+                </#list>
+            </#if>
+            </ul>
+		</div>
+	</div>
+</div>
+<input name="id" value="${goods.id}" type="hidden">
+<input name="editToken" value="${editToken!}" type="hidden">
+<form id="form" method="post">
+<div class="popForm" style="padding-top:0;">
+	<div class="formitm">
+		<label style="width:130px;" class="lab">是否通过：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过
+			<input type="radio" name="status" class="easyui-validatebox" value="-1" data-options="required: true"/>不通过
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">备注：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<textarea name="operatorRemark" class="w300 easyui-validatebox" data-options="required: true"></textarea>
+		</div>
+	</div>
+	<input name="verifyToken" value="${verifyToken!}" type="hidden">
+	<input name="id" value="${goods.id}" type="hidden"/>	
+</div>
+</form>
+<!-- 编辑器 -->
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var descriptionBox = UE.getEditor('description', {
+        autoHeight: false,
+        initialFrameHeight: 200,
+        initialFrameWidth:710,
+        toolbars: [
+                   ['fullscreen', 'undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                    'fontsize',]
+               ],
+      readonly:true
+    });
+    var descriptionBox = UE.getEditor('attribute', {
+        autoHeight: false,
+        initialFrameHeight: 200,
+        initialFrameWidth:710,
+        toolbars: [
+                    ['fullscreen', 'undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                     'fontsize',]
+               ],
+        readonly:true
+    });
+</script>

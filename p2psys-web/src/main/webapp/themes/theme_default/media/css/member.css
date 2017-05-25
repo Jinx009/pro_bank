@@ -1,0 +1,156 @@
+﻿@charset "utf-8";
+
+.flsm{padding: 10px 20px;}
+.flsm dt{font-size: 16px;color: #f63;line-height: 36px;font-weight: bold;}
+.flsm dt em{display:inline-block;line-height:24px;width:24px;text-align:center;background:url(../bg/help/dot.png) no-repeat;font-weight: normal;color: #fff;margin-right: 10px;}
+.flsm dd{line-height: 36px;padding-bottom: 10px;}
+.flsm dd p{text-indent: 28px;}
+
+.helpRegBox{height:218px;}
+.helpRegBoxBd{width:1190px;margin:0 auto;padding-top:32px;}
+.helpRegBoxBar{position:relative;width:100%;}
+.helpRegBoxBar dt{position:absolute;top:-20px;left:446px;width:298px;text-align:center;color:#333;}
+.helpRegBoxBar dt span{display:block;width:298px;height:60px;line-height:56px;font-size:18px;text-align:center;color:#999;}
+.helpRegBoxBar dt a{display:inline-block;width:290px;line-height:44px;background-color:#f63;font-size:18px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius: 5px;}
+.helpRegBoxBar dt a:link,.helpRegBoxBar dt a:visited{color:#fff;text-decoration:none;}
+.helpRegBoxBar dd{border-bottom:1px solid #e6e6e6;padding-top:62px;}
+
+
+.user_filesList_content ul li.addFile{ background-color:#f5f5f5; border:1px dashed #d0d0d0; text-align:center; }
+.user_filesList_content ul li.addFile input{ cursor: pointer; height:98px; width:98px; opacity: 0; position: absolute; top: 0; left:0; }
+.user_filesList_content ul li.addFile a{ display:block; height:98px;line-height:98px;font-size:54px;}
+.user_filesList_content ul li.addFile a:link,.user_filesList_content ul li.addFile a:visited{ color:#666; }
+.user_filesList_content ul li.addFile a:hover{ background-color:#eee; border-color:#ccc; color:#333; }
+#uploader .queueList {margin: 20px;}
+#uploader .queueList.filled {padding: 20px; margin: 0;width:510px;height:312px;overflow:auto;}
+#uploader .queueList.webuploader-dnd-over {}
+.element-invisible { position: absolute !important;  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */  clip: rect(1px,1px,1px,1px);}
+#uploader .placeholder { padding: 144px 0 0 150px;  text-align: center;  color: #cccccc;  font-size: 18px;  position: relative;}
+#uploader .placeholder .webuploader-pick { font-size: 18px; background: #00b7ee; border-radius: 3px; line-height: 44px; padding: 0 30px; *width: 120px; color: #fff; display: inline-block;  margin: 0 auto 20px auto;  cursor: pointer; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);}
+#uploader .placeholder .webuploader-pick-hover { background: #00a2d4;}
+#uploader .placeholder .flashTip {color: #666666; font-size: 12px; position: absolute; width: 100%; text-align: center; bottom: 20px;}
+#uploader .placeholder .flashTip a {color: #0785d1;text-decoration: none;}
+#uploader .placeholder .flashTip a:hover {text-decoration: underline;}
+#uploader .filelist {list-style: none; margin: 0; padding: 0;}
+#uploader .filelist:after {content: '';  display: block;  width: 0;  height: 0;  overflow: hidden; clear: both;}
+#uploader .filelist li {width: 112px; height: 112px; text-align: center; margin: 0 5px 20px 6px; position: relative; display: inline; float: left; overflow: hidden; font-size: 12px;}
+#uploader .filelist li p.log { position: relative; top: -45px;}
+#uploader .filelist li p.title {position: absolute;  top: 0;  left: 0; width: 100%; overflow: hidden; white-space: nowrap; text-overflow : ellipsis;  top: 5px; text-indent: 5px; text-align: left;}
+#uploader .filelist li p.progress { position: absolute; width: 100%; bottom: 0;    left: 0;  height: 8px; overflow: hidden; z-index: 50; margin: 0; border-radius: 0; background: none; -webkit-box-shadow: 0 0 0;}
+#uploader .filelist li p.progress span {display: none; overflow: hidden; width: 0; height: 100%; background: #1483d8 url(../bg/progress.png) repeat-x; -webit-transition: width 200ms linear;
+    -moz-transition: width 200ms linear;
+    -o-transition: width 200ms linear;
+    -ms-transition: width 200ms linear;
+    transition: width 200ms linear;
+
+    -webkit-animation: progressmove 2s linear infinite;
+    -moz-animation: progressmove 2s linear infinite;
+    -o-animation: progressmove 2s linear infinite;
+    -ms-animation: progressmove 2s linear infinite;
+    animation: progressmove 2s linear infinite;
+
+    -webkit-transform: translateZ(0);
+}
+@-webkit-keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+@-moz-keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+@keyframes progressmove {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 17px 0;
+    }
+}
+
+#uploader .filelist li p.imgWrap { position: relative; z-index: 2; line-height: 110px; vertical-align: middle; overflow: hidden; width: 110px; height: 110px; -webkit-transform-origin: 50% 50%; -moz-transform-origin: 50% 50%; -o-transform-origin: 50% 50%; -ms-transform-origin: 50% 50%;transform-origin: 50% 50%;  -webit-transition: 200ms ease-out; -moz-transition: 200ms ease-out; -o-transition: 200ms ease-out; -ms-transition: 200ms ease-out; transition: 200ms ease-out;border:1px solid #ddd;}
+#uploader .filelist li img {width: 100%;}
+#uploader .filelist li p.error {background: #f43838;color: #fff; position: absolute; bottom: 0; left: 0; height: 28px; line-height: 28px; width: 100%; z-index: 100;}
+#uploader .filelist li .success { display: block; position: absolute; left: 0; bottom: 0; height: 40px; width: 100%; z-index: 200;background: url(../bg/success.png) no-repeat right bottom;
+}
+#uploader .filelist div.file-panel { position: absolute; height: 0; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;  background: rgba( 0, 0, 0, 0.5 );  width: 100%; top: 0;  left: 0; overflow: hidden;  z-index: 300;}
+#uploader .filelist div.file-panel span { width: 24px;height: 24px; display: inline;float: right; text-indent: -9999px; overflow: hidden; background: url(../bg/icons.png) no-repeat; margin: 5px 1px 1px; cursor: pointer;}
+#uploader .filelist div.file-panel span.rotateLeft {background-position: 0 -24px;}
+#uploader .filelist div.file-panel span.rotateLeft:hover {background-position: 0 0;}
+#uploader .filelist div.file-panel span.rotateRight {background-position: -24px -24px;}
+#uploader .filelist div.file-panel span.rotateRight:hover {background-position: -24px 0;}
+#uploader .filelist div.file-panel span.cancel {background-position: -48px -24px;}
+#uploader .filelist div.file-panel span.cancel:hover {background-position: -48px 0;}
+#uploader .statusBar {height: 63px;border-top: 1px solid #dadada;padding: 0 20px;line-height: 63px; vertical-align: middle; position: relative;}
+#uploader .statusBar .progress {border: 1px solid #1483d8;width: 198px;background: #fff;height: 18px; position: relative;display: inline-block;text-align: center;line-height: 20px; color: #6dbfff; position: relative; margin: 0 10px 0 0;}
+#uploader .statusBar .progress span.percentage {width: 0;height: 100%;left: 0; top: 0; background: #1483d8; position: absolute;}
+#uploader .statusBar .progress span.text { position: relative;  z-index: 10;}
+#uploader .statusBar .info {display: inline-block; font-size: 14px; color: #666666;}
+#uploader .statusBar .btns { position: absolute; top: 10px; right: 20px;line-height: 40px;}
+#filePicker2 {display: inline-block;float: left;}
+
+#uploader .statusBar .btns .webuploader-pick,
+#uploader .statusBar .btns .uploadBtn,
+#uploader .statusBar .btns .uploadBtn.state-uploading,
+#uploader .statusBar .btns .uploadBtn.state-paused {background: #ffffff; border: 1px solid #cfcfcf;color: #565656;padding: 0 18px; display: inline-block; border-radius: 3px; margin-left: 10px; cursor: pointer;  font-size: 14px; float: left;}
+#uploader .statusBar .btns .webuploader-pick-hover,
+#uploader .statusBar .btns .uploadBtn:hover,
+#uploader .statusBar .btns .uploadBtn.state-uploading:hover,
+#uploader .statusBar .btns .uploadBtn.state-paused:hover {background: #f0f0f0;}
+#uploader .statusBar .btns .uploadBtn {background: #00b7ee; color: #fff; border-color: transparent;}
+#uploader .statusBar .btns .uploadBtn:hover {background: #00a2d4;}
+#uploader .statusBar .btns .uploadBtn.disabled {pointer-events: none;opacity: 0.6;}
+
+
+
+.uploadList{padding: 20px; margin: 0;width:510px;height:312px;overflow:auto;}
+.uploaderBox .filelist:after {content: '';  display: block;  width: 0;  height: 0;  overflow: hidden; clear: both;}
+.uploaderBox .filelist li{width: 112px; height: 112px;border:1px solid #ccc; text-align: center; margin: 0 5px 20px 6px; position: relative; display: inline; float: left; overflow: hidden; font-size: 12px;}
+.uploaderBox .filelist li i{position:absolute;bottom:0;right:0;color:#f63;cursor:pointer;}
+.statusBar{height: 63px;border-top: 1px solid #dadada;padding: 0 20px;line-height: 63px; vertical-align: middle; position: relative;}
+.uploaderBox .uploadify-queue{display:none;}
+.uploaderBox .uploadBtn{margin-top:10px;background-color:#f63;width:120px;line-height:40px;text-align:center;background-image:none;border:none;color:#fff;text-indent: 0;}
+.uploaderBox .uploadify:hover .uploadify-button {background-color:#f63;background-image:none;}
+.uploaderBox .okBtn{margin:10px 0 0 10px;background-color:#f63;width:120px;line-height:40px;text-align:center;color:#fff;cursor:pointer;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius: 5px;}
+
+
+.tipsWrap{padding-top:20px;}
+.w794{width:794px;padding:40px;}
+.w450{width:450px;}
+.w384{width:384px;}
+.tipsTitle{color:#2765b6;font-size:12px;font-weight:normal;}
+.tipsTitle b{font-weight:normal;padding-left:35px;}
+.tipsWrap dl{background:url(../bg/Identifyico.jpg) no-repeat;padding-left:65px;margin-left:30px;}
+.tipsWrap dl dt,.tipsWrap dl dd{line-height:25px;color:#6e6e6e;font-size:16px;}
+.tipsWrap .tipsTxt{text-align:center;font-size:16px;height:35px;line-height:35px;}
+.tipsWrap .tipsTxt .iconfont{font-size:35px;display:inline-block;margin-right:12px;vertical-align:middle;}
+.tipsWrap .tipsTxt .tipIco{color:#f39800;}
+.tipsWrap .tipsTxt .okIco{color:#4cd964;}
+.tipsWrap .tipsTxt .errIco{color:#8a8a8a;}
+.tipsWrap .tipsTxt span{height:35px;line-height:35px;}
+.tipsWrap .tipsTxt1{padding-left:84px;font-size:16px;line-height:30px;}
+.tipsWrap .tipsTxt1 .iconfont{float:left;font-size:35px;display:inline-block;margin-right:12px;vertical-align:middle;}
+.tipsWrap .tipsTxt1 .errIco{color:#8a8a8a;}
+.tipsWrap .tipsTxt1 span{float:left;width:180px;padding-bottom:10px;}
+.tipsWrap .tipsMsg{text-align:center;color:#bdbdbd;font-size:14px;padding-top:10px;}
+.tipsWrap .tipsBtnBar{text-align:center;margin:20px 0;}
+.tipsWrap .tipsBtnBar a{ display:inline-block; line-height:35px; width:104px;font-size:16px;text-align:center; margin:0 10px; -moz-border-radius:5px; -webkit-border-radius: 5px; border-radius: 5px; }
+.tipsWrap .tipsBtnBar a.okBtn{ background-color:#2370b6;}
+.tipsWrap .tipsBtnBar a.okBtn:link,.tipsBtnBar a.okBtn:visited{ color:#fff; }
+.tipsWrap .tipsBtnBar a.okBtn:hover{background-color:#2370b6;}
+.tipsWrap .tipsBtnBar a.cancleBtn{ background-color:#cdcdcd; }
+.tipsWrap .tipsBtnBar a.cancleBtn:link,.tipsBtnBar a.cancleBtn:link{ color:#fff; }
+.tipsWrap .tipsBtnBar a.cancleBtn:hover{background-color:#aaa;}
+.tipsWrap .tipsBtnBar a:hover{ text-decoration:none; }
+.tipsWrap ul li{font-size:16px;line-height:34px;height:34px;margin-bottom:10px;}
+.tipsWrap ul li strong{display:inline-block;width:124px;text-align:right;padding-right:10px;font-weight:normal;font-size:16px;color:#6e6e6e;}
+.tipsWrap ul li span{color:#f39700;}
+.tipsWrap ul li .payPwd{width:194px; height:34px; border:1px solid #d0d0d0; padding:0 5px; color:#666; background:url(../bg/lock.jpg) 176px 6px no-repeat;}

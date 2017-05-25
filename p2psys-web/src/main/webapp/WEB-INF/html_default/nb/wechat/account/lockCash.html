@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<title>800Bank</title>
+		
+		<script src="/themes/theme_default/dist/jquery.js" ></script>
+		<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+		<link href="/plugins/pager/pager.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/plugins/pager/pager.js"></script>
+        <script type="text/javascript" src="/themes/theme_default/nb/wechat/js/account/lockCash.js"></script>
+	</head>
+	<body>
+		<p class="title"><span class="back"><a href="main.html">&lt;</a></span><span class="backTitle">锁定金额明细</span></p>
+		<div class="fix_income" id="fix_income" style="display: block;">
+			
+			<div class="fix_navw">
+				<div class="fix_navw_first">类别/产品名</div>
+				<div class="fix_navw_second">金额/时间</div>
+				<div class="fix_navw_third">详情</div>
+			</div>
+			<div class="investItem">
+				
+			</div>
+		</div>
+		<div></div>
+		<div id="kkpager">
+			
+	     </div>
+	     
+	     <div class="success-alert"  id="success_div" >
+			<div class="space-div" ></div>
+		    <img src="/themes/theme_default/nb/wechat/images/point.png" width="45px" id="pic"  >
+		   	<div class="space-div" ></div>
+		   	<p class="error-p" id="errorMsg" >确定赎回?</p>
+		   	<div class="space-div" ></div>
+		   	<div class="space-div" ></div>
+		   	<div class="error-btn"  id="right_btn" >确定</div>
+		   	<div class="space-div" ></div>
+		   	<div class="error-btn-btn" onclick="hideError();" id="wrong_btn" >取消</div>
+		   	<div class="space-div" ></div>
+		</div>
+	</body>
+</html>

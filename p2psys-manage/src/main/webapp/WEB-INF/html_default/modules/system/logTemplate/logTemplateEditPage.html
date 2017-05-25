@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/logTemplate/logTemplateEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		    <label class="lab">信息类型：</label>
+		    <div class="ipt">
+				<select name="type">
+					<option value="1" <#if logTemplate.type==1>selected='selected'</#if>>资金日志</option>
+					<option value="2" <#if logTemplate.type==2>selected='selected'</#if>>合计日志</option>
+					<option value="3" <#if logTemplate.type==3>selected='selected'</#if>>会员日志</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">模板信息：</label>
+		    <div class="ipt">
+				<textarea name="value" class="w400 easyui-validatebox" data-options="required: true">${logTemplate.value!''}</textarea>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">日志类型 ：</label>
+		    <div class="ipt">
+				<input type="text" name="logType" value="${logTemplate.logType!''}" class="w400 easyui-validatebox"  data-options="required: true,validType:'english'" maxlength="50"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">模板类型 ：</label>
+		    <div class="ipt">
+				<input type="text" name="nid" value="${logTemplate.nid!''}" class="w400 easyui-validatebox" data-options="required: true,validType:'english'" maxlength="50"/>
+				<b>*</b>
+			</div>
+		</div>	
+		<div class="formitm">
+		    <label class="lab">模板备注：</label>
+		    <div class="ipt">
+				<textarea type="areatext" name="remark" class="w400">${logTemplate.remark!''}</textarea>
+			</div>
+		</div>
+		<input name="id" value="${logTemplate.id!}" type="hidden"/>
+	</form>
+</div>

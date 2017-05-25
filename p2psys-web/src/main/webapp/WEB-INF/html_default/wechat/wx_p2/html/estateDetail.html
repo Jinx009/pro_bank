@@ -1,0 +1,34 @@
+<#include "lego/standard_opening.html">
+<link href="${webroot}${theme_dir}/wx/css/detail.css" rel="stylesheet">
+</head>
+<body><form action="/wx/account/pay.html" method="post">
+	<div class="header">项目详情</div>
+	<div class="invest-main-box">
+	</div>
+	<div class="invest-btn">
+		<div class="btn">立即投资</div>
+	</div>
+	<div id="formDiv"
+		style="display: none; width: 80%; height: 200px; margin: 0 auto; position: absolute; top: 100px;'">
+		
+			我要投资<br /> <input name="money" type="text"></input><br /> <input
+				type="text" value="" name="payPwd"/><input type="submit" value="确定" /> <input
+				type="hidden" name="projectType" value="borrow"> <input
+				type="hidden" name="submitUrl" value="/wx/account/tender.html">
+	</div></form>
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/detail");
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.btn').click(function() {
+			$('#formDiv').show();
+		});
+
+		$('#formDiv').blur(function() {
+			$('#formDiv').hide();
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/login.js" ></script>
+</head>
+<body class="regist-bg">
+<input type="hidden" id="redirectUrl" value="${redirectUrl}" >
+<div class="middle-content">
+	<div class="regist-position">
+		<div class="regist-border">
+			<div class="regist-logo"><img src="/themes/theme_default/cf/img/logo.png"/></div>
+			<form>
+				<div class="regist-top">
+					<div class="form-group regist-bottom">
+					    <div class="input-group regist-inp">
+					      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_user.png"/></div>
+					      <input type="text" class="form-control regist-inp" id="username" placeholder="手机号">
+					    </div>
+				    </div>
+				    <div class="form-group regist-bottom">
+					    <div class="input-group regist-inp">
+					      <div class="input-group-addon regist-inp"><img src="/themes/theme_default/cf/img/small_icon_pwd.png"/></div>
+					      <input type="password" class="form-control regist-inp" id="pwd" placeholder="密码">
+					    </div>
+				    </div>
+				    <div class="form-group error-msg">
+					      <span style="color: red" id="errorMsg" ></span>
+				    </div>
+				    <div class="form-group xiyi">
+				    	<input type="checkbox" checked="checked" onclick="return false;"/><p class="regist-tip"><span onclick="openRisk();">同意《风险提示书》</span><span onclick="openProtocol();">《用户服务协议》</span></p>
+				    </div>
+				    <div class="form-group text-right regist-inp">
+					      <a href="#"  class="forgetPwd" style="color:#ff7777;text-decoration:underline;"><p>忘记密码</p></a>
+				    </div>
+				</div>
+			   	<div class="regist-position-bottom">
+			   		<button type="button" class="btn-register" onclick="doLogin()" >登陆</button>
+				    <button type="button" class="btn-register-noborder" onclick="goRegister()" >新用户注册</button>
+			   	</div>
+			</form>
+		</div>
+	</div>
+</div>
+<#include "include/protocol.html"> 
+</body>
+</html>

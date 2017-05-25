@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="my_account"> 
+<#include "../../include/member_borrow_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+ <div id="container">
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+    	<#assign mid="m_identify" >
+		<#include "../account_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+
+	<!--右边的内容 开始-->
+	<div class="user_right">
+		<div class="user_title">头像修改</div>
+		<div class="face_conts">
+			<embed tplayername="SWF" splayername="SWF"
+				type="application/x-shockwave-flash"
+				src="/plugins/uploadportrait/face.swf" mediawrapchecked="true"
+				pluginspage="http://www.macromedia.com/go/getflashplayer"
+				id="tagcloudflash" name="tagcloudflash" bgcolor="#ffffff"
+				quality="high" wmode="transparent" allowscriptaccess="always"
+				FlashVars="uploadServerUrl=/upfile.jsp?userId=${session_user.userId}&defaultImg=/imgurl.html?userId=${session_user.userId}&size=big"
+				width="500" height="500" />
+		</div>
+        
+	</div>
+</div>
+	<!--右边的内容 结束-->
+</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<script>seajs.use("jquery");</script>
+<script>seajs.use("/plugins/layer-v1.8.4/skin/layer.css");</script>
+<script>seajs.use("/plugins/layer-v1.8.4/layer.min");</script>
+<script> 
+function avatar_success(){
+	layer.msg('修改头像成功！', 1, 18,function(){
+		location.href = "/member_borrow/info/face.html";
+	});
+}
+</script>
+<#include "../../include/footer.html"> 
+</body>
+</html>

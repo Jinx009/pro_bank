@@ -1,0 +1,57 @@
+<script type="text/javascript">
+	var dataGrid;
+	$(function() {
+		dataGrid = $('#userRedPacketList').datagrid({
+			url : '/modules/user/redPacket/userRedPacketList.html?id=${id}',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '用户ID', width: 50, fixed :true,checkbox : false},
+			{ field: 'userName', title: '用户名', width: 100, fixed :true,checkbox : false},
+			{ field: 'realName', title: '真实姓名', width: 100, fixed :true,checkbox : false},
+			{ field: 'amount', title: '红包金额', width: 80, fixed :true,sortable: false},
+			{ field: 'name', title: '红包类型', width: 80, fixed :true,sortable: false },
+			{ field: 'addTime', title: '领取时间', width: 140, fixed:true,sortable:false, 
+          	  	formatter: function(value,row,index){
+          	  		return getLocalTime(value,4);
+				}  
+            },
+			{ field: 'expiredTime', title: '过期时间',fixed :true, width: 140, sortable: false,
+            	formatter: function(value,row,index){
+          	  		return getLocalTime(value,4);
+				} 	
+			},
+			{ field: 'status', title: '是否兑换', width: 80, fixed :true,sortable: false,
+				formatter: function(value,row,index){
+					if (value == 2) {
+						return "未兑换";
+					} else {
+						return "已兑换";
+					}
+				} 		
+			},
+			 ] ]
+			
+		});
+	});
+</script>
+
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'center'" >
+			<table id="userRedPacketList"></table>
+		</div>
+	</div>
+
+

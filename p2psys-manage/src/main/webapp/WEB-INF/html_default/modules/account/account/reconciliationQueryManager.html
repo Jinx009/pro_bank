@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>对账管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<div style="display:none;"><span>时间</span><input type="hidden" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></div>
+	            	<span>对账时间：</span><input type="text" name="startTime" id="startTime" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" readOnly="readOnly" value="" class="searchTime queryTime"/>&nbsp;<a href="javascript:;" title="下载" class="sBtn" onclick="searchForm();">下载</a>
+	            </form>
+            </div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+var DateStr = new Date();
+//$(".queryTime").val(DateStr.toLocaleDateString());
+function searchForm(){
+	var url = "/modules/account/account/reconciliationQuery.html";
+	var startTime = $(".queryTime").val();
+	var sou = "?startTime=" + startTime;
+	window.location.href = url + sou;
+}
+</script>
+<script src="${theme_dir}/js/search.js"></script>

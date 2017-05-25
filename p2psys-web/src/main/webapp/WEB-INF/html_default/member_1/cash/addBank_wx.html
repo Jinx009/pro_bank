@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>绑定银行卡</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+</head>
+<body>
+<form id="addBankForm" method="post" action="${webroot}/member/cash/addRandomBank.html" name="form1">
+    <div class="content">
+		<div class="edit">
+			<input class="input-text" type="text" name="money" id="money" autocomplete="off"  placeholder="随机金额" onpaste="return false;" />
+			<span class="fillingAmount">填写金额</span><span class="yuan">元</span>
+		</div>
+		<input type="hidden" name="accId" value="${accId!}" /> 
+		<input type="hidden" name="accName" value="${accName!}" /> 
+		<input type="hidden" name="cardNo" value="${cardNo!}" /> 
+		<input type="hidden" name="mobile" value="${mobile!}" />
+		<input type="hidden" name="cashmoney" id="cashmoney" value="${money!0}" />
+		<input type="submit" id="cashBtn" value="确认并验证" class="sureBtn" style="display:block;"/>
+	</div>
+	<div class="u-right" style="padding-left: 10px;padding-top: 5px;padding-right: 10px;">
+      <h3><b class="user_help_tip"></b>温馨提示：</h3>
+	  <p>系统已给您的本张银行卡打入一笔 0.01 到 0.99 元的随机认证资金，您需要查询该银行卡的收支明细，正确输入该金额才能认证成功。认证金额较小，可能不会有到账短信通知，请登录网银或者拨打银行热线咨询。</p>
+    </div>
+    
+</form>
+
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+
+  <script type="text/javascript">
+    seajs.use("${webroot}${theme_dir}/wx/js/cash_input")
+  </script>
+</body>
+</html>

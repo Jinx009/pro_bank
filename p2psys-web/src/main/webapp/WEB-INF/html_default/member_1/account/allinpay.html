@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>通联支付充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <form action="http://ceshi.allinpay.com/gateway/index.do" method="post" id="frm1">
+    	<input type="hidden" name="inputCharset" value="${tpay.inputCharset}">
+		<input type="hidden" name="pickupUrl" value="${tpay.pickupUrl}">
+		<input type="hidden" name="receiveUrl" value="${tpay.receiveUrl}">
+		<input type="hidden" name="version" value="${tpay.version}">
+		<input type="hidden" name="language" value="${tpay.language}">
+		<input type="hidden" name="signType" value="${tpay.signType}">
+		<input type="hidden" name="merchantId" value="${tpay.merchantId}">
+		<#if tpay.payerName?exists ><input type="hidden" name="payerName" value="${tpay.payerName}"></#if>
+		<#if tpay.payerEmail?exists ><input type="hidden" name="payerEmail" value="${tpay.payerEmail}"></#if>
+		<#if tpay.payerTelephone?exists ><input type="hidden" name="payerTelephone" value="${tpay.payerTelephone}"></#if>
+		<#if tpay.payerIDCard?exists ><input type="hidden" name="payerIDCard" value="${tpay.payerIDCard}"></#if>
+		<input type="hidden" name="orderNo" value="${tpay.orderNo}">
+		<input type="hidden" name="orderAmount" value="${tpay.orderAmount}">
+		<input type="hidden" name="orderCurrency" value="${tpay.orderCurrency}">
+		<input type="hidden" name="orderDatetime" value="${tpay.orderDatetime}"> 
+		<#if tpay.orderExpireDatetime?exists ><input type="hidden" name="orderExpireDatetime" value="${tpay.orderExpireDatetime}"></#if> 
+		<input type="hidden" name="productName" value="${tpay.productName}">
+		<input type="hidden" name="productPrice" value="${tpay.productPrice}">
+		<input type="hidden" name="productDesc" value="${tpay.productDesc}">
+		<input type="hidden" name="payType" value="${tpay.payType}">
+		<#if tpay.issuerId?exists ><input type="hidden" name="issuerId" value="${tpay.issuerId}"></#if>
+		<#if tpay.pan?exists ><input type="hidden" name="pan" value="${tpay.pan}"></#if>
+		<input type="hidden" name="key" value="${tpay.key}"> 
+		<input type="hidden" name="signMsg" value="${tpay.signMsg}">
+    </form>
+    <script language="javascript">    
+    	document.getElementById("frm1").submit();    
+    </script>
+  </body>
+</html>

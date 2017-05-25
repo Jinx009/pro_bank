@@ -1,0 +1,5 @@
+<#include "base_top.html">
+    <#if session_user?exists >
+    <div id="welcome">当前登录账户:${session_user.username!}</div>
+    </#if>
+<#include "base_bottom.html">

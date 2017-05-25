@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		非现金产品发标
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<#include "../../../../include/resources.html" />
+</head>
+
+<body style="padding:0 20px;">
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" name="searchName" class="sInput" placeholder="输入 [ 产品编码 ] 或 [ 产品名称 ] 进行模糊查询" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" title="精确查询" class="advBtn">
+						精确查询
+						<i class="iconfont">
+							&#xe638;
+						</i>
+					</a>
+					<a href="javascript:void(0);" title="刷新" class="reloadIcon" onclick="dataGrid.datagrid('reload');">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe63a;
+						</i>
+					</a>
+					<li>
+						<span>
+							产品编码
+						</span>
+						<input type="text" id="bidNo" name="bidNo" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称
+						</span>
+						<input type="text" id="name" name="name" autocomplete="off" />
+					</li>
+					<li>
+						<span>&nbsp;</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+var winWidth = 800;
+var winHeight = 600;
+
+var confirmTitle = "初审产品";
+var confirmUrl = "/modules/nb/product/borrow/borrowConfirmPage.html";
+
+$(function() {
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'borrowManagerList.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		columns: [
+			[{
+				field: 'id',
+				title: '编号',
+				width: 50
+			}, {
+				field: 'bidNo',
+				title: '产品编码',
+				width: 150
+			}, {
+				field: 'name',
+				title: '产品名称',
+				width: 150
+			}, {
+				field: 'typeStr',
+				title: '产品类型',
+				width: 120
+			}, {
+				field: 'companyName',
+				title: '借款公司名称',
+				width: 150
+			}, {
+				field: 'account',
+				title: '投资总额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'apr',
+				title: '收益率',
+				width: 60,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "%";
+				}
+			}, {
+				field: 'timeLimitStr',
+				title: '期限',
+				width: 60,
+				align: 'right'
+			}, {
+				field: 'redPacketName',
+				title: '红包名称',
+				width: 80
+			}, {
+				field: 'addTime',
+				title: '添加时间',
+				width: 150,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}, {
+				field: 'action',
+				title: '操作',
+				width: 60,
+				formatter: function(value, row, index) {
+					return '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.borroweditFun(' + row.id + ',confirmTitle,winWidth,winHeight,confirmUrl);" title="' + confirmTitle + '">初审</a>';
+				}
+			}]
+		]
+	});
+});
+</script>
+<script src="${theme_dir}/js/search.js"></script>

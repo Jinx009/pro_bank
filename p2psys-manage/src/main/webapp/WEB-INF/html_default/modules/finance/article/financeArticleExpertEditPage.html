@@ -1,0 +1,49 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/finance/article/financeArticleExpertEdit.html');
+	});
+</script>
+<style>
+  .formitm{margin:15px 0; clear:both; height:33px;}
+</style>
+<div class="borrowForm">
+<form id="form"  method="post" enctype="multipart/form-data">
+		<div class="borrowFormMuti">
+			<span>文章作者：</span>
+			<input type="text" name="autorName" value="${financeArticleExpert.autorName}" />
+		</div>
+		<div class="borrowFormMuti"><span>作者图片：</span><input type="file" name="file" title="点击上传图片" /></div>
+		<div class="borrowFormMuti"><span></span><#if financeArticleExpert.picPath??><input type="hidden" name="picPath" value="${financeArticleExpert.picPath!}"> <a href="${financeArticleExpert.picPath}" class="fileshow" rel="guaranteePic"><img src="${financeArticleExpert.picPath}" width="100px" height="100px"/></a></#if></div>
+		<div class="borrowFormMuti"><span>微信二维码：</span><input type="file" name="wechatFile" title="点击上传图片" /></div>
+		<div class="borrowFormMuti"><span></span><#if financeArticleExpert.wechatPath??><input type="hidden" name="wechatPath" value="${financeArticleExpert.wechatPath!}"> <a href="${financeArticleExpert.wechatPath}" class="fileshow" rel="guaranteePic"><img src="${financeArticleExpert.wechatPath}" width="100px" height="100px"/></a></#if></div>
+		<div class="borrowFormMuti">
+			<span>微博URL：</span>
+			<input type="text" name="blogUrl" value="${financeArticleExpert.blogUrl!}" />
+		</div>
+		<div class="formitm">
+			<span>职位：</span>
+			<input type="text" name="position" value="${financeArticleExpert.position}" />
+		</div>
+		<div class="borrowFormMuti">
+		     <label class="lab">简介：</label>
+		     <div class="ipt">
+		     	<#include "umeditor.htm"> 
+				<@showUeditor width=870 heigth=300 id="message" name="content" content="${financeArticleExpert.content!}" />
+		     </div>
+		</div>
+		<div>
+			<span>添加时间：</span>
+			${(financeArticleExpert.addTime)?string('yyyy-MM-dd HH:mm:ss')}
+		</div>
+		<div>
+			<span>添加IP：</span>
+			${financeArticleExpert.addIp}
+		</div>
+	<input type="hidden" name="id" value="${financeArticleExpert.id}"/>
+	<input type="hidden" name="addTime" value="${financeArticleExpert.addTime?string('yyyy-MM-dd hh:mm:ss')}"/>
+	<input type="hidden" name="addIp" value="${financeArticleExpert.addIp}"/>
+</form>
+</div>
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

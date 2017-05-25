@@ -1,0 +1,58 @@
+﻿[
+    {"name": "amount"},
+    {"name": "income"},
+    {"name": "pending_audit"},
+    {"name": "statistics"},
+    {"name": "bid_records"},
+    {"name": "bid_ends"},
+    {"name": "statistics_m"},
+    {"name": "operation_m"},
+    {"name": "check"},
+    {"name": "re_send"},
+    {"name": "start"},
+    {"name": "delete"},
+    {"name": "add"},
+    {"name": "reset"},
+    {"name": "preview"},
+    {"name": "edit"},
+    {"name": "borrow_m"},
+    {"name": "user_m"},
+    {"name": "no_locked"},
+    {"name": "bid_mark"},
+    {"name": "auditing"},
+    {"name": "cancel"},
+    {"name": "update"},
+    {
+        "name": "financial_m"
+    },
+    {
+        "name": "after_borrow"
+    },
+    {
+        "name": "authorize"
+    },
+    {
+        "name": "spread_m"
+    },
+    {
+        "name": "locked"
+    },
+    {
+        "name": "system_m"
+    },
+    {
+        "name": "registered_user"
+    },
+    {
+        "name": "audit_m"
+    },
+    {
+        "name": "after_borrow"
+    },
+    {
+        "name": "extension_m"
+    },
+    {
+        "name": "borrow_m"
+    }
+]

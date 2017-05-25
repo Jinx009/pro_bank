@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='我要还款 - ${webname!}'>
+<#assign web_description='我要还款，${webname!}p2p网贷平台'>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member">
+	<#include "../../include/member_header.html">
+
+	<link href="${webroot}/media/css/modal.css"
+		rel="stylesheet" type="text/css" />
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<#assign mid="m_borrow" >
+			<div class="user_left"><#include "../user_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<#assign borrow_type="repaymentdetail">
+					<#include "borrow_menu.html"></div>
+				<div class="user_right_main">
+				<#if param?exists>
+					<#if param.get("repayment_time1")?exists><#assign repayment_time1=param.get("repayment_time1")></#if>
+					<#if param.get("repayment_time2")?exists><#assign repayment_time2=param.get("repayment_time2")></#if>
+					<#if param.get("keywords")?exists><#assign keywords=param.get("keywords")></#if>
+				</#if>
+				<div class="well"> 
+					应还日期：
+					<input type="text" name="repayment_time1" id="repayment_time1" value="${repayment_time1?default("")}" size="15" onclick="change_picktime()" /> 到 
+					<input type="text" name="repayment_time2" value="${repayment_time2?default("")}" id="repayment_time2" size="15" onclick="change_picktime()" /> 关键字：
+					<input type="text" name="keywords" id="keywords" size="15" value="${keywords?default("")}" /> 
+					<input value="搜索" type="submit"  class="btn sub_btn"  onclick="sousuo('')" />
+				</div>
+				<table  border="0"  cellspacing="1" class="table table-striped  table-condensed" style="width:100%">
+			  	<form cur="" method="post">
+				<tr class="head" >
+					<td>标题</td>
+					<td>第几期</td>
+					<td>应还款日期</td>
+					<td>本期应还本息</td>
+					<td>利息</td>
+					<td>滞纳金</td>
+					<td>逾期利息</td>
+					<td>逾期天数</td>
+					<td>还款状态</td>
+					<td>操作</td>
+				</tr>
+				<#import "../../common/function.html" as func>  
+				<#list repay as item>
+				<#if item.repayment_time?number lte today?number+86400 >
+				<tr>
+					<td title="${item.borrow_name!}">
+					<a style="color:red;" href="/invest/detail.html?id=${(item.borrow_id)?c}" target="_blank">
+					<#if item.borrow_name?length lt 9>${item.borrow_name}<#else>${item.borrow_name[0..8]}...</#if></a></td>
+					<td style="color:red;">第${item.order+1}期
+					<#if item.borrow_style!='2'&&item.time_limit?exists>/总共${item.time_limit}期<#else>/总共${item.order+1}期</#if></td>
+					<td style="color:red;">${dateformat(item.repayment_time)}</td>
+					<td style="color:red;">￥${func.format2(item.repayment_account)}</td>
+					<td style="color:red;">￥${func.format2(item.interest)}</td>
+					<td style="color:red;">￥${func.format2(item.forfeit)}</td>
+					<td style="color:red;">￥${func.format2(item.late_interest)}</td>
+					<td style="color:red;">${item.late_days}天</td>
+					<td style="color:red;"><#if item.status==0>待还款<#elseif item.status==2>网站先垫付<#elseif item.status==1>已还款<#else>还款中</#if></td>
+					<#if item.type==110>
+					<td style="color:red;">-</td>
+					<#else>
+					<td style="color:red;">
+						<#if item.status==1>
+						已还款
+						<#elseif item.status==2>
+						网站垫付
+						<#else>
+						<a style="color:red;" href="#" onClick="javascript:if(confirm('你确定要偿还此借款吗？')) location.href='${webroot}/member/borrow/repay.html?id=${item.id?c}'">还款</a>
+						</#if>
+					</td>
+					</#if>
+				</tr>
+	<#else>
+				<tr>
+					<td title="${item.borrow_name!}">
+					<a href="/invest/detail.html?id=${(item.borrow_id)?c}" target="_blank"><#if item.borrow_name?length lt 9>${item.borrow_name}<#else>${item.borrow_name[0..8]}...</#if></a></td>
+					<td>第${item.order+1}期<#if item.borrow_style!='2'&&item.time_limit?exists>/总共${item.time_limit}期<#else>/总共${item.order+1}期</#if></td>
+					<td>${dateformat(item.repayment_time)}</td>
+					<td>￥${func.format2(item.repayment_account)}</td>
+					<td>￥${func.format2(item.interest)}</td>
+					<td>￥${func.format2(item.forfeit)}</td>
+					<td>￥${func.format2(item.late_interest)}</td>
+					<td>${item.late_days}天</td>
+					<td><#if item.status==0>待还款<#elseif item.status==2>网站先垫付<#elseif item.status==1>已还款<#else>还款中</#if></td>
+					<#if item.type==110>
+					<td>-</td>
+					<#else>
+					<td>
+						<#if item.status==1>
+						已还款
+						<#elseif item.status==2>
+						网站垫付
+						<#else>
+						<a href="#" onClick="javascript:if(confirm('你确定要偿还此借款吗？')) location.href='${webroot}/member/borrow/repay.html?id=${item.id?c}'">还款</a>
+						</#if>
+					</td>
+					</#if>
+				</tr>
+	</#if>
+				</#list>
+				</form>	
+				</table>
+                <#if page??>
+                    <div align="center">
+                        <#import "../../common/page.html" as pager>  
+                        <@pager.pagination page=page url="/member/borrow/repaymentdetail.html" map=param! style="style1"  /> 
+                    </div>
+				</#if>
+				<!--正在招标 结束-->
+				</div>
+				<script>
+					var url = "repaymentdetail.html?search=true";
+					function sousuo() {
+						var _url = "";
+						var repayment_time1 = jQuery("#repayment_time1").val();
+						var keywords = jQuery("#keywords").val();
+						var repayment_time2 = jQuery("#repayment_time2").val();
+						if (keywords != null) {
+							_url += "&keywords=" + keywords;
+						}
+						if (repayment_time1 != null) {
+							_url += "&repayment_time1=" + repayment_time1;
+						}
+						if (repayment_time2 != null) {
+							_url += "&repayment_time2=" + repayment_time2;
+						}
+						location.href = url + _url;
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">

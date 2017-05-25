@@ -1,0 +1,40 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>800Bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+  <link href="/themes/theme_default/wx/static/css/iconfont.css" rel="stylesheet">
+  <link href="/themes/theme_default/wx/static/css/demo.css" rel="stylesheet">
+  <style type="text/css">
+	.show_detail{border-bottom:1px solid #ccc;text-overflow:clip; overflow:hidden;height:52px;width:100%;}
+  </style>
+</head>
+<body class="cfff">
+	  <div class="header nonebottom"><a class="backto" href="javascript:history.back(-1);"></a>查看资产详情</div>
+	  <div class="tab col3">
+			<a class="tab-item current" id="wt">微投</a>
+			<a class="tab-item" id="zc"><em class="split"></em>众筹</a>
+			<a class="tab-item" id="yx"><em class="split"></em>优选</a>
+	  </div>
+	  <div class="list">
+			<div class="list-header">
+				<div class="col w40">产品名称/投资本金</div>
+				<div class="col w30" style="text-indent:15px;">收益率/投标日</div>
+				<div class="col w30"><div class="list-ltr-10">到期日</div></div>
+			</div>
+			<div class="list-block clearfix" id="invest_list">
+			</div>
+	  </div>
+	  <div class="list-tip">
+			<img src="/themes/theme_default/wx/static/css/images/T_arrow.png">以上收益为预期到期收益
+	  </div>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	  <script>
+			seajs.use('${webroot}${theme_dir}/wx/js/wx_investList_mine');
+	  </script>
+</body>
+</html>

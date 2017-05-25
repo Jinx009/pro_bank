@@ -1,0 +1,32 @@
+<#include "lego/standard_opening.html">
+<link href="${webroot}${theme_dir}/wx/css/detail.css" rel="stylesheet">
+</head>
+<body>
+<style type="text/css">
+.popup-div{display:none;background:#000;opacity:0.9;-ms-filter:”progid:DXImageTransform.Microsoft.Alpha(Opacity=90)”;filter: alpha(opacity=90);
+	width:100%;height:100%;position:fixed;z-index:4;}
+.popup-div .form-div{ float:left;border:1px solid #ccc;width: 80%;margin-left:10%; height: 33%; position: absolute; top: 20%;background:#fff;border-radius: 5px;}
+.popup-div .form-div .get-invest{float:left;height:30px;line-height:30px;margin-top: 10px;}
+.popup-div .form-div .input-amount{width:99%;height:30px;line-height:30px;}
+.popup-div .form-div .msg_error{width:100%;height:24px;line-height:24px;display:none;color:red;}
+.popup-div .form-div .pay-pwd{width:99%;height:30px;line-height:30px;}
+.popup-div .form-div .pwd_error{width:100%;height:24px;line-height:24px;display:none;color:red;}
+.popup-div .form-div .set_pwd{height:30px;line-height: 30px;text-decoration: none;}
+.popup-div .form-div .pay-sure{width:100%;border:none;height:30px;line-height:30px;background:#2370B6;color:#fff;}
+.btn_close{display: block;position: absolute;background:url("${webroot}${theme_dir}/wx/img/close.png") no-repeat;left: 92%;top: 3%;width: 10px;height: 10px;}
+
+</style>
+<div style="position:relative;z-index:1;" >
+	<form action="/wx/account/pay.html" method="post" id="form1">
+	<div id="xm-con"></div>
+	
+	</form>
+</div>
+
+
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/detail");
+</script>
+
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="/themes/theme_default/media/js/jquery.1.11.1.js" ></script>
+
+</head>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account">
+	<#assign flag="rLog">
+	<#include "../../common/function.html">
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<!--#container-->
+	
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>			
+			<div class="user_right">
+			
+				<h2 class="user_title">账户充值</h2>
+				<input type="hidden" id="deposit" value="${is_open_deposit}" />
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main clearfix">
+				<div class="cz-fs">
+				
+				<#if payOfflineVal ?? && payOfflineVal == 1>
+					<script type="text/javascript"> 
+					 $(function () {
+	                       $("#offlineSpan").trigger('click');
+	        		});
+					</script> 
+					<span class="active hover" data-value="2">线上充值</span>
+					<#if payOfflinebankList ?? && payOfflinebankList?size gt 0>
+					<span class=" hover" data-value="3" id="offlineSpan">线下充值</span></#if>
+				<#else>
+					<span class="active hover" data-value="2">线上充值</span>
+					<#if payOfflinebankList ?? && payOfflinebankList?size gt 0>
+					<span class="" data-value="3">线下充值</span></#if>
+				</#if>
+				</div>					
+					<form action="/member/recharge/subRecharge.html" method="post" name="reform1" id="J_reCharge" >
+					<input class="J_reCharge" value="/member/recharge/doRecharge.html" type="hidden">
+					<input id="hidWebRechargeUrl" value="${webRechargeUrl!}" type="hidden">
+					<input id="hidWebChannelKey" value="${webChannelKey!}" type="hidden">
+					<input id="hidllday_amt" value="${llday_amt!0}" type="hidden">
+					<input id="hidllsingle_amt" value="${llsingle_amt!0}" type="hidden">
+				    <div class="user_cash_box clearfix">
+				    	<ul class="user_cash_form">
+			        		<li><strong>充值银行：</strong>
+				        		<#if accountBank ??>
+				        		<img alt="" src="${accountBank.picPath!''}"> ${accountBank.bank!} ${accountBank.getHideBankNo()}
+				        		<div id="accountBank" style="color:red;display:none;">${accountBank.bank!}</div>
+				        		<div id="accountPicSrc" style="display:none;">${accountBank.picPath!''}</div>
+				        		<#else>
+				        			暂未绑卡
+				        		</#if>
+			        		</li>
+				        		
+			        		<li>
+		        				<strong>充值金额：</strong>
+		        				<input type="text" name="money"  class="cash_money" id="cachMoney" autocomplete="off" value="" size="10" onKeyUp="value=value.replace(/[^\d]/g,'')" maxlength="9" /> 元<span></span>
+		        			</li>
+		        			<#if session_user?? && session_user.payPwd ?? && session_user.payPwd != ''>
+								<li><strong>交易密码：</strong> <input type="password" name="payPwd" id="payPwd" class="cash_money" value="" size="10" autocomplete="off" class="bankTxt"/><span></span></li>
+								<#else>
+								<li><strong>交易密码：</strong> <a href="${webroot}/member/security/setting.html"><font color="#FF0000">请先设置一个交易密码</font></a><span></span></li>
+								</#if>
+			        		<li><strong>&nbsp;</strong>
+			        		<input type="hidden" class="paymentStatus" name="type"  id="cType" value="1"/>
+			        		<input  type="hidden" name="channelType" id="channelType" value="1" />
+			        		<input type="button" name="name" class="cashBtn" id="cashBtn1" value="确认提交" /></li>
+			        	</ul>
+			        	
+			        	
+			        	
+					
+			        	
+			        	<div class="user_cash_info" style="height:60px;">
+			        		<i class="iconfont" style="font-size:35px;line-height:60px;">&#xe602;</i>
+			        		<span class="user_cash_item" style="display:block;line-height:60px;padding-top:0px;">目前可用余额：<span class="c_red"  id="use_money">${useMoney!0}</span>元</span>
+			        	</div>
+			        	<div class="cash_detail" style="float:right;padding:0 10px;border:1px solid #EEEEEE;margin-top:20px;line-height:60px;text-align:center;  -webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;width: 329px;">
+			        		
+			        	</div>
+		        	</div>
+		        	<input type="hidden" id="xsRToken" name="rechargeToken" value="${rechargeToken!}">
+					</form>
+					
+					
+					
+					
+					<form action="" method="post" name="form1" id="J_offline_reCharge" autocomplete="off">
+					<input class="J_offline_reCharge" value="/member/recharge/doOfflineRecharge.html" type="hidden">
+		        	 <div class="user_cash_box clearfix" style="display:none;">
+	        			<p style="font-size: 18px;color: red;">完整填写如下信息后，请完成银行转账操作（网银/手机银行/银行柜台），收款信息如下： </p><br/>
+				    	<ul class="user_cash_form">		        			
+		        			<li style="height: 53px;">
+	        					收款银行账户: 31001518000050031595 <br/>      
+	        					开户银行: 建设银行 上海黄浦支行<br/>
+	        					账户名: 上海仁和智本互联网金融信息服务有限公司<br/>
+		        			</li>
+			        		<li>
+		        				<strong>充值金额：</strong>
+		        				<input type="text" name="money"  class="cash_money" id="cachMoney2" autocomplete="off" value="" size="10" onKeyUp="value=value.replace(/[^\d]/g,'')" maxlength="9" /> 元<span></span>
+		        			</li>
+		        			
+							<li>
+					        	<strong>转账姓名：</strong>
+					        	<#if session_user?? && session_user.realName ?? && session_user.realName != ''>
+	                			<input type="text" name="realName" id="realName" value="${session_user.realName!}" autocomplete="off" class="cash_money" readOnly="readonly" maxLength="12"/><span id="accnameid" style="color: red;"></span>
+	                			<#else>
+	                			<input type="text" name="realName" id="realName"  autocomplete="off" class="cash_money" maxLength="12"/><span id="accnameid" style="color: red;"></span>
+	                			 </#if>
+			                </li>
+		                    <li>
+		                    	<strong>转账银行卡号：</strong>
+		                    	<input type="text" name="bankNo" id="infoyhzh" value="" style="width:200px;" maxLength="22" autocomplete="off" class="cash_money" onselectstart="return false;" onpaste="return false;" onKeyUp="value=value.replace(/[^0-9]/g,'')"/><span class="yhcard"></span><span class="card-tip hide"></span><span id="cardtip"></span>
+			                </li>
+			        		<li><strong>&nbsp;</strong>
+			        		<!-- <input type="hidden" name="payOfflinebankId" value="" /> -->
+			        		<input type="hidden" class="paymentStatus" name="type" value="1"/>
+			        		<input  type="hidden" name="channelType" id="channelType" value="1" />
+			        		<input  type="hidden" name="minRechargeMoney" id="minRechargeMoney" value="${minRechargeMoney!0}" />
+			        		<input type="button" name="name" class="cashBtn" id="cashBtn2" value="确认提交" /></li>
+			        	</ul>
+			        	
+			        	<div class="user_cash_info" style="height:60px;">
+			        		<i class="iconfont" style="font-size:35px;line-height:60px;">&#xe602;</i>
+			        		<span class="user_cash_item" style="display:block;line-height:60px;padding-top:0px;">目前可用余额：<span class="c_red"  id="use_money">${useMoney!0}</span>元</span>
+			        	</div>
+			        	<!-- <div class="cash_detail" style="float:right;padding:0 10px;border:1px solid #EEEEEE;margin-top:20px;line-height:60px;text-align:center;  -webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;">
+			        		
+			        	</div> -->
+		        	</div>
+		        	<input type="hidden" id="xxRToken" name="rechargeToken" value="${rechargeToken!}">
+					</form>
+	         </div>
+			 <div id="modal_dialog" style="display: none" title="充值情况" class="rec_dialog">
+	        	<p>如果您已经完成了充值，请继续以下步骤</p>
+	            <div class="">
+	        		<span id="close_wd">继续充值</span>　|　
+					<a href="${webroot}/member/recharge/log.html">查看充值记录</a>
+	            </div>
+	        </div>
+	        
+	        <!-- 线上充值提示	start --> 
+	        <div class="user_help" id="online" style="display:block;">
+	            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+				<p>1、充值/提现必须为开通网上银行的借记卡，不支持存折、信用卡充值。</p>
+				<p>2、充值期间，请勿关闭浏览器，待充值成功并返回后，可在${webname!}系统中查看充值金额。</p>
+				<p>3、严禁信用卡套现、虚假交易等行为。</p> 
+			</div>
+			 <!-- 线上充值提示	end -->	
+			 
+			  <!-- 线下充值提示	start -->	
+			 <div class="user_help" id="offline" style="display:none;">
+			    <h3><b class="user_help_tip"></b>温馨提示：</h3>
+				
+				<p>1.预计到账时间：</p>
+				<p>工作日00:00至10:00之间成功转账，预计当日10:30到账；工作日10:00至15:00之间成功转账，预计当日15:30到账；工作日15:00至24:00之间成功转账，预计次个工作日10:30到账； 遇双休日或法定节假日顺延。</p>
+			</div> 
+			 <!-- 线下充值提示	end -->
+			
+			<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	
+	<!--#container-->
+	 <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script>	
+		seajs.use("member/recharge_newRecharge");
+		
+   	</script>
+   	<script type="text/javascript">
+   		$(function(){
+   			
+   			var accountBank = $("#accountBank").html();
+   			var accountPicSrc = $("#accountPicSrc").html();
+   			var webChannelKey = $("#hidWebChannelKey").val();
+   			if(webChannelKey==="llpay_channel_key"){
+   				var llsingle_amt = $("#hidllsingle_amt").val();
+   				var llday_amt = $("#hidllday_amt").val();
+   				var numInput0 = parseFloat(llsingle_amt)/10000 + "万";
+	        	var numInput1 = parseFloat(llday_amt)/10000 + "万";
+   				var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额："+numInput0+"，每日限额："+numInput1+"&nbsp;&nbsp;</div>";
+   				$(".cash_detail").append(newHtml);
+   			}else{
+				if(accountBank=="工商银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：5万，每日限额：5万&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="农业银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountPicSrc+accountBank+"：单笔限额：20万(6:00-20:00) 2万(20:00-5:59)，每日限额：500万</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="建设银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：20万，每日限额：无&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+	   			if(accountBank=="中国银行"){
+	   				
+	   				var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：1万，每日限额：1万&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+	   			
+				
+				if(accountBank=="邮储银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：1万，每日限额：1万&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="招商银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：5万，每日限额：5万&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="光大银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：20万，每日限额：无&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="广发银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：20万，每日限额：无&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+				if(accountBank=="平安银行"){
+	   				
+					var newHtml = "<div><img src="+accountPicSrc+">&nbsp;"+accountBank+"：单笔限额：20万，每日限额：无&nbsp;&nbsp;</div>";
+	   				$(".cash_detail").append(newHtml);
+	   			}
+   			}
+   			
+   		})
+
+   	</script>
+	<#include "../../include/footer.html">

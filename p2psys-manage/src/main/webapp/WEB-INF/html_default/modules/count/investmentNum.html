@@ -1,0 +1,46 @@
+<div id="investment" style="height:230px"></div>
+<script src="/plugins/echarts/echarts-plain-original.js"></script>
+<script type="text/javascript">
+$.ajax({
+	url:"/modules/home/investmentStatistics.html",
+	type:"get",
+	dataType:"json",
+	success:function(data){
+		// 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('investment')); 
+        var option = {
+        	color  : ['#70bc31'],
+            tooltip: {
+                show: true
+            },
+            grid: {
+            	x:50,
+            	y:30,
+            	x2:30,
+            	y2:70
+           	},
+            xAxis : [
+                {
+                   type : 'category',
+                   data : data.dates
+                }
+            ],
+            yAxis : [
+                {
+                	'type':'value',
+                    'name':'人数（人）',
+                }
+            ],
+            series : [
+                {
+                    "name":"人数（人）",
+                    "type":"bar",
+                    "data":data.counts
+                }
+            ]
+        };
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+	}
+});
+</script>

@@ -1,0 +1,202 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="text/content" charset="UTF-8">
+<meta name="viewport" content="width=100%;initial-scale=1.0;maximum-scale=1.0;minimum-scale=1.0;user-scalable=no;" >
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>绑定银行卡</title>
+<style type="text/css">
+	*{margin:0;padding:0;font-size:15px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+	.h_all{width:640px;height:1006px;margin:0 auto;box-shadow:0px 1px 4px 0px #666;}
+	/* b_header start */
+	.h_all .b_header{width:100%;height:90px;background-color:#2370B6;text-align:center;line-height:90px;padding:0 0;font-size:30px;color:#fff;}
+	/*end b_header*/
+	/* b_message start */
+	.h_all .b_message{width:100%;height:auto;}
+	.h_all .b_message ul li{width:100%;height:90px;border-bottom:1px solid #F0F2F3;display:block;list-style:none;}
+	.h_all .b_message ul li label{font-size:30px;color:#D4D4D4;float:left;margin-left:5%;line-height:90px;}
+	.h_all .b_message ul li input{float:left;display:block;margin:22px 10px;width:30%;line-height:45px;border:none;padding-left:10px;}
+	.h_all .b_message ul li .tipsText{float:left;margin:35px 0 0 20px;font-size:20px;}
+	.h_all .b_message ul .b_phone{border-top:1px solid #F0F2F3;margin-top:15px;}
+	.h_all .b_message ul li .tip{float:left;margin-left: 10px;font-size:18px;line-height:90px;color:red;}
+	.h_all .b_message ul .b_check .bank_check{float:right;border-left:1px solid #E9EDED;line-height:90px;color:#fff;overflow:hidden;
+		background:#fff;width:31%;font-size:30px;margin:0;outline:none;margin-right:5%;background:#2370B6;}
+	.h_all .b_message ul .b_check .bank_check:hover{background:#249FF1;color:#fff;cursor:pointer;}
+	/* end b_message */
+
+	/* b_over start*/
+	.h_all .b_over{height:82px;width:100%; margin:30px auto;text-align:center; }
+	.h_all .b_over input{color:#fff;font-size:30px;border-radius:5px;line-height:82px;width:90%;background:#2370B6;
+		outline:none;}
+	.h_all .b_over input:hover{background:#249FF1;cursor:pointer;}
+	/* end b_over */
+</style>
+<link href="${webroot}${theme_dir}/media/css/weixin/member.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="h_all">
+		<!-- b_header start -->
+		<div class="b_header">
+			绑定银行卡
+		</div>
+		<!--end b_header -->
+		<!-- b_message start-->
+		<form id="addBankForm" method="post" action="${webroot}/member/cash/addBank.html">
+		<div class="b_message">
+			<ul>
+				<#if session_user_identify?? && session_user_identify.realNameStatus != 1>
+				<li>
+					<label>真实姓名</label>
+					<input type="text" name="accName" id="accName" autocomplete="off" />
+					<span class="tip"></span>
+				</li>
+				<li>
+					<label>身份证</label>
+					<input type="text" name="accId" id="accId" autocomplete="off" />
+					<span class="tip"></span>
+				</li>
+				<li class="b_phone">
+					<label>银行预留手机号</label>
+					<input type="text" name="mobile" id="mobilePhone" value="${session_user.mobilePhone!}" autocomplete="off" class="bankTxt"/>
+					<span class="tip"></span>
+				</li>
+				<li class="b_check">
+					<label>验证码</label>
+					<input type="text" name="code" id="code" autocomplete="off" />
+					<span class="tip"></span>
+					<input name="timeval" value="获取验证码" type="button" id="timeval" onclick="doajax()" class="bank_check" />
+				</li>
+				<!--  
+				<li class="b_phone">
+					<label>银行名称</label>
+					<input type="text" />
+				</li>
+				-->
+				<li>
+					<label>卡号</label>
+					<input type="text" name="cardNo" id="infoyhzh" autocomplete="off" class="bankTxt" onkeyup="value=value.replace(/[^0-9]/g,'')" 
+						onpaste="return false;" data-original-title="" />
+					<span class="tip"></span>
+				</li>
+				<li>
+					<label>确认卡号</label> 
+					<input type="text" name="comfirmAccount" autocomplete="off" id="infoyhzh2" class="bankTxt"  onKeyUp="value=value.replace(/[^0-9]/g,'')" onpaste="return false;"/>
+					<span class="tip"></span>
+				</li>
+				<!-- 
+				<li class="b_phone">
+					<label>输入交易密码</label>
+					<input type="password" name="password" autocomplete="off" />
+				</li>
+				 -->
+				<#else>
+				<li>
+					<label>真实姓名</label>
+					<span class="tipsText">${session_user.getHideRealname()!}</span>
+					<input type="hidden" name="accName" id="accName" value="${session_user.getHideRealname()!}" />
+				</li>
+				<li>
+					<label>身份证</label>
+					<span class="tipsText">${session_user.getHideCardId()!}</span>
+					<input type="hidden" name="accId" id="accId" value="${session_user.getHideCardId()!}" />
+				</li>
+				<li class="b_phone">
+					<label>银行预留手机号</label>
+					<input type="text" name="mobile" id="mobilePhone" value="${session_user.mobilePhone!}" autocomplete="off" class="bankTxt"/>
+					<span class="tip"></span>
+				</li>
+				<li class="b_check">
+					<label>验证码</label>
+					<input type="text" name="code" id="code" autocomplete="off" />
+					<input name="timeval" value="获取验证码" type="button" id="timeval" onclick="doajax()" class="bank_check" />
+					<span class="tip"></span>
+				</li>
+				<!--  
+				<li class="b_phone">
+					<label>银行名称</label>
+					<input type="text" />
+				</li>
+				-->
+				<li>
+					<label>卡号</label>
+					<input type="text" name="cardNo" id="infoyhzh" autocomplete="off" class="bankTxt" onkeyup="value=value.replace(/[^0-9]/g,'')" data-original-title="" />
+					<span class="tip"></span>
+				</li>
+				<li>
+					<label>确认卡号</label> 
+					<input type="text" name="comfirmAccount" autocomplete="off" id="infoyhzh2" class="bankTxt"  onKeyUp="value=value.replace(/[^0-9]/g,'')"/>
+					<span class="tip"></span>
+				</li>
+				<!--  
+				<li class="b_phone">
+					<label>输入交易密码</label>
+					<input type="password" name="password" autocomplete="off" />
+				</li>
+				-->
+				</#if>
+				
+				<!--  
+				<li>
+					<label>重复交易密码</label>
+					<input type="password" name="password" autocomplete="off" />
+				</li>
+				-->
+			</ul>
+		</div>
+		<!--end b_message-->
+		<!-- b_over start -->
+		<div class="b_over">
+			<!--  
+			<a href="javascript:void(0);">完成</a>
+			-->
+			<input type="hidden" name="user_id" value="${session_user.userId}" />
+			<input type="submit" class="cardAddBtn"  name="name"  value="完成" />
+		</div>
+		</form>
+		<!-- end b_over-->
+	</div>
+	<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	<script type="text/javascript">
+	/**
+	 * 获取手机验证码
+	 */
+	function doajax(){
+		$.ajax({
+			url:'/member/cash/getAddBankCode.html?mobilePhone='+$('#mobilePhone').val(),
+			type:'post',
+			success:function(data){
+				if(data.result){
+					$(".tip").html()
+					var time=60;
+					var timeFun=setInterval(function(){
+						time--;
+						if(time>0){
+							$('#timeval').val(time+"秒后重新获取").attr("disabled",true);
+							$('#timeval').css("font-size","20px");
+                            $('#timeval').css("color","#fff");
+                            $('#timeval').css("background","#249FF1");
+						}else{
+							time=60;
+							$('#timeval').val("获取验证码").removeAttr("disabled");
+							$('#timeval').css("background","#2370b6");
+							$('#timeval').css("color","#fff");
+							clearInterval(timeFun);
+						}
+					},1000);
+				}
+				else{
+					$(".tip").html(data.msg);
+				}
+			}
+		});
+	}
+	</script>
+	<script type="text/javascript">
+		seajs.use("${webroot}${theme_dir}/wx/js/cash_addBank")
+	</script>
+</body>
+</html>

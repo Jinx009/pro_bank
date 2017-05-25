@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="/plugins/raphael/css/main.css">
+<script src="/plugins/raphael/js/jquery.js"></script>
+<script src="/plugins/jquery.rotate/jquery.rotate.js"></script>
+<script type="text/javascript">
+var height = 0;
+var width = 0;
+var model = 200;
+$(function(){
+	height = $(window).height()-model;
+	width = $(window).width()-model;
+	$('.logo').css('left',width/2-36);
+	console.log(height+'---'+width)
+	start();
+	var rotation2 = function (){
+			for(var i = 0;i<10;i++){
+			$('#circle'+i).rotate({
+				  duration:2000,
+			      angle:0, 
+			      animateTo:360, 
+			      callback: rotation2,
+			      easing: function (x,t,b,c,d){ 
+			          return c*(t/d)+b;
+			      }
+			   });
+			}
+		}
+	rotation2();
+})
+var status = false;
+function start(){
+	for(var i=0;i<10;i++){
+		var left = getRandomNum(width);
+		var top = getRandomNum(height);
+		$('#circle'+i).animate({top:top,left:left},2000,start);	
+	}
+}
+
+function getRandomNum(num){   
+	return Math.random()*num;
+}   
+
+document.onkeydown=function(event){
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	if(e&&e.keyCode==13){ 
+		var h = (height+model)/2;
+		var w = (width+model)/2;
+		var rotation3 = function (){
+			for(var i=0;i<10;i++){
+				var angel = $('#circle'+i).getRotateAngle();
+				console.log(angel);
+				$('#circle'+i).rotate({
+				  duration:1,
+			      angle: 0,
+			      animateTo:(360-angel)
+			   });
+			}
+		}
+		rotation3();
+		for(var i=0;i<10;i++){
+			$('#circle'+i).stop(true);	
+			$('#circle'+i).stopRotate();
+		}
+		var t = setTimeout(function(){
+			$('#circle5').animate({top:(h-350),left:(w+80)},2000);	
+			$('#circle4').animate({top:(h-350),left:(w-80)},2000);	
+			$('#circle6').animate({top:(h-320),left:(w+250)},2000);	
+			$('#circle3').animate({top:(h-320),left:(w-250)},2000);	
+			$('#circle2').animate({top:(h-290),left:(w-400)},2000);	
+			$('#circle7').animate({top:(h-290),left:(w+400)},2000);	
+			$('#circle8').animate({top:(h-250),left:(w+550)},2000);	
+			$('#circle1').animate({top:(h-250),left:(w-550)},2000);	
+			$('#circle9').animate({top:(h-200),left:(w+700)},2000);	
+			$('#circle0').animate({top:(h-200),left:(w-700)},2000);	
+			
+		},1000)
+	}
+	if(e&&e.keyCode==32){ 
+		var h = (height+model)/2;
+		var w = (width+model)/2;
+		for(var i=0;i<10;i++){
+			$('#circle'+i).stop(true);	
+		}
+		var t = setTimeout(function(){
+			$('#circle5').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle4').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle6').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle3').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle2').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle7').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle8').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle1').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle9').animate({width:-1,left:w,height:-1,top:400},2000);	
+			$('#circle0').animate({width:-1,left:w,height:-1,top:400},2000);	
+			var rotation1 = function (){
+				$('.logo').rotate({
+				  duration:2500,
+			      angle:0, 
+			      animateTo:720
+			   });
+			}
+			rotation1();
+		},1000)
+		var t = setTimeout(function(){
+				$('.logo').show();
+				$('.logo').animate({height:250,left:w-415},1400);
+		},3500);
+	}
+}; 
+</script>
+<style type="text/css">
+.circle0 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+}
+.circle1 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 300px;
+  left: 300px;
+}
+.circle2 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 400px;
+  left: 400px;
+}
+.circle3 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 500px;
+  left: 500px;
+}
+.circle4 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+}
+.circle5 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 300px;
+  left: 400px;
+}
+.circle6 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 300px;
+  left: 200px;
+}
+.circle7 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 400px;
+  left: 200px;
+}
+.circle8 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 200px;
+  left: 500px;
+}
+.circle9 {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 500px;
+  left: 300px;
+}
+.logo{
+position:absolute;
+	height: 10px;
+	top: 300px;
+	display: none;
+	z-index: 9999;
+}
+body{
+	//background: url('/themes/theme_default/cf/active/images/c_bg.jpg')top center no-repeat; 
+   // background-size:cover;
+	//background: black;
+	text-align: center;
+	width: 100%;
+	height: 100%; 
+	
+	overflow-x:hidden;
+	overflow-y:hidden;
+}
+</style>
+</head>
+<body>
+
+
+<div style="position: absolute; z-index: -100; width: 100%; height: 100%;top: 0px;left:0px;text-align: center;">
+<object type="application/x-shockwave-flash" data="" width="100%" height="100%">
+<param name="movie" value="/themes/theme_default/cf/img/swf.swf"/>
+<param name="allowFullScreen" value="true" />
+<param name="FlashVars" value="" />
+<param name="wmode" />
+</object>
+</div>
+<audio controls="controls" autoplay="autoplay" style="width: 0px;height: 0px;" >
+  <source src="/themes/theme_default/cf/active/moon.mp3" type="audio/ogg" />
+  <source src="/themes/theme_default/cf/active/moon.mp3" type="audio/mpeg" />
+</audio>
+	<img src="/themes/theme_default/cf/active/images/8.png" class="circle0" id="circle0"  >
+	<img src="/themes/theme_default/cf/active/images/0.png" class="circle1" id="circle1"  >
+	<img src="/themes/theme_default/cf/active/images/0.png" class="circle2" id="circle2"  >
+	<img src="/themes/theme_default/cf/active/images/Z.png" class="circle3" id="circle3"  >
+	<img src="/themes/theme_default/cf/active/images/H.png" class="circle4" id="circle4"  >
+	<img src="/themes/theme_default/cf/active/images/O.png" class="circle5" id="circle5"  >
+	<img src="/themes/theme_default/cf/active/images/N.png" class="circle6" id="circle6"  >
+	<img src="/themes/theme_default/cf/active/images/G.png" class="circle7" id="circle7"  >
+	<img src="/themes/theme_default/cf/active/images/F.png" class="circle8" id="circle8"  >
+	<img src="/themes/theme_default/cf/active/images/U.png" class="circle9" id="circle9" >
+	<img src="/themes/theme_default/cf/active/images/LOGO1.png" class="logo" >
+</body>
+</html>

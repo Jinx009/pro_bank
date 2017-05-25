@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="applicable-device"content="pc,mobile">
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/ace.min.css">
+	<link href="/themes/theme_default/cf/pro/css/datepicker.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/800zf.css">
+	<script src="/themes/theme_default/cf/pro/js/jquery.js"></script>
+	<script src="/themes/theme_default/dist/jquery.form.js"></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/plugins/vue/vue.min.js" ></script>
+	<script src="/themes/theme_default/cf/pro/js/bootstrap.min.js"></script>
+	<script src="/themes/theme_default/cf/js/url.js"></script>
+	<script src="/themes/theme_default/cf/pro/js/pro/materials.js"></script>
+</head>
+<body>
+<#include "include/header.html">
+<input type="hidden" id="id" value="${id}" >
+<div class="container-fulider">
+	<div class="">
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+					<span class="btn btn-success"></span>
+					<span class="btn btn-info"></span>
+					<span class="btn btn-warning"></span>
+					<span class="btn btn-danger"></span>
+				</div>
+			</div>
+			<ul class="nav nav-list">
+				<li>
+					<a v-attr="href:item.url1">
+						<i class="icon-desktop"></i>
+						<span class="menu-text">基本信息</span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+				</li>
+				<li class="active">
+					<a v-attr="href:item.url2">
+						<i class="icon-desktop"></i>
+						<span class="menu-text">素材</span>
+
+						<b class="arrow icon-angle-down"></b>
+					</a>
+				</li>
+				<li>
+					<a v-attr="href:item.url3">
+						<i class="icon-desktop"></i>
+						<span class="menu-text">规则</span>
+
+						<b class="arrow icon-angle-down"></b>
+					</a>
+				</li>
+				<li>
+					<a v-attr="href:item.url4">
+						<i class="icon-desktop"></i>
+						<span class="menu-text">预览</span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="main-content">
+		<ol class="breadcrumb">
+		  <li><a href="#">项目管理</a></li>
+		  <li><a href="#" >项目素材</a></li>
+		  <li class="active" v-text="item.projectName" ></li>
+		</ol>
+		<div class="page-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="tabbable">
+						<form id="form1"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >头图：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10">
+											<img id="img1" v-if="''===item.project_img" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-one')"  />
+											<img id="img1" v-if="''!==item.project_img" v-attr="src:item.project_img" onclick="getSub('file-upload-one')"  />
+											<input type="hidden" id="path1" v-attr="value:item.project_img1" >
+											<input type="file" name ="file" id="file1" class="file-upload-one" onchange="subForm('form1')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<form id="form2"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >产品详情图片：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10" >
+											<img id="img2" v-if="''===item.project_detail" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-two')"  />
+											<img id="img2" v-if="''!==item.project_detail" v-attr="src:item.project_detail" onclick="getSub('file-upload-two')"  />
+											<input type="hidden" id="path2" v-attr="value:item.project_detail1" >
+											<input type="file" name ="file" id="file2" class="file-upload-two" onchange="subForm('form2')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<form id="form3"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >公司logo：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10" >
+											<img id="img3" v-if="''===item.company_logo" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-three')"  />
+											<img id="img3" v-if="''!==item.company_logo" v-attr="src:item.company_logo" onclick="getSub('file-upload-three')"  />
+											<input type="hidden" id="path3" v-attr="value:item.company_logo1" >
+											<input type="file" name ="file" id="file3" class="file-upload-three" onchange="subForm('form3')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<form id="form4"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >产品详情头图：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10">
+											<img id="img4" v-if="''===item.detail_img" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-four')"  />
+											<img id="img4" v-if="''!==item.detail_img" v-attr="src:item.detail_img" onclick="getSub('file-upload-four')"  />
+											<input type="hidden" id="path4" v-attr="value:item.detail_img1" >
+											<input type="file" name ="file" id="file4" class="file-upload-four" onchange="subForm('form4')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<form id="form5"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >微信群聊二维码：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10">
+											<img id="img5" v-if="''===item.wechat_code" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-five')"  />
+											<img id="img5" v-if="''!==item.wechat_code"  v-attr="src:item.wechat_code"  onclick="getSub('file-upload-five')"  />
+											<input type="hidden" id="path5" v-attr="value:item.wechat_code1" >
+											<input type="file" name ="file" id="file5" class="file-upload-five" onchange="subForm('form5')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<form id="form6"  method="post" enctype="multipart/form-data" action="/code/imgUpload.action" >
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >商业计划书（PDF格式）：</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10">
+											<img id="img6" src="/themes/theme_default/cf/img/upload.png" onclick="getSub('file-upload-six')"  />
+											<a id="a6"  href="#" v-if="''===item.business_book" target="_blank " ></a>
+											<a id="a6"  v-attr="href:item.business_book" v-if="''!==item.business_book" target="_blank " >点击此处查看PDF</a>
+											<input type="hidden" id="path6" v-attr="value:item.business_book1" >
+											<input type="file" name ="file" id="file6" class="file-upload-six" onchange="subForm('form6')" style="display: none;" >
+											<div class="height20" ></div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div >
+							<div class="col-md-offset-3 col-md-9">
+								<button class="btn btn-info" type="button" onclick="sendData()" >
+									<i class="icon-ok bigger-110"></i>
+									保存
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/themes/theme_default/cf/pro/js/fuelux.wizard.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace-elements.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd ">
+	
+	<!-- 使用annotation @Repository,@Service自动注册bean, 并保证@Required、@Autowired的属性被注入的包范围 -->
+    <context:component-scan base-package="com.rongdu,com.rongdu.p2psys.core.quartz" />
+	
+	<bean id="propertyConfigurer" class="com.rongdu.common.util.des.DecryptPropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>      
+                <value>classpath:desdb.properties</value><!-- 加密后文件 -->
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8"/> 
+        <property name="keyLocation" value="classpath:desdb.key" /><!-- 密钥文件位置 -->
+    </bean>
+    
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+	
+	    <!-- Connection Info   coding -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+	
+		<!-- 检查数据库连接池中空闲连接的间隔时间  -->
+		<property name="idleConnectionTestPeriod" value="4" />
+		<!-- 连接池中未使用的链接最大存活时间  -->
+		<property name="idleMaxAge" value="240" />
+		<!-- 设置每个分区含有connection最大个数  -->
+		<property name="maxConnectionsPerPartition" value="20" />
+		<!-- 设置每个分区含有connection最小个数  -->
+		<property name="minConnectionsPerPartition" value="10" />
+		<!-- 设置每个分区数  -->
+		<property name="partitionCount" value="3" />
+		<!-- 设置分区中的connection增长数量  -->
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="50"/>
+  	    <property name="releaseHelperThreads" value="3"/>
+  	    <property name="disableConnectionTracking" value="true" /> 
+	</bean>
+
+	<!-- Jpa Entity Manager 配置 -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <property name="packagesToScan">
+        	<array>
+                <value>com.rongdu.p2psys.*.domain</value>
+                <value>com.rongdu.p2psys.*.*.domain.</value>
+            </array>
+        </property>
+        <property name="jpaProperties">
+            <props>
+              	<prop key="hibernate.service.jdbc.connections.spi.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+            </props>
+        </property>
+    </bean>
+
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+    </bean>
+    
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	   
+	<aop:config>
+		<aop:pointcut id="allManagerMethod"
+			expression="execution(* com..service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
+	</aop:config>
+	
+</beans>

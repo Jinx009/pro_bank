@@ -1,0 +1,18 @@
+define(function(require,exports,module){
+    require("jquery");
+    $.ajax({
+        type:"get",
+        url:"/member_borrow/companyHomeJson.html?id="+window.location.search.split("=")[1],
+        dataType:"json",
+        success:function(json){
+             require.async("/plugins/handlebars-v1.3.0/handlebars-v1.3.0",function(){
+                require.async("/plugins/handlebars-v1.3.0/transFormatJson",function(){
+                    $("#company").html(Handlebars.compile(require("../../tpl/member_borrow/home.tpl"))(json));
+                    require.async(["/plugins/fancybox/jquery.fancybox.css","/plugins/fancybox/jquery.fancybox.pack"],function(){
+                        $(".fancybox").attr("rel","gallery").fancybox();
+                    })
+                })
+             })
+        }
+    });
+})

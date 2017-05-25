@@ -1,0 +1,294 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 15px;
+	font-family: Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;
+}
+@media screen and (min-width: 1240px)
+.h_all {
+  max-width: 640px;
+}
+.h_all {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;min-width: 320px;
+	position: relative;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul li {
+	display: block;
+	list-style: none;
+}
+
+i {
+	display: block;
+}
+
+
+/* pay_header start */
+.h_all .pay_header {
+
+	line-height: 40px;
+
+	text-align: center;
+	  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+  font-size: 1.2em;
+  background: #2370B6;
+  height: 45px;
+  position: relative;
+	color: #fff;
+}
+.h_all .pay_header .backto {
+  position: absolute;
+  border-width: 10px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #e3e7e8 transparent transparent;
+  left: 0px;
+  top: 13px;
+}
+.h_all .pay_header .backto:after {
+  content: "";
+  position: absolute;
+  border-width: 10px;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent #2370b6 transparent transparent;
+  left: -9px;
+  top: -10px;
+}
+/*end pay_header */
+
+/* pay_company start */
+.h_all .pay_company {
+	width: 100%;
+	height: 165px;
+	border-bottom: 1px solid #D7D7D7;
+	position: relative;
+}
+
+.h_all .pay_company .liimg{
+    display: block;	
+	height: 127px;
+	float: left;
+	margin: 28px 0 0 32px;
+
+}
+
+
+.h_all .pay_company li{
+	float:left;;
+}
+.h_all .pay_company .pay_name {
+	width:75%;
+	display: block;
+	
+	font-family: Arial;
+	font-size: 20px;
+	color: #333;
+	line-height: 50px;
+	height: 30px;
+	margin: 25px 0 0 22px;
+}
+
+.h_all .pay_company .pay_AMT {
+	display: block;
+	font-size: 15px;
+	color: #333;
+	line-height: 30px;
+	margin: 25px 0 0 22px;
+	width:75%;
+}
+
+.h_all .pay_company p .pay_AMT .pay_money {
+	font-family: Arial;
+	font-size: 26px;
+	color: #81D8D0;
+	line-height: 26px;
+}
+/* end pay_company */
+
+/* pay_payment start */
+.h_all .pay_payment {
+	width: 100%;
+	height: 70px;
+	background: #F9F9F9;
+	border-bottom: 1px solid #D7D7D7;
+	float: left;
+}
+
+.h_all .pay_payment .pay_method {
+	display: block;
+	float: left;
+	font-family: Arial;
+	font-size: 20px;
+	line-height: 70px;
+	margin-left: 30px;
+	color: #666;
+}
+/* end pay_payment */
+
+/* payment_details start */
+.h_all .payment_details {
+	width: 100%;
+	height: 170px;
+	/* border-bottom: 1px solid #D7D7D7; */
+	float: left;
+}
+.h_all .payment_details{
+  padding-left: 3%;
+}
+.h_all .payment_details li {
+ 
+  line-height: 65px;
+  border-top: 1px solid #e3e7e8;
+  position: relative;
+  overflow: hidden;
+  height: 70px;
+  border-bottom: 1px solid #D7D7D7;
+  border-top:0px;
+}
+.h_all .payment_details li label {
+  width: 40%;
+  
+  color: #667279;
+}
+.h_all .payment_details div {
+	width: 100%;
+	height: 90px;
+}
+
+.h_all .payment_details div i {
+	width: 24px;
+	height: 24px;
+	float: left;
+}
+
+.h_all .payment_details div div {
+	float: right;
+}
+
+.h_all .payment_details div .pay_p1 {
+	width: 95%;
+	height: 90px;
+	border-bottom: 1px solid #D7D7D7;
+	float: right;
+}
+
+.h_all .payment_details div div span {
+	font-family: Heiti SC;
+	font-size: 30px;
+	color: #333;
+	line-height: 90px;
+}
+
+.h_all .payment_details div div .pay_faster {
+	margin-left: 10px;
+}
+
+.h_all .payment_details div div div {
+	width: 20%;
+	height: 62px;
+	background: #2370B6;
+	text-align: center;
+	border-radius: 5px;
+	margin: 15px 28px 0 0;
+}
+
+#recharge:hover {
+	background: #249FF1;
+	cursor: pointer;
+}
+
+#recharge {
+	position: absolute;
+	top: 35%;
+	margin-top: -13px;
+	right: 30px;
+	min-width:100px;
+	height: 45px;
+	line-height:45px;
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+	border: 1px solid #66c05a;
+	background: #2370B6;
+	padding: 0 10px;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.h_all .payment_details div .payment_img1 {
+	background: url(images/unchecked.png) no-repeat;
+	margin: 35px 0 0 35px;
+}
+
+.h_all .payment_details div .payment_img2 {
+	background: url(images/unchecked.png) no-repeat;
+	margin: 35px 0 0 35px;
+}
+/* end payment_details */
+
+/* product_agreement start */
+.h_all .product_agreement {
+	width: 100%;
+	height: 60px;
+	float: left;
+/* 	margin-top: 15px; */
+}
+
+.h_all .product_agreement i {
+	width: 24px;
+	height: 24px;
+	float: left;
+	background: url(images/F_checked.png) no-repeat;
+	margin: 21px 0 0 35px;
+}
+
+.h_all .product_agreement .{
+	/* font-family: Heiti SC; */
+	/* font-size: 26px; */
+	float: left;
+	color: #333;
+	/* line-height: 70px; */
+
+}
+
+.h_all .product_agreement .product_accord a {
+/* 	font-family: Heiti SC;
+	font-size: 26px; */
+	color: #81D8D0;
+	float: left;
+	/* line-height: 70px; */
+}
+/* end product_agreement */
+
+/* confirm_invest start */
+.h_all .confirm_invest {
+	width: 96%;
+	
+	background: #2370B6;
+	text-align: center;
+	margin-left: 2%;
+	float: left;
+	border-radius: 5px;
+	/* margin-top: 10px; */
+}
+
+.h_all .confirm_invest:hover {
+	background: #249FF1;
+	cursor: pointer;
+}
+
+.h_all .confirm_invest a {
+	  height: 45px;
+      font-size: 16px;
+	color: #fff;
+	line-height: 45px;
+}
+/* end confirm_invest */

@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member">
+	<#include "../../include/header.html">
+	<#include "../../common/function.html">
+	 
+	<!--#container-->
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../user_menu.html">
+			</div>
+			
+			<div class="user_right">
+				<div class="user_right_menu">
+					<#assign account_type="newrecharge">
+					<#include "recharge_menu.html">
+				</div>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+					
+					
+		<div class="user_right_border">
+			<div class="l b_bold">姓名：</div>
+			<div class="c">${session_user.realName!""}</div>
+			<div class="l b_bold">邮箱：</div>
+			<div class="c">${session_user.hideEmail}</div>
+		</div>
+		
+		<div class="user_right_border">
+			
+		</div>
+		<form action="/member/recharge/doRecharge.html" method="post" name="form1"  id="J_reCharge" target="_blank">
+			<div class="user_right_border position_re">
+	        	<div class="paymentstatus b_bold">充值方式：</div>
+	            	<ul class="recharge_list clearfix">
+	                	<li class="active"><span data-value="1">网银直联</span></li>
+	                    <li><span data-value="2">网上支付</span></li>
+	                    <li><span data-value="3">线下支付</span></li>
+	                </ul>
+	                <!--S-网银直联-->
+	                <div class="recharge_content clearfix" style="display:block;">
+	                	<style type="text/css">
+							#ban table td{height:40px; line-height:40px;padding-right:30px;padding-bottom:10px; width:165px;}
+							#ban table img{width:125px; height:33px;float:right;}
+						</style>
+						<div id="ban">
+	                         <ul class="bank_list clearfix">
+							 <#if payOnlinebankList?? && payOnlinebankList?size gt 0>
+	                             <#list payOnlinebankList as item>
+	                                 <li>
+	                                   <input type="radio" name="payOnlinebank" value="${item.nid}" />
+	                                   <img src="${item.logo}" border="0"/>
+	                                 </li>
+	                             </#list>
+							 </#if>
+	                         </ul>
+	                     	<table width="100%" cellpadding="3" cellspacing="3">
+						   	</table>
+						</div>
+	                </div>
+	                <!--E-网银直联-->
+	                
+	                <!--S-网上支付-->
+	                <div class="recharge_content clearfix">
+	                	<#if payList?? && payList?size gt 0>
+							<#list payList as item>
+								<span style="line-height:22px; vertical-align:top; height:22px">
+									<input type="radio" name="pay" class="input_border" value="${item.nid}"/> ${item.name}
+									<#--<img src="/data/recharge/${item.nid}.png" border="0"/>-->
+									<input type="hidden" name="payname" value="${item.name}" /><br/>
+								</span>
+							</#list>
+						</#if>
+	                </div>
+	                <!--E-网上支付-->
+	                
+	                <!--S-线下充值-->
+	                <div class="recharge_content clearfix">
+	                    <strong>收账账户：</strong>
+	                        <div class="underline-bank">
+	                        <#if payOfflinebankList?? && payOfflinebankList?size gt 0>
+								<#list payOfflinebankList as item>
+									<input type="radio" name="payOfflinebank"  class="input_border" value="back_recharge" />${item.account} ${item.bank} ${item.branch}  法人账户：${item.owner}<br/>
+								</#list>
+							</#if>
+	                    </div>
+	                    <br/>
+	                    <strong>线下充值备注：</strong>
+	                    <textarea rows="3" cols="50" name="remark">
+				</textarea>
+	                 <br>（请注明您的用户名，转账银行卡号和转账流水号，以及转账时间，谢谢配合）
+	                </div>
+	                <!--E-线下充值-->
+	        </div>
+	        <div class="member_box">
+		        <div class="user_right_border">
+					<div class="l b_bold w100">充值金额：</div>
+					<div class="c">
+						<input type="text" name="money"  class="input_border" id="js_recharge" value="" size="10" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();" maxlength="9" /> 元 
+		                
+		                	<span class="ml10">目前账户可用余额：<font class="c_red">￥</font></font><font class="c_red"  id="use_money">${account?if_exists.useMoney?if_exists}</font></span>
+		                    <span id="realacc" class="ml20">充值后账户可用余额：<font class="c_red">￥</font></font><font class="c_red" id="real_money"></font></span>
+					</div>
+		            
+				</div>
+		        
+				
+				<div class="user_right_border">
+					<div class="l b_bold float_left w100">填验证码：</div>
+					<div class="c" >
+						<input name="valicode" type="text" size="11" maxlength="4"  tabindex="3"  />&nbsp;<img src="${webroot}/validimg.html" alt="点击刷新" class="J_valicode_img" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" style="cursor:pointer; display:inline-block;zoom:1;*display:inline; *float:none;" />
+					</div>
+				</div>
+		
+				<div class="user_right_border submitbg">
+						<input type="button" class="btn sub_btn"  name="name" onClick="rechargeCheck(); return false;" value="确认提交" size="30" /> 
+						<input type="hidden" class="paymentStatus" name="type">
+					</div>
+				</div>
+			
+		</form>
+        </div>
+		 <div id="modal_dialog" style="display: none" title="充值情况" class="rec_dialog">
+        	<p>如果您已经完成了充值，请继续以下步骤</p>
+            <div class="">
+        	<span id="close_wd">继续充值</span>　|　
+			<a href="${webroot}/member/recharge/log.html">查看充值记录</a>
+            </div>
+        </div>
+		
+		<div class="user_help alert">
+            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+            	<p>1、网上银行充值过程中请耐心等待,充值成功后，请不要关闭浏览器,充值成功后返回${webname},
+                	 充值金额才能打入您的帐号。</p>
+			<p>2、${webname}禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。</p>
+		</div>
+					<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	</div>
+	<!--#container-->
+	<script>
+	function rechargeCheck(){
+			var val=$('.paymentStatus').val();
+			var errorMsg = "";
+			if(val=="1"){
+				var payment1 = $("input[name='payOnlinebank']");
+				if(!payment1.is(":checked"))
+				{
+					errorMsg+="选择网银直联的充值银行<br />";
+				}
+				return rechargeForm(errorMsg);
+			}
+			if(val=="2"){
+				var payment2 = $("input[name='pay']");
+				if(!payment2.is(":checked"))
+				{
+					errorMsg+="选择网上支付的充值银行<br />";
+				}
+				return rechargeForm(errorMsg);
+			}
+			if(val=="3"){
+				var now_remark = $("input[name='remark']").val();
+				var payment3 = $("input[name='payOfflinebank']");
+				if(!payment3.is(":checked"))
+				{
+					errorMsg+="选择线下支付的充值银行<br />";
+				}
+				if(now_remark=="")
+				{
+					errorMsg+="输入线下充值备注<br />";
+				}
+				return rechargeForm(errorMsg);
+			}
+			function rechargeForm(error,boj){
+				var money = $("input[name='money']").val();
+				var validateCode = $("input[name='valicode']").val();
+				if(money==""){
+					error+="充值金额不能为空<br />";
+				}
+				if(validateCode==""||validateCode.length<4){
+					error+="验证码不符合规范<br />";
+				}
+				if(error.length>0)
+				{
+					layer.alert(error);
+					$(".valicode_img").trigger("click");
+					return false;
+				}
+				else{
+					$("#J_reCharge").ajaxSubmit(function(data){
+						console.log(data.result);
+						if(!data.result){
+							layer.msg("充值成功",1,function(){
+								$("#J_reCharge")[0].reset()
+							});
+							
+							$(".valicode_img").trigger("click");
+						}
+					
+					});
+				}
+				
+			}
+		}//验证数据
+		function show_recharge(){
+			$(".J_valicode_img").each(function(){
+				$(this).attr("src",'/validimg.html?t=' + Math.random());
+			})
+			jQuery( "#modal_dialog" ).dialog({ autoOpen: false , modal: true ,height: 160,width:360 });
+			jQuery( "#modal_dialog" ).dialog( "open" );
+		}
+		 
+		seajs.use("${webroot}${theme_dir}/media/js/member/recharge.js")
+		<!-- 充值，需要通过实名认证、邮箱认证、手机认证 -->
+		<#if session_user_identify.realNameStatus == 0 >
+			alert("为了您的账户安全，请先进行实名认证！");
+			window.location.href = "/member/security/setting.html";
+		<#elseif session_user_identify.emailStatus == 0 >
+			alert("为了您的账户安全，请先进行邮箱认证！");
+			window.location.href = "/member/security/setting.html";
+		<#elseif session_user_identify.mobilePhoneStatus == 0>
+			alert("为了您的账户安全，请先进行手机认证！");
+			window.location.href = "/member/security/setting.html";
+		</#if>
+   	</script>
+	<#include "../../include/footer.html">

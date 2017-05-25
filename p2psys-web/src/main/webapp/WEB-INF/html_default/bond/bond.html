@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html">
+<body>
+  <#assign nid="my_invest"> 
+  <#assign flag="bond"> 
+  <#include "../../include/member_header.html">
+  <div id="container" class="clearfix">
+    <div class="usermain clearfix">
+      <div class="user_left"> 
+         <#assign mid="m_invest">
+         <#include "../member/trade_menu.html">
+      </div>
+      <div class="user_right">
+        <h2 class="item_title">债权转让</h2>
+          <ul class="memberSearch">
+            <li id="status">
+                    <a href="javascript:;" data-val="1" class="current">可转让</a>
+                    <a href="javascript:;" data-val="2">转让中</a>
+                    <a href="javascript:;" data-val="3">已转出</a>
+                    <a href="javascript:;" data-val="4">已转入</a>
+            </li>
+          </ul>
+          <table class="table_content"></table>
+          <div id="kkpager" class="kkpager"></div>
+        </div>
+      </div>
+    </div>
+    <form action="/bond/addBond.html" id="transfer" style="display:none">
+        <ul class="transferContent">
+          <li><label>债权价值：</label> <em class="bondVal">0.00</em><i>元</i></li>
+          <li><label>转让债权：</label> <input type="text" name="bondMoney" class="transferPart" placeholder="金额必须小于等于债权价值" autocomplete="off" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"><i>元</i><span class="errorTip"></span></li>
+          <li class="discount clearfix"><label>转让折让率：</label><a class="reduce disabled minus" title="减0.1" href="javascript:;"></a><input type="text" name="bondApr" value="" class="discountInput" readonly="readonly"><a class="add" title="加0.1" href="javascript:;"></a><em>%</em></li>
+          <li><label>转让价格：</label> <span class="transferVal">0.00</span><i>元</i></li>
+          <li class="intro">
+              转让成功后可赎回金额=本金*（1 - 转让折让率）+当期应收收益 - 转让手续费<br />
+              手续费将从转让后投资人支付的每笔成交额中扣除0.2%<br />
+              当期应收收益将由投资人投资时支付
+          </li>
+          <li><input type="checkbox" name="protocol" checked="checked">我已阅读并同意<a href="javascript:;" id="bondSellProtocolPreview" class="hide1">《转让协议》</a><span class="errorTip"></span><input type="hidden" name="borrowId"><input type="hidden" name="borrowTenderId"><input type="hidden" name="kfId"><input type="hidden" name="type"></li>
+          <li class="transferBtn"><a href="javascript:;" class="button">保存</a></li>
+        </ul>
+    </form>
+  <script>seajs.use('bond/bond');</script>
+  <#include "../../include/footer.html">
+</body>
+</html>

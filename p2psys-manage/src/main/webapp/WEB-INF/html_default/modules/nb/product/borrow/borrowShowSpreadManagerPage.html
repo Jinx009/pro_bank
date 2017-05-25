@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		非现金流标管理
+	</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<#include "../../../../include/resources.html" />
+</head>
+
+<body style="padding:0 20px;">
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" id="searchName" name="searchName" class="sInput" placeholder="输入 [ 产品编码 ] 或 [ 产品名称 ] 进行模糊查询" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" title="精确查询" class="advBtn">
+						精确查询
+						<i class="iconfont">
+							&#xe638;
+						</i>
+					</a>
+					<a href="javascript:void(0);" title="刷新" class="reloadIcon" onclick="dataGrid.datagrid('reload');">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<div class="sRight">
+				<a id="a" href="javascript:void(0);" onclick="exportExcel();" class="addBtn">
+					导出Excel
+				</a>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe63a;
+						</i>
+					</a>
+					<li>
+						<span>
+							产品编码
+						</span>
+						<input type="text" id="bidNo" name="bidNo" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称
+						</span>
+						<input type="text" id="name" name="name" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							&nbsp;
+						</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+var winWidth = 800;
+var winHeight = 600;
+
+var winWidthView = 750;
+var winHeightView = 500;
+
+var detailTitle = "查看产品";
+var detailUrl = "/modules/nb/product/borrow/borrowShowDetailPage.html";
+
+var recordTitle = "投标记录";
+var recordUrl = "/modules/nb/product/borrow/borrowTenderDetailPage.html";
+
+var stopTitle = "截标";
+var stopUrl = "/modules/nb/product/borrow/borrowStopPage.html";
+
+var cancelTitle = "撤标";
+var cancelUrl = "/modules/nb/product/borrow/borrowCancelPage.html";
+
+$(function() {
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'borrowShowSpreadList.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		frozenColumns: [
+			[{
+				field: 'id',
+				title: '编号',
+				width: 50
+			}, {
+				field: 'bidNo',
+				title: '产品编码',
+				width: 100
+			}, {
+				field: 'name',
+				title: '产品名称',
+				width: 150
+			}, {
+				field: 'statusStr',
+				title: '状态',
+				width: 80
+			}]
+		],
+		columns: [
+			[{
+				field: 'typeStr',
+				title: '产品类型',
+				width: 120
+			}, {
+				field: 'companyName',
+				title: '借款公司名称',
+				width: 150
+			}, {
+				field: 'validTime',
+				title: '有效时间',
+				width: 80,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "天";
+				}
+			}, {
+				field: 'lowestAccount',
+				title: '最低投资金额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					if (value == 0) {
+						return "无限制";
+					} else {
+						return value + "元";
+					}
+				}
+			}, {
+				field: 'mostAccount',
+				title: '最高投资金额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					if (value == 0) {
+						return "无限制";
+					} else {
+						return value + "元";
+					}
+				}
+			}, {
+				field: 'account',
+				title: '投资总额',
+				width: 120,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'apr',
+				title: '收益率',
+				width: 60,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "%";
+				}
+			}, {
+				field: 'timeLimitStr',
+				title: '期限',
+				width: 60,
+				align: 'right'
+			}, {
+				field: 'scales',
+				title: '进度',
+				width: 60,
+				align: 'right',
+				formatter: function(value, row, index) {
+					return value + "%";
+				}
+			}, {
+				field: 'addTime',
+				title: '添加时间',
+				width: 150,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}, {
+				field: 'action',
+				title: '操作',
+				width: 80,
+				formatter: function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.formOptions.viewFun(' + row.id + ',detailTitle,winWidthView,winHeightView,detailUrl);" title="' + detailTitle + '">查看</a><i class="iconfont">&#xe639;</i>';
+					str += '</dt>';
+					str += '<dd style="width:60px;background:white;">';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun(' + row.id + ',recordTitle,winWidth,winHeight,recordUrl);" title="' + recordTitle + '">记录</a>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',cancelTitle,winWidth,winHeight,cancelUrl);" title="' + cancelTitle + '">撤标</a>';
+					if (row.accountYes > 0) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',stopTitle,winWidth,winHeight,stopUrl);" title="' + stopTitle + '">截标</a>';
+					}
+					str += '</dd>';
+					str += '</dl>';
+					return str;
+				}
+			}]
+		]
+	});
+});
+
+function exportExcel() {
+	var url = "/modules/nb/product/borrow/exportExcleSpreadBorrowList.html";
+	var sou = "?searchName=" + $("#searchName").val() + "&bidNo=" + $("#bidNo").val() + "&name=" + $("#name").val();
+	window.location.href = url + sou;
+}
+</script>
+<script src="${theme_dir}/js/search.js"></script>

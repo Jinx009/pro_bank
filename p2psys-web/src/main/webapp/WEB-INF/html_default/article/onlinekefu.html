@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 start-->
+<#assign web_title='p2p贷款、借款问题在线咨询 - 大国贷'>
+<#assign web_description='p2p贷款，借款问题在线咨询，大国贷p2p网贷平台'>
+<!--   v1.6.6.2 RDPROJECT-140 yl 2013-10-23 end-->
+<#include "../include/resource.html"> 
+<body>
+<#include "../include/header.html">
+<link href="${webroot}/themes/soonmes/media/css/about.css" rel="stylesheet" type="text/css" />
+
+<!--S-在线客服-->
+<div id="container">
+    <div id="content">
+          <div class="service">
+               <div class="currentPath">当前位置：<a href="#">咨询服务</a> &gt; <a href="#">网站公告</a></div>
+               <div class="service_content clearfix">
+                      <div class="service_left">
+                            <div class="service_menus_titile">咨询服务</div>
+                            <div class="service_menus_list">
+                               <ul>
+                                   <#list sublist as item>
+                                    <#if item??&&item.url??&&((item.url)?length gt 0)>
+                                    <!-- V1.6.6.2 RDPROJECT-352 ljd 2013-10-18 start -->
+                                    <li><a id="item${item_index+1}" href="${webroot}${item.url!}?nid=${item.nid!}" rel="${item.site_id}">${item.name}</a></li>
+                                    <!-- V1.6.6.2 RDPROJECT-352 ljd 2013-10-18 end -->
+                                    <#elseif item.status==1>
+                                    <li><a id="item${item_index+1}" href="${webroot}/article/list.html?catalog=${item.site_id}" rel="${item.site_id}" >${item.name}</a></li>
+                                    </#if>
+                                    </#list>
+                               </ul>
+                            </div>
+                      </div>
+                      <!--S-service_right-->
+                      <div class="service_right">
+                            <div class="service_right_title">
+                                 <b>${site.name}</b>
+                            </div>
+                            <div class="line">
+                                  <div class="lineleft"></div>
+                            </div>
+
+                            <div class="kefu_list">
+                                  <ul class="kefu_list_ul clearfix">
+                                    <#if kflist??>
+                                        <#list kflist as item>
+                                        <li>
+                                          <div class="kefuli_left">
+                                            <img src="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" />
+                                          </div>
+                                          <div class="kefuli_right">
+                                            <p>${item.username}</p>
+                                            <p>名字：${item.realname?default("")}</p>
+                                            <p>电话${item.tel?default("")}</p>
+                                            <p>QQ：861022272</p>
+                                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=${item.qq!}&site=qq&menu=yes">
+                                                <img border="0" src="http://wpa.qq.com/pa?p=2:${item.qq!}:41" alt="点击这里给我发消息" title="点击这里给我发消息">
+                                            </a>
+                                         </div>
+                                       </li> 
+                                       </#list>
+                                       </#if>
+                                  </ul>
+                            </div>
+                      </div>
+                      <!--E-service_right-->
+               </div>
+          </div>  
+    </div>
+</div>
+<!--E-在线客服-->
+
+<script type="text/javascript">
+$(function(){
+	var site_id = parseInt("${site.site_id}");
+	var oA = $(".service_menus_list a");
+	var oArel = "";
+	oA.each(function(){
+		 var index = oA.index(this);
+		 oArel = parseInt($(oA[index]).attr("rel"));
+		 if(site_id == oArel)
+		 {
+			$(oA[index]).addClass("pagehover");
+		 }	
+	})
+})
+</script>
+<#include "../include/footer.html"> 

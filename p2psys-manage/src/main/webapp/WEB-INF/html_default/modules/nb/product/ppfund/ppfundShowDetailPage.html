@@ -1,0 +1,132 @@
+<div class="popShow">
+	<div class="showItem">
+		<span>
+			产品标签：
+		</span>
+		${productBasic.productTypeFlag.flagName}
+	</div>
+	<div class="showItem">
+		<span>
+			产品类型：
+		</span>
+		${productBasic.productType.typeName}
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			产品编号：
+		</span>
+		${ppfund.pidNo!}
+	</div>
+	<div class="showItem">
+		<span>
+			产品名称：
+		</span>
+		${ppfund.name!}
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			产品金额：
+		</span>
+		<#if ppfund.account==0>
+			金额不限
+			<#else>
+				${ppfund.account!0} 元
+		</#if>
+	</div>
+	<div class="showItem">
+		<span>
+			年利率：
+		</span>
+		${ppfund.apr} %
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			借款管理费率：
+		</span>
+		${ppfund.manageRate!0} %
+	</div>
+	<div class="showItem">
+		<span>风险备用金费率：
+		</span>
+		${ppfund.riskReserveRate!0} %
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			借款期限：
+		</span>
+		<#if ppfund.isFixedTerm==1>
+			${ppfund.timeLimit}天
+			<#else>
+				不限
+		</#if>
+	</div>
+	<div class="showItem">
+		<span>
+			周期天数：
+		</span>
+		<#if ppfund.isFixedTerm==1>
+			到期结束
+			<#else>
+				${ppfund.cycle}天
+		</#if>
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			最低投资金额：
+		</span>
+		<#if ppfund.lowestAccount??&&ppfund.lowestAccount?number gt 0>${ppfund.lowestAccount}元
+			<#else>无限制</#if>
+	</div>
+	<div class="showItem">
+		<span>
+			最高投资金额：
+		</span>
+		<#if ppfund.mostAccount??&&ppfund.mostAccount?number gt 0>${ppfund.mostAccount}元
+			<#else>无限制</#if>
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			计息方式：
+		</span>
+		T+${ppfund.interestWay}
+	</div>
+	<div class="showItem">
+		<span>
+			红包：
+		</span>
+		<#if ppfund.redPacket??>${ppfund.redPacket.name!}
+			<#else>无</#if>
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			每日投资开始时间：
+		</span>
+		${ppfund.startTime!}
+	</div>
+	<div class="showItem">
+		<span>
+			每日投资结束时间：
+		</span>
+		${ppfund.endTime!}
+	</div>
+	<!-- -->
+	<div class="showItem">
+		<span>
+			添加时间：
+		</span>
+		${ppfund.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+	<div class="showItem">
+		<span>
+			IP：
+		</span>
+		${ppfund.addIp!}
+	</div>
+</div>

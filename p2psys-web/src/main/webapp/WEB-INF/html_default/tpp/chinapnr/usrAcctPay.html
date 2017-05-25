@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>连接汇付添加跳转</title>
+</head>
+<body>
+  <div>连接汇付添加跳转中,请不要关闭页面</div>
+  <form action="${pnr.url}" method="post" id="frm1" style="display: none;">
+      <input type="text" name="Version" value="${pnr.version}">
+	  <input type="text" name="CmdId" value="${pnr.cmdId}">
+	  <input type="text" name="MerCustId" value="${pnr.merCustId}">
+	  <input type="text" name="OrdId" value="${pnr.ordId!}">
+	  <input type="text" name="UsrCustId" value="${pnr.usrCustId}">
+	  <input type="text" name="TransAmt" value="${pnr.transAmt}">
+	  <input type="text" name="InAcctId" value="${pnr.inAcctId}">
+	  <input type="text" name="BgRetUrl" value="${pnr.bgRetUrl}">
+	  <input type="text" name="RetUrl" value="${pnr.retUrl}"/>
+	  <input type="text" name="InAcctType" value="${pnr.inAcctType}">
+	   <input type="text" name="MerPriv" value="${pnr.merPriv}">
+	  <textarea name="ChkValue" cols="60" rows="6">${pnr.chkValue}</textarea>
+    </form> 
+    <script language="javascript">
+      document.getElementById("frm1").submit();
+    </script>
+</body>
+</html>

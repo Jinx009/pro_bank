@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<form id="form" method="post">
+<div class="adminUserForm" style="border-bottom:0;">
+    <ul>
+		<li><span>果 果 号 ：</span><input type="text" name="userName" id="userName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20" readonly="readonly" style="width:130px;"/><i>*</i>
+		<input type="button" value="选择" onclick="showGuoguo()" class="selectguoguo">
+		</li>
+		<li><span>手 机 号：</span><input type="text" name="mobilePhone" id="mobilePhone" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>用户类型：</span>
+			<select name="userType" id="userType" class="type">
+					<option value="1">个人投资者</option>
+					<option value="5">机构投资者</option>
+					<option value="2">个人借款者</option>
+					<option value="4">机构借款者</option>
+			</select>
+		</li>
+		<div class="jg-type" style="display:none;">
+			<li><span>机构名称：</span><input type="text" name="companyName" id="companyName" autocomplete="off" class=" adminUserTxt adminUser" data-options="required: true" maxlength="20"/><i>*</i></li>
+			<li><span>组织机构代码：</span><input type="text" name="zzjgCode" id="zzjgCode" autocomplete="off" class=" adminUserTxt adminUser" data-options="required: true" maxlength="20"/><i>*</i></li>
+			<li><span>联系人姓名：</span><input type="text" name="realName" id="realName" autocomplete="off" class=" adminUserTxt adminUser" data-options="required: true" maxlength="20"/><i>*</i></li>
+		</div>
+		<div class="gr-type" style="display:none;">
+			<li><span>姓名：</span><input type="text" name="realName" id="realName" autocomplete="off" class=" adminUserTxt adminUser" data-options="required: true" maxlength="20"/><i>*</i></li>
+			<li><span style="float:left;">所在地：</span> <div class="ipt" id="city" style="float:left;width:335px;">
+                   <select class="prov" name="province"><option value="上海" selected="selected">上海</option></select>  
+                    <select class="city" name="city" disabled="disabled"><option value="黄浦区">黄浦区</option></select> 
+                    <select class="dist" name="area" disabled="disabled"><option value=""></option></select> 
+                            </div>     
+			</li>
+		</div>
+		<li>温馨提示：<br/><font style="font-size: 12px;color: red;">1、如果选择借款者靓号，请核实用户类型，默认为个人借款者。<br/>2、开户成功后系统会自动生成随机密码发送至开户用户手机号。</font><li>
+	</ul>
+</div>
+</form>
+
+<script>
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		prov:"上海", //省份 
+	    city:"上海", //城市 
+	    dist:"", //区县 
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	}); 
+</script>
+
+<script>
+  $("#userType").change(function(){
+  	$(".jg-type").css("display","none")
+  	$(".gr-type").css("display","none")
+	$(".jg-type .adminUser").removeClass('easyui-validatebox')
+    $(".gr-type .adminUser").removeClass('easyui-validatebox')
+  	var aa = $("#userType").find("option:selected").text();
+  	if(aa == "机构借款者"){
+  		$(".jg-type").css("display","block")
+  		$(".jg-type .adminUser").addClass('easyui-validatebox')
+  	}
+  	if(aa == "个人借款者"){
+  		$(".gr-type").css("display","block")
+  		$(".gr-type .adminUser").addClass('easyui-validatebox')
+  	}
+  	$.parser.parse("#form");
+  })
+</script>

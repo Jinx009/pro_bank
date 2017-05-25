@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="/plugins/raphael/css/main.css">
+<script src="/plugins/raphael/js/jquery.js"></script>
+<script src="/plugins/jquery.rotate/jquery.rotate.js"></script>
+<script type="text/javascript">
+var height = 0;
+var width = 0;
+var model = 10;
+$(function(){
+	height = $(window).height()-model;
+	width = $(window).width()-model;
+	start();
+	var rotation2 = function (){
+			for(var i = 0;i<10;i++){
+			$('#circle'+i).rotate({
+				  duration:2000,
+			      angle:0, 
+			      animateTo:360, 
+			      callback: rotation2,
+			      easing: function (x,t,b,c,d){ 
+			          return c*(t/d)+b;
+			      }
+			   });
+			}
+		}
+	rotation2();
+})
+var status = false;
+function start(){
+	for(var i=0;i<10;i++){
+		var left = getRandomNum(width);
+		var top = getRandomNum(height);
+		$('#circle'+i).animate({top:top,left:left},8000,start);	
+	}
+}
+
+function getRandomNum(num){   
+	return Math.random()*num;
+}   
+
+document.onkeydown=function(event){
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	if(e&&e.keyCode==13){ 
+		var h = (height+model)/2;
+		var w = (width+model)/2;
+		var rotation3 = function (){
+			for(var i=0;i<10;i++){
+				var angel = $('#circle'+i).getRotateAngle();
+				console.log(angel);
+				$('#circle'+i).rotate({
+				  duration:1,
+			      angle: 0,
+			      animateTo:(360-angel)
+			   });
+			}
+		}
+		rotation3();
+		for(var i=0;i<10;i++){
+			$('#circle'+i).stop(true);	
+			$('#circle'+i).stopRotate();
+		}
+		var t = setTimeout(function(){
+			$('#circle5').animate({top:(h-350),left:(w+20)},2000);	
+			$('#circle4').animate({top:(h-350),left:(w-80)},2000);	
+			$('#circle6').animate({top:(h-320),left:(w+220)},2000);	
+			$('#circle3').animate({top:(h-320),left:(w-250)},2000);	
+			$('#circle2').animate({top:(h-290),left:(w-400)},2000);	
+			$('#circle7').animate({top:(h-290),left:(w+380)},2000);	
+			$('#circle8').animate({top:(h-250),left:(w+530)},2000);	
+			$('#circle1').animate({top:(h-250),left:(w-550)},2000);	
+			$('#circle9').animate({top:(h-200),left:(w+680)},2000);	
+			$('#circle0').animate({top:(h-200),left:(w-700)},2000);	
+			
+		},1000)
+	}
+	if(e&&e.keyCode==32){ 
+		var h = (height+model)/2;
+		var w = (width+model)/2;
+		console.log(w)
+		for(var i=0;i<10;i++){
+			$('#circle'+i).stop(true);	
+		}
+		var t = setTimeout(function(){
+			$('#circle5').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle5').hide();
+			});	
+			$('#circle4').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle4').hide();
+			});		
+			$('#circle6').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle6').hide();
+			});		
+			$('#circle3').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle3').hide();
+			});		
+			$('#circle2').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle2').hide();
+			});		
+			$('#circle7').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle7').hide();
+			});		
+			$('#circle8').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle8').hide();
+			});		
+			$('#circle1').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle1').hide();
+			});		
+			$('#circle9').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle9').hide();
+			});		
+			$('#circle0').animate({width:-1,left:w,height:-1,top:400},2000,function(){
+				$('#circle0').hide();
+			});		
+			var rotation1 = function (){
+				$('.logo').rotate({
+				  duration:2500,
+			      angle:0, 
+			      animateTo:720
+			   });
+			}
+			rotation1();
+		},1000)
+		var t = setTimeout(function(){
+				$('.logo').show();
+				$('.logo').animate({left:(w-470)},1400,function(){
+					$('.logo1').show();
+					$('.logo1').animate({right:(w-500)},1400);
+				});
+		},1500);
+	}
+}; 
+</script>
+<style type="text/css">
+h1{
+	color: white;
+	font-size:112px;
+	font-family: "Microsoft Yahei";
+}
+.circle0 {
+  display: block;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle1 {
+  display: block;
+  position: absolute;
+  top: 300px;
+  left: 300px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle2 {
+  display: block;
+  position: absolute;
+  top: 400px;
+  left: 400px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle3 {
+  display: block;
+  position: absolute;
+  top: 500px;
+  left: 500px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle4 {
+  display: block;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle5 {
+  display: block;
+  position: absolute;
+  top: 300px;
+  left: 400px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle6 {
+  display: block;
+  position: absolute;
+  top: 300px;
+  left: 200px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle7 {
+  display: block;
+  position: absolute;
+  top: 400px;
+  left: 200px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle8 {
+  display: block;
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.circle9 {
+  display: block;
+  position: absolute;
+  top: 500px;
+  left: 300px;
+  font-size:112px;
+  font-family: "Microsoft Yahei";
+}
+.logo{
+	position:absolute;
+	height:250px;
+	top: 300px;
+	display: none;
+	left: -300px;
+}
+.logo1{
+	position:absolute;
+	height: 250px;
+	top: 300px;
+	display: none;
+	right: -800px;
+}
+body{
+	background: url('/themes/theme_default/cf/active/images/g_bg.jpg')top center no-repeat; 
+    background-size:cover;
+	//background: black;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+</style>
+</head>
+<body>
+<audio controls="controls" autoplay="autoplay" loop="loop" style="width: 0px;height: 0px;" >
+  <source src="/themes/theme_default/cf/active/moon.mp3" type="audio/ogg" />
+  <source src="/themes/theme_default/cf/active/moon.mp3" type="audio/mpeg" />
+</audio>
+	<h1 class="circle0" id="circle0"  >8</h1>
+	<h1 class="circle1" id="circle1"  >0</h1>
+	<h1 class="circle2" id="circle2"  >0</h1>
+	<h1 class="circle3" id="circle3"  >Z</h1>
+	<h1 class="circle4" id="circle4"  >H</h1>
+	<h1 class="circle5" id="circle5"  >O</h1>
+	<h1 class="circle6" id="circle6"  >N</h1>
+	<h1 class="circle7" id="circle7"  >G</h1>
+	<h1 class="circle8" id="circle8"  >F</h1>
+	<h1 class="circle9" id="circle9" >U</h1>
+	<img src="/themes/theme_default/cf/active/images/logo3.png" class="logo" >
+	<img src="/themes/theme_default/cf/active/images/logo4.png" class="logo1" >
+</body>
+</html>

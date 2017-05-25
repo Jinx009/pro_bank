@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="800Bank">
+<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+<title>800Bank</title>
+<link href="/themes/theme_default/nb/pc/css/member/recommendProfit.css" rel="stylesheet"/>
+<script type="text/javascript">
+$(function()
+{
+	changeLeftMenue("我的福袋","推荐收益");
+})
+seajs.use("/themes/theme_default/nb/pc/js/member/recommendProfit.js")
+</script>
+</head>
+<body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+		<div class="col-md-3 main_left padding_col0 ">
+			 <#include "../include/member_menu.html">
+		</div>
+     <!-- 用户中心左导航菜单 end -->		
+		 <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-1" ></div>
+		 		<div class="info">
+		 		<p class="margin5p">推荐收益</p>
+		 		<table class="table my-table" >
+		 			<thead>
+		 				<tr class="space-div-2" ></tr>
+					    <tr>
+						      <th>被推荐人手机</th>
+						      <th>投资项目名称</th>
+						      <th>推荐收益</th>
+						      <th>收益日期</th>
+					    </tr>
+					</thead>
+					<tbody id="table_content" ></tbody>
+		 		</table>
+		 		<div id="kkpager" class="no-data"></div>
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-4" ></div>
+		 		<div class="space-div-4" ></div>
+		 		<div class="warning-div" >
+		 			<p class="color-warning-p" >*活动开始后(8月18日)：</p>
+					<p class="warning-p" >>成功邀请好友注册，您可以获得20元推荐红包（投资红包）</p>
+					<p class="warning-p" >>好友投资（随投随享除外），您还有返利。投资越多，返利越高。返利为好友投资额的年化0.1%。</p>
+					<p class="warning-p" >>若推荐收益小于1分钱不计入收益<p>
+		 		</div>
+		  </div>
+		  </div>
+	</div>
+</div>
+	<div class="clearfix"></div>
+</div>
+<div style="height: 80px;">	</div>
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+</body>
+</html>

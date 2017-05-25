@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/myjs.js" ></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<script type="text/javascript">
+$(function()
+{
+	var wealthManagerId = $("#wealthManagerId").val();
+	$.ajax({
+		type : 'post',
+		url : '/modules/nb/vip/wealthManager/getAllUserList.html?id='+wealthManagerId,
+		dataType : 'json',
+		success : function(data){
+			var list = data.users;
+			if(list.length==0){
+				$("#userList").html("<tr><td colspan='3' style='text-align: center'>暂时没有用户</td></tr>");
+			}else{
+				var htmlStr="";
+				for(var i = 0;i<list.length;i++){
+					
+					var realName=list[i].realName;
+					var phone = list[i].userName;
+					var userId = list[i].userId;
+					htmlStr += "<tr><td>"+realName+"</td><td>"+phone+"</td><td><input  name='subBox' onclick='setSelectAll();' type='checkbox' value="+userId+"  / ></td></tr>";
+					
+				}
+				
+				$("#userList").html(htmlStr);
+				
+			}
+		}
+	});
+	
+	$.ajax({
+		type : 'post',
+		url : '/modules/nb/vip/wealthManager/findWealthManagerById.html?id='+wealthManagerId,
+		dataType : 'json',
+		success : function(data){
+			var htmlStr = "<tr><td>"+data.wealthManager.name+"</td><td><input name='managerName'type='checkbox' checked=checked value="+data.wealthManager.id+" / ></td></tr>";
+			$("#manager").html(htmlStr);
+		}
+	});
+	
+	$.ajax({
+		type : 'post',
+		url : '/modules/nb/vip/wealthManager/findNotInWealthManagerId.html?id='+$("#wealthManagerId").val(),
+		dataType : 'json',
+		success : function(data){
+			var wealthManager = data.wealthManager;
+			var htmlStr = "";
+			for(var i = 0;i<wealthManager.length;i++){
+				htmlStr += "<tr><td>"+wealthManager[i].name+"</td><td><input name='managerName'type='checkbox' value="+wealthManager[i].id+"  / ></td></tr>";
+			}
+			$("#managerList").html(htmlStr);
+		}
+	});	
+})
+
+function selectAll(){
+	var strAllCheck = [];
+	  if ($("#allCheck").prop("checked")) { 
+	      $("input[type='checkbox'][name='subBox']").prop("checked", true);  
+	  } else {  
+	      $('input[type="checkbox"][name="subBox"]').prop("checked", false);  
+	  }  	  
+}
+
+//子复选框的事件  
+function setSelectAll(){  
+	  //当没有选中某个子复选框时，SelectAll取消选中  
+	  if (!$('input[name="subBox"]').checked) { 
+	      $("#allCheck").prop("checked", false);  
+	  }  
+	  var chsub = $('input[name="subBox"]').length; //获取subcheck的个数  
+	  var checkedsub = $("input[type='checkbox'][name='subBox']:checked").length; //获取选中的subcheck的个数  
+	 	
+	  if (checkedsub == chsub) {  
+	      $("#allCheck").prop("checked", true);  
+	  }  
+  
+	  
+}
+
+function sure(){
+	var strSubBox = [];
+	$("input[name='subBox']:checked").each(function(){
+		  strSubBox.push($(this).val()); 
+	});
+
+	var strManagerName = [];
+	$("input[name='managerName']:checked").each(function(){
+		  strManagerName.push($(this).val()); 
+	});
+	
+	var allHtml ="" ;
+	for(var k = 0;k<strSubBox.length;k++){
+		allHtml += "<input name='wealthUserId' id='wealthUserId' value="+strSubBox[k]+">";		
+	}
+	
+	for(var j = 0;j<strManagerName.length;j++){		
+		  allHtml +="<input name='wealthManagerId' id='wealthManagerId' value="+strManagerName[j]+">"
+	}
+
+	$("#allListUser").append(allHtml);
+	
+	//先删除之前的当前管家下的用户
+/* 	 url : '/modules/nb/vip/wealthManager/deleteByWealthId.html?id='+$("#wealthManagerId").val(), */
+	 $.ajax({
+		type : 'post',
+		cache : false,
+		url : '/modules/nb/vip/wealthManager/deleteByWealthId.html?id='+$("#wealthManagerId").val(),
+		data : $('#allListUserForm').serialize(),
+		dataType : 'json',
+		async:false,
+		success : function(data){
+		//	alert(data.result);	
+		}
+	}); 
+	
+	
+	$.ajax({
+		type : 'post',
+		cache : false,
+		url : '/modules/nb/vip/wealthManagerUser/wealthManagerUserAddAllList1.html',
+		data : $('#allListUserForm').serialize(),
+		dataType : 'json',
+		async:false,
+		success : function(data){
+			alert("重新分配成功！");
+			closeMyTab("财富管家列表","/modules/nb/vip/wealthManager/wealthManager.html");
+			
+		}
+	});
+}
+
+function closeMyTab(title,url)
+{
+	$("body",parent.document).find('#close_title').val("财富管家列表");
+	$("body",parent.document).find('#temp_title').val("财富管家下的用户列表");
+	$("body",parent.document).find('#new_title').val(title);
+	$("body",parent.document).find('#new_url').val(url);	
+	$("body",parent.document).find('#new_open').click();
+}
+
+</script>
+<style type="text/css">
+body
+{
+	font-family: "Microsoft Yahei";
+}
+.btnSure{width:230px;margin:0 auto;height:30px;text-align:center;line-height:30px;border-radius:8px;border:1px solid #CCCCCC;color:#FFFFFF;background-color:#428bca;}
+</style>
+</head>
+<body>
+<input id="wealthManagerId" name="id" value="${id}" type="hidden">
+<div id="list"  >
+	<div style="height: 30px" ></div>
+	<table  class="table table-bordered" style="width: 96%;margin-left: 2%;border:1px solid #cccccc;"   >
+			<tr>
+				<td width="40%" valign="top" style="text-align: center;" ><h3> 用户列表</h3></td>
+				<td width="40%" valign="top" style="text-align: center;" ><h3> 管家列表</h3></td>
+			</tr>
+			<tr>
+				<td valign="top" >
+					<table style="width: 100%;" class="table table-bordered" >
+						<thead>
+							<tr>
+								<th width="33%">用户姓名</th><th  width="33%"  >用户手机</th><th width="33%" >全选 <input type="checkbox" id="allCheck"  name="allCheck" onclick="selectAll();">  </th>
+							</tr>
+						</thead>
+					
+						<tbody id="userList" >
+						</tbody>
+						
+					</table>
+				</td>
+				<td valign="top" >
+					<table style="width: 100%;border:1px solid #cccccc;" class="table table-bordered" >
+						<thead>
+							<tr>
+								<th width="50%">管家姓名</th><th width="50%" >选中状态</th>
+							</tr>
+						</thead>
+						<tbody id="manager" ></tbody>
+						<tbody id="managerList"></tbody>
+					</table>
+				</td>
+			</tr>
+	</table>
+	<div class="btnSure"  onclick="sure();">重新分配</div>
+	<div style="height: 100px" ></div>
+	<form method="get" id="allListUserForm" name="allListForm">
+		<div id="allListUser" style="display:none;">
+		</div>
+	</form>
+</div>
+
+</body>
+</html>

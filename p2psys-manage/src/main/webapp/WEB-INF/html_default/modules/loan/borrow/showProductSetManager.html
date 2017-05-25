@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>组合发标待审标信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 550;
+    var addTitle = "发布借款";
+    var addUrl =  "/modules/loan/borrow/borrowAddPage.html";
+    
+    var updateUrl="/modules/loan/borrow/modifyProductSetManager.html";
+    var updateTitle="修改";
+    
+    var combinationUrl ="/modules/loan/borrow/verifyProductSetManager.html";
+    var combinationTitle ="组合初审";
+    
+    var searchUrl="/modules/loan/borrow/viewProductSet.html";
+    var searchTitle="查看信息";
+    
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'showProductSetList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+	singleSelect:true,
+            columns : [ [
+	  	 	  { field: 'id', title: '编号', width: 50, align:'center',fixed:true, sortable:false },
+	  	 	  { field: 'productName', title: '组合名称',width:100, align:'center',  fixed:true,sortable:false }, 
+	  	 	  { field: 'typeDesc', title: '组合类型', width: 90, align:'center', fixed:true,sortable:false}, 
+	  	 	  { field: 'highestRefundRate', title: '最高预期收益', width: 90,align:'center', fixed:true,sortable:false,formatter : function(value, row, index){return value+"%"}}, 
+	  	 	  { field: 'lowestRefundRate', title: '最低预期收益', width: 90,align:'center', fixed:true,sortable:false,formatter : function(value, row, index){return value+"%"}}, 
+	  	      { field : 'productList',
+					title : '包含产品',
+					width : 600,
+					align:'center',
+					fixed : true,
+					sortable : false,
+					formatter : function(value, row, index){
+						if(row.subProductList){
+							var htmlStr = "<table class='table' style='width:600px;border:0px' ><tr><td width=150px ><b>序号</b></td><td width=150px ><b>产品类型</b></td><td  width=150px  ><b>产品名称</b></td><td  width=150px  > <b>所占比例</b></td></tr>";
+							
+							for(var i = 0;i<row.subProductList.length;i++){
+								htmlStr += '<tr><td>'+(i+1)+'</td><td>['+row.subProductList[i].typeDesc+']</td>'+'<td> '+row.subProductList[i].productName+' </td><td> '+row.subProductList[i].rate+'%'+'</td></tr>';
+							}
+							
+							htmlStr += "</table>";
+							
+							return htmlStr;
+						}else{
+							return "暂无内容";
+						}
+			  }},
+              { field : 'action',
+                title : '操作',
+                width :100,
+                align:'center',
+                fixed:true,
+                formatter : function(value, row, index) {
+                    var str = '';
+                    str += '<dl>';
+                    str += '<dt ><a href="javascript:void(0);" onclick="openMyUrl(updateUrl,updateTitle,'+row.id+');">修改</a><i class="iconfont">&#xe639;</i></dt>' ;
+                    str +='<dd  class="my_dd">';
+                    if(row.status ==0){
+                    	 str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.borroweditFun('+row.id+',combinationTitle,winWidth,winHeight,combinationUrl);" title="'+combinationTitle+'">初审</a>' ;
+                    }
+                    str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.closeFun('+row.id+',searchTitle,winWidth,winHeight,searchUrl);" title="'+searchTitle+'">查看</a>' ;
+                    str +="</dd>"
+                    str +=  '</dl>'
+                    return str;
+                }
+            } ] ],
+            toolbar : '#toolbar'
+        });
+    });
+    function openMyUrl(url,title)
+	{
+		$("body",parent.document).find('#new_title').val(title);
+		$("body",parent.document).find('#new_url').val(url);
+		
+		$("body",parent.document).find('#new_test').click();
+	}
+	function openMyUrl(url,title,id)
+	{
+		var path =url+"?id="+id;
+		$("body",parent.document).find('#new_title').val(title);
+		$("body",parent.document).find('#new_url').val(path);
+		
+		$("body",parent.document).find('#new_test').click();
+	}
+</script>
+<style>
+.my_dd
+{
+	width: 100px;
+}
+.my_dd a
+{
+	width:78px;
+	background: white;
+}
+</style>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+            </div>
+            <div class="sRight">
+            	<a id="a"  href='javascript:void(0);' onclick="openMyUrl('/modules/loan/borrow/releaseProductSetManager.html','组合发布')"  class="addBtn"><i class="iconfont">&#xe629;</i>发标</a>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>组合类型</span><select name="type" class="type"><option value="全部">全部</option><#list typeList as item><option value="${item.id}">${item.typeName}</option></#list></select></li>		       
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>
+

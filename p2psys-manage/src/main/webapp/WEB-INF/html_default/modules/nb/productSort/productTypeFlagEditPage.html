@@ -1,0 +1,86 @@
+<script type="text/javascript">
+seajs.use("${theme_dir}/js/ajaxfileupload");
+
+function ajaxUploadMaterial(sId, url, name) {
+	$.ajaxFileUpload({
+		url: url,
+		secureuri: false,
+		fileElementId: sId,
+		dataType: 'json',
+		data: {
+			typeCode: 'aaa'
+		},
+		success: function(data) {
+			if (data.state == "SUCCESS") {
+				$("#" + name).val(data.url);
+				$("#show" + name).attr("src", '${adminUrl}' + data.url);
+			} else {
+				alert("上传文件失败，请重试!");
+			}
+		},
+		error: function(data, status, e) {
+			alert("上传文件失败，请重试!");
+		}
+	});
+}
+
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '修改',
+		width: 900,
+		height: 800,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/productSort/productTypeFlagEdit.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${productTypeFlag.id}">
+		<div class="formitm">
+			<label class="lab">标签名称</label>
+			<div class="ipt">
+				<input type="text" id="flagName" name="flagName" class="w400 easyui-validatebox" value="${productTypeFlag.flagName}" data-options="required:true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">标签描述</label>
+			<div class="ipt">
+				<input type="text" id="flagDescription" name="flagDescription" class="w400 easyui-validatebox" value="${productTypeFlag.flagDescription}" data-options="required:true" maxlength="30" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">标签备注</label>
+			<div class="ipt">
+				<textarea id="remark" name="remark" class="w400 easyui-validatebox" data-options="required: false">${productTypeFlag.remark!''}</textarea>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">PC首页图标</label>
+			<div class="ipt">
+				<input type="file" id="filepcUrl" name="pcIconUrlFile" onchange="return ajaxUploadMaterial('filepcUrl','/imageUp.jsp','pcUrl');" style="padding-bottom:70px" />
+				<img src="${productTypeFlag.iconUrl!''}" id="showpcUrl" name="showpcUrl" alt="无法预览PC首页图标" style="height:100px" />
+			</div>
+		</div>
+		<input type="hidden" id="pcUrl" name="iconUrl" value="" />
+		<div class="formitm">
+			<label class="lab">PC产品列表头图</label>
+			<div class="ipt">
+				<input type="file" id="filepcListUrl" name="pcListUrlFile" onchange="return ajaxUploadMaterial('filepcListUrl','/imageUp.jsp','pcListUrl');" style="padding-bottom:70px" />
+				<img src="${productTypeFlag.listUrl!''}" id="showpcListUrl" name="showpcListUrl" alt="无法预览PC产品列表头图" style="height:100px" />
+			</div>
+		</div>
+		<input type="hidden" id="pcListUrl" name="listUrl" value="" />
+		<div class="formitm">
+			<label class="lab">微信图片</label>
+			<div class="ipt">
+				<input type="file" id="filewxUrl" name="wxPicUrlFile" onchange="return ajaxUploadMaterial('filewxUrl','/imageUp.jsp','wxUrl');" style="padding-bottom:70px" />
+				<img src="${productTypeFlag.picUrl!''}" id="showwxUrl" name="showwxUrl" alt="无法预览微信图片" style="height:100px" />
+			</div>
+		</div>
+		<input type="hidden" id="wxUrl" name="picUrl" value="" />
+	</form>
+</div>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <title>800众服</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <meta name="keywords" content="800众服">
+    <meta name="description" content="800众服 ">
+    <link href="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+    <style>
+    html,
+    body {
+        margin: 0;
+        font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", sans-serif;
+        height: 100%;
+    }
+    
+    .reg-main .err {
+        position: relative;
+        margin: 5px;
+        font: 12px normal;
+        color: #2a2a2a;
+        padding: 0 15px 0;
+        visibility: hidden;
+    }
+    
+    .reg-main .err:before {
+        content: '';
+        background: url(/themes/theme_default/cf/wechat/images/err.png) no-repeat 0 0/100% 100%;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 2px;
+        left: 0;
+    }
+    
+    .header {
+        width: 100%;
+        vertical-align: top;
+    }
+    
+    .main {
+        width: 100%;
+        background: #fff url(/themes/theme_default/cf/wechat/images/reg_bg.jpg) no-repeat 0 0/100% 100%;
+        padding: 30px 0;
+    }
+    
+    .reg-main {
+        width: 65%;
+        margin: 0 auto;
+    }
+    
+    input {
+        border: none;
+        color: #fff;
+        font: 16px bold;
+        letter-spacing: 1px;
+        margin: 0;
+        padding: 0;
+    }
+    
+    ::-webkit-input-placeholder {
+        color: #fff;
+    }
+    
+    input#tel,
+    input#pwd,
+    input#rePwd {
+        background: #cccccc url(/themes/theme_default/cf/wechat/images/pwd.png) no-repeat 0 0/100% 100%;
+        width: 100%;
+        line-height: 38px;
+        padding-left: 24%;
+        box-sizing: border-box;
+    }
+    
+    input#tel {
+        background: #cccccc url(/themes/theme_default/cf/wechat/images/tel.png) no-repeat 0 0/100% 101%;
+    }
+    
+    .msg-yzm-container {
+        width: 100%;
+        height: 38px;
+        display: table;
+    }
+    
+    input#msg-yzm {
+        background: #cccccc url(/themes/theme_default/cf/wechat/images/yzm.png) no-repeat 0 0/100% 100%;
+        width: 60%;
+        line-height: 38px;
+        box-sizing: border-box;
+        padding: 0 0 0 15px;
+    }
+    
+    #get-msg-yzm {
+        display: inline-block;
+        width: 40%;
+        color: #fff;
+        font: 14px bold;
+        background: #e80000;
+        line-height: 38px;
+        text-align: center;
+        letter-spacing: 1px;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        vertical-align: top;
+    }
+    
+    .send-disabled {
+        background: #a3a3a3;
+    }
+    
+    .agree-container {
+        width: 100%;
+        display: table;
+        margin: 10px 0 0;
+    }
+    
+    #agree {
+        width: 15%;
+        vertical-align: top;
+        margin-top: 5px;
+    }
+    
+    .agree-main {
+        display: inline-block;
+        width: 80%;
+    }
+    
+    .agree-main label {
+        color: #707070;
+        font: 14px normal;
+    }
+    
+    .protocol,
+    .risk {
+        color: #707070;
+        font: 12px normal;
+        margin: 10px 0;
+    }
+    
+    #submit {
+        background: #e80000;
+        width: 90%;
+        line-height: 38px;
+        margin: 10px auto;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 900;
+    }
+    
+    .process-container img,
+    .qr img {
+        vertical-align: middle;
+        width: 100%;
+    }
+    
+    #agree-alert {
+        display: none;
+        background: #F2F2F2;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    
+    #close {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        font-size: 30px;
+        background: #fff;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+    #service-protocol,
+    #risk-provision {
+        padding: 30px 25px 30px 30px;
+        height: 100%;
+    }
+    .qr-code{
+        display: none;
+        height: 100%;
+    }
+    .qr-code img{
+        width: 100%;
+        height: 100%;
+    }
+
+    /*sweetAlert样式重置*/
+    
+    .sweet-alert button {
+        background-color: #FFAE00;
+    }
+    
+    .sweet-alert button:focus {
+        box-shadow: 0 0 2px rgba(255, 174, 0, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+    
+    .sweet-alert input:focus {
+        box-shadow: 0 0 3px #ffd781;
+        border: 1px solid #FFAE00;
+    }
+    
+    .sweet-alert .sa-icon.sa-success .sa-placeholder {
+        border: 4px solid rgba(255, 174, 0, 0.2);
+    }
+    
+    .sweet-alert .sa-icon.sa-success .sa-line {
+        background-color: #FFAE00;
+    }
+    
+    .sweet-alert button:hover {
+        background-color: #FFAE00;
+    }
+    
+    .sweet-alert button:active {
+        background-color: #f4a805;
+    }
+    
+    .sweet-alert .sa-icon.sa-info {
+        border-color: #ffd781;
+    }
+    
+    .sweet-alert .sa-icon.sa-info::before {
+        background-color: #ffd781;
+    }
+    
+    .sweet-alert .sa-icon.sa-info::after {
+        background-color: #ffd781;
+    }
+    
+    .sweet-alert .sa-icon.sa-success {
+        border-color: #FFAE00;
+    }
+    
+    .sweet-alert .sa-icon.sa-success .sa-line {
+        background-color: #FFAE00;
+    }
+    
+    .indentp p {
+        text-align: left;
+        /*text-indent: 2em;*/
+    }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <img src="/themes/theme_default/cf/wechat/images/header.jpg" alt="800Bank-header" class="header">
+    <div class="main">
+        <div class="reg-main">
+            <input type="tel" id="tel" placeholder="请输入手机号" maxlength="11" autofocus>
+            <p class="err err-tel">手机号不正确！</p>
+            <input type="password" id="pwd" placeholder="请输入密码" maxlength="16">
+            <p class="err err-pwd">密码为8-16位字母和数字组合</p>
+            <input type="password" id="rePwd" placeholder="确认密码" maxlength="16">
+            <p class="err err-rePwd">两次密码不一致</p>
+            <div class="msg-yzm-container">
+                <input type="text" id="msg-yzm" placeholder="短信验证码" maxlength="6">
+                <span id="get-msg-yzm">获取验证码</span>
+            </div>
+            <p class="err err-msg-yzm">短信验证码不正确</p>
+            <div class="agree-container">
+                <input type="checkbox" id="agree" checked>
+                <div class="agree-main">
+                    <label for="agree"> 我已阅读并同意</label>
+                    <p class="protocol">《800众服服务条款协议》</p>
+                    <p class="risk">《800众服风险提示条款》</p>
+                </div>
+            </div>
+            <div id="submit">点击注册 查看详情</div>
+        </div>
+    </div>
+    <div class="process-container">
+        <img src="/themes/theme_default/cf/wechat/images/desc1.jpg" alt="人工智能">
+        <img src="/themes/theme_default/cf/wechat/images/desc2.jpg" alt="剑桥海归团队">
+    </div>
+    <a class="qr" href="#">
+        <img src="/themes/theme_default/cf/wechat/images/desc3.png" alt="800zf">
+    </a>
+    <!-- 风险协议弹层 -->
+    <div id="agree-alert">
+        <div id="close">&times;</div>
+        <div id="service-protocol"></div>
+        <div id="risk-provision"></div>
+    </div>
+</div>
+<div class="qr-code">
+    <img src="/themes/theme_default/cf/wechat/images/qrCode.jpg" alt="800zf扫描二维码关注">
+</div>
+    <script src="/themes/theme_default/cf/wechat/js/data_protocol.js"></script>
+   <script src="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script> 
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.js"></script> 
+    <script>
+    $(function() {
+            var sendFlag = true; //避免重复点击-获取短信验证码
+            var regFlag = true; // 避免重复点击-注册按钮
+
+            // 检查手机号、密码和验证码合法性
+            function checkForm() {
+                var tel = $('#tel').val();
+                var pwd = $('#pwd').val();
+                var rePwd=$('#rePwd').val();
+                if (!/^1\d{10}$/.test(tel)) {
+                    $('.err-tel').css('visibility', 'visible');
+                    return false;
+                }
+                $('.err-tel').css('visibility', 'hidden');
+
+                if (!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(pwd)) {
+                    $('.err-pwd').css('visibility', 'visible');
+                    return false;
+                }
+                $('.err-pwd').css('visibility', 'hidden');
+
+                if(pwd!==rePwd){
+                    $('.err-rePwd').css('visibility', 'visible');
+                    return false;
+                }
+                $('.err-rePwd').css('visibility', 'hidden');
+
+                return true;
+
+            }
+            // 启动倒计时
+            function startTime() {
+                var sendmsg = $("#get-msg-yzm"),
+                    curCount = 60; //倒计时时间
+                // 倒计时初始化函数
+                function SetRemainTime() {
+                    if (curCount == 0) {
+                        window.clearInterval(InterValObj); //停止计时器
+                        sendmsg.removeClass('send-disabled');
+                        sendmsg.text("重新发送");
+                        sendFlag = true;
+                    } else {
+                        curCount--;
+                        sendmsg.text(curCount + "秒后获取");
+                    }
+                }
+                //设置button效果，开始计时
+                sendmsg.addClass('send-disabled');
+                sendmsg.text(curCount + "秒后获取");
+                InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            }
+            //发送验证码函数
+            function sendMsg() {
+                var tel = $("#tel").val();
+                if (checkForm()) {
+                    sendFlag = false;
+                    $.get("/cf/registerCode.html?mobilePhone=" + tel)
+                        .done(function(res) {
+                            if ("success" == res.result) {
+                                startTime();
+                            }else {
+                                sendFlag = true;
+                                swal({
+                                    title: '发送失败！',
+                                    type: 'error',
+                                    confirmButtonText: '确定',
+                                    confirmButtonColor: '#ffae00'
+                                });
+                            }
+                        })
+                }
+            }
+            // 点击获取短信验证码
+            $('#get-msg-yzm').on('click', function(event) {
+                event.preventDefault();
+                if (sendFlag) {
+                    sendMsg();
+                }
+            });
+
+            //点击注册按钮
+            $('#submit').on('click', function(event) {
+                event.preventDefault();
+                var msg_yzm = $('#msg-yzm').val();
+                if (checkForm() && regFlag) {
+                    // 检查短信验证码是否输入
+                    if (msg_yzm.length !== 6) {
+                        $('.err-msg-yzm').css('visibility', 'visible');
+                        return false;
+                    }
+                    $('.err-msg-yzm').css('visibility', 'hidden');
+                    // 检查协议是否同意
+                    if (!$('#agree').prop('checked')) {
+                        swal({
+                            title: '请仔细阅读并同意服务条款及风险协议！',
+                            type: 'warning',
+                            confirmButtonText: '确定',
+                            confirmButtonColor: '#ffae00'
+                        });
+                        return false;
+                    }
+                    regFlag = false; // 避免重复点击注册按钮
+                    var tel = $('#tel').val();
+                    var pwd = $('#pwd').val();
+                    var rePwd = $('#rePwd').val();
+                    var params = {
+                        mobilePhone: tel,
+                        pwd: pwd,
+                        repwd: rePwd,
+                        code: msg_yzm,
+                        inviteCode: "ikang"
+                    }
+                    $.post('/cf/wechat/doRegister.action',params)
+                        .done(function(res) {
+                            if (200==res.code) {
+                                swal({
+                                    title: '恭喜您注册成功！',
+                                    type: 'success',
+                                    confirmButtonText: '确定',
+                                    confirmButtonColor: '#ffae00'
+                                }, function() {
+                                    $('.wrap').hide();
+                                    $('.qr-code').show();
+                                });
+                            } else {
+                                regFlag = true;
+                                swal({
+                                    title: '温馨提示',
+                                    text: res.data,
+                                    type: 'warning',
+                                    confirmButtonText: '确定',
+                                    confirmButtonColor: '#ffae00'
+                                });
+                            }
+                        })
+                }
+            });
+
+            // 检查手机号是否已经注册
+            $('#tel').on('input', function(event) {
+                event.preventDefault();
+                var tel = $('#tel').val();
+                if (/^1\d{10}$/.test(tel)) {
+                    $.get('/cf/userExists.action?mobilePhone='+tel)
+                        .done(function(res) {
+                            if (res.result === 'failure') {
+                                swal({
+                                    title: '账号已注册，请登录！',
+                                    type: 'warning',
+                                    confirmButtonText: '确定',
+                                    confirmButtonColor: '#ffae00'
+                                });
+                            }
+                        })
+                }
+            });
+
+            //服务条款和风险协议，关闭条款协议
+            $('.protocol').on('click', function(event) {
+                event.preventDefault();
+                $('#agree-alert').show();
+                $('#service-protocol').html(service_paotocol_text).show();
+                $('#risk-provision').hide();
+            });
+
+            $('.risk').on('click', function(event) {
+                event.preventDefault();
+                $('#agree-alert').show();
+                $('#risk-provision').html(risk_provision_text).show();
+                $('#service-protocol').hide();
+            });
+
+            $('body').on('click', '#close', function(event) {
+                event.preventDefault();
+                $('#agree-alert').hide();
+            });
+
+        }); //$function
+    </script>
+</body>
+
+</html>

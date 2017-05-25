@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>800Bank</title>
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/base.css">
+    <link rel="stylesheet" href="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.min.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/beinvited.css">
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/Swiper/3.1.7/js/swiper.jquery.min.js"></script>
+    <script src="/plugins/layer.mobile-v1.6/layer.m.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/data_protocol.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/register.js"></script>
+    <style>
+    .send-yzm #send-msg2 {
+        font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+        letter-spacing: 1px;
+        height: 49px;
+        line-height: 49px;
+        color: #ffae00;
+        background-color: #fff;
+        text-align: center;
+        font-size: 13px;
+        margin-top: 12px;
+        border: none;
+        border-radius: 0 6px 6px 0;
+        width: 50%;
+        padding: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="hidden" value="${redirectURL}" id="redirectURL">
+    <!-- <div class="header">
+        <div class="wrap">
+            <a href=""><img src="/themes/theme_default/nb/wechat/images/logo.png" alt=""></a>
+            <span>属于您的财富管家</span>
+        </div>
+    </div> -->
+    <!-- 黄色条状物 -->
+    <div class="yellow-bar">
+        <a href="javascript:;">
+            <img src="/themes/theme_default/nb/wechat/images/800bank_white.png" alt="">
+            <span>专业的互联网财富管理平台</span>
+        </a>
+    </div>
+    <!-- 轮播图开始 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图结束 -->
+    <div class="bar">
+        <a href="javascript:;"><img src="/themes/theme_default/nb/wechat/images/bar-invited.png" alt=""></a>
+    </div>
+    <form action="" id="invest">
+        <div class="login">
+            <span class="tips">*注册成功后自动与当前微信账号绑定</span>
+            <input type="tel" class="invest-input" id="tel" name="tel" placeholder="手机号&nbsp;请输入手机号">
+            <input type="password" class="invest-input" id="pwd" name="tel" placeholder="密码&nbsp;（至少8位数字与字母组合）">
+        </div>
+        <div class="code">
+            <span class="tips">*设置密码后可在网页登录</span>
+            <input type="text" class="invest-input" id="couponCode" value="${invite_code}" name="couponCode" placeholder="邀请码（可为空）">
+            <div class="send-yzm">
+                <div class="in-box" style="width: 60%;">
+                    <input type="text" class="invest-input" id="valid_code" name="valid_code" placeholder="图形验证码">
+                </div>
+                <button type="button" id="send-msg2" style="width: 40%;">
+                    <img src="/validimg.html" alt="点击刷新" id="change_code" style="width:100%;height:100%;" onclick="this.src='/validimg.html?t=' + Math.random();" />
+                </button>
+            </div>
+            <div class="send-yzm">
+                <div class="in-box">
+                    <input type="text" class="invest-input" id="yzm" name="yzm" placeholder="手机验证码">
+                </div>
+                <button type="button" id="send-msg">发送验证码</button>
+            </div>
+            <div class="protocol">
+                <input type="checkbox" class="invest-chekbox" id="agree" name="agree" checked disabled> 阅读并同意
+                <a href="javascript:;" id="service_protocol">《服务协议》</a>
+                <a href="javascript:;" id="risk_provision">《风险条款》</a>
+            </div>
+        </div>
+        <div class="submit-button">
+            <button type="button" id="confirm">确认绑定</button>
+            <button type="button" id="login">已有账号登录</button>
+        </div>
+    </form>
+</body>
+
+</html>

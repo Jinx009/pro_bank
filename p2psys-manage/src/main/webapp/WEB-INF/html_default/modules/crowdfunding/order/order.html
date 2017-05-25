@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<#include "../../../include/resources.html">
+		<title>订单详情</title>
+		<script type="text/javascript">
+
+			var dataGrid;
+			var winWidth = 900;
+			var bigWidth = 1280;
+			var winHeight = 600;
+
+			$(function() {
+				var editIndex = undefined;
+				dataGrid = $('#dataGrid').datagrid({
+					url: '/modules/crowdfunding/order/data.html?id='+$("#id").val(),
+					fit: true,
+					fitColumns: false,
+					border: false,
+					pagination: true,
+					idField: 'id',
+					pageSize: pageSize,
+					pageNums: 1,
+					pageList: pageList,
+					sortName: 'id',
+					sortOrder: 'asc',
+					checkOnSelect: false,
+					selectOnCheck: false,
+					nowrap: false,
+					singleSelect: true,
+					columns: [
+						[{
+							field: 'id',
+							title: 'ID',
+							width: 50,
+							fixed: true,
+							checkbox: false
+						}, {
+							field: 'projectName',
+							title: '项目名称',
+							width: 200,
+							fixed: true,
+							checkbox: false
+						}, {
+							field: 'userName',
+							title: '购买用户',
+							width: 100,
+							fixed: true,
+							checkbox: false
+						}, {
+							field: 'payStatus',
+							title: '支付状态',
+							width: 200,
+							fixed: true,
+							sortable: false,
+							formatter: function(value, row, index) {
+								if (value == 1) {
+									return "已完成预约支付";
+								}else if(value ==2 ){
+									return "已完成全额付款";
+								} else if(value == 0){
+									return "预约失败";
+								}
+								return "用户已撤回";
+							}
+						}, {
+							field: 'money',
+							title: '购买金额',
+							width: 100,
+							fixed: true,
+							sortable: false
+						}]
+					],
+					toolbar: '#toolbar',
+					onLoadSuccess: function() {
+						$('#searchForm table').show();
+						parent.$.messager.progress('close');
+					},
+					onRowContextMenu: function(e, rowIndex, rowData) {
+						e.preventDefault();
+						$(this).datagrid('unselectAll').datagrid('uncheckAll');
+						$(this).datagrid('selectRow', rowIndex);
+						$('#menu').menu('show', {
+							left: e.pageX,
+							top: e.pageY
+						});
+					}
+				});
+			});
+			
+		</script>
+		<style type="text/css">
+			.sub_btn {
+				width: 100px;
+				background: red;
+				color: white;
+				border-radius: 5px;
+				height: 25px;
+				cursor: pointer;
+			}
+		</style>
+</head>
+
+<body>
+	<input type="hidden" id="id" value="${id}" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'center'" style="margin-top: 30px; padding-bottom: 30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

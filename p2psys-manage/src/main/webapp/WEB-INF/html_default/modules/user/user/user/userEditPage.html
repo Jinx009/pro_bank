@@ -1,0 +1,44 @@
+<div class="popForm sForm">
+		<div class="formitm">
+		     <label class="lab">用户名： </label>
+		     <div class="ipt">
+		     	${user.userName}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">真实姓名： </label>
+		     <div class="ipt">
+		     	<input type="text" name="realName" value="${user.realName!}">
+		     </div>
+		</div>
+		<#if user.userCache.sex==1>
+		<div class="formitm">
+		     <label class="lab">性别：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="sex" value="1" checked="checked" />男
+		     	<input type="radio" name="sex" value="0" />女
+		     </div>
+		</div>
+		<#else>
+		<div class="formitm">
+		     <label class="lab">性别： </label>
+		     <div class="ipt">
+		     	<input type="radio" name="sex" value="1"/>男 
+	    	    <input type="radio" name="sex" value="0"  checked="checked" />女
+		     </div>
+		</div>
+		</#if>
+		<div class="formitm">
+		     <label class="lab">实名认证状态：</label>
+		     <div class="ipt">
+		     	<#if userCache.status == 0>未认证<#elseif userCache.status == 1>认证成功
+	    	<#elseif userCache.status == 2>待审核<#elseif userCache.status == -1>认证未通过</#if>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">锁定状态：</label>
+		     <div class="ipt">
+		     	<#if userAttestation.realNameStatus == 0>锁定用户<#elseif userAttestation.realNameStatus == 1>未锁定用户</#if>
+		     </div>
+		</div>
+</div>

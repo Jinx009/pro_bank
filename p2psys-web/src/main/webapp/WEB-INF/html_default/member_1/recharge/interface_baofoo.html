@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>宝付支付充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>宝付支付充值跳转中,请您不要关闭浏览器......</div>
+    <form action="${baofooPay.submitUrl}" method="post" id="frm1">
+		<input name='MemberID' type='hidden' value="${baofooPay.memberID}"/>
+		<input name='TerminalID' type='hidden' value="${baofooPay.terminalID}"/>
+		<input name='InterfaceVersion' type='hidden' value="${baofooPay.interfaceVersion}"/>
+		<input name='KeyType' type='hidden' value="${baofooPay.keyType}"/>
+		<input name='PayID' type='hidden' value="${baofooPay.payID}"/>		
+		<input name='TradeDate' type='hidden' value="${baofooPay.tradeDate}" />
+		<input name='TransID' type='hidden' value="${baofooPay.transID}" />
+		<input name='OrderMoney' type='hidden' value="${baofooPay.orderMoney}"/>
+		<input name='ProductName' type='hidden' value="${baofooPay.productName}"/>
+		<input name='Amount' type='hidden' value="${baofooPay.amount}"/>
+		<input name='Username' type='hidden' value="${baofooPay.username}"/>
+		<input name='AdditionalInfo' type='hidden' value="${baofooPay.additionalInfo}"/>
+		<input name='PageUrl' type='hidden' value="${baofooPay.pageUrl}"/>
+		<input name='ReturnUrl' type='hidden' value="${baofooPay.returnUrl}"/>	
+		<input name='Signature' type='hidden' value="${baofooPay.signature}"/>
+		<input name='NoticeType' type='hidden' value="${baofooPay.noticeType}"/>
+    </form>
+    <script type="text/javascript">
+    	document.getElementById("frm1").submit();
+    </script>
+  </body>
+</html>

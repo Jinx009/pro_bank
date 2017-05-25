@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<#include "include/resource.html"> 
+<body>
+<#assign nid="member" >
+<#include "include/header.html"> 
+	<!--用户注册 开始-->
+<div id="main" class="clearfix container">
+	<form action="" method="post" name="formUser" onSubmit="return check_setPwd()" >
+		<div class="user_action_reg_form">
+			<div class="alert alert-info"> <a class="close" data-dismiss="alert">x</a>
+				请重新设置你的密码
+			</div> 
+			<br/>
+				<p>
+				  <label for="email">用户名：</label>
+				  <strong style="font-size:16px;"><#if u?exists>${u.username?default("")}</#if></strong>
+				</p>
+				<br/>
+				<p>
+				  <label for="email">密　　码：</label>
+				  <input type="password" maxLength=15  class="user_aciton_input1" name="password" id="password" >
+                  <span class="firstpwdb"></span>
+				</p>
+				<br/>
+				<p>
+				  <label for="email">确认密码：</label>
+				  <input type="password"  maxLength=15  class="user_aciton_input1" name="confirm_password" id="confirm_password"  >
+                  <span class="checkpwdb"></span>
+				</p>
+				<br/>
+				<p align="left">
+					<span> 
+						<input type="submit" value="确认" class="btn-action"  /> 
+						<input type="hidden" name="type" value="setpwd" />
+						<input type="hidden" name="username" value="<#if u?exists>${u.username?default("")}</#if>" />
+					</span>
+				</p>	
+				</div>
+			</form>
+</div>
+<script>
+	var status_pwd = "";
+	var status_ck = "";
+	function ckPwd(){
+		var pwdBox = $("#password");
+		var firstMes = $(".firstpwdb");
+		var checkBox = $("#confirm_password");
+		var checkMes = $(".checkpwdb");
+		var status_pwd = 0;
+		var status_ck = 0;
+		var checkStr = "";
+		var value = "";
+		pwdBox.focus(function(){
+			firstMes.text("");
+			passwordTest();
+		 	
+		}).blur(function(){
+			value = pwdBox.val();
+			var pwdtestVal = getResult(value);
+			var str_len = value.length;
+			if((str_len>7)&&(str_len<17)){
+				if(pwdtestVal<2)
+				{
+					firstMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>请输入8至16位，数字加字母的密码");
+					status_pwd = 0;
+				}
+				else{
+					firstMes.html("<img src='${webroot}${theme_dir}/images/tipimg-g.png'>可以注册");
+					status_pwd = 1;
+				}
+			}else{
+				firstMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>请输入8到16位密码");
+				status_pwd = 0;
+			}
+			paswdStatus = status_pwd+status_ck;
+			return paswdStatus;
+		}).keyup(function(){
+			checkStr = checkBox.val();
+			value = pwdBox.val();
+			if(checkStr=="")
+			{
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>请输入和上面一致的密码");
+				status_ck = 0;	
+			}
+			else if(value!=checkStr)
+			{
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>两次输入的密码不一致");
+				status_ck = 0;
+			}else{
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-g.png'>可以注册");
+				status_ck = 1
+			}	
+		});
+		checkBox.focus(function(){
+			checkMes.text("");
+		}).blur(function(){
+			value = pwdBox.val();
+			checkStr = checkBox.val();
+			if(checkStr=="")
+			{
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>请输入和上面一致的密码");
+				status_ck = 0;
+			}
+			else if(checkStr!=value){
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>两次输入的密码不一致");
+				status_ck = 0;
+			}
+			else{
+				checkMes.html("<img src='${webroot}${theme_dir}/images/tipimg-g.png'>可以注册");
+				status_ck = 1
+			}
+			paswdStatus = status_pwd+status_ck;
+			return paswdStatus;
+		});
+
+		function passwordTest() {
+			var pwdBox = $("#firstpwd");
+			var firstMes = $(".firstpwdb");
+			pwdBox.keyup(function(){
+				var value = pwdBox.val();
+				var str_len = value.length;
+				if((str_len>7)&&(str_len<17)){
+					var result = getResult(value);
+					check(result);
+					pwdBox.attr("value",value);
+					//判断密码强弱程度
+				}
+				else{
+					firstMes.html("<img src='${webroot}${theme_dir}/images/tipimg-y.png'>请输入8到16位密码");
+				}
+			})
+		}
+		function getResult(value){
+			var str_len = value.length;
+			var i = 0;
+			if(value.match(/[a-z]/ig)) {
+				i++;
+			}
+			if(value.match(/[0-9]/ig)) {
+				i++;
+			}
+			if(value.match(/(.[^a-z0-9])/ig)) {
+				i++;
+			}
+			if(value.length < 8 && i > 0) {
+				i--;
+			}
+			return i;
+		}
+		function check(num) {
+			if(num == 0) {
+				firstMes.html("<span style='color:#f00'>　密码太短了</span>");
+			} else if (num == 1) {
+				firstMes.html("<span class='hover'>弱</span><span>中</span><span>强</span>");
+			} else if (num == 2) {
+				firstMes.html("<span class='hover'>弱</span><span class='hover'>中</span><span>强</span>");
+			} else if (num == 3) {
+				firstMes.html("<span class='hover'>弱</span><span class='hover'>中</span><span class='hover'>强</span>");
+			} else {
+				firstMes.html("未知错误");
+			}
+		}
+		
+		
+	}
+	ckPwd();	
+	paswdStatus = ckPwd();
+	function check_setPwd(){
+		if(paswdStatus==2){
+			return true;	
+		}else{
+			return false;
+		}	
+		
+	}
+</script>
+<!--用户注册 结束-->
+<#include "include/footer.html"> 
+</body>
+</html>

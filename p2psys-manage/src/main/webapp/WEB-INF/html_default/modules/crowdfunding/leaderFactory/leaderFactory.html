@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js"></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<title>领投人仓库</title>
+<script type="text/javascript">
+$(function(){
+	loadForms(); 
+	getFlags();
+	getData();
+})
+var webUrl = "http://127.0.0.1:8089";
+/**
+ *获取领投人仓库数据 
+ */
+function getData(){
+	$.ajax({
+		url:"/cf/leaderFactory/list.action",
+		type:"POST",
+		dataType:"json",
+		success:function(res){
+			var htmlStr = "";
+			if(null!=res&&null!=res.errorMsg){
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<tr>";
+					htmlStr += "<td>"+res.errorMsg[i].id+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].name+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].info+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].flagNames+"</td>";
+					if(null==res.errorMsg[i].picPath&&""!=res.errorMsg[i].picPath){
+						htmlStr += "<td><img src='"+webUrl+"/themes/theme_default/cf/img/login_icon.png' width='40px'  /></td>";
+					}else{
+						if("0"==res.errorMsg[i].picUrl){
+							htmlStr += "<td><img src='"+webUrl+res.errorMsg[i].picPath+"' width='40px'  /></td>";
+						}else{
+							htmlStr += "<td><img src='"+res.errorMsg[i].picPath+"' width='40px'  /></td>";
+						}
+					}
+					htmlStr += "<td>"+res.errorMsg[i].reason+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].history+"</td>";
+					htmlStr += "<td>"+res.errorMsg[i].projectNames+"</td>";
+					htmlStr += "<td>";
+					htmlStr += " <a class='btn btn-danger' onclick=doDelete('"+res.errorMsg[i].id+"')  >删除</a> ";
+					if("0"==res.errorMsg[i].showStatus){
+						htmlStr += " <a class='btn btn-danger' onclick=doShow('"+res.errorMsg[i].id+"','1')  >显示</a> ";
+					}else{
+						htmlStr += " <a class='btn btn-default' onclick=doShow('"+res.errorMsg[i].id+"','0')  >隐藏</a> ";
+					}
+					if("0"==res.errorMsg[i].status){
+						htmlStr += " <a class='btn btn-danger' onclick=doStatus('"+res.errorMsg[i].id+"','1')  >通过</a> ";
+					}else{
+						htmlStr += " <a class='btn btn-default' onclick=doStatus('"+res.errorMsg[i].id+"','0')  >拒绝</a> ";
+					}
+					htmlStr += "</td>";
+					htmlStr += "</tr>";
+				}
+			}
+			$("#dataTable").html(htmlStr);
+		}
+	})
+}
+
+/**
+ * 产出仓库中的一条
+ */
+function doDelete(id){
+	if(confirm("是否从仓库删除该领投人?")){
+		var params = "id="+id;
+		$.ajax({
+			url:"/cf/leaderFactory/delete.action",
+			type:"POST",
+			data:params,
+			dataType:"json",
+			success:function(res){
+				if("success"==res.result){
+					alert("删除成功!");
+					location.reload();
+				}
+			}
+		})
+	}
+}
+
+/**
+ * 显示与隐藏
+ */
+function doShow(id,status){
+	var params = "id="+id+"&status="+status;
+	$.ajax({
+		url:"/cf/leaderFactory/changeShowStatus.action",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				alert("操作成功!");
+				location.reload();
+			}	
+		}
+	})
+}
+
+/**
+ * 修改状态
+ */
+function doStatus(id,status){
+	var params = "id="+id+"&status="+status;
+	$.ajax({
+		url:"/cf/leaderFactory/changeStatus.action",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				alert("操作成功!");
+				location.reload();
+			}	
+		}
+	})
+}
+
+/**
+ * 获取产品标签
+ */
+function getFlags(){
+	$.ajax({
+		url:"/cf/flag/data.action",
+		type:"POST",
+		dataType:"json",
+		success:function(res){
+			var htmlStr = "";
+			if(null!=res.errorMsg){
+				for(var i = 0;i<res.errorMsg.length;i++){
+					htmlStr += "<div class='checkbox' >";
+					htmlStr += "<lable>";
+					htmlStr += "<input type='checkbox' name='flag' value="+res.errorMsg[i].id+"  >";
+					htmlStr += res.errorMsg[i].name;
+					htmlStr += "</lable>";
+					htmlStr += "</div>";
+				}
+			}
+			$("#flagDiv").html(htmlStr);
+		}
+	})
+}
+
+/**
+ * 增添数据
+ */
+function addData(){
+	$("#form").submit();
+}
+
+/**
+ * Ajax Form表单
+ */
+function loadForms() {
+	$("#form").ajaxForm({
+		success : function(data) {
+			if(null!=data){
+				alert("操作成功！");
+				location.reload();
+			}
+		},
+		complete : function(t) {
+		}
+	});
+}
+
+/**
+ * 切换标签
+ */
+function showDiv(id){
+	$("#newTag").removeClass("active");
+	$("#dataTag").removeClass("active");
+	//标签
+	$("#"+id+"Tag").addClass("active");
+	//数据
+	$("#dataDiv").css("display","none");
+	$("#newDiv").css("display","none");
+	$("#"+id+"Div").css("display","block");
+}
+</script>
+<style type="text/css">
+body{
+	font-family: "Microsoft Yahei";
+}
+.space30{
+	height: 30px;
+}
+.main{
+	width: 96%;
+	margin-left: 2%;
+}
+.data-table{
+	width: 60%;
+	margin-left: 0%;
+}
+.navbar-nav>li>a{
+	cursor: pointer;
+}
+.data-div{
+	margin-left: 5%;
+}
+</style>
+</head>
+<body>
+<!-- 导航 -->
+<div class="space30" ></div>
+<div class="main" >
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" id="projectName" ><b>领头人仓库</b></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active" id="dataTag" ><a onclick="showDiv('data')" >仓库列表<span class="sr-only"></span></a></li>
+        <li id="newTag" ><a onclick="showDiv('new')">新建成员 </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 数据容器 -->
+<div id="dataDiv" >
+	<table class="table table-bordered" >
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>个人简介</th>
+				<th>产品标签</th>
+				<th>领投理由</th>
+				<th>领投人头像</th>
+				<th>历史领投产品</th>
+				<th>平台领投产品</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="dataTable" ></tbody>
+	</table>
+</div>
+
+<!-- 新建容器 -->
+<div id="newDiv" style="display: none;"  >
+<form id="form" method="post" enctype="multipart/form-data" action="/cf/leaderFactory/add.action" >
+	<table class="table table-bordered data-table " >
+		<tr>
+			<th width="30%"  >姓名</th>
+			<td> <input type="text"  class="form-control" id="name" name="name" > </td>
+		</tr>
+		<tr>
+			<th>个人简介</th>
+			<td><input type="text" class="form-control"  id="info" name="info"></td>
+		</tr>
+		<tr>
+			<th>领投理由</th>
+			<td><input type="text" class="form-control"  id="reason" name="reason"></td>
+		</tr>
+		<tr>
+			<th>产品标签</th>
+			<td> 
+				<div id="flagDiv" class="data-div" ></div>
+			</td>
+		 </tr>
+		 <tr>
+		 	<th>领头人头像</th>
+		 	<td>
+				<input type="file" name="file" id="file" readonly="readonly" class="form-control"/>
+		 	</td>
+		 </tr>
+		 <tr>
+		 	<th>历史领投产品</th>
+		 	<td>
+		 		<textarea style="width: 100%;" id="history" name="history" class="form-control" ></textarea>
+		 	</td>
+		 </tr>
+		 <tr>
+		 	<th colspan="2" > <a class="btn btn-info"  onclick="addData()"  >&nbsp;保&nbsp;存&nbsp;</a></th>
+		 </tr>
+	</table>
+	</form>
+</div>
+</div>
+</body>
+</html>

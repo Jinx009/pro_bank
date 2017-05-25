@@ -1,0 +1,33 @@
+<#macro trunct name>
+  <#assign length=name?length>
+  <#if length&gt;15>
+    ${name[0..15]}
+  <#else>
+    ${name}
+  </#if>
+</#macro>
+
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+<div class="schloolview">
+  <div class="view-banner">
+     
+  </div>
+  <div class="expert-tab">
+    <a href="/lcschool/view.html" id="expertPoint">观点</a><span>简介</span>
+  </div>
+  
+ <ul class="expert-box">
+  
+ </ul>
+</div>
+<script>
+  seajs.use("${webroot}${theme_dir}/media/js/expert");
+</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

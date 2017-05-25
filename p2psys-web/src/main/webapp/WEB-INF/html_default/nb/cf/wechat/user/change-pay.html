@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>800众服</title>
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/plugins/vue/vue.min.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/user/payPwd.js" ></script>
+</head>
+<body>
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>修改交易密码</span>
+	</div>
+	<#include "../include/menue.html">
+	<div class="main-content">
+		<div class="main-col">
+			<div class="main-col-left"><span>原密码</span></div>
+			<div class="main-col-right"><input type="password" id="pwd" name="pwd" placeholder="请输入原密码（6位数字）" maxlength="6" /></div>
+		</div>
+		<div class="main-col">
+			<div class="main-col-left"><span>新密码</span></div>
+			<div class="main-col-right"><input type="password" id="newPwd" name="newPwd"  placeholder="请输入新密码（6位数字）" maxlength="6" /></div>
+		</div>
+		<div class="main-col">
+			<div class="main-col-left"><span>确认密码</span></div>
+			<div class="main-col-right"><input type="password" id="rePwd" name="rePwd"  placeholder="请输入确认密码（6位数字）" maxlength="6" /></div>
+		</div>
+		<p class="error-tip"></p>
+	<!--<div class="main-col">
+			<div class="main-col-left"><span>验证码</span></div>
+			<div class="main-col-right">
+				<input type="text" placeholder="请输入验证码" />
+				<button class="securitycode-btn">获取验证码</button>
+			</div>
+		</div> -->
+	</div>
+	<div class="blank"></div>
+	<div class="product-detail-btn" onclick="postData()" >确认</div>
+</body>
+</html>

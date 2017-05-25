@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>站内信管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'messageList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50, checkbox : false},
+			{ field: 'sUserName', title: '发送者用户名', width: 100, sortable : false},
+			{ field: 'rUserName', title: '接收者用户名', width: 100, sortable : false},
+			{ field: 'title', title: '标题', width: 200, sortable : false},
+			{ field: 'status', title: '状态', width:  50, sortable : false,
+				formatter:function(value, row, index){
+					if(value=="1"){
+						return "已读";
+					}else{
+						return "未读";
+					}
+				}
+			},
+			{ field: 'type', title: '类型', width: 100, sortable:false},
+			{ field: 'addTime', title: '添加时间', width: 130,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+				$(this).datagrid('tooltip');
+			},
+			loadFilter: function(data){
+				$.each(data.rows,function(index,row){
+					if(row.sentUser){
+						row.sUserName=row.sentUser.userName;
+					}
+					if(row.receiveUser){
+						row.rUserName=row.receiveUser.userName;
+					}
+				}); 
+				return data;
+			},
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',title:'查询条件',border:false,collapsible:false" style="height: 80px; overflow: hidden;">
+			<form id="searchForm">
+				<div class="search_box">标题：<input type="text" name="title"/></div>
+                <div class="search_box">
+                	<a href="javascript:void(0);" class="easyui-linkbutton" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                	<a href="javascript:void(0);" class="easyui-linkbutton" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a>
+             	</div>
+			</form>
+		</div>
+		<div data-options="region:'center',border:false">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+	<div id="toolbar" style="display: none;">		
+			<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'pencil_add'">添加</a>				
+	</div>
+</body>
+</html>

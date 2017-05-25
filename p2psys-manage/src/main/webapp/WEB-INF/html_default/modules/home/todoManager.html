@@ -1,0 +1,22 @@
+<div class="blockStyle" style="padding: 10px 0 0 30px;">
+		<table>
+			<tr>
+				<td class="home_icon_clock" style="padding:20px 0 30px 0"></td>
+				<#if is_open_deposit=="1">
+				<td style="padding:20px 20px 30px 20px;font-size: 14px;">发标待审<p><span><a href="javascript:;" onclick="addTab('发标初审','/modules/loan/borrow/confirmedBorrowManager.html')">${trialBorrowCount!0}</a></span>个</p></td>
+				<#else>
+				<td style="padding:20px 20px 30px 20px;font-size: 14px;">发标待审<p><span><a href="javascript:;" onclick="addTab('发标初审','/modules/loan/borrow/verifyBorrowManager.html')">${trialBorrowCount!0}</a></span>个</p></td>
+				</#if>
+				<td style="padding:20px 20px 30px 20px;font-size: 14px;">满标待审<p><span><a href="javascript:;" onclick="addTab('满标待审管理','/modules/loan/borrow/verifyFullBorrowManager.html')">${fullBorrowCount!0}</a></span>个</p></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="home_icon_money" style="padding:0px 0 30px 0"></td>
+				<td style="padding:0px 20px 30px 20px;font-size: 14px;">今日待还<p><span><a href="javascript:;" onclick="addTab('还款管理','/modules/loan/repayment/repaymentManager.html')">${repayCount!0}</a></span>个</p></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+</div>
+
+

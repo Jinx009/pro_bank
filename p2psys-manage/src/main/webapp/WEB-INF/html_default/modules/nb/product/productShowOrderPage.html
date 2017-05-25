@@ -1,0 +1,29 @@
+<script type="text/javascript">
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '微信首页推荐',
+		width: 400,
+		height: 200,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/product/productShowOrder.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${id}">
+		<div class="formitm">
+			<label class="lab">当前序号</label>
+			<div class="ipt">
+				<input type="text" name="oldOrder" value="${showOrder!}" class="easyui-validatebox" readonly="readonly" maxlength="3" />
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">调整后序号</label>
+			<div class="ipt">
+				<input type="text" name="showOrder" class="easyui-validatebox" data-options="required:true" maxlength="3" />
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>果果币管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500;
+	var winHeight = 450;
+	var editTitle = "编辑";
+	var userReadUrl =  "/modules/user/user/user/userCoinEditPage.html";
+	var userReadParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+userReadUrl+"','确定'";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userCoinList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'userId',
+			pageSize : pageSize,
+			pageNums : 1,
+			pageList : pageList,
+			sortName : 'userId',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			autoRowHeight : true,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'userId', title: '编号', width: 50, fixed :true,checkbox : false},
+				{ field: 'userName', title: '用户名', width: 100, fixed :true,checkbox : false},
+				{ field: 'realName', title: '真实姓名', width: 100, sortable: false }
+			]],
+			columns : [ [
+				{ field: 'userCoinTotal', title: '果果币', width: 80, fixed :true,sortable: false},
+				{ field: 'borrowVoucherTotal', title: '抵用券', width: 80, fixed :true,sortable: false},
+				{ field: 'email', title: '电子邮件', width: 200, fixed :true, sortable: false },
+				{ field: 'mobilePhone', title: '手机号码',fixed :true, width: 120, sortable: false },
+				{ field: 'cardId', title: '身份证号码',fixed :true, width: 160, sortable: false },
+				{field : 'action',title : '操作',width :50,fixed :true,
+					formatter : function(value, row, index) {
+						var str = '';
+						str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+userReadParmeters+');" src="{1}" title="编辑"/>', row.userId, '${theme_dir}/css/images/extjs_icons/pencil.png');
+						str += '&nbsp;';
+						
+						return str;
+					}
+				}
+			] ],
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" autocomplete="off"/></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

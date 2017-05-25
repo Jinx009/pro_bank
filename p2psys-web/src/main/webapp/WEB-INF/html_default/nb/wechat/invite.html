@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+<title>邀请好友</title>
+<script src="/themes/theme_default/dist/jquery.js" ></script>
+<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+	
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/invite.css" >
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+<script type="text/javascript">
+$(function()
+{
+	if("is"!=='${isAllow}')	
+	{
+		location.href = "/nb/wechat/account/setting.action";
+	}
+})
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp:${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'hideMenuItems',
+      'showMenuItems',
+      'hideAllNonBaseMenuItem',
+      'showAllNonBaseMenuItem',
+      'translateVoice',
+      'startRecord',
+      'stopRecord',
+      'onRecordEnd',
+      'playVoice',
+      'pauseVoice',
+      'stopVoice',
+      'uploadVoice',
+      'downloadVoice',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage',
+      'getNetworkType',
+      'openLocation',
+      'getLocation',
+      'hideOptionMenu',
+      'showOptionMenu',
+      'closeWindow',
+      'scanQRCode',
+      'chooseWXPay',
+      'openProductSpecificView',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
+});
+var json_data;
+var url;
+wx.ready(function () 
+{
+	var json = '${json}';
+    var urlOne = '${urlOne}';
+    var promotCode = '${promotCode}';
+    var urlTwo = '${urlTwo}';
+    
+	json_data = JSON.parse(json);
+	
+	$("#nickName").html(json_data.nickname);
+	$("#promotCode").html("邀请码&nbsp;&nbsp;"+promotCode);
+	$("#headImg").attr("src",json_data.headimgurl);
+	$("#backDiv").hide();
+	$("#main").show();
+	urlOne += "imgUrl="+json_data.headimgurl+"%26nickName="+json_data.nickname+"%26promotCode="+promotCode+urlTwo;
+	
+	url = urlOne;
+	
+	wx.checkJsApi({
+    jsApiList: ['chooseImage'],
+    success: function(res) 
+    {
+    	wx.hideMenuItems(
+    	{
+    	    menuList: ['menuItem:share:qq','menuItem:share:QZone','menuItem:share:weiboApp','menuItem:copyUrl','menuItem:openWithQQBrowser','menuItem:originPage','menuItem:readMode','menuItem:openWithSafari'] 
+    	});
+    	 wx.showMenuItems({
+	    	 menuList: [ 'menuItem:share:appMessage','menuItem:share:timeline'] 
+	    });
+    }
+	});
+	wx.onMenuShareTimeline({
+	 title: "800bank,优质投资产品，灵活投资方式，尽在800bank", 
+	 link:url, 
+	 desc: "注册即可投新手专享，推荐好友再享投资红包!",
+	 imgUrl:json_data.headimgurl, 
+	 success: function ()
+	 {
+		 location.href = "/nb/wechat/account/main.action";
+	 },
+	  cancel: function (){}
+ 	});
+	wx.onMenuShareAppMessage({
+    title: json_data.nickname+"邀您加入800bank",
+    desc: "注册即可投新手专享，推荐好友再享投资红包!",
+    link: url, 
+    imgUrl: json_data.headimgurl,
+    success: function ()
+    {
+    	location.href = "/nb/wechat/account/main.action";
+    },
+    cancel: function (){}
+	});
+});
+
+wx.error(function(res){});
+
+function goBack()
+{
+	location.href = "/nb/wechat/account/setting.action";	
+}
+
+
+</script>
+</head>
+<body>
+	<div id="backDiv" ></div>
+	<div class="main" id="main" onclick="goBack()" >
+		<h4 class="my-h3" ><b>点击<span>右上角</span>菜单中的</b></h4>
+		<h3 class="my-h1" >分享</h3>
+		<div class="head-img-div" >
+			<img src="" id="headImg" class="head-img" >
+		</div>
+		<h4 class="my-h3-bottom" ><b id="nickName"  >昵称</b></h4>
+		<h4 class="my-h3-bottom2" id="promotCode"  >邀请码&nbsp;&nbsp;</h4>
+	</div>
+</body>
+</html>

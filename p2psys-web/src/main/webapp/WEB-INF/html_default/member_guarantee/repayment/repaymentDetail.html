@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_guarantee_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--右边的内容 开始-->
+			<div class="user_right_guaranteeList">
+				<h2 class="user_title">还款明细</h2>
+				<div class="user_right_main">
+					<table id="member_table" class="table_content"></table>
+					<div id="kkpager"></div>
+				</div>	
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member_guarantee/repayment_repaymentDetail');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	$.userLock = true;
+</script>
+<style>
+	.datagrid-cell-c1-action {
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+  left: 5px;
+}
+</style>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  600;
+	var winHeight = 530;
+	var addTitle = "后台开户"; //添加窗口标题
+	var addUrl =  "/modules/user/user/user/userAdminAddPage.html"; // 添加窗口链接地址
+	var editTitle = "锁定用户";
+	var editUrl =  "/modules/user/user/user/userLockEditPage.html";
+	var editWinParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+editUrl+"','确定'";
+	var editTitle = "修改用户信息";
+	var userReadUrl =  "/modules/user/user/user/userEditPage.html";
+	var userReadParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+userReadUrl+"','确定'";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userList.html?realNameStatus=-2',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'userId',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'userId',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			autoRowHeight : true,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'userId', title: '编号', width: 50, fixed :true,checkbox : false},
+				{ field: 'userName', title: '用户名', width: 110, fixed :true,checkbox : false},
+				{ field: 'realName', title: '真实姓名', width: 100, sortable: false }
+			]],
+			columns : [ [
+				{ field: 'sex', title: '性别', width: 50, fixed :true,sortable: false ,
+					formatter: function(value,row,index){
+						if(value == 0){
+							return "女";
+						}else if(value == 1){
+							return "男";
+						}
+						return "";
+					}
+				},
+				{ field: 'email', title: '电子邮件', width: 175, sortable: false },
+				{ field: 'mobilePhone', title: '手机号码',fixed :true, width: 100, sortable: false },
+				{ field: 'cardId', title: '身份证号码',fixed :true, width: 150, sortable: false },
+				{ field: 'userType', title: '用户类型', width: 100, sortable: false ,
+					formatter: function(value,row,index){
+						if(value == 1){
+							return "个人投资人";
+						}else if(value == 2){
+							return "个人借款人";
+						}else if(value == 3){
+							return "投资/借款人";
+						}else if(value == 4){
+							return "机构借款人";
+						}else if(value == 5){
+							return "机构投资人";
+						}
+						return "";
+					}	
+				},
+				{ field: 'realNameStatusStr', title: '实名状态', width: 100, sortable:false
+				},
+				{ field: 'statusStr', title: '锁定状态', width: 80, sortable:false
+				}, 
+			            { field: 'addTime', title: '注册时间', width: 150, fixed:true,sortable:false, 
+			          	  	formatter: function(value,row,index){
+			          	  		return getLocalTime(value,4);
+							  	}  
+			            },
+				{field : 'action',title : '操作',width :80,fixed :true,
+					formatter : function(value, row, index) {
+						var str = '';
+						if ($.userLock) {
+							str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+editWinParmeters+');" src="{1}" title="锁定用户"/>', row.userId, '${theme_dir}/css/images/extjs_icons/lock/lock.png');
+						}
+						str += '&nbsp;';
+						
+						return str;
+					}
+				}
+			] ],
+		});
+	});
+	function exportExcel(){
+		var url = "/modules/user/user/user/exportExcelUserList.html";
+		var searchName = $("#searchName").val()
+		var realName = $("#realName").val();
+		var userName = $("#userName").val();
+		var realNameStatus = $("#realNameStatus").val();
+		var userType = $("#userType").val();
+		var status = $("#status").val();
+		var sou = "?searchName=" + searchName + "&realName=" + realName + "&userName=" + userName+ "&status=" + status + "&realNameStatus=" + realNameStatus + "&userType=" + userType;
+		window.location.href = url + sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="add"  onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" id="realName" autocomplete="off"/></li>
+		        	<li><span>实名状态</span><select name="realNameStatus" id="realNameStatus" class="type">
+							<option value=-2>全部</option>
+							<option value="0">未认证</option>
+							<option value="1">认证通过</option>
+							<option value="2">待审核</option>
+							<option value="-1">认证未通过</option>
+						</select></li>
+					<li><span>状态</span><select name="status" class="type" id="status">
+	                  <option value="99" selected="selected">全部</option>
+	                  <option value="0">未锁定</option>
+	                  <option value="1">锁定</option>
+	                </select></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+	        <div class="sRight">
+            		
+            </div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

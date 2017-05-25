@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户后台开户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  800;
+	var winHeight = 500;
+	var addTitle = "添加商户"; //添加窗口标题
+	var addUrl =  "/modules/user/user/user/userAdminAddPage.html"; // 添加窗口链接地址
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userAdminList.html?userNature=2',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+			{ field: 'id', title: '编号', width: 100, fixed :true,checkbox : false},
+			{ field: 'companyName', title: '果果号', width: 300, fixed :true,sortable: false },
+			{ field: 'frdbName', title: '状态', width: 300, sortable: false },
+			{	field : 'action',
+				title : '操作',
+				width :200,
+				fixed :true,
+				formatter : function(value, row, index) {
+					var str = '';
+					str += $.formatString('<a onclick="$.fn.dataGridOptions.addFun(1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);">后台开户</a>	');
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;">
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入公司名称/法人代表姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+                                    <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		       		<li><span>公司名称</span><input type="text" name="companyName" autocomplete="off"/></li>
+		       		<li><span>法人代表姓名</span><input type="text" name="frdbName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="type">
+	                  <option value="99" selected="selected">全部</option>
+	                  <option value="0">未锁定</option>
+	                  <option value="1">锁定</option>
+	                </select></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+	<script>
+	function email_retry(id){
+		$.ajax({
+			type:"post",
+			url:"/modules/user/user/user/sendMail.html?id="+id,
+			dataType:"json",
+			success:function(data){
+				parent.$.messager.alert('提示','发送成功', 'info');
+			}
+		});
+	}
+	</script>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="applicable-device"content="pc,mobile">
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/ace.min.css">
+	<link href="/themes/theme_default/cf/pro/css/datepicker.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/800zf.css">
+	<script src="/themes/theme_default/cf/pro/js/jquery.js"></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/themes/theme_default/cf/pro/js/bootstrap.min.js"></script>
+</head>
+<body>
+<#include "include/header.html">
+<div class="container-fulider">
+	<div class="sidebar" id="sidebar">
+		<script type="text/javascript">
+			try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+		</script>
+		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+				<span class="btn btn-success"></span>
+				<span class="btn btn-info"></span>
+				<span class="btn btn-warning"></span>
+				<span class="btn btn-danger"></span>
+			</div>
+		</div>
+		<ul class="nav nav-list">
+			<li class="active">
+				<a href="#">
+					<i class="icon-pencil"></i>
+					<span class="menu-text">基本信息</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class="icon-picture"></i>
+					<span class="menu-text">素材</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class="icon-list"></i>
+					<span class="menu-text">规则</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class="icon-file"></i>
+					<span class="menu-text">预览</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="main-content">
+		<ol class="breadcrumb">
+		  <li><a href="#">新建项目</a></li>
+		  <li class="active">基本信息</li>
+		</ol>
+		<div class="page-content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="widget-box">
+								<div class="widget-header widget-header-blue widget-header-flat">
+									<h4 class="lighter">基本信息</h4>
+									<div class="widget-toolbar">
+										<label></label>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<div id="fuelux-wizard" class="row-fluid" data-target="#step-container">
+											<ul class="wizard-steps">
+												<li data-target="#step1" class="active">
+													<span class="step">1</span>
+												</li>
+												<li data-target="#step2">
+													<span class="step">2</span>
+												</li>
+												<li data-target="#step3">
+													<span class="step">3</span>
+												</li>
+											</ul>
+										</div>
+										<hr />
+										<form class="form-horizontal" id="sample-form">
+										<div class="step-content row-fluid position-relative" id="step-container">
+											<div class="step-pane active" id="step1">
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">项目名称：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" class="width-100" id="projectName" name="projectName" placeholder="请输入您的项目名称" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="projectName_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">项目类型：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<select  class="width-100" id="type" name="type"  >
+																	<option  value="1" >实物众筹</option>
+																	<option  value="2" >股权众筹</option>
+																	<option  value="4" >公益众筹</option>
+																</select>
+															</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">项目一句话简介：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" id="info" name="info" class="width-100" placeholder="项目一句话简介" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="info_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">众筹金额：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" id="wannaAccount" name="wannaAccount" class="width-100" placeholder="期望募集金额（格式：300000|3000.00）" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="wannaAccount_error" ></div>
+													</div>
+													<div class="form-group">
+														<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">保障金比例：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="input-icon block input-icon-right">
+																<input type="text" id="breach" name="breach"  placeholder="股权众筹必填（格式0.01代表1%）" class="width-100" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="breach_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">融资轮次：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<select name="financing" id="financing" class="width-100">
+																	<option value="0" selected="selected">未融资</option>
+																	<option value="1">种子轮融资</option>
+																	<option value="2">天使轮融资</option>
+																	<option value="3">Pre-A轮融资</option>
+																	<option value="4">A轮融资</option>
+																	<option value="5">Pre-B轮融资</option>
+																	<option value="6">B轮融资</option>
+																	<option value="7">C轮融资</option>
+																	<option value="8">D轮融资</option>
+																</select>
+															</span>
+														</div>
+													</div>
+											</div>
+
+											<div class="step-pane" id="step2">
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">单笔最小支持金额：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" class="width-100" id="minMoney" name="minMoney" placeholder="单笔最小支持金额" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="minMoney_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">单笔最大支持金额：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" class="width-100" id="maxMoney" name="maxMoney" placeholder="单笔最大支持金额" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="maxMoney_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">发起人：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" id="creater" name="creater" class="width-100" placeholder="发起人姓名" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="creater_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 control-label no-padding-right">发起方公司名称：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="block input-icon input-icon-right">
+																<input type="text" id="company" name="company" class="width-100" placeholder="发起方公司名称" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="company_error" ></div>
+													</div>
+													<div class="form-group">
+														<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">发起方简介：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="input-icon block input-icon-right">
+																<input type="text" id="address" name="address" placeholder="发起方简介" class="width-100" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="address_error" ></div>
+													</div>
+													<div class="form-group">
+														<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">公司现估值：</label>
+														<div class="col-xs-12 col-sm-5">
+															<span class="input-icon block input-icon-right">
+																<input type="text" id="companyMoney" name="companyMoney" placeholder="公司现估值（众筹金额/出让股权比例-众筹金额）" class="width-100" />
+															</span>
+														</div>
+														<div class="help-block col-xs-12 col-sm-reset inline" id="compnayMoney_error" ></div>
+													</div>
+											</div>
+											<div class="step-pane" id="step3">
+												<div class="form-group">
+													<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">众筹金额增加规则：</label>
+													<div class="col-xs-12 col-sm-5">
+														<span class="input-icon block input-icon-right">
+															<input type="text" id="addAmount" name="addAmount" placeholder="一般为单笔最小支持金额（按份数投资，0代表不启用）" class="width-100" />
+														</span>
+													</div>
+													<div class="help-block col-xs-12 col-sm-reset inline" id="addAmount_error" ></div>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">众筹开始时间：</label>
+													<div class="col-xs-12 col-sm-5">
+														<span class="input-icon block input-icon-right">
+															<input type="text" id="startTime" name="startTime"  placeholder="众筹开始时间" readonly="readonly" class="width-100 date-picker" data-date-format="yyyy-mm-dd" />
+														</span>
+													</div>
+													<div class="help-block col-xs-12 col-sm-reset inline" id="startTime_error" ></div>
+												</div>
+												<div class="form-group">
+													<label class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">众筹结束时间：</label>
+													<div class="col-xs-12 col-sm-5">
+														<span class="input-icon block input-icon-right">
+															<input type="text" id="endTime" name="endTime" placeholder="众筹结束时间" class="width-100 date-picker" data-date-format="yyyy-mm-dd" />
+														</span>
+													</div>
+													<div class="help-block col-xs-12 col-sm-reset inline" id="endTime_error" ></div>
+												</div>
+											</div>
+										</div>
+										</form>
+										<hr />
+										<div class="row-fluid wizard-actions">
+											<button class="btn btn-prev">
+												<i class="icon-arrow-left"></i>
+												上一步
+											</button>
+											<button class="btn btn-success btn-next" data-last="提交 ">
+												下一步
+												<i class="icon-arrow-right icon-on-right"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+</div>
+<script src="/themes/theme_default/cf/pro/js/fuelux.wizard.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace-elements.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/bootstrap-datepicker.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/pro/create.js"></script>
+<script type="text/javascript">
+jQuery(function($){
+	$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+	$('#fuelux-wizard').ace_wizard().on('change',function(e,info){
+		if(info.step==1){
+			if(!checkStep(1)){
+				return false;
+			}
+		}else if(info.step==2){
+			if(!checkStep(2)){
+				return false;
+			}
+		}else if(info.step==3){
+			if(!checkStep(3)){
+				return false;
+			}
+		}
+	})
+	.on('finished',function(e){
+		if(!checkStep(3)){
+			return false;
+		}else{
+			sendData();
+		}
+	})
+	.on('stepclick',function(e){
+		
+	});
+	$('input').focus(function(){
+		var id = $(this).attr('id');
+		$('#'+id+'_error').html('');
+	})
+})
+</script>
+</body>
+</html>

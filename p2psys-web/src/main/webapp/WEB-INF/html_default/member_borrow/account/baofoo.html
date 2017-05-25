@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>宝付支付充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>宝付支付充值跳转中,请您不要关闭浏览器......</div>
+    <form action="http://paygate.baofoo.com/PayReceive/bankpay.aspx" method="post" id="frm1">
+	<input name='MerchantID' type='hidden' value="${baoFoo.merchantID}"/>
+	<input name='PayID' type='hidden' value="${baoFoo.payID}"/>		
+	<input name='TradeDate' type='hidden' value= "${baoFoo.tradeDate}" />
+	<input name='TransID' type='hidden' value= "${baoFoo.transID}" />
+	<input name='OrderMoney' type='hidden' value= "${baoFoo.orderMoney}"/>
+	<input name='ProductName' type='hidden' value= "${baoFoo.productName}"/>
+	<input name='Amount' type='hidden' value= "${baoFoo.amount}"/>
+	<input name='ProductLogo' type='hidden' value= "${baoFoo.productLogo}"/>
+	<input name='Username' type='hidden' value= "${baoFoo.username}"/>
+	<input name='Email' type='hidden' value= "${baoFoo.email}"/>
+	<input name='Mobile' type='hidden' value= "${baoFoo.mobile}"/>
+	<input name='AdditionalInfo' type='hidden' value= "${baoFoo.additionalInfo}"/>
+	<input name='Merchant_url' type='hidden' value= "${baoFoo.merchant_url}"/>
+	<input name='Return_url' type='hidden' value= "${baoFoo.return_url}"/>	
+	<input name= 'Md5Sign' type='hidden' value="${baoFoo.md5Sign}"/>
+	<input name='NoticeType' type='hidden' value= "${baoFoo.noticeType}"/>
+    </form>
+    
+    <script type="text/javascript">
+    
+      document.getElementById("frm1").submit();
+    </script>
+  </body>
+</html>

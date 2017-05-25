@@ -1,0 +1,121 @@
+<script type="text/javascript">
+seajs.use("${theme_dir}/js/ajaxfileupload");
+
+function ajaxUploadMaterial(sId, url, name) {
+	$.ajaxFileUpload({
+		url: url,
+		secureuri: false,
+		fileElementId: sId,
+		dataType: 'json',
+		data: {
+			typeCode: 'aaa'
+		},
+		success: function(data) {
+			if (data.state == "SUCCESS") {
+				$("#" + name).val(data.url);
+			} else {
+				alert("上传文件失败，请重试!");
+			}
+		},
+		error: function(data, status, e) {
+			alert("上传文件失败，请重试!");
+		}
+	});
+}
+
+$(function() {
+	$('#siteNewDialog').dialog({
+		title: '微信首页推荐',
+		width: 800,
+		height: 600,
+		modal: true
+	});
+	$('#siteNewDialog').dialog("close");
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/product/recommendProduct.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${id}">
+		<div class="formitm">
+			<label class="lab">项目名称</label>
+			<div class="ipt">
+				<input type="text" name="name" value="${productName}" class="w400 easyui-validatebox" readonly="readonly" data-options="required:true" maxlength="30" />
+			</div>
+		</div>
+		<!--
+		<div class="formitm">
+			<label class="lab">推荐理由</label>
+			<div class="ipt">
+				<textarea id="recommendReason" name="recommendReason" style="height:200px;" class="w400 easyui-validatebox" data-options="required:true"></textarea>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">推荐图</label>
+			<div class="ipt">
+				<input type="file" id="filerecommendPic" name="recommendPicFile" onchange="return ajaxUploadMaterial('filerecommendPic','/imageUp.jsp','recommendPic');" />
+				<b>*</b>
+			</div>
+		</div>
+		<input type="hidden" id="recommendPic" name="recommendPic" />
+		 -->
+		<div class="formitm">
+			<label class="lab">特色1</label>
+			<div class="ipt">
+				<select id="recommendProp1" name="recommendProp1">
+					<option>请选择</option>
+					<option>灵活短期限</option>
+					<option>稳健高收益</option>
+					<option>多重安全保障</option>
+					<option>浮动保本金</option>
+					<option>优质债权标</option>
+					<option>优选信托系</option>
+					<option>本息保护</option>
+				</select>
+				<!--
+				<input type="file" id="filerecommendPic1" name="recommendPic1File" onchange="return ajaxUploadMaterial('filerecommendPic1','/imageUp.jsp','recommendPic1');" />
+				-->
+			</div>
+		</div>
+		<input type="hidden" id="recommendPic1" name="recommendPic1" />
+		<div class="formitm">
+			<label class="lab">特色2</label>
+			<div class="ipt">
+				<select id="recommendProp2" name="recommendProp2">
+					<option>请选择</option>
+					<option>灵活短期限</option>
+					<option>稳健高收益</option>
+					<option>多重安全保障</option>
+					<option>浮动保本金</option>
+					<option>优质债权标</option>
+					<option>优选信托系</option>
+					<option>本息保护</option>
+				</select>
+				<!--
+				<input type="file" id="filerecommendPic2" name="recommendPic2File" onchange="return ajaxUploadMaterial('filerecommendPic2','/imageUp.jsp','recommendPic2');" />
+				-->
+			</div>
+		</div>
+		<input type="hidden" id="recommendPic2" name="recommendPic2" />
+		<div class="formitm">
+			<label class="lab">特色3</label>
+			<div class="ipt">
+				<select id="recommendProp3" name="recommendProp3">
+					<option>请选择</option>
+					<option>灵活短期限</option>
+					<option>稳健高收益</option>
+					<option>多重安全保障</option>
+					<option>浮动保本金</option>
+					<option>优质债权标</option>
+					<option>优选信托系</option>
+					<option>本息保护</option>
+				</select>
+				<!--
+				<input type="file" id="filerecommendPic3" name="recommendPic3File" onchange="return ajaxUploadMaterial('filerecommendPic3','/imageUp.jsp','recommendPic3');" />
+				-->
+			</div>
+		</div>
+		<input type="hidden" id="recommendPic3" name="recommendPic3" />
+	</form>
+</div>

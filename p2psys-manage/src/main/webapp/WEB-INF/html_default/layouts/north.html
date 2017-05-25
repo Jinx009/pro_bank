@@ -1,0 +1,67 @@
+
+
+<script type="text/javascript" charset="utf-8">
+	function logoutFun(b) {	    
+		$.ajax({
+		     url:'/modules/logout.html', 
+			 data: {t:new Date()}, 
+			 type:"GET",
+			 dataType:"json",
+			 success:function(data) {	 
+			    if(data.result){
+					location.href=('/index.html');
+					$('#sessionInfoDiv').html('');
+					$('#loginDialog').dialog('open');
+				}else{
+				    $.messager.alert("提醒",data.msg,"warning");				  
+				}
+		     }
+		});
+	}
+	// var sessionInfo_userId = '${(session_user.id)!""}';
+	function editCurrentUserPwd() {
+		parent.$.modalDialog({
+			title : '修改密码',
+			width : 400,
+			height : 300,
+			href : './manager/editPwdPage.html',
+			buttons : [ {
+				text : '修改',
+				handler : function() {
+					var f = parent.$.modalDialog.handler.find('#editCurrentUserPwdForm');
+					f.submit();
+				}
+			} ]
+		});
+	}
+	function currentUserRole() {
+		parent.$.modalDialog({
+			title : '我的角色',
+			width : 400,
+			height : 500,
+			href : './manager/role.html'
+		});
+	}
+	function currentUserResource() {
+		parent.$.modalDialog({
+			title : '我可以访问的资源',
+			width : 400,
+			height : 500,
+			href : './manager/resource.html'
+		});
+	}
+</script>
+<div class="topRightbar">
+	<span id="sessionInfoDiv">欢迎您,${(session_operator.userName)!""}</span>
+	|<a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_north_kzmbMenu',iconCls:'advanced'">控制面板</a>|<a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_north_zxMenu',iconCls:'advanced'">注销</a>
+</div>
+<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+	<div onclick="editCurrentUserPwd();">修改密码</div>
+	<div class="menu-sep"></div>
+	<div onclick="currentUserRole();">我的角色</div>
+	<div class="menu-sep"></div>
+	<div onclick="currentUserResource();">我的权限</div>
+</div>
+<div id="layout_north_zxMenu" style="display: none;">
+	<div onclick="logoutFun();">退出系统</div>
+</div>

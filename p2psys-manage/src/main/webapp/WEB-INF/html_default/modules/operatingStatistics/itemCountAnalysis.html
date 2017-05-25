@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户分析</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../include/resources.html">
+<script src="/plugins/handlebars-v1.3.0/handlebars-v1.3.0.js" type="text/javascript"></script>
+<script>
+$(function(){
+	$.ajax({
+		url:"itemCountAnalysisInfo.html",
+		type:"POST",
+		dataType:"json",
+		cache:false,
+		success:function(json){
+			var source = $("#template").html(); 
+			var template = Handlebars.compile(source);
+			var html    = template(json);
+			$('#template_con').html(html);
+		}
+	})
+})
+</script>
+</head>
+<body>
+	<div class="countBd">
+		<div class="countBdTitle">
+			时间查询：
+			<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'endTime\',{M:-1})}',maxDate:'#F{$dp.$D(\'endTime\')||\'2099-10-01\'}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'#F{$dp.$D(\'startTime\',{M:1})||\'2099-10-01\'}',readOnly:true})" class="searchTime"/>
+			<a href="javascript:void(0);" class="searchBtn">查询</a>
+		</div>
+	</div>
+	  <script id="template" type="text/x-handlebars-template">
+		  <table border="1" style="border-collapse:collapse;width: 100%;">
+			<tbody>
+				<tr>
+					<th colspan="2">项目总数：{{allCount}}</th>
+					<th colspan="2">已完成项目数：{{repayCount}}</th>
+					<th colspan="6">未完成项目数：{{unfinishedCount}}</th>
+				</tr>
+				<tr>
+					<th>正常项目数</th>
+					<th>失败项目数</th>
+					<th>按时还款项目数</th>
+					<th>逾期还款项目数</th>
+					<#--<th>待登记项目数</th>-->
+					<th>待初审项目数</th>
+					<th>投资中项目数</th>
+					<th>待满标复审项目数</th>
+					<th>还款中项目数</th>
+					<th>逾期中项目数</th>
+				</tr>
+				<tr>
+					<td>{{allNormalCount}}</td>
+					<td>{{failureCount}}</td>
+					<td>{{timeLyRepayCount}}</td>
+					<td>{{allOverduedCount}}</td>
+					<td>{{registerelessCount}}</td>
+					<#--<td>{{registeredCount}}</td>-->
+					<td>{{investingCount}}</td>
+					<td>{{verifyFullCount}}</td>
+					<td>{{repayingCount}}</td>
+					<td>{{allOverdueingCount}}</td>
+				</tr>
+			</tbody>	
+		</table>
+	  </script>
+	  <div id="template_con"></div>
+	  <script>
+		$(".searchBtn").click(function(){
+			var param = "startTime="+$("#startTime").val()+"&endTime="+$("#endTime").val();
+			if(($("#startTime").val()=="")||($("#endTime").val()=="")){
+				alert("请选择好您所要查询的时间区域")
+			}
+			else{ajaxUrl(param);}
+		});
+		</script>
+		<script>
+			function ajaxUrl(param){
+			$.ajax({
+				url:"itemCountAnalysisInfo.html?"+param,
+				type:"POST",
+				dataType:"json",
+				cache:false,
+				success:function(json){
+					var source = $("#template").html(); 
+					var template = Handlebars.compile(source);
+					var html    = template(json);
+					$('#template_con').html(html);
+				}
+			})
+		}
+		</script>
+</body>
+</html>

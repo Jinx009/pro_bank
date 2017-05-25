@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+	function GetQueryString(name){
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
+	$(function(){
+		showLi("about_li");
+		var id = GetQueryString("id");
+		if(id=="cooperation"){
+			$(".about-one").removeClass("active");
+			$(".about-two").addClass("active");
+			$("#aboutUs").removeClass("active");
+			$("#cooperation").addClass("active");
+		}
+	})
+	
+</script>
+</head>
+<body  class="bg">
+<div class="main">
+	<#include "include/header.html">
+	<div class="help-banner">
+		<img src="/themes/theme_default/cf/img/about_banner.png" class="help-banner-img"/>
+		<div class="help-text"><img src="/themes/theme_default/cf/img/about_text.png"/></div>
+	</div>
+	<div class="middle-content">
+		<div class="help-content">
+			<div class="help-left">
+				<div class="help-title">
+					<h1>关于我们</h1>
+					<p>About Us</p>
+				</div>
+				<ul class="help-nav">
+					<li class="active about-one" role="presentation" id="about-one"><a href="#aboutUs" aria-controls="aboutUs" role="tab" data-toggle="tab">关于我们</a></li>
+					<li role="presentation" class="about-two"><a href="#cooperation" aria-controls="cooperation" role="tab" data-toggle="tab">合作伙伴</a></li>
+				</ul>
+			</div>
+			<div class="help-right">
+				<div class="tab-content">
+				    <div role="tabpanel" class="tab-pane active" id="aboutUs">
+				    	<h1>致你们：</h1>
+				    	<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<p>800众服没有华丽的辞藻堆砌出一篇非常正统的关于我们的文字，即使写出了非常官方的文字也无助于让正在读这封信的你们真实的了解800众服。</p>
+								<p>800众服初创者之一曾经也在北京和朋友们有过一次创业经历，痛苦并欢喜地享受过从零到一的创业旅程。在北京中关村大街奋斗的日子里，早上吃着西少爷肉夹馍，中午扫码送红包订一份外卖，偶尔听听孵化器路演大厅的路演项目，与战友们一起奋斗，相伴到黎明。后来中关村大街越来越出名，天使汇10米长度的屏幕开始每天滚动播放着各种天马行空的项目，车库咖啡、3W咖啡、京东奶茶、时光雕刻咖啡不间断地迎接着一波又一波激情四射的创业者们，甚至自己驻扎的孵化器也成为了游客参观的景点之一……后来，离开了北京，告别了战友们，回到了上海。感谢这样的一段在北京的创业经历，会让人不禁去重新反思，我们为什么而创业？我们适不适合去创业？有了很好的idea之后，该怎样让这些想法落地？……于是，有了你们现在正在浏览的800众服。</p>
+								<h3>800众服的初衷</h3>
+								<p>让天下没有沉睡的资源！通过众筹的力量让身边的资源充分利用起来，用我们大家的力量把我们的生活变得更加美好。800众服希望，将有价值的项目方对接给有资源的合适的投资人。这些项目在未来会给我们大家的生活都带去些许不同。</p>
+								<h3>800众服的践行</h3>
+								<p>或许你会笑着看完平台的梦想，众筹那么多人在做，凭什么你的众筹平台可以脱颖而出？众筹那么多人在做，盈利的能有几个？会不会在给我们画饼？</p>
+								<p>800众服作为投融资的信息平台，以股权众筹为主，辅以实物众筹以及公益众筹，依托平台近30名的产业专家级投资人打造最靠谱的“实业+权益”股权众筹平台。此外，扎实以及专业的金融以及法务团队，不仅仅提供项目前期尽职调查、股权结构等相关法律相关服务，更着力后续投融资的对接，与产业专家投资人一同帮助创业团队快速发展，正确拿到下一轮投资。</p>
+								<h3>800众服的项目源：</h3>
+								<p>1.上海城创、同道资本、杭州联创等知名投资机构</p>
+								<p>2.产业基金的合作</p>
+								<p>3.创服小伙伴的合作……</p>
+								<h3>800众服的投资人：</h3>
+								<p>1.近30名产业专家投资人</p>
+								<p>2.知名投资机构……</p>
+								<p>800众服也深知完成平台梦想的路上充满着挑战和危险。如果你们愿意把800众服看成你们的一个朋友，那么这个朋友身上流淌着的是匠人的血液。800众服求快，也求突变，但是一切的核心都将以“项目+服务”为主。在800众服的平台上，投资人能找到靠谱的项目，项目方能够对接有效的投资人，充分发平台信息服务撮合的角色。</p>
+								<p>这样的一种关于我们的形式，可能有别于其他网站，但我们希望通过这样的方式和您敞开心扉，告诉你我们是谁，我们想做什么，我们怎么去做，能让您更真实地了解800众服。谢谢！</p>
+							</div>
+							
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="cooperation">
+				    	<div class="help-flow-content">
+							<div class="help-flow-wrap">
+								<h3>浙商创投</h3>
+								<p>浙江浙商创业投资管理有限公司成立于2007年11月，中国最活跃的浙商资本，融合国际化与本土化的管理模式，短短三年，成就了中国股权投资界的“浙商经验”，目前已经成为浙江省管理资金规模最大、投资项目最多的专业股权投资管理机构之一。目前已经管理了杭州钱江浙商现代服务业基金、浙商诺海低碳基金等9个VC/PE基金和一个天使基金，可投资资金规模30多亿元人民币，管理资产规模达80亿元人民币。</p>
+								<h3>上海联创</h3>
+								<p>上海联创投资管理有限公司成立于1999年7月，股东为国家计委、国家经贸委、中国科学院科技促进经济基金委员会和上海联合投资有限公司。投资领域包括信息技术、生物医药、环保与新材料等。</p>
+								<h3>上海城创</h3>
+								<p>上海城创投资管理股份有限公司成立于2014年，是一家涵盖私募基金、开发管理、产业服务、私募股权投资等四大业务范围的综合性管理公司，专注于投资上海新一轮城市更新和产业升级过程中的城市产业综合体这一新兴业态。 </p>
+								<h3>同道资本</h3>
+								<p>同道资本是一家专业从事私募股权基金的投资管理公司，投资范围涵盖一、二级市场的PRE-IPO投资银行业务、PE投资、证券投资、置业投资、夹层基金投资等金融领域。</p>
+								<h3>浙江股权交易中心</h3>
+								<p>浙江股权交易中心（以下简称“中心”）成立于2012 年10 月18 日，是浙江省政府根据中国证监会的有关文件精神，结合浙江省经济金融特色，为着力解决“两多两难”，推进温州金融综合改革，促进经济转型升级而设立的省级股权交易平台，是我国多层次资本市场体系的重要组成部分。</p>
+							</div>
+						</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<#include "include/footer.html"> 
+<script type="text/javascript">
+	showLi("about_li");
+</script>
+</body>
+</html>

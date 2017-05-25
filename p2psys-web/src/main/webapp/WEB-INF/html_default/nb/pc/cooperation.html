@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<#include "include/statistics.html"> 
+<meta charset="UTF-8">
+<meta name="keywords" content="800Bank">
+<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+<title>合作伙伴</title>
+<link href="/themes/theme_default/nb/pc/css/cooperation.css" rel="stylesheet"/>
+<script type="text/javascript">
+$(function()
+{
+	$.ajax({
+		url:"/index/articleList.html?nid=partner",
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			var htmlStr = "";
+			
+			for(var i = 0 ;i<res.data.length;i++)
+			{
+				htmlStr += "<div class='col-md-3 center ' >";
+				htmlStr += "<img src="+res.data[i].picPath+" class='img' onclick=openOtherUrl('"+res.data[i].introduction+"')  />";
+				htmlStr += "</div>";
+			}
+			
+			$("#dataInfo").html(htmlStr);
+		}
+	})	
+})
+</script>
+</head>
+<body>
+<#include "include/member_header.html"> 
+<div class="space-header" ></div>
+<h1>合作伙伴</h1>
+ <div class="space-div-4" ></div>
+<div class="row margin0">
+  <div class="col-md-2"></div>
+  <div class="col-md-8"  >
+  		<div class="row" id="dataInfo" ></div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+<#include "include/top_static.html"> 
+<#include "include/member_footer.html"> 
+</body>
+</html>

@@ -1,0 +1,31 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/userVipRule/userVipRuleEdit.html',"修改成功！","修改失败！");
+	});
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">级别名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" value="${rule.name!}" class="w200 easyui-validatebox" data-options="required: true'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		 <div class="formitm">
+		     <label class="lab">级别：</label>
+		     <div class="ipt">
+		     	<input type="text" name="level" value="${rule.level!}" class="w80 easyui-validatebox" onkeyup="value=value.replace(/[^0-9]/g,'')" readonly="readonly" data-options="required: true'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">投资金额：</label>
+		     <div class="ipt">
+		     	<input type="text" name="tenderMoney" value="${rule.tenderMoney!}" class="w200 easyui-validatebox" onkeyup="value=value.replace(/[^0-9]/g,'')" data-options="required: true'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<input type="hidden" name="id" value="${rule.id!1}">
+	</form>
+</div>

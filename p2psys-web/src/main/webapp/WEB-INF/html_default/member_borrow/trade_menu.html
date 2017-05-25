@@ -1,0 +1,7 @@
+<ul class="user_menu_ul">
+<#if is_open_deposit?exists && is_open_deposit=="0">
+ 	<li><a href="${webroot}/member_borrow/borrow/mine.html?status=99"><i class="iconfont">&#xe606;</i>借款详情</a></li>
+   <#else> <li><a href="${webroot}/member_borrow/borrow/mine.html"><i class="iconfont">&#xe606;</i>借款详情</a></li>
+ </#if>
+    <li><a href="${webroot}/member_borrow/borrow/repayment.html"><i class="iconfont">&#xe609;</i>还款详情</a></li>
+</ul>

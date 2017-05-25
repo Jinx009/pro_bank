@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/swiper.min.css" />
+		<link rel="stylesheet" href="/plugins/layer/skin/layer.css"/>
+	    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/swiper.min.js" ></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/recharge/recharge_newRecharge.js"></script>
+	    <script type="text/javascript" src="/themes/theme_default/cf/js/common.js"></script>
+	    <script type="text/javascript">
+		    function checkFrom(){
+		  		var money = document.getElementById("money1").value;
+				if(money.length==0 || parseFloat(money)<10){
+		  			$("#onlineError").html('充值金额必须不小于10元');
+	  			}else{	
+					document.form1.submit();
+		  		}
+		  	}
+		    
+		  //线下提交
+		    function checkBankNo(){
+		    	var money = document.getElementById("money2").value;
+		    	var realName = document.getElementById("realName").value;
+		    	var cardId = document.getElementById("cardId").value;
+		    	var bankno = document.getElementById("infoyhzh").value;
+		    	if(money.length==0 || parseFloat(money)<${minRechargeMoney!100}){
+		    		$("#lineError").css("display","block");
+		        	$("#lineError").html('线下充值金额不能小于'+${minRechargeMoney!100}+'元');
+		    	}else if(realName.length==0){
+		    		$("#lineError").css("display","block");
+		    		$("#lineError").html('请输入真实姓名');
+		    	}else if(cardId.length==0){
+		    		$("#lineError").css("display","block");
+		    		$("#lineError").html('请输入您的身份证号');
+		    	}else if(!isIdCardNo(cardId.toUpperCase().trim())){
+		    		$("#lineError").css("display","block");
+		      		$("#lineError").html('身份证号格式不正确');
+		    	}else if(bankno.length==0){
+		    		$("#lineError").css("display","block");
+		    		$("#lineError").html('请输入充值银行卡号');
+		    	}else{
+		    		checkBankInfo(bankno,1);
+		    	}
+		    }
+		  
+		    function delClass(){
+				$("#lineError").html('');
+				$("#onlineError").html('');
+			}
+	    </script>
+	</head>
+	<body class="bg">
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>充值</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="main">
+			<div class="tabs">
+				<a href="#" class="active">线上充值</a>
+				<a href="#">线下充值</a>
+			</div>	
+			<div class="swiper-container recharge-content">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+				<form action="${wapRechargeUrl!}" method="post" name="form1" id="form1">
+					<div class="recharge-content">
+						<div class="main-col">
+							<div class="main-col-left"><img src="/data/bank/llmini/${bankCode!}.png" class="smallBankIcon"/><span>${bankModel.bank!}</span></div>
+							<div class="main-col-right"><span>${bankModel.hideBankNo}</span></div>
+						</div>
+						<div class="recharge-tip">
+							<div class="recharge-tip-left"></div>
+							<div class="recharge-tip-right">
+								<h4 style="font-size: 14px;line-height: 14px;padding-top: 13px" >限额（单笔：<span id="danbi" style="font-size: 14px;line-height: 14px;"  ></span>,单日：<span id="danri" style="font-size: 14px;line-height: 14px;"  ></span>,单月：<span id="danyue" style="font-size: 14px;line-height: 14px;"  ></span>）</h4>
+							</div>
+						</div>
+						<div class="main-col">
+							<div class="main-col-left"><span>输入充值金额</span></div>
+							<div class="main-col-right"><input type="text" name="money" id="money1" placeholder="请输入充值金额" class="invest-inp-money" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'')" onfocus="delClass()" maxlength="8"/></div>
+						</div>
+						<p class="error-tip" id="onlineError"></p>
+					</div>
+					<input type="hidden" name="cfRechargeToken" value="${cfRechargeToken!}" />
+					</form>
+				</div>
+				
+				<div class="swiper-slide">
+				<form action="/cf/wechat/recharge/doOfflineRecharge.html" method="post" name="form2" id="form2">
+					<div class="recharge-content">
+						<div class="recharge-top">
+							<p>完整填写如下信息后，请完成银行转账操作（网银/手机银行/银行柜台），收款信息如下：</p>
+							<p>开户银行：<span>建设银行 上海黄浦支行</span></p>
+							<p>银行卡号：31001518000050031595</p>
+							<p>账户：上海仁和智本互联网金融信息服务有限公司</p>
+						</div>
+						
+						<div class="main-col">
+							<div class="main-col-left"><span>充值金额</span></div>
+							<div class="main-col-right">
+								<input type="text"  id="money2" name="money" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="${minRechargeMoney!0}元起" onfocus="delClass()" autocomplete="off" /></div>
+						</div>
+						<#if realName??>
+					      	<div class="main-col">
+								<div class="main-col-left"><span>姓名</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入姓名" name="realName" id="realName" value="${realName}" autocomplete="off" maxLength="12" /></div>
+							</div>
+				   		<#else>
+				   			<div class="main-col">
+								<div class="main-col-left"><span>姓名</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入姓名" name="realName" id="realName" onfocus="delClass()" maxLength="12" /></div>
+							</div>
+				   		</#if>
+				   		<#if cardId??>
+					      	<div class="main-col">
+								<div class="main-col-left"><span>身份证号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" name="cardId" id="cardId" value="${cardId}" autocomplete="off" maxLength="18" /></div>
+							</div>
+				   		<#else>
+				   			<div class="main-col">
+								<div class="main-col-left"><span>身份证号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" name="cardId" id="cardId" onfocus="delClass()" maxLength="18" /></div>
+							</div>
+				   		</#if>
+						<div class="main-col">
+							<div class="main-col-left"><span>银行卡号</span></div>
+							<div class="main-col-right"><input type="text" placeholder="请输入银行卡号" name="bankNo" id="infoyhzh" autocomplete="off" onpaste="return false;" onfocus="delClass()" onblur="checkBankInfo(this.value,0)" maxLength="25" /></div>
+						</div>
+						<p class="error-tip" id="lineError"></p>
+					</div>
+					<div class="blank"></div>
+					<input type="hidden" value="2" id="rechargeType2" name="rechargeType">
+					<input type="hidden" name="cfRechargeToken" value="${cfRechargeToken!}" />
+					
+					</form>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="product-detail-btn" onclick="checkFrom()">确定充值</div>
+		<script type="text/javascript">
+			$(function(){
+				
+				 // tab切换收益详情 产品详情 保障方式
+			    var tabsSwiper = new Swiper('.swiper-container', {
+			        speed: 500,
+			        onSlideChangeStart: function() {
+			            $(".tabs .active").removeClass('active');
+			            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+			        }
+			    });
+			   
+			    $(".tabs a").on('touchstart mousedown', function(e) {
+			        e.preventDefault()
+			        $(".tabs .active").removeClass('active');
+			        $(this).addClass('active');
+			        tabsSwiper.slideTo($(this).index());
+			        if($(this).index()===0){
+			        	$(".product-detail-btn").attr("onclick","checkFrom()");			        	
+			        }else if($(this).index()===1){
+			        	$(".product-detail-btn").attr("onclick","checkBankNo()");
+			        }
+			    });
+			
+			    $(".tabs a").click(function(e) {
+			        e.preventDefault();
+			    });
+			    
+			    getOneBankInfo('${bankCode!}');
+				
+				var info   = '${prompt!}';
+				var msg    = '${msgInfo!}';
+				var result = '${isLogin!}';
+				
+				if('no_login'===result){
+					layer.alert('您未登录请登录！',{title:false,closeBtn: 0})
+				}
+				//if(null!==info&&''!==info){
+				//	layer.alert(info+''+msg2,{title:false,closeBtn: 0})
+				//}
+				if(null!==msg&&''!==msg){
+					if(msg.indexOf('成功')>0){
+						layer.alert('充值成功！',{
+						    title:false,
+						},function(){
+							location.href = '/cf/wechat/user/index.html';
+						})
+					}else{
+						layer.alert(info+''+msg,{title:false,closeBtn: 0})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

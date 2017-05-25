@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值记录管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = true;
+</script>
+<script type="text/javascript">
+	$.canDelete = true;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = true;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  550;
+	var winHeight = 370;
+	var param = 1;
+	var addTitle = "添加线下充值";
+	var addUrl =  "/modules/account/accountRecharge/glodrechargePage.html";
+	
+	var verifyRechargeUrl = "/modules/account/accountRecharge/verifyRecharge.html"
+	var verifyRechargeParmeters = "'{0}','" + verifyRechargeUrl+"'";
+	
+	var cancelRechargeUrl = "/modules/account/accountRecharge/cancelRecharge.html"
+	var cancelRechargeParmeters = "'{0}','" + cancelRechargeUrl+"'";
+	
+	var editTitle="充值审核";
+	var editUrl="/modules/account/accountRecharge/accountRechargeVerifyEditPage.html";
+	var editWinParmeters = "'{0}','"+editTitle+"',700,550,'"+editUrl+"','确定'";
+    
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountRechargeVerifyList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50,fixed:true,sortable:true},
+				{ field: 'tradeNo', title: '流水号', fixed:true,width: 160},
+				{ field: 'userName', title: '用户名', width: 100},
+				{ field: 'realName', title: '真实姓名', width: 100}
+			]],
+			columns : [[
+					{ field: 'bankNo', title: '银行卡号',fixed:true, width: 100,formatter:function(value,row,index){
+						return value;
+					}},
+					{ field: 'money', title: '充值金额',fixed:true, width: 100,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'amountIn', title: '到账金额',fixed:true, width: 100,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'fee', title: '手续费',fixed:true, width:80,formatter:function(value,row,index){
+						return value+"元";
+					}},
+					{ field: 'rechargeFeeBearName', title: '手续费承担方', width: 100,formatter:function(value, row, index){
+						return value;
+					}},
+					{ field: 'type', title: '充值类型', width: 80,formatter:function(value, row, index){
+						if(value == 3) {
+							return "线下充值";
+						} else {
+							return "线上充值";
+						}
+					}},
+					{ field: 'payOfflinebankInfo', title: '线下账号', width: 250,formatter:function(value, row, index){
+						return value;
+					}},
+					{ field: 'addTime', title: '充值时间', width: 180,formatter:function(value,row,index){
+						return getLocalTime(value,4);
+					}},
+					{ field: 'statusStr', title: '状态', width: 100,formatter:function(value, row, index){
+						return value;
+					}},
+					{ field : 'action',title : '操作',width :75,fixed:true,
+			                formatter : function(value, row, index) {
+			                    var str = '';
+			                    if(row.status == 0){
+			                    	if(row.type=="3"){
+					                    str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+editWinParmeters+');" src="{1}" title="充值审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/key.png');
+					                    str += '&nbsp;'; 
+			                    	}
+// 			                    	else{
+// 					                    str += $.formatString('<img onclick="$.fn.dataGridOptions.verifyRechargeFun('+verifyRechargeParmeters+');" src="{1}" title="充值确认"/>', row.id, '${theme_dir}/css/images/extjs_icons/arrow/accept.png');
+// 					                    str += '&nbsp;'; 
+// 					                    str += $.formatString('<img onclick="$.fn.dataGridOptions.cancelRechargeFun('+cancelRechargeParmeters+');" src="{1}" title="充值取消"/>', row.id, '${theme_dir}/css/images/extjs_icons/cancel.png');
+// 					                    str += '&nbsp;';
+// 			                    	}
+			                    }
+			                    return str;
+			                }
+						}
+						]],
+			toolbar : '#toolbar'
+		});
+	});
+	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" id="searchName" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realName" id="realName" autocomplete="off"/></li>
+		        	<li><span>用户类型</span><select name="user.userCache.userType" class="type">
+							<option value="0">全部</option>
+							<option value="1">投资人</option>
+							<option value="2">借款人</option>
+						</select></li>
+						<input type="hidden" name="status" value="0"/>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

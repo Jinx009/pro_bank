@@ -1,0 +1,17 @@
+{"data":
+	[
+		{
+			"id":1,
+			"picPath":"/themes/theme_default/images/banner1.png"
+		},{
+			"id":2,
+			"picPath":"/themes/theme_default/images/banner2.png"
+		},{
+			"id":3,
+			"picPath":"/themes/theme_default/images/banner3.png"
+		},{
+			"id":4,
+			"picPath":"/themes/theme_default/images/banner4.png"
+		}
+	]
+}

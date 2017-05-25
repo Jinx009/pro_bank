@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+	<#assign nid="my_account"> 
+	<#assign flag="realNameIdentify">
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+				<#include "../account_menu.html">
+			</div>
+			<#include "../../common/function.html" />
+			<div class="user_right">
+				<h2 class="user_title">支付账户</h2>
+				<form action="/member/security/doRegisterAccount.html" name="form1" method="post"  target="_blank" enctype="multipart/form-data" id="payAccountForm">
+					<ul class="float_left payAccountForm">
+						<li class="showErrorTips"><span class="errorTips"><em><i class="iconfont">&#xe62a;</i><b>请填写认证信息</b></em></span></li>
+						<li>用户名<input type="text" name="userName" autocomplete="off" class="payAccountInput" value="${session_user.userName!''}"/></li>
+						<li>真实姓名<input type="text" name="realName" autocomplete="off" class="payAccountInput" value="${session_user.realName!''}"/></li>
+						<li>身份证号<input type="text" name="idCardNo" id="cardId" autocomplete="off" class="payAccountInput" value="${session_user.cardId!''}"/></li>
+						<li>手机号码<input type="text" name="mobile" id="mobilePhone" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" class="payAccountInput" value="${session_user.mobilePhone!''}"/></li>
+						<li><input type="submit" name="name" value="开通盛付通支付账户" class="payAccountBtn"/></li>
+					</ul>
+			</div>
+		</div>
+		<!--右边的内容 结束-->
+	</div>		
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/security_realNameIdentify');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

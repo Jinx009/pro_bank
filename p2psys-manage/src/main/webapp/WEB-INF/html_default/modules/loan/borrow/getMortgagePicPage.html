@@ -1,0 +1,115 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrow/updateBorrowCollateral.html'); 
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<input type="hidden" name="borrowId" value="${id}">
+<div class="borrowForm" style="border-top:0;">
+	<h2 class="borrowFormTitle">资产监控</h2>
+	<#list list as item>
+	<input type="hidden" name="ids" class="listId" value="${item.id}">
+	<div class="car_type">
+		<div class="car_type_item">
+			<ul class="type_item">
+				<li><span>车型：</span>${item.carType!}</li>
+				<li><span>车驾号：</span>${item.carNo!}</li>
+				<li><span>评估价：</span>${item.assessPrice!}元</li>
+				<li><span>抵押价：</span>${item.mortgagePrice!}元</li>
+			</ul>
+		</div>
+		<div class="car_type_item">
+			<span>上传实物照：</span>
+	        <div id="uploadRealPhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist" class="photoUpload  realPhotosListM" style="list-style: none; padding: 0; margin: 0;">
+	            </ul>
+	       </div>
+		</div>
+		<div class="car_type_item">
+			<span>上传档案照：</span>
+	        <div id="uploadFilePhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist1" class="photoUpload filePhotoListM" style="list-style: none; padding: 0; margin: 0;">
+	            </ul>
+	       </div>
+		</div>
+	</div>
+	</#list>
+</div>
+<div class="borrowForm">
+	<div class="car_type">
+		<div class="car_type_item">
+			<div class="car_type_item">
+				<ul class="type_item">
+					<li><span>车型：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList[0].carType" data-options="required: true" autocomplete="off"/></li>
+					<li><span>车驾号：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList[0].carNo" data-options="required: true" autocomplete="off" /></li>
+					<li><span>评估价：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList[0].assessPrice" data-options="required: true" autocomplete="off"/></li>
+					<li><span>抵押价：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList[0].mortgagePrice" data-options="required: true" autocomplete="off"/></li>
+				</ul>
+			</div>
+			<span>上传实物照：</span>
+	        <div id="uploadRealPhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="file" id="uploadFile" onchange="return ajaxFileUpload1('uploadFile','/imageUp.jsp','physicalPicPath0');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+		</div>
+		<div class="car_type_item">
+			<span>上传档案照：</span>
+	        <div id="uploadFilePhotoShowBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist1" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="file" id="uploadFile1" onchange="return ajaxFileUpload1('uploadFile1','/imageUp.jsp','archivesPicPath0');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+		</div>
+	</div>
+	<div class="add_car_type"><a href="javascript:;" class="addCarTypeBtn">添加</a></div>
+</div>
+</form>
+<script>
+	//图片列表
+	for(var j = 0;j <= $(".listId").length;j++){
+	$.ajax({
+		url:"/modules/loan/borrow/getMortgagePic.html?id="+$(".listId").eq(j).val(),
+		type:"get",
+		async:false,
+		dataType:"json",
+		success:function(data){
+			if(data.list.length > 0){
+				for(var i = 0;i < data.list.length; i++){
+					var sHtml = "";
+					sHtml += '<li data-mum="' + data.list[i].id + '">';
+					sHtml += '<a href="' + data.list[i].picPath + '" class="fileshow" rel="picGroup"><img src="' + data.list[i].picPath + '" alt="" /></a>';
+					sHtml += '</li>';
+					if(data.list[i].type == 1){
+						$(".realPhotosListM").eq(j).append(sHtml);
+					}else{
+						$(".filePhotoListM").eq(j).append(sHtml);
+					}
+				}
+			}
+		}
+	});
+  }
+
+  //抵押车型增加
+	var count = 1;
+	function countSub(num)
+	{
+		$(".car_type"+num).remove();
+		count = count - 1;
+	}
+	$(".addCarTypeBtn").click(function(){
+		var html ='<div class="car_type car_type'+count+'"><div class="car_type_item"><ul class="type_item"><li><span>车型：</span><input type="text" class="car_type_input easyui-validatebox carType" name="borrowMortgageList['+count+'].carType" data-options="required: true" autocomplete="off"/></li><li><span>车驾号：</span><input type="text" class="car_type_input easyui-validatebox carNo" name="borrowMortgageList['+count+'].carNo" data-options="required: true" autocomplete="off" /></li><span class="remove_car_type" onclick="countSub('+count+')">&nbsp;</span><li><span>评估价：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList['+count+'].assessPrice" data-options="required: true"  autocomplete="off"/></li><li><span>抵押价：</span><input type="text" class="car_type_input easyui-validatebox" name="borrowMortgageList['+count+'].mortgagePrice" data-options="required: true" autocomplete="off"/></li></ul></div><div class="car_type_item"><span>上传实物照：</span><div id="uploadRealPhotoBox'+count+'" data-arr="uploadFile" style="height: auto;"><ul id="uploadPiclist" class="photoUpload" style="list-style: none; padding: 0; margin: 0;"><li class="add_btn" style="float: left;"><i class="a"></i> <i class="b"></i><input type="file" name="uploadRealPhotoStatus" id="uploadFile2'+count+'" onchange="return ajaxFileUpload1(\'uploadFile2'+count+'\',\'/imageUp.jsp\',\'physicalPicPath'+count+'\');" title="点击上传图片" /></li></ul></div></div><div class="car_type_item"><span>上传档案照：</span><div id="uploadFilePhotoBox'+count+'" data-arr="uploadFile" style="height: auto;"><ul id="uploadPiclist1'+count+'" class="photoUpload" style="list-style: none; padding: 0; margin: 0;"><li class="add_btn" style="float: left;"><i class="a"></i> <i class="b"></i><input type="file" name="uploadFilePhotoStatus" id="uploadFile3'+count+'" onchange="return ajaxFileUpload1(\'uploadFile3'+count+'\',\'/imageUp.jsp\',\'archivesPicPath'+count+'\');" title="点击上传图片" /></li></ul></div></div>';
+		$(this).parent().before(html);
+		count = count + 1;
+	});
+</script>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>
+<!-- 图片预览-->
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

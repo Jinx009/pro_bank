@@ -1,0 +1,25 @@
+body
+{
+	font-family: "Microsoft Yahei";
+}
+.main
+{
+	width: 60%;
+	margin: 2%;
+	margin-top: 20px;
+}
+.space-div
+{
+	height: 20px;
+}
+.add-div
+{
+	width: 30%;
+	margin: 2%;
+	margin-top: 20px;
+	display: none;
+}
+.error-msg
+{
+	color: red;
+}

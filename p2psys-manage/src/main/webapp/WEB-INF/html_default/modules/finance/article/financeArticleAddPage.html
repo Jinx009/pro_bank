@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/finance/article/financeArticleAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<style>
+  .formitm{margin:15px 0; clear:both; height:33px;}
+  .formitm .lab{float: left;position: relative;top: 3px;}
+  .formitm .ipt{float:left;}
+</style>
+<form id="form"  method="post" enctype="multipart/form-data">
+	<div class="financeSiteForm" style="border-top:none; padding:20px;">
+			<div class="formitm">
+			     <label class="lab">文章标题：</label>
+			     <div class="ipt">
+			     	<input type="text" name="title" class="borrowFormTxt easyui-validatebox" data-options="required: true" maxlength="20"/><font  color="red" size="4">*</font>
+			     </div>
+			</div>
+			<div class="formitm">
+			     <label class="lab">文章图片：</label>
+			     <div cl0ass="0ipt">
+			     	<input type="file" name="file">	
+			     </div>
+			</div>
+			<div class="formitm">
+			     <label class="lab">所属栏目：</label>
+			     <div class="ipt">
+			     	<select name="financeSiteId" class="financeSiteId"><#list financeSiteList as item><option value="${item.id}">${item.title}</option></#list></select>
+			     	
+			     </div>
+			</div>
+			<div class="formitm">
+			     <label class="lab">文章作者：</label>
+			     <div class="ipt">
+			     	<select name="financeArticleExpertId" class="financeArticleExpertId"><#list financeArticleExpertList as item><option value="${item.id}">${item.autorName}</option></#list></select>
+			     	
+			     </div>
+			</div>
+			<div class="formitm">
+			     <label class="lab">状态：</label>
+			     <div class="ipt">
+			     	<input type="radio" name="status" value="2"/>&nbsp;&nbsp;隐藏</label>&nbsp;&nbsp;<label><input type="radio" name="status" value="1"  checked="checked"/>&nbsp;&nbsp;显示</label>	
+			     </div>
+			</div>
+			<div>
+				<div class="tits" style="margin-bottom:20px;">文章内容：</div>
+				<div class="conts">        				
+					<#include "umeditor.htm"> 
+					<@showUeditor width=870 heigth=300 id="message" name="content" content="" />
+				</div>
+			</div>
+	</div>
+	<input name="financeArticleAddToken" value="${financeArticleAddToken!}" type="hidden">
+</form>

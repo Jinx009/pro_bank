@@ -1,0 +1,45 @@
+<div id="header">
+	<!--S 头部信息显示-->
+	<div id="header_info">
+		<div  class="clearfix header_top">
+	        <div class="float_left">
+	        	<span class="sprite home">欢迎您来${webname!}</span>
+	        	<span class="tel">客服热线：<em>${fuwutel!}</em></span>
+	        	<span class="attention">
+	        		关注我们：
+	        		<em title="微博" class="sprite i_weibo">微博<div class="topTipsWrap"><i></i><div class="topTips"><h2>官方微博：</h2><a href="http://weibo.com/u/3632830283" target="_blank">@融都科技</a></div></div></em>
+	        		<em title="微信" class="sprite i_weixin">微信<div class="topTipsWrap"><i></i><div class="topTips" style="width: 160px;height: 160px;"><img src="${webroot}${theme_dir}/images/code.jpg" /></div></div></em>
+	        		<em title="QQ" class="sprite i_qq">QQ<div class="topTipsWrap"><i></i><div class="topTips"><h2>理财QQ群：</h2><span><b>①</b>318241119</span><span><b>②</b>318241119</span><span><b>③</b>318241119</span></div></div></em>
+	        	</span>
+			</div>
+	        <div class="float_right">
+	        	<span class="loginStatus">
+		        	<#if session_user?exists >
+		        	<a href="${webroot}/help/guide.html" class="guide">新手指引</a>&nbsp;&nbsp;
+		        	欢迎您，
+		        	<a href="${webroot}/member/main.html">${session_user.userName}</a>&nbsp;&nbsp;<a href="${webroot}/user/logout.html" title="退出登录">退出登录</a>
+					<#else>
+					<a href="${webroot}/help/guide.html" class="guide">新手指引</a>&nbsp;&nbsp;
+					<a href="${webroot}/user/login.html" >立刻登录</a>&nbsp;&nbsp;<a href="${webroot}/user/register.html" >免费注册</a>
+					</#if>
+				</span>
+			</div>
+	    </div>
+	</div>
+	
+    <!--E 头部信息显示--> 
+    <div class="header_con_wrapper">
+    	<div class="header_con clearfix">
+	        <div class="memberLogo"><a href="javascript:;" title="担保公司"><span>担保公司</span></a></div>
+	        <div id="nav" class="clearfix">
+	        	<div class="float_right member_nav" style="border-right:none;">
+	        		<a href="${webroot}/member/main.html" class="<#if (nid??&&nid=='account_home')>hover</#if>">账户主页</a>
+	        		<a href="${webroot}/member_guarantee/guarantee/guaranteeList.html" class="<#if (nid??&&nid=='guarantee')>hover</#if>">担保项目</a>
+	        		<a href="${webroot}/member_guarantee/collection/collectionList.html" class="<#if (nid??&&nid=='collection')>hover</#if>">催收项目</a>
+				    <a href="${webroot}/member_guarantee/overdue/overdueList.html" class="<#if (nid??&&nid=='overdue')>hover</#if>">逾期项目</a>
+				    <a href="${webroot}/member_guarantee/compensatory/compensatoryList.html" class="<#if (nid??&&nid=='compensatory')>hover</#if>">代偿记录</a>
+	        	</div>
+	        </div>
+        </div>
+    </div>
+</div>

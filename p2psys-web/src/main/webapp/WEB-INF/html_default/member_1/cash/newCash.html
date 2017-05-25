@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="/themes/theme_default/media/js/jquery.1.11.1.js" ></script>
+</head>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account">
+	<#assign flag="rLog">
+	<#include "../../common/function.html">
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<!--#container-->
+	
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>			
+			<div class="user_right">
+			
+			<h2 class="user_title">账户提现</h2>
+			<input type="hidden" id="deposit" value="${is_open_deposit}" />
+			<!--右边的内容user_right_main 开始-->
+			<div class="user_right_main clearfix">
+			<div class="cz-fs">
+			<span class="active" data-value="2">线上提现</span><span data-value="3">线下提现</span>
+			</div>					
+				
+	                <form action="/member/cash/doAllCash.html" method="post" target="_blank" name="form1" id="J_cash">
+	                	<div class="user_cash_box clearfix">
+	                	<h4>提现银行卡</h4>
+							<ul class="cashCardList clearfix" style="height: 110px;">
+		                	<#if bankList?? && bankList?size gt 0>
+	                       		 <#list bankList as item>
+	                			<li>
+	                            <div class="bank_radio"><b></b><label><i><img alt="" src="${item.picPath!''}" height="16" width="16">${item.bank!''}</i><em>尾号：${item.hideBankNo!''}</em></label><input type="radio" name="bankNo" value="${item.bankNo}" data-value="<i><img alt='' src='${item.picPath!''}' height='16' width='16'/>${item.bank!''}</i><em>尾号：${item.hideBankNo!''}</em>" style="display:none;"/></div>
+	                            </li>
+	                			</#list>
+	                		<#else>
+	                			<li>
+	                            <div class="bank_radio bank_radio_hover" style="vertical-align: middle;line-height: 70px;"><i style="padding-left: 15px;">暂未绑定银行卡</i></div>
+	                            </li>
+	                        </#if>
+		                	</ul>
+	                	<span><label>可用余额  ：  </label><em id="available_Balance"> ${account.useMoney!0}</em>元</span>
+	                	<h4 style="height: 33px;">填写提现金额</h4>
+	                	<ul class="newcashForm">
+	                		<li>
+	                			<label>提现金额</label><input type="text" name="money" id="money" class="cashMoney" autocomplete="off"  onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"  />元<span></span>
+	                		</li>
+	                		<li>
+	                			<label>交易密码</label><#if session_user.payPwd?exists><input type="password" name="payPwd" class="cashMoney" /><span></span>
+	                            <#else>
+	                                <a href="${webroot}/member/security/setting.html"><font color="#FF0000">请先设置一个支付密码</font></a>
+	                            </#if>
+	                		</li>
+	                		<li><label>&nbsp;</label><input type="submit" class="newCashBtn"  name="name"  value="确认提现" size="30" /> </li>
+	                	</ul>
+	                	<input type="hidden" name="cashToken" value="${cashToken!}">
+	                	</div>
+	                </form>
+	                
+                <!--E-user_right_main-->
+					 <form action="/member/cash/doylOfflineCash.html" method="post" target="_blank" name="form2" id="J_offline_cash" >
+	                	<div class="user_cash_box clearfix" style="display:none;">
+	                	<h5>填写提现金额</h5>
+	                	<ul class="newcashForm">
+	                		<li><label >可用余额</label><em id="available_Balance">${account.useMoney!0}</em>元</li>
+	                		<li>
+	                			<label style="width:100px">提现金额：</label> <input type="text" name="money" id="money" class="cashMoney" autocomplete="off"  onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"  />元<span></span>
+	                		</li>
+	                		<li>
+	                			<label style="width:100px">转账姓名：</label>
+	                			<#if realName??>
+	                			<input type="text" name="realName" id="realName" value="${realName}" autocomplete="off" class="cash_money" readOnly="readonly" maxLength="12" style="width: 200px;"/><span id="accnameid" style="color: red;"></span>
+	                			<#else>
+	                			<input type="text" name="realName" id="realName"  autocomplete="off" class="cash_money" maxLength="12" style="width: 200px;"/><span id="accnameid" style="color: red;"></span>
+	                			 </#if>
+	                		</li>
+	                		 <li>
+		                    	<label style="width:100px">转账银行卡号：</label>
+		                    	<input type="text" name="xxbankNo" id="xxbankNo" value="" style="width:200px;" maxLength="22" autocomplete="off" class="cash_money" onselectstart="return false;" onpaste="return false;" onKeyUp="value=value.replace(/[^0-9]/g,'')"/><span class="yhcard"></span><!-- <span class="card-tip hide"></span><span id="cardtip"></span> -->
+			                </li>
+	                		<li><label>&nbsp;</label><input type="submit" class="newCashBtn"  name="name2"  value="确认提现" size="30" /> </li>
+	                	</ul>
+	                	<input type="hidden" name="cashToken" value="${cashToken!}">
+	                	<input  type="hidden" name="minCashMoney" id="minCashMoney" value="${minCashMoney!0}" />
+	                	</div>
+	                </form>
+	         </div>
+			 
+	        
+	      <div class="user_help">
+				<h3><b class="user_help_tip"></b>温馨提示：</h3>
+                <p></p>
+                <p style="padding-left:24px;">1.预计到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账； 遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。</p>
+                <br/>
+                <p style="padding-left:24px;">2.提现手续费2元/笔，推广期间免费。每日限提2次 </p>
+            </div>
+			
+			
+			 <!-- 线下充值提示	end -->
+			
+			<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	</div>
+	<!--#container-->
+	 <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script>
+		seajs.use("member/cash_newCash");
+	</script>
+   	<script type="text/javascript">
+   		$(function(){
+   			
+   			var accountBank = $("#accountBank").html();
+   			var accountPicSrc = $("#accountPicSrc").html();
+			if(accountBank=="工商银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：5万，每日限额：5万</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="农业银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountPicSrc+accountBank+"：单笔限额：20万(6:00-20:00) 2万(20:00-5:59)，每日限额：500万</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="建设银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：20万，每日限额：无</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+   			if(accountBank=="中国银行"){
+   				
+   				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：1万，每日限额：无</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+   			
+			
+			if(accountBank=="邮储银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：1万，每日限额：1万</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="招商银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：5万，每日限额：5万</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="光大银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：20万，每日限额：无</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="广发银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：20万，每日限额：无</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+			if(accountBank=="平安银行"){
+   				
+				var newHtml = "<div><img src="+accountPicSrc+">"+accountBank+"：单笔限额：20万，每日限额：无</div>";
+   				$(".cash_detail").append(newHtml);
+   			}
+   			
+   		})
+
+   	</script>
+	<#include "../../include/footer.html">

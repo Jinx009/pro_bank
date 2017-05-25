@@ -1,0 +1,70 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/verifyGoodsRecord.html');     
+    });
+</script>
+<div class="popShow" style="padding-bottom:0">
+        <div class="showItem">
+            <span>会员名：</span>${user.userName!}
+        </div>
+        <div class="showItem">
+            <span>商品名 ：</span>${goods.name!}
+        </div>
+        <div class="showItem">
+            <span>积分兑换份额：</span>${item.convertNum!}份
+        </div>
+        <div class="showItem">
+            <span>消费积分：</span>${item.score!}
+        </div>
+        <div class="showItem">
+            <span>商品价值：</span>${item.money!}
+        </div>
+        <div class="showItem">
+            <span>状态：</span>
+            <#if item.status == 0 >
+            	待审核
+            <#elseif item.status ==1 >
+            	审核通过
+            <#elseif item.status ==-1 >
+            	审核未通过
+            <#elseif item.status ==2 >
+            	已发货
+             <#elseif item.status ==3 >
+             	已收货
+            </#if>
+        </div>
+        <div class="showItem">
+            <span>收货人名：</span>${item.receiveUserName!}
+        </div>
+        <div class="showItem">
+            <span>收货地址：</span>${item.receiveAddress!}
+        </div>
+        <div class="showItem">
+            <span>收货联系信息：</span>${item.receivePhone!}
+        </div>
+        <div class="showItem">
+            <span>添加时间：</span>${item.addTime!}
+        </div>
+        <div class="showItem">
+            <span>备注：</span>${item.remark!}
+        </div>
+</div>
+<form id="form" method="post">
+<div class="popForm" style="padding-top:0;">
+	<div class="formitm">
+		<label style="width:130px;" class="lab">是否通过：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过
+			<input type="radio" name="status" class="easyui-validatebox" value="-1" data-options="required: true"/>不通过
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">备注：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<textarea name="verifyRemark" class="w300 easyui-validatebox" data-options="required: true"></textarea>
+		</div>
+	</div>
+	<input name="verifyToken" value="${verifyToken!}" type="hidden">
+	<input name="id" value="${item.id}" type="hidden"/>	
+</div>
+</form>

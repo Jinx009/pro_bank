@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign web_title='账户充值 - ${webname!}'>
+<#assign web_description='账户充值，${webname!}p2p网贷平台'> 
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="member">
+	<#include "../../include/member_borrow_header.html">
+	<#include "../../common/function.html">
+		<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left">
+			<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>			
+			<div class="user_right">
+				<h2 class="user_title">账户充值</h2>
+				<input type="hidden" id="deposit" value="${is_open_deposit}" />
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main clearfix">					
+					<form action="" method="post" name="form1" id="J_reCharge">
+				    <div class="user_cash_box clearfix">
+				    	<ul class="user_cash_form">
+			        		<li><strong>充值银行：</strong>
+				        		<#if accountBank ??>
+				        		<img alt="" src="${accountBank.picPath!''}"> ${accountBank.bank!} ${accountBank.getHideBankNo()}
+				        		</#if>
+			        		</li>
+			        		<li>
+		        				<strong>充值金额：</strong>
+		        				<input type="text" name="money"  class="cash_money" id="cachMoney" autocomplete="off" value="" size="10" onKeyUp="value=value.replace(/[^0-9.]/g,'').trim();" maxlength="9" /> 元<span></span>
+		        			</li>
+		        			<#if session_user?? && session_user.payPwd ?? && session_user.payPwd != ''>
+								<li><label>交易密码：</label> <input type="password" name="payPwd" id="payPwd" class="cash_money" value="" size="10" autocomplete="off" class="bankTxt"/><span></span></li>
+								<#else>
+								<li><label>交易密码：</label> <a href="${webroot}/member/security/setting.html"><font color="#FF0000">请先设置一个支付密码</font></a><span></span></li>
+								</#if>
+			        		<li><strong>&nbsp;</strong>
+			        		<input type="hidden" class="paymentStatus" name="type" value="1"/>
+			        		<input  type="hidden" name="channelType" id="channelType" value="1" />
+			        		<input type="button" name="name" class="cashBtn" value="确认提交" /></li>
+			        	</ul>
+			        	<div class="user_cash_info">
+			        		<i class="iconfont">&#xe602;</i>
+			        		<span class="user_cash_item">目前可用余额：<span class="c_red"  id="use_money">${useMoney!0}</span>元</span>
+			        	</div>
+		        	</div>
+					</form>
+	         </div>
+			 <div id="modal_dialog" style="display: none" title="充值情况" class="rec_dialog">
+	        	<p>如果您已经完成了充值，请继续以下步骤</p>
+	            <div class="">
+	        		<span id="close_wd">继续充值</span>　|　
+					<a href="${webroot}/member/recharge/log.html">查看充值记录</a>
+	            </div>
+	        </div>
+			<div class="user_help">
+			            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+				<p>1、充值/提现必须为开通网上银行的借记卡，不支持存折、信用卡充值。</p>
+				<p>2、充值期间，请勿关闭浏览器，待充值成功并返回后，可在${webname!}系统中查看充值金额。</p>
+				<p>3、严禁信用卡套现、虚假交易等行为。</p>
+			</div>
+			<!-- 内容结束 -->
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	</div>
+	<!--#container-->
+	<script>	
+		seajs.use("member/recharge_newRecharge");
+   	</script>
+	<#include "../../include/footer.html">

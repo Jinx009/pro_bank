@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+<script type="text/javascript" src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/plugins/vue/vue.min.js"></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+<script type="text/javascript" src="/themes/theme_default/cf/wechat/js/user/setPay.js" ></script>
+</head>
+<body class="regist-bg">
+<input type="hidden" value="${url}" id="url" >
+<div class="back">
+	<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+	<span>设置交易密码</span>
+</div>
+<#include "../include/menue.html">
+<div class="regist-position">
+	<div class="regist-content">
+		<form>
+			<div class="form-group">
+				<input type="password" placeholder="交易密码（6位数字）" id="pwd" class="long-inp"/>
+			</div>
+			<div class="form-group">
+				<input type="password" placeholder="重复交易密码（6位数字）" id="rePwd" class="long-inp"/>
+			</div>
+			<div class="regist-position-bottom">
+		   		<button type="button" onclick="doSet()" class="regist-btn">确认</button>
+		   	</div>
+		</form>
+	</div>	
+</div>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<#assign nid="borrow">
+<#if typeStr=="miaobiao">
+<#assign web_title='发布秒还标 - ${webname!}'>
+<#assign web_description='发布秒还标，${webname!}p2p网贷平台'>
+<#assign bidTitle='秒还标'>
+</#if>
+<#if typeStr=="fast">
+<#assign web_title='发布固定收益类产品 - ${webname!}'>
+<#assign web_description='发布固定收益类产品，${webname!}p2p网贷平台'>
+<#assign bidTitle='固定收益类产品'>
+</#if>
+<#if typeStr=="month">
+<#assign web_title='发布信用标 - ${webname!}'>
+<#assign web_description='发布信用标，${webname!}p2p网贷平台'>
+<#assign bidTitle='信用标'>
+</#if>
+<#if typeStr=="jin">
+<#assign web_title='发布净值标 - ${webname!}'>
+<#assign web_description='发布净值标，${webname!}p2p网贷平台'>
+<#assign bidTitle='净值标'>
+</#if>
+<#if typeStr=="flow">
+<#assign web_title='发布流转标 - ${webname!}'>
+<#assign web_description='发布流转标，${webname!}p2p网贷平台'>
+<#assign bidTitle='流转标'>
+</#if>
+<#if typeStr=="offvouch">
+<#assign web_title='发布担保标 - ${webname!}'>
+<#assign web_description='发布担保标，${webname!}p2p网贷平台'>
+<#assign bidTitle='担保标'>
+</#if>
+<#include "../include/resource1.html"> 
+<link href="${webroot}${theme_dir}/media/css/button.css" rel="stylesheet">
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+<body>
+<#include "../include/header.html">
+<!--S-借款发标页面-->
+<div id="container">
+	<div id="content">
+	    <!--S-borrow_main-->
+	    <div class="borrow_main" id="borrow_main">
+	      <!--S-borrow_tab_content模块-->
+	      <div class="borrow_tab_content">
+		<ul class="bid_process clearfix">
+			<li class="hover"><i>1</i>${bidTitle}基本信息</li>
+			<li><i>2</i>${bidTitle}详细信息</li>
+			<li><i>3</i>${bidTitle}信息确认</li>
+		</ul>
+	        <!--S-form表单-->
+	        <form name="form1" method="post" id="form1" onsubmit="formSub();" action="<#if borrow?exists>updateLoan.html?borrowId=${borrow.id?c}<#else>doLoan.html</#if>"  enctype="multipart/form-data" >
+	        <!--S第一步-->
+	        <div class="J_borrow1 borrow_tab_content_list ">
+	        	<h3><i></i>基本信息</h3>
+	        	<div class="item_con">	
+	      	<ul class="clearfix">
+	            <li class="clearfix J_item_list">
+	                <span class="item_tit">借款金额：</span>
+	                <span id="infojdmoney" data-content="借款金额应在500元至5,000,000元之间。交易币种均为人民币。借款成功后,按借款本金收取
+	                    <#if typeStr=="miaobiao"> 0元
+	                    <#elseif typeStr=="jin"> 0.2%
+	                    <#else>0.5 % </#if>,管理费用不计息，不退还，在借款金额中直接扣除。 更详尽的信息请查看帮助网站 收费规则">
+	                    <input type="text" name="account" class="J_input"  autocomplete="off" data-item="元" id="account" value="<#if borrow?exists>${borrow.account}</#if>" onKeyUp="value=value.replace(/[^0-9]/g,'')" /><b class="icon">元</b>
+	             		<#if typeStr=="month">
+	             		<span id="check" style="display: none"></span>
+	             		</#if>
+	                </span>
+	            </li>
+	            <li class="clearfix J_item_list">
+	                <span class="item_tit">年化利率：</span>
+	                 <input type="text" name="apr" id="infonlv" class="J_input" data-item="%" autocomplete="off" data-content="填写您提供给投资者的年利率,所填写的利率是您还款的年利率。1至6个月的年利率不能超过22.4%,7至12个月的年利率不能超过24%.范围：1%至24%，且只保留小数后最后两位。" value="<#if borrow?exists>${borrow.apr}</#if>" onKeyUp="value=value.replace(/[^0-9.]/g,'')" /><b class="icon">%</b>
+	            </li>
+	            <li class="clearfix J_item_list">
+	                <span class="item_tit">借款用途：</span>
+	                <span id="infojkxx" class="float_left"  data-content="说明借款成功后的具体用途">
+	                <#if borrow?exists>
+	                <@linkage name="borrowUse" id="use" class="J_input" default="${borrow.borrowUse}" type="value" nid="borrow_use" />
+	                <#else>
+	                <@linkage name="borrowUse" id="use" class="J_input" type="value" nid="borrow_use" />
+	                </#if>
+	                </span>
+	            </li>
+	              <li class="clearfix J_item_list">
+	                <span class="item_tit">借款期限：</span>
+	                <#if typeStr=='miaobiao'>
+	                <input type="text"  class="J_input" value="满标即还" readonly="readonly" />
+	                <#else>
+	                <span id="infotl"  class="float_left" data-content="需要借多少时间。">
+	                <span id="time_limit_box">
+	                <#if borrow?exists>
+	              	<input type="hidden" name="timeLimit" value="${borrow.timeLimit!}">
+	                <@linkage name="timeLimit" id="time_limit" class="J_input select_low" default="${borrow.timeLimit!}" type="value" nid="borrow_time_limit" disabled="disabled"/>
+	                <#else>
+	                <@linkage name="timeLimit" id="time_limit" class="J_input select_low" type="value" nid="borrow_time_limit"/>
+	                </#if>
+	                </span>
+	             
+					
+	                <span id="time_limit_day_box" style="display:none;">
+	                <#if borrow??>
+	                <@linkage name="timeLimit" id="time_limit_day" class="select_low"  default="${borrow.timeLimit!}" type="value" nid="borrow_time_limit_day" disabled="disabled"/>
+	                <#else>
+	                <@linkage name="timeLimit" id="time_limit_day" class="select_low"  type="value" nid="borrow_time_limit_day"/>
+	                </#if>
+	                </span>
+	                </span>
+	                <a href="javascript:;" id="changetoDay" class="day_chose" >按天</a>
+	                <input type="hidden" name="borrowTimeType" id="borrowTimeType" value="0" />
+	                </#if>
+	            </li>
+	            
+	            <li class="clearfix J_item_list">
+	                <span class="item_tit">有效时间：</span>
+	                <span id="infoyxtime" class="float_left"  data-content="设置此次借款的天数。借款进度达到100%后直接进行网站的复审">
+	                <#if borrow?exists>
+	                <@linkage name="validTime" id="valid_time" default="${borrow.validTime}" nid="borrow_valid_time" class="J_input"  type="value" />
+	                <#else>
+	                <@linkage name="validTime" id="valid_time" nid="borrow_valid_time" type="value" class="J_input" />
+	                </#if>
+	                </span>
+	            </li>
+	            <li class="clearfix J_item_list">
+	                <span class="item_tit">还款方式：</span>
+	                <#if typeStr=='miaobiao'>
+	                <select name="style" autocomplete="off" id="style" class="J_input"><option value="2">一次性还款</option></select>
+	                <#else>
+	                <span id="infohk"  class="float_left" data-content="按月分期还款是指借款者借款成功后，每月还本息。一次性还款是指借款者借款成功后，借款期限到期后还款。">
+	                <#if borrow?exists>
+	                <@linkage name="style" id="style" default="${borrow.style}" nid="borrow_style" type="value" class="J_input" />
+	                <#else>
+	                <@linkage name="style" id="style" nid="borrow_style" type="value" class="J_input" />
+	                </#if>
+	                </span>
+	                </#if>
+	            </li>
+	             <#if typeStr=='flow'>
+	            <li class="clearfix J_item_list">
+		                <span class="item_tit">每份投标金额：</span>
+		                    <span id="infolow" class="float_left"  data-content="流转标每分投标金额">
+		                    	<input  class="J_input"  type="text" name="flowMoney"  value="<#if borrow?exists>${borrow.flowMoney}</#if>" data-item="元"><b class="icon">元</b>
+		                    </span>
+            	</li>
+           		</#if>
+           </ul>
+		      </div>
+		      
+		      <h3><i></i>投标奖励</h3>
+		      <div class="item_con">
+	      		  <ul class="clearfix">
+	      		  <li class="clearfix J_item_list">
+                  			<span class="item_tit">奖励方式：</span>
+                  			<select name="award" class="J_input" >
+                  				<option value="0" <#if borrow?exists&&borrow.award==0>selected=selected</#if>>没有奖励</option>
+                  				<option value="1" <#if borrow?exists&&borrow.award==1>selected=selected</#if>>比例奖励</option>
+                  			</select>
+	                   	 </li>
+	                  	<li class="clearfix J_item_list">
+	                  		<span class="item_tit">投标奖励：</span>
+				<span id="infoyjiang2" data-content="范围：0.1%~6% ，这里设置本次标的要奖励给所有投标用户的奖励比例。">
+					<input type="text" id="part_account" class="J_input"  data-item="%" name="partAccount" disabled="disabled"  onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"  value="<#if borrow?exists>${borrow.partAccount}</#if>"  size="18" /><b class="icon">%</b>
+				</span>
+	                        </li>
+			</ul>
+		      </div>
+		      <h3><i></i>其他信息</h3>
+		      <div class="item_con">	
+		      		<!--S-定向标密码-->    
+		      		<ul class="clearfix">	  
+		              	<li class="clearfix J_item_list">
+			                <span id="infoisDXB" class="float_left" data-content="定向标可邀请特定的用户或朋友来投标，设置好密码后，告诉对方此标的密码即可." >
+			                	<span class="item_tit">定向密码：</span>
+			                	<input data-display="hide" class="J_input" style="width: 100px"  autocomplete="off" <#if !borrow?exists || !borrow.pwd?exists>disabled="disabled"</#if> type="text" name="pwd" id="pwd" value="<#if borrow?exists>${borrow.pwd!}</#if>">
+			                	<a href="javascript:;" class="day_chose" id="isDXB">开启</a>
+			                        <input type="checkbox" class="hide" name="isDXB"   value="1"   <#if borrow?exists && borrow.pwd?exists&&borrow.pwd!="">checked="true"</#if>>  
+			                </span>
+			            </li>
+			            <!--E-定向标密码-->
+			            
+			            <!--S-如果不是流转标-->
+			            <#if typeStr!='flow'>
+			              <li class="clearfix J_item_list">
+			                <span class="item_tit">最低投标：</span>
+			                <span id="infolow" class="float_left"  data-content="允许投资者对一个借款标的投标总额的限制">
+			                <#if borrow?exists>
+			                <@linkage name="lowestAccount" class="J_input" id="lowest_account" default="${borrow.lowestAccount}" nid="borrow_lowest_account"  type="value"/>
+			                <#else>
+			                <@linkage name="lowestAccount" class="J_input" id="lowest_account" nid="borrow_lowest_account" type="value" />
+			                </#if>
+			                </span>
+			            </li>
+			               <li class="clearfix J_item_list">
+			                <span class="item_tit">最高投标：</span>
+			                <span id="infomax" class="float_left"  data-content="允许投资者对一个借款标的投标总额的限制">
+			                <#if borrow?exists>
+			                <@linkage name="mostAccount" class="J_input" id="most_account" default="${borrow.mostAccount}" nid="borrow_most_account" type="value" />
+			                <#else>
+			                <@linkage name="mostAccount" class="J_input" id="most_account" nid="borrow_most_account" type="value" />
+			                </#if>
+			                </span>
+			              </li>
+			              <li><input type="hidden" id="typeStr" name="typeStr" value="${typeStr}" /></li>
+			            </#if>
+			            <!--E-如果不是流转标-->
+			            
+			            <!--S-如果是流转标-->
+			            <#if typeStr=='flow'>
+			            <li class="clearfix J_item_list">
+			                <span class="item_tit">单笔最低：</span>
+			                    <span id="infolow" class="float_left"  data-content="允许投资者对一个借款标的投标总额的限制">
+			                    <#if borrow?exists>
+			                    <@linkage name="lowestSingleLimit" class="J_input" id="lowest_single_limit" default="${borrow.lowestSingleLimit}" nid="borrow_most_account"  type="value"/>
+			                    <#else>
+			                    <@linkage name="lowestSingleLimit" class="J_input" id="lowest_single_limit" nid="borrow_most_account" type="value" />
+			                    </#if>
+			                    </span>
+			                </li>
+			            <li class="clearfix J_item_list">
+			                <span class="item_tit">单笔最多：</span>
+			                <span id="infomax" class="float_left"  data-content="允许投资者对一个借款标的投标总额的限制">
+			                <#if borrow?exists>
+			                <@linkage name="mostSingleLimit" class="J_input" id="most_single_limit" default="${borrow.mostSingleLimit}" nid="borrow_most_account" type="value" />
+			                <#else>
+			                <@linkage name="mostSingleLimit" class="J_input" id="most_single_limit" nid="borrow_most_account" type="value" />
+			                </#if>
+			                </span>
+		            	</li>
+		            	<li><input type="hidden" id="typeStr" name="typeStr" value="${typeStr}" /></li>
+		            </#if>
+	            </ul>
+	            <!--E-如果是流转标-->
+		      </div>
+		        <div class="borrow_btn clearfix">
+		        	<div class=" sub_btn_cls J_borrowbtn">下一步</div>
+		        </div>
+		    </div>  
+		    <!--E第一步-->
+		    
+	        <#if map??&&map.get("award")??>
+	   			<#assign award=map.get("award")?eval />
+	   		</#if>
+	   		<#if map??&&map.get("partAccount")??>
+	   			<#assign partAccount=map.get("partAccount") />
+	   		</#if>
+	   		<#if map??&&map.get("funds")??>
+	   			<#assign funds=map.get("funds") />
+	   		</#if>
+	        <!--S-第二步-->
+	        <div class="J_borrow2 borrow_tab_content_list hide indent_text">
+	          	<!--S-借款信息填写-->
+		        <div class="borrow_details_content">
+		          <ul>
+		            <li class="clearfix">
+		            <h3><i></i>借款标题</h3>
+		              <b class="tit_left"></b>
+		              <input type="text" name="name" autocomplete="off" value="<#if borrow?exists>${borrow.name}</#if>" size="50" id="infotitle" data-content="填写借款的标题，写好一点能借的几率也大一点" />
+		              <b class="tit_right"></b>
+		            </li>
+		            <li class="clearfix">
+		            	<h3><i></i>借款详情</h3>
+		            	   <textarea  id="tinymceEditor" name="content" style="width: 1044px;padding: 20px;height:120px;"></textarea>
+		            </li>
+		            <li>
+			            <div class="clearfix">
+			            	<h3><i></i>上传图片</h3>
+			           		<dl class="upimg clearfix" >
+			           			 <dd class="add_btn" >
+			           				<input type="file" id="files" name="file">
+			           			</dd>
+			           		</dl>
+		           		</div>
+						<p>上传最大的图片为1M，上传的格式为*.jpg、*.gif、*.png</p>
+		            </li>
+		          </ul>
+		        </div>
+	        	<!--E-借款信息填写-->
+	        	<div class="borrow_btn clearfix">
+	        		<div class=" sub_btn_cls J_borrowbtn2">下一步</div><div class="J_borrowbtn_up">返回上一步</div> 
+	        	</div>
+	        </div>
+	        <!--E-第二步-->
+	        
+	        <!--S-第三步-->
+	        <div class="J_borrow3 borrow_tab_content_list hide">
+	        	<div class="final_msg">
+	        		<h3><i></i>借款标题</h3>
+	        		<div class="J_b_tit">
+	        		<#if typeStr=='miaobiao'><i class="miaobiao"></i></#if>
+			<#if typeStr=='fast'><i class="fast"></i></#if>
+			<#if typeStr=='jin'><i class="jin"></i></#if>
+			<#if typeStr=='month'><i class="month"></i></#if>
+			<#if typeStr=='offvouch'><i class="offvouch"></i></#if>
+			<#if typeStr=='flow'><i class="flow"></i></#if>
+			</div>
+	        		<h3><i></i>借款信息</h3>
+	        		<ul class="J_final_msg clearfix">
+	        		</ul>
+	        		<h3><i></i>借款详情</h3>
+	        		<div id="tinymce_txt">
+	        			<div id="J_tinymceTxt" class="tinymce_txt_box"></div>
+	        		</div>
+	        		<h3><i></i>上传图片</h3>
+	        		<span class="J_upimgbox clearfix">
+	        		</span>
+	        	</div>
+	        	<ul>
+	        		<li class="clearfix">
+		              <label class="f_label">验证码：</label>
+		              <input name="valicode" type="text" size="11" maxlength="4" class="b_valicode ignore" tabindex="3"/> &nbsp;&nbsp;&nbsp;
+		              	<img src="${webroot}/validimg.html" alt="点击刷新"  onClick="this.src='${webroot}/validimg.html?t=' + Math.random();"
+		                align="absmiddle" class="valicode_img " />
+		            </li>
+		        </ul><textarea id="fileValue" name="fileValue" style="display: none;"></textarea>
+	        	<div class="borrow_btn clearfix">
+	        		<input type="button" id="form_submit" value="确认并发标" class="sub_btn_cls" />
+	        		<input type="hidden" name="type" value="${btype}" class="btn-action" />
+	        		<div class="J_borrowbtn_up2">返回上一步</div>
+	        	</div>
+	        </div> 
+	        <#if borrow?exists>
+	        <input type="hidden" value="${borrow.id}" id="borrowId" />
+	        </#if>
+	        <input type="hidden" value="${typeStr}" id="type" />
+	         <input type="hidden" value='${api_code}' id="apiCode" />
+	        <!--E-第三步 -->
+	        </form>
+	      </div>
+	      <!--E-borrow_tab_content模块-->
+	    </div>
+	    <!--E-borrow_main-->
+	</div>	    
+</div>
+<!--E-借款发标页面-->
+<script>seajs.use("${webroot}${theme_dir}/media/js/borrow/borrow.js");</script>
+<script>
+//判断是否符合发标的条件
+<#if data?? && data.msg?? && data.result?? && data.result==false>
+function jumpMember(){ 
+	layer.alert("${data.msg!}","8","消息提示",function(){
+		setTimeout(function(){
+			window.location.href="/member/main.html"	
+		},1000)
+	})
+}
+$(window).load(function(){
+	jumpMember();
+})
+</#if>
+</script>
+
+<!--E-借款发标页面-->
+<#include "../include/footer.html"> 

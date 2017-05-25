@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+<title>五星专享</title>
+<script src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript">
+$(function()
+{
+	var width = $(window).width();
+	var height = $(window).height();
+	
+	$(".main-img").attr("width",width);
+	$(".main-img").attr("height",height);
+})
+function showQ()
+{
+	$(".my-p1").hide();
+	$("#main").hide();
+	$("#main1").show(100);
+}
+function openUrl(url)
+{
+	location.href = url;	
+}
+function hideMain()
+{
+	$("#main1").hide();
+	$(".my-p1").show();
+	$("#main").show(100);
+}
+
+</script>
+<style type="text/css">
+.main-img{
+	position: absolute;
+    bottom: 0px;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    z-index: 888;
+}
+.my-p1{
+	position: absolute;
+	top: 10px;
+	right: 5px;
+	z-index: 999;
+	font-family: "Microsoft Yahei";
+	color: rgb(25,102,128);
+}
+.none{
+	display: none;
+}
+</style>
+</head>
+<body>
+	<div class="my-p1"  onclick="showQ()" >进入五星电器&nbsp;></div>
+	<img id="main"  src="/themes/theme_default/nb/wechat/images/5star.jpg" onclick="openUrl('/nb/wechat/product/product_list.html?id=4');" class="main-img" >
+	
+	<img id="main1"  src="/themes/theme_default/nb/wechat/images/5star02.jpg" onclick="hideMain()" class="main-img none" >
+</body>
+</html>

@@ -1,0 +1,37 @@
+<script type="text/javascript">
+$(function(){
+	$.fn.dataGridOptions.formSubFun("#form",'/modules/account/tppGlodLog/webRecharge.html');
+})	
+</script>
+<style>
+  table{border:1px solid #ccc;border-collapse:0;border-spacing: 0px; padding:0;margin:0;}
+  tr,td{padding:0; margin:0; text-align:center;}
+  td{border:1px solid #ccc;}
+</style>
+<form id="form"  method="post" onsubmit="checkMoneyFun();">
+<div class="popForm" style="padding-top:0;">
+		<div class="clearfix account" style="padding:20px 0" >
+	            <table style="width:665px;" border="0" cellpadding="3" cellspacing="1" width="100%" align="center">
+	               <tr class="datagrid-header-row"><td field="id" class="">账户名称</td><td field="id" class="">账户余额</td><td field="id" class="">可用余额</td><td field="id" class="">冻结金额</td></tr>
+	                <#list accts as item>
+	                  <tr><td>${item.subAcctId!}</td><td>${item.acctBal}</td><td>${item.avlBal}</td><td>${item.frzBal}</td></tr>
+		            </#list>
+	            </table>
+	       </div>
+		<div class="clearfix account" style="padding:20px 0" >
+	            <label for="">付款账户：</label>
+	            <#list accts as item>
+	             <input type="radio" value="${item.subAcctId!}" name="account" <#if item_index == 0>checked="checked"</#if>> ${item.subAcctId!}
+	            </#list>
+	       </div>
+	       <div class="clearfix payAccount" style="padding:20px 0">
+	            <label for="">接收账户：</label>
+	            <input type="text" name="payAccount" id="userName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20" style="width:130px;"/><i>*</i>
+				<input type="button" value="选择" onclick="showUser()" class="selectguoguo">
+	       </div>
+		<div class="other clearfix" style="padding:20px 0">
+            <label for="">转账金额：</label><input type="text" name="money" id="money" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20" style="width:130px;"/><i>*</i> 	
+        </div>	
+</div>
+</form>
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值金额统计</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+var dataGrid;
+var winWidth =  600;
+var winHeight = 530;
+var addTitle = "后台开户"; //添加窗口标题
+var addUrl =  "/modules/user/user/user/userAdminAddPage.html"; // 添加窗口链接地址
+var editTitle = "锁定用户";
+var editUrl =  "/modules/user/user/user/userLockEditPage.html";
+var editWinParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+editUrl+"','确定'";
+var editTitle = "修改用户信息";
+var userReadUrl =  "/modules/user/user/user/userEditPage.html";
+var userReadParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+userReadUrl+"','确定'";
+$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accessAccountMoney.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'money', title: '充值金额', width: 50,height:50,sortable:true},
+			{ field: 'rechargeFeeBearName', title: '单位', width: 50,height:50,sortable:true}
+			 ] ]
+		});
+});
+function exportExcel(){
+	var url = "/modules/user/user/user/exportExcelUserList.html";
+	var searchName = $("#searchName").val()
+	var realName = $("#realName").val();
+	var userName = $("#userName").val();
+	var realNameStatus = $("#realNameStatus").val();
+	var userType = $("#userType").val();
+	var status = $("#status").val();
+	var sou = "?searchName=" + searchName + "&realName=" + realName + "&userName=" + userName+ "&status=" + status + "&realNameStatus=" + realNameStatus + "&userType=" + userType;
+	window.location.href = url + sou;
+}
+</script>
+</head>
+<body style="padding:0 20px;" >
+<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	 日期范围:<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'endTime\',{M:-1})}',maxDate:'#F{$dp.$D(\'endTime\')||\'2099-10-01\'}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'#F{$dp.$D(\'startTime\',{M:1})||\'2099-10-01\'}',readOnly:true})" class="searchTime"/><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <!-- <div class="sRight">
+            	<a id="add"  onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div> -->
+	        <div class="sRight">
+            		
+            </div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

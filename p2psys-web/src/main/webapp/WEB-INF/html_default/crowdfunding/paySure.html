@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width; height=device-height;" name="viewport">
+		<link href="/themes/theme_default/media/css/zcStyle.css" rel="stylesheet">
+		<title>众筹支付</title>
+	</head>
+	<body>
+	<input type="hidden" value="${zcProjectid}" id="zcProjectid" >
+	<input type="hidden" value="${type}" id="type" >
+	<input type="hidden" value="" id="recordid"/>
+	<input type="hidden" value="${userName}" id="userName"/>
+	<input type="hidden" value="${tel}" id="tel"/>
+	<input type="hidden" value="${price}" id="price"/>
+	
+		<!--header	start-->
+		<div id="header">
+			<div id="head_info">
+				<div class="clearfix head_top">
+					<div class="float_left">
+						<a href="/"><div class="logo"></div></a>
+						<span class="navChild"><a href="/aboutUs/siteIntro.html">关于我们</a></span>
+						<span class="navChild"><a href="/crowdfunding/index.html?id=2">我要投资</a></span>
+						<span class="navChild"><a href="/member/main.html">我的账户</a></span>
+						<span class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+						<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+					</div>
+					<div class="float_right">
+						<span class="loginStatus">
+							<span class="welcomePhone">欢迎您，131****9876</span>
+							<a href="${webroot}/user/logout.html">退出</a>
+							<a class="guide" href="/crowdfunding/index.html">在e800Bank投资</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--header	end-->
+		<!--payDetails	start-->
+		<form  method="get" id="form" name="form">
+			<input type="hidden"  id="projectid"  name="projectid" value="${zcProjectid}">
+			<input type="hidden" id="investruleid" name="investruleid" />
+			<div class="paySure">
+				<div class="pay_left">
+					<div class="xmTitle"></div>
+					<div class="pay_left_col">
+						<p class="num_box"><span id="tzNum">投资金额</span><a class="J_jian" onclick="sub()"  ><img src="/themes/theme_default/images/raise/sub.png"/></a><label><input type="text" class="num" value="" name="zcNum" id="zcNum" oninput="changeMoney()"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></label><a class="J_jia"  onclick="add()"><img src="/themes/theme_default/images/raise/add.png"/></a></p>
+						<div class="tzr_phone"><span class="tzr_name_l">投资金额</span><input type="text" class="tzr_name_r" id="money"  name="money"  readonly="readonly"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></div>
+						<div class="qyzb_pay" id="qyzb"><span class="qyzb_pay_l">权益占比</span><span class="qyzb_pay_r" id="qyzb_r"><!-- 9% --></span></div>
+						<div class="zchbDesc">
+							<div class="qyzb_pay_l">众筹回报</div>
+							<div class="zchbDesc_r">
+
+							</div>
+						</div>
+						<div class="qtr_pay" id="qtr_pay"><span class="qtr_pay_l" style="padding-right:39px;">领投人</span><span id="ltr"></span></div>
+						<div class="qtr_pay"><span class="qtr_pay_l"></span><span></span></div>				
+					</div>
+				</div>
+				
+				<div class="pay_right">
+					<div class="tzr">投资人信息</div>
+					<div class="pay_right_col">
+						<div class="tzr_name"><span class="tzr_name_l">姓名</span><span>${userName}</span>
+						<!-- <input type="text" class="tzr_name_r" value="${userName}"/> --></div>
+						<div class="tzr_phone"><span class="tzr_phone_l">手机号</span>
+						<span>${tel}</span>
+						<!-- <input type="tel" class="tzr_phone_r" value="${tel}"/> --></div>
+						<div id="address" style="display:block;">
+							<div class="tzr_phone"><span class="tzr_phone_l">通讯地址</span>
+							<input class="tzr_phone_s" placeholder="省/直辖市" type="text" name="province" id="province"/>
+							<input class="tzr_phone_s" placeholder="市" type="text" name="city" id="city"/>
+							<input class="tzr_phone_s" placeholder="区/县" type="text" name="district" id="district"/>
+							<!-- <select class="tzr_phone_s"><option>省</option></select>
+							<select class="tzr_phone_s"><option>市</option></select>
+							<select class="tzr_phone_s"><option>区</option></select> -->
+							<input type="text" class="tzr_phone_xq" name="address" id="address" placeholder="详细地址" /></div>
+							<div class="tzr_code"><span class="tzr_code_l">邮编</span><input type="text" class="tzr_code_r" id="zipcode" name="zipcode"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></div>
+							<div class="tzr_phone"><span class="tzr_phone_l">运费</span><span>免运费</span></div>
+							
+						</div>
+						<div class="tzr_phone"><span class="tzr_phone_l">风险说明</span><p id="riskDesc"><!-- 风险说明风险说明风险说明风险说明风险说明风险说明风险说明 --></p></div>
+					</div>
+					<div class="btn_pay">
+						<div class="btn_xyb">下一步</div><div class="btn_back">返回</div>
+					</div>					
+				</div>
+			</div>
+		</form>	
+		<!--payDetails	end-->
+
+		<div class="blank">
+		</div>
+
+		<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+		<#include "../include/raise_footer.html">
+		<script type="text/javascript">
+			var price = $("#price").val();
+		//	$("#money").val(price);
+		
+			if(price=="undefined"){
+				console.log("price="+price);
+				price = 0;
+				$("#money").val(price);
+				$("#zcNum").val(price);
+			}else{
+				console.log("1111");
+				$("#money").val(price);
+			}
+			
+			
+			var zcProjectid = $("#zcProjectid").val();
+			var Zctype = $("#type").val();
+			var investType;
+			if(Zctype==0){
+				investType = 1;
+				$(".num").val();
+				$("#tzNum").html("投资份数");
+			}
+			if(Zctype==2){
+				investType = 0;
+			}
+			var userName = $("#userName").val();
+			var tel = $("#tel").val();
+			var tel_l = tel.substring(0,3);
+			var tel_r = tel.substring(7,11);
+			$(".welcomePhone").html("欢迎您，"+tel_l+"****"+tel_r);
+			
+			$(".btn_back").bind("click",function(){
+				window.location.href = "/crowdfunding/physicalRaise.html?zcProjectid="+zcProjectid+"&type="+Zctype;
+			});
+			$.ajax({
+				type:'get',
+				cache:false,
+				url:'/crowdfunding/projectInfoDetail.html?projectId='+zcProjectid,
+				dataType:'json',
+				async:false,
+				success:function(data){
+					var json = eval(data);
+					var stakeShare = parseFloat(json.stakeShare)*100;
+					$("#qyzb_r").html(stakeShare+"%");
+					for(var i = 0;i<json.materials.length;i++){
+						var materialCode = json.materials[i].materialCode;
+						var materialContent  = json.materials[i].materialContent;
+						if(materialCode==4000){
+							$(".xmTitle").html(materialContent);
+							
+						}
+						if("riskDesc"==materialCode){
+							$("#riskDesc").html(materialContent);
+						}
+						if(Zctype==0){
+							$("#qyzb").hide();
+							$("#qtr_pay").hide();
+						}
+						if(Zctype==2){
+							$("#qyzb").show();
+							$("#qtr_pay").show();
+							if(materialCode==6000){
+								$("#ltr").html(materialContent);
+							}else{
+								$("#ltr").html("此项目暂时没有领投人");
+							}
+						}
+						
+					}
+					
+					if(""==$(".xmTitle").html()){
+						$(".xmTitle").html("此项目暂时没有项目标题");
+					}
+				}
+			})	
+			
+			var min_money;
+			var single;
+			var profit_json ;
+			var json;
+			var entryBaseMoneyNumber;
+			var endPrice;
+			var j ;
+			var maxMoney;
+			var minMoney;
+			 $.ajax({
+					type : 'get',
+					cache : false,
+					url : '/crowdfunding/getProjectRules.html?id='+ zcProjectid,
+					dataType : 'json',
+					async : false,
+					success : function(data)
+					{
+						
+						profit_json = data.rules;
+						json = eval(data.rules);
+						single = json[0].baseMoneyUnitPrice;
+						endPrice = json[0].ceilingPrice;
+						maxMoney = json[json.length-1].ceilingPrice;
+						minMoney = json[0].entryPrice;
+				//		alert("最大投资金额:"+json[json.length-1].ceilingPrice)
+						for (var i = 0; i < json.length; i++)
+						{
+							var id = json[i].id;
+							$("#investruleid").val(id);
+							
+							var investType = json[i].investType;
+							var entryPrice = json[i].entryPrice;/*单人最小投资金额*/
+							var ceilingPrice = json[i].ceilingPrice;/*单人最大投资金额*/
+							if(Zctype==0){
+								if(price==entryPrice){
+									j = i;
+									entryBaseMoneyNumber = json[j].entryBaseMoneyNumber;
+									$(".num").val(entryBaseMoneyNumber);
+									endPrice = (json[j].ceilingPrice)/price;
+								}
+								
+							}
+							if(Zctype==2){
+								$(".num").val(json[0].entryPrice);
+							}
+							var baseMoneyUnitPrice = json[0].baseMoneyUnitPrice;/*type=单笔单投：每个单笔是多少钱； type=自由投：增减减少投资额的最小单位*/
+							/* if(i == 0){
+								$(".num").val(entryPrice);
+							} */
+								/* for (var j = 0; j < json[0].ruleList.length; j++)
+								{
+									var rightDescription = json[i].ruleList[j].rightDescription;
+									$(".zchbDesc_r").append("<div class=\"zchbDesc_r_sy\"><p class=\"hbnr_p\">"+ rightDescription+"</p></div>");
+								} */
+						//		$(".zchbDesc_r").append("<div class=zchbDesc_r_sy><p class=hbnr_p id=rule"+i+">"+ entryPrice + "元到"+ ceilingPrice + "元</p></div><div   class='zchbDesc_r_sy'><p  id=rights_fly_rule"+id+" class=rule_div></p></div>");
+								
+								if(investType==1){
+								
+									$(".zchbDesc_r").append("<div class=zchbDesc_r_sy><p class=hbnr_p id=rule"+i+">"+ entryPrice + "元</p></div><p  id=rights_fly_rule"+id+" class=rule_div></p>");
+									for (var j = 0; j < json[i].ruleList.length; j++)
+									{
+										var groupId = json[i].ruleList[j].groupId;
+										var div = $("#"+groupId+id);
+										if (div.length>0)
+										{
+	
+										} 
+										else
+										{
+											$("#rights_fly_rule"+id).append("<div id="+groupId+""+id+" ></div>");
+										}
+									}
+								}
+									
+								if(investType==0){
+									
+									$(".zchbDesc_r").append("<div class=zchbDesc_r_sy><p class=hbnr_p id=rule"+i+">"+ entryPrice + "元到"+ ceilingPrice + "元</p></div><p  id=rights_fly_rule"+id+" class=rule_div></p>");
+									for (var j = 0; j < json[i].ruleList.length; j++)
+									{
+										var groupId = json[i].ruleList[j].groupId;
+										var div = $("#"+groupId+id);
+										if (div.length>0)
+										{
+	
+										} 
+										else
+										{
+											$("#rights_fly_rule"+id).append("<div id="+groupId+""+id+" ></div>");
+										}
+									}
+									
+								}
+						}
+						
+						
+							
+							for (var m = 0; m < json.length; m++)
+							{
+								var id = json[m].id;
+								for (var n = 0; n < json[m].ruleList.length; n++)
+								{
+									var rightDescription = json[m].ruleList[n].rightDescription;
+									var groupId = json[m].ruleList[n].groupId;
+									
+									$("#"+groupId + "" + id).append("<span id="+groupId+""+id+" >"+ rightDescription+ "</span>");
+							
+								}
+							}
+					
+					}
+				})
+				
+			 	
+				//获取投资规则id				
+				$(".btn_xyb").bind("click",function(){
+					console.log("dianjixiayibu");
+					console.log("data="+$('#form').serialize());
+					$.ajax({
+						type : 'post',
+						cache : false,
+						url : '/crowdfunding/investnext.html',
+						data : $('#form').serialize(),
+						dataType : 'json',
+						success : function(data){
+							window.location.href = "/crowdfunding/projectNext.html?zcProjectid="+ zcProjectid+"&type="+Zctype+"&recordid="+data.record_id+"&"+$('#form').serialize();
+						}
+					})
+				});
+			 
+			 function changeMoney(){
+				
+				var num = parseFloat($(".num").val());
+				
+				var reg=/^[0-9]*$/;
+				
+				for(var k = 0;k<json.length;k++){
+					
+					$("#rule"+k).css("color","blue");
+					
+				} 
+				var ruleId ;
+				 /*按档次显示投资规则和收益规则*/
+					for(var k = 0;k<json.length;k++){
+						
+						var baseMoneyUnitPrice = parseFloat(json[k].baseMoneyUnitPrice);
+						var entryPrice = parseFloat(json[k].entryPrice);
+						var ceilingPrice = parseFloat(json[k].ceilingPrice);
+						
+						
+						/*单笔单投*/
+						if(investType==1){
+							if(num==entryPrice){
+								$("#rule"+k).css("color","red");
+								ruleId = k;
+								single = parseFloat(profit_json[k].baseMoneyUnitPrice);
+							}
+						
+							if(reg.test(num)&&num>=endPrice){
+								$(".num").val(endPrice);
+						 		$("#money").val(endPrice*price);
+							}
+							if(reg.test(num)&&num<=entryBaseMoneyNumber){
+								$(".num").val(entryBaseMoneyNumber);
+						 		$("#money").val(entryBaseMoneyNumber*price);
+							}
+						
+						} 
+						
+						/*自由投*/
+						if(investType==0){
+							if(num>=entryPrice&&num<=ceilingPrice){
+								$("#rule"+k).css("color","red");
+								ruleId = k;
+								single = parseFloat(profit_json[k].baseMoneyUnitPrice);
+							}
+							
+							if(reg.test(num)&&num>=maxMoney){
+								$(".num").val(maxMoney);
+						 		$("#money").val(maxMoney);
+							}
+							if(reg.test(num)&&num<=minMoney){
+								$(".num").val(minMoney);
+						 		$("#money").val(minMoney);
+							}
+							
+						} 
+						
+						
+						
+					} 
+				 
+					for(var m = 0;m<json[ruleId].ruleList.length;m++){
+							var profitType = json[ruleId].ruleList[m].profitType;
+							
+							//线下
+						 	if(profitType==0){
+						 		$("#address").show();
+						 		return;
+						 		
+						 	}
+						 
+							//线上
+							if(profitType==1){
+								$("#address").hide();
+								
+							}
+					}
+			
+			 }
+			 
+			 
+			 function add()
+			 {
+				 if(investType==0){
+					 
+				 	var real_money = parseFloat($(".num").val());
+				 	var add_money = real_money+single;
+				 	if(add_money<=maxMoney)
+				 	{
+				 		$(".num").val(real_money+single);
+				 		$("#money").val(real_money+single);
+				 	}
+				 	else
+				 	{
+						$(".num").val(maxMoney);
+				 		$("#money").val(maxMoney);
+				 	}
+				 	changeMoney();
+				 }
+			 	
+			 	 if(investType==1){
+			 		 
+					var real_money = parseFloat($(".num").val());
+					var add_money = real_money+entryBaseMoneyNumber;
+					if(add_money<=endPrice)
+				 	{
+				 		$(".num").val(real_money+entryBaseMoneyNumber);
+				 		$("#money").val((real_money+entryBaseMoneyNumber)*price);
+				 	}
+				 	else
+				 	{
+						$(".num").val(endPrice);
+				 		$("#money").val(endPrice*price);
+				 	}
+					
+					changeMoney();
+					 
+				 }
+			 }
+			 
+			
+			 function sub()
+			 {
+				 if(investType==0){
+					 
+				 	var real_money = parseFloat($(".num").val());
+				 	var sub_money = real_money-single;
+				 	if(sub_money<=minMoney)
+				 	{
+				 		$(".num").val(minMoney);
+				 		$("#money").val(minMoney);
+				 	}
+				 	else
+				 	{
+				 		$(".num").val(sub_money);
+				 		$("#money").val(sub_money)
+				 	}
+				 	
+				 	changeMoney();
+				 	
+				 }
+				 
+				 if(investType==1){
+					
+					 	var real_money = parseFloat($(".num").val());
+					 	var sub_money = real_money-entryBaseMoneyNumber;
+					 	if(sub_money<=entryBaseMoneyNumber)
+					 	{
+					 		$(".num").val(entryBaseMoneyNumber);
+					 		$("#money").val(entryBaseMoneyNumber*price);
+					 	}
+					 	else
+					 	{
+					 		$(".num").val(sub_money);
+					 		$("#money").val((real_money-entryBaseMoneyNumber)*price);
+					 	}
+					 	
+					 	changeMoney();
+				 }
+			 }
+			
+		</script>
+	</body>
+</html>

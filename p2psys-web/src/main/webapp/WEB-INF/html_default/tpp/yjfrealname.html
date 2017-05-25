@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>易极付实名认证...</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>易极付实名认证跳转中...,请您不要关闭页面</div>
+    <form action="${yjf.url}" method="post" id="frm1" >
+    	<input id="service" name="service" value="${yjf.service}"  />
+    	<input id="partnerId" name="partnerId" value="${yjf.partnerId}"  />
+    	<input id="orderNo" name="orderNo" value="${yjf.orderNo}"  />
+    	<input id="sign" name="sign" value="${yjf.sign}"  />
+    	<input id="signType" name="signType" value="${yjf.signType}"  />
+    	<input id="returnUrl" name="returnUrl" value="${yjf.returnUrl}"  />
+    	<input id="notifyUrl" name="notifyUrl" value="${yjf.notifyUrl}"  />
+    	<input id="userName" name="userName" value="${yjf.userName}"  />
+    	<input id="userType" name="userType" value="${yjf.userType}"  />
+    	<input id="realName" name="realName" value="${yjf.realName}"  />
+    	<input id="certNo" name="certNo" value="${yjf.certNo}"  />
+    	<input id="email" name="email" value="${yjf.email}"  />
+		<!-- <input type="submit" value="提交" /> -->
+    </form>
+    <script type="text/javascript">
+    	document.getElementById("frm1").submit();  
+    </script>
+   
+  </body>
+</html>

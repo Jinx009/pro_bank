@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>国付宝支付充值跳转中......</title>
+<meta http-equiv="content-Type" content="hidden/html; charset=utf-8" />
+</head>
+<body>
+	<div>国付宝支付充值跳转中,请您不要关闭浏览器......</div>
+	<form action="${gopay.submitUrl}" method="post" id="frm1">
+		version:<input type="hidden" name="version" value="${gopay.version!}" />
+		charset<input type="hidden" name="charset" value="${gopay.charset!}" />
+		language<input type="hidden" name="language" value="${gopay.language!}" /> 
+		signType<input type="hidden" name="signType" value="${gopay.signType!}" /> 
+		tranCode<input type="hidden" name="tranCode" value="${gopay.tranCode!}" /> 
+		merchantID<input type="hidden" name="merchantID" value="${gopay.merchantID!}" />
+		merOrderNum<input type="hidden" name="merOrderNum" value="${gopay.good.merOrderNum!}" /> 
+		tranAmt<input type="hidden" name="tranAmt" value="${gopay.good.tranAmt!}" /> 
+		feeAmt<input type="hidden" name="feeAmt" value="${gopay.good.feeAmt!}" /> 
+		currencyType<input type="hidden" name="currencyType" value="${gopay.currencyType!}" />
+		frontMerUrl<input type="hidden" name="frontMerUrl" value="${gopay.frontMerUrl}" />
+ 		backgroundMerUrl<input type="hidden" name="backgroundMerUrl" value="${gopay.backgroundMerUrl}" /> 
+ 		tranDateTime<input type="hidden" name="tranDateTime" value="${gopay.good.tranDateTime}" /> 
+ 		virCardNoIn<input type="hidden" name="virCardNoIn" value="${gopay.virCardNoIn}" />
+		tranIP<input type="hidden" name="tranIP" value="${gopay.tranIP!}" />
+		<!-- goodsName<input type="hidden" name="goodsName" value="${gopay.good.goodsName!}" />  -->
+		<!-- goodsDetail<input type="hidden" name="goodsDetail" value="${gopay.good.goodsDetail!}" />  -->
+		<!-- buyerName<input type="hidden" name="buyerName" value="${gopay.good.buyerName!}" /> -->
+		<!-- buyerContact<input type="hidden" name="buyerContact" value="${gopay.good.buyerContact!}" /> --> 
+		<!-- merRemark1<input type="hidden" name="merRemark1" value="${gopay.good.merRemark1!}" />
+		merRemark2<input type="hidden" name="merRemark2" value="${gopay.good.merRemark1!}" />  -->
+		isRepeatSubmit<input type="hidden" name="isRepeatSubmit" value="${gopay.isRepeatSubmit!}" /> 
+		signValue<input type="hidden" name="signValue" value="${gopay.signValue!}" />
+		<#if gopay??&&gopay.bankCode??>
+		userType<input type="hidden" name="userType" value="${gopay.userType!}" />
+		bankCode<input type="hidden" name="bankCode" value="${gopay.bankCode!}" />
+		</#if>
+		gopayServerTime<input type="hidden" name="gopayServerTime" value="" />
+	</form>
+	<script type="text/javascript">
+		document.getElementById("frm1").submit();
+	</script>
+</body>
+</html>

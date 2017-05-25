@@ -1,0 +1,52 @@
+<form id="form"  method="post">
+<div class="popForm">
+	<div class="formitm">
+	     <label class="lab">日志类型：</label>
+	     <div class="ipt">
+	     	${log.type!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">添加时间：</label>
+	     <div class="ipt">
+	     	${log.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">操作者：</label>
+	     <div class="ipt">
+	     	${log.addUser!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">操作IP：</label>
+	     <div class="ipt">
+	     	${log.remoteAddr!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">操作地址：</label>
+	     <div class="ipt">
+	     	${log.requestUri!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">提交方法：</label>
+	     <div class="ipt">
+	     	${log.method!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">提交数据：</label>
+	     <div class="ipt">
+	     	${log.params!''}
+	     </div>
+	</div>
+	<div class="formitm">
+	     <label class="lab">内容：</label>
+	     <div class="ipt">
+	     	${log.exception!''}
+	     </div>
+	</div>
+</div>
+</form>

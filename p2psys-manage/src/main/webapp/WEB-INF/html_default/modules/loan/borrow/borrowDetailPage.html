@@ -1,0 +1,81 @@
+<div class="popShow">
+	<div class="showItem">
+		<span>借款人：</span>
+		${user.userName}
+	</div>
+	<div class="showItem">
+		<span>标名：</span>
+		 ${borrow.name}
+	</div>
+	<div class="showItem">
+		<span>状态：</span>
+		等待初审
+	</div>
+	<div class="showItem">
+		<span>借款用途：</span>
+		<@linkage plantext='plantext' default=borrow.borrowUse nid="borrow_use"/>
+	</div>
+	<div class="showItem">
+		<span>借款期限：</span>
+		<#if borrow.borrowTimeType==1>${borrow.timeLimit!"-"} 天<#else>${borrow.timeLimit!"-"} 个月</#if>
+	</div>
+	<div class="showItem">
+		<span>还款方式：</span>
+		<@linkage plantext='plantext' default=borrow.style nid="borrow_style"/>
+	</div>
+	<div class="showItem">
+		<span>借款总金额：</span>
+		${borrow.account} 元
+	</div>
+	<#if typeId != "122">
+			<div class="showItem">
+				<span>年利率：</span>
+				${borrow.apr} %
+			</div>
+		<#else>
+			<div class="showItem">
+				<span>年利率：</span>
+				${borrow.apr} %
+			</div>
+			<div class="showItem">
+				<span>预期收益率下：</span>
+				${borrow.expectedLow!0}%
+			</div>
+			<div class="showItem">
+				<span>预期收益率上：</span>
+				${borrow.expectedUp!0}%
+			</div>
+		</#if>
+	<#if borrow.type!=110>
+	<div class="showItem">
+		<span>最低投标金额：</span>
+		<#if borrow.lowestAccount??&&borrow.lowestAccount?number gt 0>${borrow.lowestAccount}元<#else>无限制</#if>
+	</div>
+	<div class="showItem">
+		<span>最多投标总额：</span>
+		<#if borrow.mostAccount??&&borrow.mostAccount?number gt 0>${borrow.mostAccount}元<#else>无限制</#if>
+	</div>
+	</#if>
+	<#if borrow.type==110>
+	<div class="showItem">
+		<span>单笔最低投标金额：</span>
+		<#if borrow.lowestSingleLimit??&&borrow.lowestSingleLimit?number gt 0>${borrow.lowestSingleLimit}元<#else>无限制</#if>
+	</div>
+	<div class="showItem">
+		<span>单笔最多投标总额：</span>
+		<#if borrow.mostSingleLimit??&&borrow.mostSingleLimit?number gt 0>${borrow.mostSingleLimit}元<#else>无限制</#if>
+	</div>
+	</#if>
+	<div class="showItem">
+		<span>有效时间：</span>
+		<@linkage plantext='plantext' default=borrow.validTime nid="borrow_valid_time"/>
+	</div>
+	<div class="showItem">
+		<span>添加时间：</span>
+		${borrow.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+	<div class="showItem">
+		<span>IP：</span>
+		${borrow.addIp}
+	</div>
+</div>

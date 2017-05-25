@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>角色管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500;
+	var winHeight = 460;
+	var addTitle = "添加VIP规则";
+	var addUrl =  "/modules/system/userVipRule/userVipRuleAddPage.html";
+	var editTitle = "编辑VIP规则";
+	var editUrl =  "/modules/system/userVipRule/userVipRuleEditPage.html";
+	var grantRoleMenuTitle = "授权管理";
+	var grantRoleMenuUrl =  "/modules/system/role/roleEditMenuPage.html";
+	var deleteUrl = "/modules/system/userVipRule/userVipRuleDelete.html";	
+
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userVipRuleList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50, fixed: true,checkbox : false},
+			{ field: 'level', title: '等级', width: 100,fixed:true, sortable:false },
+			{ field: 'name', title: '名称', width: 100, fixed:true,sortable:false },
+			{ field: 'tenderMoney', title: '累计金额',fixed:true, width: 120, sortable:false }, 
+			  {	field : 'action',
+				title : '操作',
+				width :100,
+				fixed :true,
+				formatter : function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);">详情</a><i class="iconfont">&#xe639;</i></dt>' ;
+					str += '<dd>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',deleteUrl);">删除</a>';
+					str += '</dd>'
+					str +=  '</dl>'
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+	 <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+            </div>
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>				
+            </div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

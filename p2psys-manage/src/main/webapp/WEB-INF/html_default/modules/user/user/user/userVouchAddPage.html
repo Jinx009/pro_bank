@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdminAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<form id="form" method="post">
+<div class="adminUserForm" style="border-bottom:0;">
+    <ul>
+		<li><span>公司名称：</span><input type="text" name="companyName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		
+		<li><span>营业执照号：</span><input type="text" name="companyRegNo" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>税务登记证号：</span><input type="text" name="taxRegNo" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>组织机构代码：</span><input type="text" name="zzjgCode" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>公司法人：</span><input type="text" name="frdbName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>法人身份证：</span><input type="text" name="frdbNo" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'" maxlength="20"/><i>*</i></li>
+		<li><span>公司电话：</span><input type="text" name="companyPhone" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'tel'" maxlength="20"/><i>*</i></li>
+		<li><span>公司传真：</span><input type="text" name="companyFax" autocomplete="off" class="easyui-validatebox adminUserTxt" maxlength="20"/></li>
+		<li><span>公司邮箱：</span><input type="text" name="companyEmail" autocomplete="off" class="easyui-validatebox adminUserTxt" maxlength="20"/></li>
+		<li><span>负责人：</span><input type="text" name="user.realName" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>
+		<li><span>负责人身份证：</span><input type="text" name="user.cardId" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'" maxlength="20"/><i>*</i></li>
+		<li><span>负责人手机：</span><input type="text" name="user.mobilePhone" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'mobile'" maxlength="20"/><i>*</i></li>
+		<li><span>负责人邮箱：</span><input type="text" name="user.email" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'email'" maxlength="50"/><i>*</i></li>
+		<li><span>第三方商户名：</span><input type="text" name="user.apiUsercustId" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li>		
+		<li><span>第三方商户号：</span><input type="text" name="user.apiId" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true" maxlength="20"/><i>*</i></li> 
+	</ul>
+	<div id="city" class="adminUserMuti">
+		<span style="line-height:40px;">公司地区：</span>
+		<select class="prov" name="province"><option value="浙江">浙江</option></select>  
+	    <select class="city" name="city" disabled="disabled"><option value="杭州">杭州</option></select> 
+	    <select class="dist" name="area" disabled="disabled"><option value="西湖区">西湖区</option></select> 
+	</div>
+	<div class="adminUserMuti"><span>公司地址：</span><textarea name="address" class="easyui-validatebox adminUserTextarea" data-options="required: true,validType:'maxLength[50]'"></textarea><i>*</i></div>
+	<div class="adminUserMuti"><span>备注：</span><textarea name="description" class="easyui-validatebox adminUserTextarea"></textarea></div>
+	<input type="hidden" name="userNature" value="3"> 
+	<input type="hidden" name="user.apiStatus" value="1"> 
+</div>
+</form>
+
+<script>
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		prov:"浙江", //省份 
+	    city:"杭州", //城市 
+	    dist:"西湖区", //区县 
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	}); 
+</script>

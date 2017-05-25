@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>角色管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  900;
+	var winHeight = 660;
+	var editTitle = "编辑红包";
+	var editUrl =  "/modules/system/redPacket/redPacketEditPage.html";
+	var detailTitle = "红包详情";
+	var detailUrl = "/modules/system/redPacket/redPacketDetailPage.html";
+	var addTitle = "添加红包";
+	var addUrl = "/modules/system/redPacket/redPacketAddPage.html";
+	var deleteUrl = "/modules/system/redPacket/redPacketDelete.html";
+
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'redPacketList.html',
+			fit : true,
+			fitColumns :false,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+							{ field: 'id', title: '编号', width: 50, fixed: true,checkbox : false},
+							{ field: 'name', title: '名称', width: 120, fixed:true,sortable:false },
+							{ field: 'serviceName', title: '业务类型', width: 120, fixed:true,sortable:false },
+							{ field: 'status', title: '是否启用',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+								if(row.status == 1)
+					          	  	return "是";
+								else
+									return "否";
+							  }   
+							},
+							{ field: 'type', title: '红包类型',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+					          	  if(row.type == 1)
+					          		  return "现金红包";
+					          	  else
+					          		  return "虚拟红包";
+							  }   
+							},
+						]],
+			columns : [ [ 		
+			{ field: 'paymentType', title: '发放方式',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+	          	 if(row.paymentType == 1)
+	          		 return "固定金额";
+	          	 else if(row.paymentType == 2)
+	          		 return "固定比率";
+	          	 else
+	          		 return "浮动金额";
+			  }   
+			},
+			{ field: 'money', title: '固定金额',fixed:true, width: 80, sortable:false,formatter: function(value,row,index){
+	          	  return row.money + "元";
+			  }
+			},
+			{ field: 'rate', title: '固定比例',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+				if(row.rate == 0)
+					return "--";
+				else
+	          	  return row.rate + "%";
+			  }
+			},
+			{ field: 'floatType', title: '浮动方式',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+	          	  if(row.floatType == 1)
+	          		  return "区间比率金额";
+	          	  else if(row.floatType == 2)
+	          		  return "区间固定金额";
+	          	  else
+	          		  return "--"
+			  }   
+			}, 
+			{ field: 'maxMoney', title: '最大红包',fixed:true, width: 80, sortable:false,formatter: function(value,row,index){
+				if(row.maxMoney == 0)
+					return "--";
+				else
+	          	  return row.maxMoney + "元";
+			  }   
+			}, 
+			{ field: 'minMoney', title: '最小红包',fixed:true, width: 80, sortable:false,formatter: function(value,row,index){
+				if(row.minMoney == 0)
+					return "--";
+				else
+	          	  return row.minMoney + "元";
+			  }   
+			}, 
+			{ field: 'day', title: '有效期限',fixed:true, width: 70, sortable:false,formatter: function(value,row,index){
+	          	  return row.day + "天";
+			  }
+			},
+			{ field: 'totalNum', title: '红包数量',fixed:true, width: 80, sortable:false,formatter: function(value,row,index){
+				if(row.totalNum == 0)
+					return "--";
+				else
+	          	  	return row.totalNum + "个";
+			  }
+			},
+			{ field: 'useNum', title: '发放数量',fixed:true, width: 80, sortable:false,formatter: function(value,row,index){
+	          	  return row.useNum + "个";
+			  }
+			},
+			{ field: 'startTime', title: '开始时间',fixed:true, width: 140, sortable:false,formatter: function(value,row,index){
+	          	  return getLocalTime(value,4);
+				  }   
+			 },
+			{ field: 'endTime', title: '结束时间',fixed:true, width: 140, sortable:false,formatter: function(value,row,index){
+	          	  return getLocalTime(value,4);
+				  }   
+			 },
+			{ field: 'updateTime', title: '修改时间',fixed:true, width: 140, sortable:false,formatter: function(value,row,index){
+	          	  return getLocalTime(value,4);
+				  }   
+			 },
+			{ field: 'updateUser', title: '修改人',fixed:true, width: 80, sortable:false },
+			  {	field : 'action',
+				title : '操作',
+				width :100,
+				fixed :true,
+				formatter : function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',detailTitle,winWidth,winHeight,detailUrl);" title="'+detailTitle+'">详情</a><i class="iconfont">&#xe639;</i></dt>' ;
+					str += '<dd>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+					if(row.serviceType == 'activitie') {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',deleteUrl);">删除</a>';
+					}
+					str += '</dd>'
+					str +=  '</dl>'
+					return str;
+				}
+			} ] ],
+			toolbar : '#toolbar',
+			
+		});
+	});
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(0,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加红包</a>				
+            </div>
+	</div>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+	
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:130px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+	<script src="${theme_dir}/js/search.js"></script>
+</body>
+</html>

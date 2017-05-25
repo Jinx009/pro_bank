@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script src="/themes/theme_default/cf/js/common.js" ></script>
+		<script src="/themes/theme_default/cf/js/raphael-min.js" ></script>
+		<script src="/themes/theme_default/cf/js/morris.min.js" ></script>
+		<script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/js/recharge/recharge_newRecharge.js"></script>
+		<style>
+	    	body {background: #fafafa; }
+	    	.recharge>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{display:block;color: #FFFFFF;background-color: #3c94d1;text-decoration: none;}
+	    	a{color: #a1a1a1;text-decoration: none;}
+	    	a:hover{color: #a1a1a1;}
+	    	.nav-tabs>li>a{margin-right: 0px;}
+	    	.infoError{font-size: 0.9em;padding-left: 5px;color: red;}
+	    	.recharge li a{display:block;}
+	    </style>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>线上充值</h3>
+					</div>
+					
+					<div class="cash-wrap">
+						<!-- 未绑卡第一步开始 -->
+						<div class="cash-content" id="home1">
+							<h3 class="title">选择银行:</h3>
+							<ul class="bank-list" id="bankListInfo" >
+								
+							</ul>
+							<form class="form-horizontal form-band-bank">
+								<div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding" >所选银行:</label>
+								    <div class="col-sm-9 col-no-padding" style="text-align: left;" >
+								    	<p class="help-block" id="bankToto"><img src=""/><span class="bank-name">中国邮政储蓄银行</span></p>
+								    </div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-12 col-no-padding inp-tip">
+								    	<p style="margin-left: 1em;"><span id="choosBankInfo">中国邮政储蓄银行</span>单笔限额:<span id="danbi">单笔限额5万</span>每日限额:<span id="danri">每日限额5万</span>每月限额:<span id="danyue">200万</span></p>
+								    </div>
+							    </div>
+								<div class="space-4" ></div>	    
+							    <div class="form-group">
+								    <label class="col-sm-3 control-label col-no-padding">充值金额:</label>
+								    <div class="col-sm-9 col-no-padding">
+								    	<input type="text" class="form-control" id="oneRCMoney" name="oneRCMoney" placeholder="充值金额"  maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" size="10" value="" autocomplete="off">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<p class="help-block text-right has-error"  id="moneyError"></p>	
+								    </div>
+								</div>
+								
+								<div class="form-group">
+								    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+								    	<button class="sure-btn" type="button" onclick="nextPage()">下一步</button>
+								    </div>
+								</div>	
+							</form>
+								
+						</div>
+						<!-- 未绑卡第一步结束 -->
+					    
+					    <!-- 未绑卡第二步开始 -->
+						<div class="cash-left col-no-padding" id="home2" style="display: none;">
+								<form class="form-horizontal" action=""  id="addBankForm"  name="addBankForm" method="post" >
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">充值金额:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<p class="help-block" id="rechMoney2">0元</p>
+									    	<input type="hidden"  name="money" id="money_order" value="0.01">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">开户姓名:</label>
+									    <div class="col-sm-9 col-no-padding">
+										    <input type="text" class="form-control" name="accName" id="accName"  value="${accName!}"  placeholder="开户姓名" maxlength="5">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="accNameError"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">身份证号:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" name="accId" id="accId"  value="${accId!}"  placeholder="身份证号" maxlength="18">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="accIdError"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">银行卡号:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" name="cardNo" id="infoyhzh" value="${cardNo!}"  placeholder="银行卡号" onKeyUp="value=value.replace(/[^0-9]/g,'')" onblur="getBankInfo(this,'yhcard',1)" maxlength="25">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="cardNoError"></p>	
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">银行名称:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<p class="help-block" id="yhcard">名称未知</p>	
+									    </div>
+									</div>
+									<span id="addYLBank" style="display: none;">
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">手机号码:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control" name="mobile" id="mobilePhone" readonly="readonly"   value="${mobile!}"  placeholder="银行预留手机号">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="mobileError"></p>	
+									    </div>
+									</div>
+									
+									<div class="form-group">
+									    <label class="col-sm-3 control-label col-no-padding">验证码:</label>
+									    <div class="col-sm-9 col-no-padding">
+									    	<input type="text" class="form-control input-small" name="code" id="code" autocomplete="off" placeholder="验证码" maxlength="6" >
+									    	<input name="timeval" value="获取验证码" type="button" id="timeval" onclick="doajax()"  class="btn btn-small" style="width: 160px;float:left;">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<p class="help-block text-right has-error"  id="codeError"></p>	
+									    </div>
+									</div>
+									</span>
+									
+									<input type="hidden"  id="webChannelKey"  name="webChannelKey"  value="${webChannelKey!}" />
+								    <input type="hidden" id="bankCodeKey"  name="bankCodeKey" value="${bankCodeKey!}" >
+								    <input type="hidden"  id="xsRToken" name="nbRechargeToken" value="${nbRechargeToken!}">
+								    <input type="hidden"  id="isSecond" name="isSecond" value="${isSecond!0}">
+									
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<input type="button" class="sure-btn" id="paySubmit" value="确认支付" onclick="checkForm();">
+									    </div>
+									</div>
+									<div class="form-group">
+									    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+									    	<a href="#"><p class="text-right pwd">忘记密码</p></a>
+									    </div>
+									</div>
+								</form>
+								
+							</div>
+							<!-- 未绑卡第二步结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				var info = '${prompt!}';
+				var msg = "${msg!}";
+				var msg2 = "${msgInfo!}";
+				if(null!==info&&""!==info){
+					if(info.indexOf("成功") > -1){
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0},function(){
+							location.href = '/cf/user/main.html';//
+						})
+					}else{
+						layer.alert(info+'！'+msg2,{title:false,closeBtn: 0})
+						msgAlert(info);
+					}
+				}
+			})
+				
+			function msgAlert(obj){
+				if(obj!=null && obj!=""){
+					var isSecond = $("#isSecond").val();
+					if(isSecond==1){
+		    			var webChannelKey = $("#webChannelKey").val();
+		   				document.getElementById("home1").style.display="none";
+		   				document.getElementById("home2").style.display="block";
+						if(webChannelKey==="银联支付"){
+							document.getElementById("addYLBank").style.display="block";
+							document.addBankForm.action = "/nb/pc/recharge/doUnionPayRecharge.html";
+						}else{
+							document.getElementById("addYLBank").style.display="none";
+							document.addBankForm.action = "/nb/pc/recharge/dollPayRecharge.html";
+						}
+					}else if(isSecond==2){
+					}else{
+					}
+				}
+			}
+		
+			showLi("user_li");
+			changeLeftMenue("充值","线上充值");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+#box, input.field, input[type="submit"]{  
+    behavior:url('PIE.htc');  
+}  
+  
+#box {  
+    padding:30px 30px 0 30px;  
+    height:120px!important;  
+}  

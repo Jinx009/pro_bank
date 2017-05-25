@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>汇率管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    var dataGrid;
+    var winWidth =  800;
+    var winHeight = 400;
+    var borrowEditTitle = "修改汇率值";
+    var borrowEditUrl =  "/modules/loan/borrow/exchangeRatePacketCaptureEditPage.html";
+    var borrowEditWinParmeters = "'{0}','"+borrowEditTitle+"',700,360,'"+borrowEditUrl+"'";
+    
+    var addTitle = "添加";
+    var addUrl =  "/modules/loan/borrow/exchangeRatePacketCaptureAddPage.html";
+    
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'exchangeRatePacketCaptureList.html',
+            fit : true,
+            fitColumns:true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+            singleSelect:true,
+            columns : [ [
+              { field: 'id', title: '编号', width: 50,fixed:true, sortable:false },
+              { field: 'borrowName', title: '标名', width: 50, sortable:false },  
+              { field: 'cashPurchasePrice', title: '中间价汇率',sortable:false,formatter:function(value,row,index){
+                return value + "元";
+              } },
+              { field: 'addTime', title: '添加时间', width: 180,fixed:true, sortable:false, 
+                  formatter: function(value,row,index){
+                    return getLocalTime(value,4);
+              }  
+              },
+              { field : 'action',
+                title : '操作',
+                width :75,
+                fixed:true,
+                align:'center',
+                formatter : function(value, row, index) {
+                  	var str = '';
+                  	str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',borrowEditTitle,winWidth,winHeight,borrowEditUrl);" title="'+borrowEditTitle+'">修改</a>';
+                	return str;
+                }
+            } ] ],
+            onLoadSuccess : function() {
+                $('#searchForm table').show();
+                parent.$.messager.progress('close');
+            }
+        }); 
+        
+    });
+       
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入标名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+            </div>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

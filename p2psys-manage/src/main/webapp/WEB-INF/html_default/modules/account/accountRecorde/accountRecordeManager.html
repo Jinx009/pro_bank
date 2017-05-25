@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>账户资金汇总管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountRecordeList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+				{ field: 'id', title: '编号', width: 40, checkbox : false },
+				{ field: 'total', title: '账户总额', width: 120,formatter:function(value, row, index){
+					return value+"元";
+				}},
+				{ field: 'useMoney', title: '可用金额', width: 120, sortable:true,formatter:function(value, row, index){
+					return value+"元";
+				}},
+				{ field: 'noUseMoney', title: '冻结总额', width: 120,formatter:function(value, row, index){
+					return value+"元";
+				}},
+				{ field: 'collection', title: '待收总额', width: 120, sortable:true,formatter:function(value, row, index){
+					return value+"元";
+				}},
+				{ field: 'addTime', title: '统计时间', width: 120, sortable:false,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}	
+				}
+			] ],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+
+			},
+		});
+	});
+	
+	function exportExcel(){
+		var url = "/modules/account/accountRecorde/exportExcleAccountRecordeList.html";
+		//var status = $("#status").val()
+		//var sou = "?status=" + status;
+		window.location.href = url;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,107 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/payDetail.css?v=14" >
+    <link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/weixin-bootstrap.css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+	<title>支付详情</title>
+	<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+    <style type="text/css">
+    	*{word-break:break-all;overflow: hidden;}
+    </style>
+ </head>
+ <body>	
+ 		<input type="hidden" id="paramJson"  name="paramJson" value="${paramJson}">
+		<div class="h_all">
+			<div class="pay_header">
+				支付详情
+			</div>
+			<form name="pay" id="pay" method="post" >
+			<!-- pay_company start -->
+			<ul class="pay_company" style="background:#81D8D0;float:left;">
+				<!--
+				<li class="liimg"><img src="${imageUrl}" height="127" /></li>
+				-->
+				<li class="pay_name" style="color:#fff;width:100%;float:left;text-align:center;margin:35px 0 0 0;height:48px;line-height:48px;">${projectName}</li>
+				<li  class="pay_AMT" style="color:#fff;width:100%;float:left;text-align:center;margin:20px 0 0 0;">
+					<span> 购买金额: <span class="pay_money">${investPrice}</span>元
+					</span>
+				</li>
+			</ul>
+			<!-- end pay_company -->
+			<!-- pay_payment start -->
+			<!--
+			<div class="pay_payment" >
+				<span class="pay_method">请选择支付方式:</span>
+			</div>
+			-->
+			<!-- end pay_payment -->
+			<!-- payment_details start -->
+			<ul class="payment_details">
+				<li >
+					<input type="radio" name="payMent" id="rd_recharge" value="1" checked>
+					<label>可用余额:${account.useMoney}元</label>
+					<!--
+				    <a href="/wx/account/newRecharge.html" class="recharge" id="recharge" >充值</a>
+				    -->
+				</li>
+				<li>
+					<!--
+					<input type="radio" name="payMent" id="rd_sdkRecharge" value="2">
+					-->
+					<label class="">银行卡信息:
+					<!-- 当银行卡绑定好之后，下面的div需要替换成银行名称加卡的后四位-->
+					<#if bank?exists>
+						    (${bank.bank!""})${bank.hideBankNo!""}
+						<#else>
+						    <a href="javascript:void(0);">绑定银行卡</a>
+						    </label>
+					</#if>
+				</li>
+			</ul>
+			<!-- end payment_details -->
+			<!-- product_agreement start -->
+			<div class="product_agreement">
+				<div>	
+					<span class="read_agree" style="float:left;margin-left:10px;"><input type="checkbox" id="protocol" >阅读并同意</span> 
+					<span class="product_accord" style="float:left;">
+						<a href="javascript:void(0);" id="service_contract">《服务协议》</a>
+					</span><br/>
+					<span id="pro_msg" style="margin:10px;color:red;"></span>
+				</div>
+			</div>
+			<!-- end product_agreement -->
+			<!-- confirm_invest start -->
+			<div class="confirm_invest"  id="doPay">
+				<a href="javascript:void(0);">确认投资</a>
+			</div>
+			<!-- end confirm_invest -->
+			<input type="hidden" id="submitUrl" name="submitUrl" value="${submitUrl}" />
+
+			<input type="hidden" id="outTime" name="outTime" value="${outTime}" />
+			<input type="hidden" id="projectType" name="projectType" value="${projectType}" />
+			<input type="hidden" id="investPrice" name="investPrice" value="${investPrice}" />
+			<input type="hidden" id="projectDesc" name="projectDesc" value="${projectDesc}" />
+			<input type="hidden" id="projectName" name="projectName" value="${projectName}" />
+			<input type="hidden" id="imageUrl" name="imageUrl" value="${imageUrl}" />
+			<input type="hidden" id="successCallback" name="successCallback" value="${successCallback}" />
+			<input type="hidden" id="failedCallback" name="failedCallback" value="${failedCallback}" />
+			<input type="hidden" id="paramJson"  name="paramJson" value="${paramJson}" />
+			
+			<!-- ppfund -->
+			<input type="hidden" id="money"  name="money" value="${money}" />
+			<input type="hidden" id="password"  name="password" value="${password}" />
+			<input type="hidden" id="pwd"  name="pwd" value="${pwd}" />
+			<input type="hidden" id="id"  name="id" value="${id}" />
+			<input type="hidden" id="ppfundTenderToken" name="ppfundTenderToken" value="${ppfundTenderToken!}" />
+			<input type="hidden" id="tenderToken" name="tenderToken" value="${tenderToken!}" />
+			<input type="hidden" id="payPwd"  name="payPwd" value="${payPwd}" />
+			<#include "xieyi.html">
+		</form>
+	</div>
+	<script>seajs.use("${webroot}${theme_dir}/wx/js/payDetail");</script>
+ </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+     <div id="loginWrap" class="clearfix">
+    <div class="loginBd clearfix">
+      <div class="memberLogo"><a href="/" title="账户注册"><span>账户注册</span></a></div>
+      <a href="/" title="返回首页" class="backHomePage">返回首页</a>
+    </div>
+  </div> 
+    <div class="reg_wrap">
+      <ul class="reg_process clearfix">
+        <li><i>1</i>填写账户信息</li>
+        <li><i>2</i>账户注册验证</li>
+        <li class="hover"><i>3</i>账户注册成功</li>
+      </ul>
+      <div class="success_reg_con success_email">
+      <h2>恭喜您，<span>${msg?if_exists}</span></h2>
+      <#if pwd?? && pwd!="">
+        <p>您已经完成网站账户的注册，<span class="remain_time">5</span>秒后进入登陆页面！登陆后请尽快完善其他信息的设置。<br />也可以手动点击</p>
+        <a class="reg_link" href="/user/login.html">进入登陆页面</a>
+      <#else>
+      	<p>您已经完成网站账户的注册，<span class="remain_time">5</span>秒后进入初始化密码页面！初始化密码登陆后请尽快完善其他信息的设置。<br />也可以手动点击</p>
+        <a class="reg_link" href="/user/initLoginPwd.html?userId=${uId}">进入初始化密码页面</a>
+      </#if>
+      </div>
+    </div>
+<script>seajs.use('register');</script>
+<#include "../include/loginFooter.html">
+</body>
+</html>

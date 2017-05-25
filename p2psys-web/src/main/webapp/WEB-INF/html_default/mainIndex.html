@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML>
+<html>
+<#assign nid="index" >
+<#include "include/resource1.html"> 
+<style>
+	body{background: #fff;}
+</style>
+<div id="header" class="hide">
+	<!--S 头部信息显示-->
+	<div id="header_info">
+		<div  class="clearfix header_top">
+	        <div class="float_left">
+	        	<a href="/"><div class="logo"></div></a>
+	        	
+				<#if !nid??><#assign nid="index"></#if> <#macro showSiteUrl site>
+				${webroot}${site.url!} </#macro> <#if tree??&&tree.hasChild()>
+				<#list tree.child as item> 
+				
+				<#if
+				(item.model.status)??&&item.model.status==1><span style="display:inline-block; margin-top:10px;"><a class="<#if ((item.model.nid)??&&(item.model.nid)==nid)>hover<#else></#if>"
+					href="<@showSiteUrl site=item.model/>">${item.model.name!}</a></span>
+				</#if> 
+				</#list>
+				</#if>
+			</div>
+	        <div class="float_right">
+	        	<span class="loginStatus">
+	        	<#if session_user?exists >
+	        	欢迎您，
+	        	<a href="${webroot}/member/main.html">${session_user.userName?substring(0,4)}****${session_user.userName?substring(7,11)}</a><a href="${webroot}/user/logout.html" title="退出登录">退出</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				<#else>
+				<a href="${webroot}/user/login.html">登录</a><a href="${webroot}/user/register.html" >注册</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				</#if>
+				</span>
+			</div>
+	    </div>
+	</div>
+  
+</div>
+<div class="main-header">
+	<div class="index-header-box">
+		<div class="header-top clearfix">
+			<div class="float_left clearfix">
+				<div class="logo"></div>
+				<a href="${webroot}/aboutUs/siteIntro.html">关于我们</a>
+				<a href="${webroot}/aboutUs/questionIntro.html">帮助中心</a>
+			</div>
+			<div class="float_right">
+				<span>
+	        	<#if session_user?exists >
+	        	欢迎您，
+	        	<a href="${webroot}/member/main.html">${session_user.userName?substring(0,4)}****${session_user.userName?substring(7,11)}</a><a href="${webroot}/user/logout.html" title="退出登录">退出</a><a href="${webroot}/member/main.html" class="guide">进入我的尊享账户</a>
+				<#else>
+				<a href="${webroot}/user/login.html">登录</a><a href="${webroot}/user/register.html" >注册</a><a href="${webroot}/member/main.html" class="guide">进入我的尊享账户</a>
+				</#if>
+				</span>
+			</div>
+		</div>
+		<div class="header-mid" style="padding-top:109px;">
+		
+			<img src="${webroot}${theme_dir}/media/css/images/detail1.png"/>
+			<a href="${webroot}/member/main.html" class="header-mid_a">进入我的尊享账户</a>
+		</div>
+
+		<div class="header-line">了解我们提供的服务</div>
+
+		<div class="index-header-tab clearfix" id="index-tab">
+			<a class="in-left" href="/" style="display:none;width:215px;"></a>
+			<div class="in-mid">
+				<a href="/investIndex.html">我要投资</a>
+				<a href="/yardIndex.html">800社区</a>
+				<span>尊享账户</span>
+			</div>
+			<a class="in-right" href="/invest/productList.html" style="width:100px;display:none;">在800Bank投资</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="investindex-con">
+	<div class="investindex-start">
+		<h1>通往财富增值的大门在这里</h1>
+		<p>多重保障，您的私人财富积累在尊享账户里，只为您透明可见。</p>
+		<a href="${webroot}/member/main.html">进入我的尊享账户</a>
+	</div>
+</div>
+
+<div class="data-numbg">
+	<div class="data-num-con">
+		
+	</div>
+</div>
+
+ <div class="Platform-data">	
+	  <!-- <h1 >平台数据</h1>
+	<ul class="clearfix" id="home_statistical" >
+		<li class="clearfix"><span class="textleft">为用户赚取收益</span><span class="textright"></span></li>
+		<li class="clearfix"><span class="textleft">平均收益</span><span class="textright"></span></li>
+		<li class="clearfix"><span class="textleft">成功投资人数</span><span class="textright"></span></li>
+		<li class="clearfix"><span class="textleft">成功投资标的</span><span class="textright"></span>个</li>
+	</ul>
+	<a href="${webroot}/aboutUs/siteIntro.html" class="more">了解更多</a> -->  
+	<div class="Platform-data-lx">
+		<p>有任何问题，请联系我们</p>
+		<div class="Platform-data-lx-con clearfix">
+			<span class="floatleft"><a href="mailto:service@800bank.com.cn">service@800bank.com.cn</a></span>
+			<span class="floatright">${fuwutel!}</span>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="index-panter">
+	<div class="index-panter-con">
+		<h1>最值得信赖的合作伙伴</h1>
+		<p>800Bank长期与优秀企业合作，只为给您打造最安全最优质的理财服务平台。</p>
+	</div>
+	<div class="img-scroll">
+		<div class="prev"></div>
+	    <div class="next"></div>
+	    <div class="img-list">
+       <ul class="clearfix" id="partnerList">
+           
+        </ul>
+    </div>
+    </div>
+
+</div>
+
+
+<#include "include/footer.html">
+
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/home");
+</script>
+</body>
+</html>

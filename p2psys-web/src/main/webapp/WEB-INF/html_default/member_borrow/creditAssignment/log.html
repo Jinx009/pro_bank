@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title="债权转让记录 - ${webname!}p2p网贷平台">
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member">
+	<#include "../../common/function.html"> 
+	<#include "../../include/member_header.html">
+	<!--#container-->
+	<div id="container">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--S-user_left-->
+			<div class="user_left">
+				<#assign mid="m_account" >
+				<#include "../user_menu.html">
+			</div>
+			<!--E-user_left-->
+
+			<!--右边的内容user_right 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<#assign credit_type="credit_log">
+					<#include "credit_menu.html">
+				</div>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+				
+					<div class="user_main_title">
+						发布时间：
+						<input type="text" name="startTime" id="startTime" value="${startTime?default('')}" size="15" onclick="change_picktime()" /> 到 
+						<input type="text" name="endTime" value="${endTime?default('')}" id="endTime" size="15" onclick="change_picktime()" /> 
+						<input value="搜索" type="button"  class="btn sub_btn"  id="searchBtn" />
+					</div>
+				
+					<table id="creditloglist" class="loglist"></table>
+						<div class="page" id="js_page">
+	                        <span class="first" title="首页"><<</span>
+	                        <span class="front" title="上一页"><</span>
+	                        <div class="pageBox">
+	                            <div class="pageList">
+	                                <b class="pagenum">                                    
+	                                </b>
+	                            </div>
+	                        </div>
+		                    <span class="next" title="下一页">></span>
+		                    <span class="last" title="未页">>></span>
+	                        <div class="pageDes">
+	                            <b class="total">共<font></font>页</b>	
+	                            <b class="gopage">
+	                              		  跳转至
+	                                <input type="text" class="gopage_val">
+	                              		  页
+	                                <input type="button" class="gopage_btn" value="确定">
+	                            </b>	
+	                        </div>	                  	
+		                </div>
+		                
+						<script id="json_data"  type="text/x-handlebars-template">
+							<tr class="t_head">
+								<td>ID</td>
+								<td>债权名</td>
+								<td>债权预期价值</td>
+                                <td>债权发布价格</td>
+                                <td>已销售金额</td>
+                                <td>债权转让截止期限</td>
+                                <td>债权状态</td>
+								<td>发布时间</td>
+								<td>操作</td>
+							</tr>
+							{{#each data.list}}
+								<tr class="data_item">
+									<td>{{id}}</td>
+									<td>{{borrowName}}</td>
+									<td>{{creditValue}}</td>
+									<td>{{creditPrice}}</td>
+									<td>{{soldAccount}}</td>
+									<td>{{buyEndTime}}</td>
+									<td>{{status}}</td>
+									<td>{{addTime}}</td>
+									<td>{{{operate}}}</td>
+								</tr>	
+							{{/each}}
+						</script>
+					
+					<script>
+					$("#creditloglist").usePage({
+						URL:"/member/creditAssignment/logList.html?1=1",
+						colModel:[{
+							field:'id'
+						},{
+							field:'borrowName'
+						},{
+							field:'creditValue'
+						},{
+							field:'creditPrice'
+						},{
+							field:'soldAccount'
+						},{
+							field:'buyEndTime',
+							formatter:addTimeFun
+						},{
+							field:'status',
+							formatter:creditStatusFun
+						},{
+							field:'addTime',
+							formatter:addTimeFun
+						},{
+							field:'operate',
+							formatter:creditOperateFun
+						}],callBack:function(){
+							memberMenu();//计算用户中心右侧高度，代码在common.js	
+						}
+					})
+					
+					</script>
+					
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->			
+
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		$(function(){
+			$('#searchBtn').click(function(){
+				var search = "";
+				if($('#startTime').val() != ''){
+					search += '&startTime=' + $('#startTime').val();
+				}
+				if($('#endTime').val() != ''){
+					search += '&endTime=' + $('#endTime').val();
+				}
+				$("#creditloglist").usePage({
+					URL:"/member/creditAssignment/logList.html?1=1"+search,
+					colModel:[{
+						field:'id'
+					},{
+						field:'borrowName'
+					},{
+						field:'creditValue'
+					},{
+						field:'creditPrice'
+					},{
+						field:'soldAccount'
+					},{
+						field:'buyEndTime',
+						formatter:addTimeFun
+					},{
+						field:'status',
+						formatter:creditStatusFun
+					},{
+						field:'addTime',
+						formatter:addTimeFun
+					},{
+						field:'operate',
+						formatter:creditOperateFun
+					}],callBack:function(){
+						memberMenu();//计算用户中心右侧高度，代码在common.js	
+					}
+				})
+			});
+			
+		})
+	</script>	
+	<script src="${webroot}${theme_dir}/media/js/modal.js"></script>
+	<!--#container-->
+	<#include "../../include/footer.html">
+</body>
+</html>	

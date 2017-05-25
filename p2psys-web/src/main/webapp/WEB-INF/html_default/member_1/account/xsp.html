@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>新生充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <form action="${xspay.url}" method="get" id="orderForm">
+	<input type="hidden" name="version"  value="${xspay.version}">
+	<input type="hidden" name="serialID"  value="${xspay.serialID}">
+	<input type="hidden" name="submitTime"  value="${xspay.submitTime}">
+	<input type="hidden" name="failureTime"  value="${xspay.failureTime}">
+	<input type="hidden" name="customerIP"  value="${xspay.customerIP}">
+	<input type="hidden" name="orderDetails"  value="${xspay.orderDetails}">
+	<input type="hidden" name="totalAmount"  value="${xspay.totalAmount}">
+	<input type="hidden" name="type"  value="${xspay.type}">
+	<input type="hidden" name="buyerMarked"  value="${xspay.buyerMarked}">
+	<input type="hidden" name="payType"  value="${xspay.payType}">
+	<input type="hidden" name="orgCode"  value="${xspay.orgCode}">
+	<input type="hidden" name="currencyCode"  value="${xspay.currencyCode}">
+	<input type="hidden" name="directFlag"  value="${xspay.directFlag}">
+	<input type="hidden" name="borrowingMarked"  value="${xspay.borrowingMarked}">
+	<input type="hidden" name="couponFlag"  value="${xspay.couponFlag}">
+	<input type="hidden" name="platformID"  value="${xspay.platformID}">
+	<input type="hidden" name="returnUrl"  value="${xspay.returnUrl}">
+	<input type="hidden" name="noticeUrl"  value="${xspay.noticeUrl}">
+	<input type="hidden" name="partnerID"  value="${xspay.partnerID}">
+	<input type="hidden" name="remark"  value="${xspay.remark}">
+	<input type="hidden" name="charset"  value="${xspay.charset}">
+		<input type="hidden" name="signType"  value="${xspay.signType}">
+	<input type="hidden" name="signMsg"  value="${xspay.signMsg}">
+	<input type="hidden" name="orderID"  value="${xspay.orderID}">
+    </form>
+    <script language="javascript">
+      document.getElementById("orderForm").submit();
+    </script>
+  </body>
+</html>

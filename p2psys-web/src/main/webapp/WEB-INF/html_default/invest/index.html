@@ -1,0 +1,75 @@
+<#macro trunct name>
+	<#assign length=name?length>
+	<#if length&gt;15>
+		${name[0..15]}
+	<#else>
+		${name}
+	</#if>
+</#macro>
+
+<!DOCTYPE html>
+<html>
+ <#assign web_title="【投资】投资理财_投资项目_小投资创业项目 - ${webname!}">
+		<#assign web_description="${webname!}通过“风险保障金”和严格的风控体系，打造最安全的p2p网络借贷平台。${webname!}承诺提供百分百本金保障，为投资理财人士提供低门槛、高收益的个人投资理财服务。">
+		<#assign meta_keywords="投资,投资理财,投资项目,小投资创业项目">
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+<#include "../common/function.html"> 
+<#include "../common/macro_invest.html">
+	<!--S-我要投资-->
+    <div id="container">
+    	<div id="content">
+            <div class="currentPath">当前位置：<a href="#">我要投资</a> &gt; <a href="#">招标中的借款标</a></div>
+            <div class="invest_searchbox">
+                <div class="invest_searchbox_in clearfix">
+                    <span class="float_left text">详细搜索</span>
+                    <ul class="clearfix float_left">
+                        <li class="float_left">
+                            关键字：
+                           <input type="text" name="keywords" size="20" value="${(param.keywords)!}" />
+                        </li>
+                        <input type="submit" class="searchbtn" id="search_btn" value="搜索"  />
+						<input type="hidden" name="status" value="${searchStatus!0}"> 
+						<input type="hidden" name="search" value="select"> 
+						<input type="hidden" name="pageNum" value="6"> 
+                    </ul>
+                </div>
+            </div>
+            <div class="invest">
+                <div class="titlebg clearfix">
+                    <div class="title float_left">
+                        <#if status?string=="1">
+                    			招标中的借款标
+                        <#elseif status?string=="3">
+                            	复审通过的借款标
+                        <#elseif status?string=="10">
+                           	           还款中的借款标
+                        <#elseif status?string=="12">
+                        	   	 完成的借款标 
+                        </#if>
+                    </div>
+                </div>
+                <div class="invest_items mt20 clearfix">
+                    <#if borrowList?exists>
+                     <#list borrowList as item>
+                     <@indexListItem item=item />
+                     </#list>
+                
+                <div align="center" class="mt10">
+                    <#import "../common/page.html" as pager>
+                    <@pager.pagination page=p url="/invest/index.html?search=select&status="+status! map=map style="style1" />
+                </div>
+                <#else>
+                <div align="center" >没有信息</div>
+                </#if>
+            	</div>
+            </div>
+        </div>
+    </div>
+    <!--E-我要投资-->
+	<!--main end-->
+	<#include "../include/footer.html"> 
+</body>
+</html>

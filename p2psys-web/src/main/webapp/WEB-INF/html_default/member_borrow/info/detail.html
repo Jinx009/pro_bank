@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="my_account"> 
+<#include "../../include/member_borrow_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+	<#assign mid="m_info" >
+		<#include "../account_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<h2 class="user_title">个人信息</h2>
+		<div class="pd30 clearfix userInfo">
+			<form action="/member_borrow/info/saveUserBaseInfo.html"  method="post" id="detailForm">
+			<div class="formitm">
+                <label class="lab">用户名</label>
+                <div class="ipt"><span class="userName">${session_user.userName}</span></div>
+            </div>
+            <div class="formitm">
+                <label class="lab">生日</label>
+                <div class="ipt">
+                	<input type="text" name="birthday" class="birthdayInput" autocomplete="off" onclick="laydate({format: 'YYYY-MM-DD',max:'1997-01-01 00:00:00',istoday: false})" value="${(userBaseInfo.birthday?string("yyyy-MM-dd"))!}"/>
+                	<em></em>
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">学历</label>
+                <div class="ipt">
+                	<@linkage name="education" id="education" type="value" default="${(userBaseInfo.education)!}" nid="education"/>
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">婚姻状况</label>
+                <div class="ipt">
+                	<@linkage name="maritalStatus" id="maritalStatus" type="value" default="${(userBaseInfo.maritalStatus)!}" nid="maritalStatus"/>
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">户籍城市</label>
+                <div class="ipt" id="city">
+                	<select class="prov" name="province"><option value="${(userBaseInfo.province)!}" class="province">${(userBaseInfo.province)!}</option></select>  
+	    			<select class="city" name="city" disabled="disabled"><option value="${(userBaseInfo.city)!}" class="cityOpt">${(userBaseInfo.city)!}</option></select> 
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">工作年限</label>
+                <div class="ipt">
+                	<@linkage name="workExperience" id="workExperience" type="value" default="${(userBaseInfo.workExperience)!}" nid="workExperience"/>
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">收入范围</label>
+                <div class="ipt">
+                	<@linkage name="monthIncomeRange" id="monthIncomeRange" type="value" default="${(userBaseInfo.monthIncomeRange)!}" nid="monthIncomeRange"/>
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">车产</label>
+                <div class="ipt">
+                	<select name="carStatus" id="carStatus">
+                		<option value="1">有</option>
+                		<option value="0">没有</option>
+                	</select>
+                	<input type="hidden" class="carStatusVal" value="${(userBaseInfo.carStatus)!}" />
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab">房产</label>
+                <div class="ipt">
+                	<select name="houseStatus"  id="houseStatus">
+                		<option value="1">有</option>
+                		<option value="0">没有</option>
+                	</select>
+                	<input type="hidden" class="houseStatusVal" value="${(userBaseInfo.houseStatus)!}" />
+				</div>
+            </div>
+            <div class="formitm">
+                <label class="lab"></label>
+                <div class="ipt">
+                	<input type="submit" name="name" class="addBtn" value="确认提交" size="30" />
+				</div>
+            </div>
+			</form>			
+		</div>		
+	</div>
+  </div>
+	<!--右边的内容 结束-->
+</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<script>seajs.use('member_borrow/info_detail');</script>
+<script src="/plugins/laydate-v1.1/laydate.js"></script>
+<script src="/themes/theme_default/media/js/date.js"></script>
+<#include "../../include/footer.html"> 
+</body>
+</html>

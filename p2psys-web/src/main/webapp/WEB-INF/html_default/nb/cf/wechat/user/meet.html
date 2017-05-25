@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	<script src="/plugins/vue/vue.min.js"></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/themes/theme_default/cf/wechat/js/user/meet.js" ></script>
+</head>
+<body>
+	<input type="hidden" id="redirectUrl" value="${redirectUrl}" >
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>合格投资人认证</span>
+	</div>
+	<#include "../include/menue.html">
+	<div class="investors-content">
+		<h1>合格投资人认证</h1>
+		 <p> <strong>个人合格投资人确认符合下列条件之一：</strong></p>
+	     <p>（1）最近三年个人年均收入不低于30 万元人民币；</p>
+		 <p>（2）金融资产不低于100 万元人民币；本条所指的金融资产包括银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等。</p>
+		 <p> <strong>单位合格投资人确认符合下列条件：</strong></p>
+		 <p>（1）投资单个融资项目的最低金额不低于10万元人民币；</p>
+		 <p>（2）社会保障基金、企业年金等养老基金，慈善基金等社会公益基金，以及按照金融监管部门要求设立或备案的投资计划，前述投资者豁免穿透核查和合并计算投资者人数。  </p>
+	</div>
+	<div style="height:64px;" ></div>
+	<div class="product-detail-btn"  id="meetBtn" >{{item.content}}</div>
+</body>
+</html>

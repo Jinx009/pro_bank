@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='网贷计算器 - ${webname!}'>
+<#assign web_description='网贷计算器，${webname!}p2p网贷平台'>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/header.html">
+		<!--S-usermain-->
+		<div class="usermain clearfix" id="calculator">
+			<!--右边的内容user_right 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul class="user_right_menu clearfix">
+						<li class="h_menu_li">网贷计算器</li>
+					</ul>
+				</div>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+					<div class="tool_main">
+						<form id="J_calculator" action="/calculator/interest.html"  method="post">
+							<div class="tool_head">
+								<span class="tool_money">
+									<input type="text" name="account" value="" class="input_money" onKeyUp="value=value.replace(/[^0-9.]/g,'')" id="infonlv">
+								</span>
+							</div>
+							<div class="tool_con">
+								<ul>
+									<li class="clearfix">
+										<span class="tool_icon t_icon1">期限</span>
+										<span class="tool_item">
+											<input type="text" id="times" name="times" class="tool_input" onKeyUp="value=value.replace(/[^0-9]/g,'')" >
+											<input type="radio" name="is_month" value="1" checked="checked" >个月　<input type="radio" name="is_month" value="0" id="day">天
+										</span>
+									</li>
+									<li class="clearfix">
+										<span class="tool_icon t_icon2">还款方式</span>
+										<span class="tool_item">
+							                <@linkage name="style" id="style" nid="borrow_style" type="value" class="tool_select" />
+										</span>
+									</li>
+									<li class="clearfix">
+										<span class="tool_icon t_icon3">利率</span>
+										<span class="tool_item">
+											<input type="text" name="lilv" class="tool_input" onKeyUp="value=value.replace(/[^0-9.]/g,'')" >%
+											<input type="radio" name="is_APR" value="1" checked="checked" >年利率　<input type="radio" name="is_APR" value="0">天利率
+										</span>
+									</li>
+									<li class="clearfix">
+										<span class="tool_icon t_icon4">投标奖励</span>
+										<span class="tool_item">
+											<input type="text" name="tender_award_percentage" class="tool_input" onKeyUp="value=value.replace(/[^0-9.]/g,'')" >%（无奖励可不填）
+										</span>
+									</li>
+									<li class="clearfix">
+										<span class="tool_icon t_icon5">利息管理费</span>
+										<span class="tool_item">
+											<input type="text" name="manage_fee_percentage" class="tool_input" onKeyUp="value=value.replace(/[^0-9.]/g,'')" >%（无利息管理费可不填）
+										</span>
+									</li>
+									<li class="clearfix">
+										<input type="submit" class="tool_submit" value="立即计算">
+										<input type="reset" class="tool_reset" value="清空数据" >
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+					<div class="tool_bottom"></div>
+					<div class="tool_head tool_txt_head">
+					</div>
+					<div class="tool_main tool_txt_main">
+						<h3>分期待收明细如下：</h3>
+						<table id="J_earningsTable" class="loglist tool_log"></table>
+					</div>
+
+					<script id="json_data"  type="text/x-handlebars-template">
+							<tr class="t_head">
+								<td>期号</td>
+								<td>待收本金</td>
+								<td>待收利息</td>
+								<td>净收利息</td>
+								<td>净待收本息</td>
+							</tr>
+							{{#each data}}
+								<tr class="data_item">
+									<td>{{addOne @index}}</td>
+									<td>{{this.capital}}</td>
+									<td>{{this.interest}}</td>
+									<td>{{this.netInterest}}</td>
+									<td>{{this.netTotal}}</td>
+								</tr>	
+							{{/each}}
+					</script>
+					
+					<div class="tool_bottom tool_txt_bottom" style="text-align: right;" id="totalAward"></div>	
+					
+				</div>
+				<!--右边的内容user_right_main 结束-->
+			</div>
+			<!--右边的内容user_right 结束-->
+		</div>
+		<!--E-usermain-->
+	<script>
+
+	$(function(){
+		var is_month=$(":radio[name='is_month'][checked]").val();
+		checkBorrowStyle(is_month);
+	});
+	$(":radio[name='is_month']").change(function(){
+		var is_month=$(":radio[name='is_month'][checked]").val();
+		checkBorrowStyle(is_month);
+	}); 
+	
+	function checkBorrowStyle(is_month){
+		var styleSel = $("#style");
+		if(is_month==1){//月标
+			styleSel.html('<option value="1">按月分期还款</option><option value="2">一次性还款</option><option value="3">每月还息到期还本</option>');
+		}else if(is_month==0){//天标
+			styleSel.html('<option value="2">一次性还款</option>');
+		}
+	}
+  
+		$("#J_calculator").validate({
+			rules:{
+				account:{
+					required:true
+				},
+				lilv:{
+					required:true
+				},
+				times:{
+					required:true,
+					range:[1,12]
+				}
+			},
+			message:{
+				account:{
+					required:"不能为空"
+				},
+				lilv:{
+					required:"不能为空"
+				},
+				times:{
+					required:"不能为空",
+					range:"月份只能输入1-12"
+				}
+			},
+			submitHandler:function(form,event,validator){
+				$(form).ajaxSubmit(function(data){
+					  Handlebars.registerHelper("addOne",function(index,options){
+					       return parseInt(index)+1;
+					});
+					$("#totalAward").html("实际总收益："+data.totalAward+"元");
+					var source = $("#json_data").html();
+					var template = Handlebars.compile(source);
+					var html = template(data);
+					$("#J_earningsTable").html(html);
+					
+				})
+			}
+		})
+	</script>
+	<!--#container-->
+	<#include "../../include/footer.html">

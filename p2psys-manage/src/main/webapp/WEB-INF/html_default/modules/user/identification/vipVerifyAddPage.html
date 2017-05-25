@@ -1,0 +1,41 @@
+<script type="text/javascript">
+$(function(){
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/identification/vipVerify.html');	
+});
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+		<div class="formitm">
+		     <label class="lab">用户名：</label>
+		     <div class="ipt">
+		     	 ${userVipApply.user.userName!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">真实姓名：</label>
+		     <div class="ipt">
+		     	 ${userVipApply.user.realName!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">费用：</label>
+		     <div class="ipt">
+		     	 ￥ ${userVipApply.money!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">状态：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="1" checked="checked"/>&nbsp;&nbsp;审核通过
+				<input type="radio" name="status" value="2"/>&nbsp;&nbsp;审核不通过
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">审核说明：</label>
+		     <div class="ipt">
+		     	<textarea  name="vipVerifyRemark" class="w300"></textarea>
+		     </div>
+		</div>
+		<input name="id" value="${userVipApply.id}" type="hidden"/>
+</div>
+</form>

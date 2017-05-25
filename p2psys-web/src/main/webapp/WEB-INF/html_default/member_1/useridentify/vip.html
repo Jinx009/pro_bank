@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+	<div class="usermain clearfix">
+		<!--左边的导航 开始-->
+		<div class="user_left">
+			<#assign mid="m_info" >
+			<#include "../account_menu.html">
+		</div>
+		
+		<div class="user_right">
+			<h2 class="user_title">VIP申请</h2>
+			<#if session_user_identify.vipStatus == -1><font color="green">上次审核未通过重新申请</font></#if>
+			<#if session_user_identify??&&(session_user_identify.vipStatus == 0 || session_user_identify.vipStatus == -1) >
+			<div class="user_right_main">
+				<form action="${webroot}/member/useridentify/applyVip.html" id="J_applyvip">
+					<ul class="vip_apply">
+						
+						<li>
+							<span class="vip_tit">备注：</span><span class="vip_txt"><textarea rows="7" name="vipRemark" cols="50"></textarea></span>
+						</li>
+						<li>
+							<span class="vip_tit">验证码：</span>
+							<span class="vip_txt vip_valid">
+								<input name="validCode" type="text" class="" maxlength="4" tabindex="3" style=" width:80px; *margin-left:3px;" />
+	                        <img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" style="cursor:pointer;" />
+							</span>
+						</li>
+					</ul>
+					<div class="customer_btn">
+						<input type="submit" class="btn sub_btn" name="name" value="确认提交" size="30">
+					</div>
+				</form>	
+			</div>
+        <#elseif session_user_identify.vipStatus ==2>
+        vip审核中....
+        <#elseif session_user_identify.vipStatus ==1>
+                    您已经是vip
+		</#if>
+		</div>	
+		
+		<script>
+			seajs.use("${webroot}${theme_dir}/media/js/member/recharge.js");
+			
+			$("#J_applyvip").validate({
+				rules:{
+					vipRemark:{required:true},
+					validCode:{required:true}
+				},
+				messages:{
+					vipRemark:{
+						required:"不能为空"
+					},
+					validCode:{
+						required:"不能为空"
+					}
+				},
+				
+				submitHandler:function(form,event,validator){
+					$(form).ajaxSubmit(function(data){
+						var result = data.result;
+						if(result){
+							reLoad();
+						}else{
+							layer.alert(data.msg);
+						}
+					})
+				}
+			})
+			
+		</script>
+		
+		<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

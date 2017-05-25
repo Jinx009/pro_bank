@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script type="text/javascript" src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/user/account_log.js" ></script>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>资金动向</h3>
+					</div>
+					<div class="table-wrap">
+						<table class="table">
+			              	<thead>
+				                <tr>
+				                  <th>资金动向</th>
+				                  <th>相关金额</th>
+				                  <th>交易日期</th>
+				                  <th>描述</th>
+				                </tr>
+				              </thead>
+				              <tbody id="dataDiv" ></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<#include "../include/footer.html"> 
+		<script type="text/javascript">
+			showLi("user_li");
+			changeLeftMenue("资金记录","");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,160 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userAdminEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<form id="form"  method="post" enctype="multipart/form-data">
+<div class="adminUserForm">
+	<ul>
+		<li><span>公司名称：</span><input type="text" name="companyName" value="${userCache.companyName}" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>公司类型：</span>
+		<@linkage name="companyType" id="style" type="value" nid="company_type" default="${userCache.companyType!}"/>
+		</li>
+		<!-- <li><span>公司标志：</span><input type="file" name="files" class="adminUserTxt" /></li> -->
+		<li><span>公司注册号：</span><input type="text" name="companyRegNo" value="${userCache.companyRegNo}" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>税务登记证号：</span><input type="text" name="taxRegNo" value="${userCache.taxRegNo}" class="easyui-validatebox adminUserTxt"/></li>
+		<!-- <li><span>所属城市：</span><input type="text" class="easyui-validatebox adminUserTxt" /></li> -->
+	</ul>
+	<div id="city" class="adminUserMuti">
+		<span style="line-height:40px;">公司地区：</span>
+		<select class="prov" name="province"><option value="${userCache.province!}">${userCache.province!}</option></select>  
+	    <select class="city" name="city" disabled="disabled"><option value="${userCache.city!}">${userCache.city!}</option></select> 
+	    <select class="dist" name="area" disabled="disabled"><option value="${userCache.area!}">${userCache.area!}</option></select> 
+	</div>
+	<div class="adminUserMuti"><span>公司地址：</span><textarea name="address" class="easyui-validatebox adminUserTextarea" data-options="required: true,validType:'maxLength[50]'">${userCache.address}</textarea><i>*</i></div>
+	<div class="adminUserMuti"><span>公司描述：</span><textarea name="description" class="easyui-validatebox adminUserTextarea" data-options="required: true">${userCache.description}</textarea><i>*</i></div>
+
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>法人姓名：</span><input type="text" name="frdbName" value="${userCache.frdbName}" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i></li>
+		<li><span>法人身份证：</span><input type="text" name="frdbNo" value="${userCache.frdbNo}" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'"/><i>*</i></li>
+		<li class="regCapital"><span>注册资本：</span><input type="text" name="regCapital" value="${userCache.regCapital}" class="easyui-validatebox adminUserTxt" /></li>
+		<li><span>组织机构代码号：</span><input type="text" name="zzjgCode" value="${userCache.zzjgCode}" class="easyui-validatebox adminUserTxt" /></li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>借款人：</span><input type="text" name="user.realName" value="${userCache.user.realName}" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'chinese'"/><i>*</i></li>
+		<li><span>借款人身份证：</span><input type="text" name="user.cardId" value="${userCache.user.cardId}" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'idCard'"/><i>*</i></li>
+		<li><span>借款人手机：</span><input type="text" name="user.mobilePhone" value="${userCache.user.mobilePhone}" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'mobile'"/><i>*</i></li>
+		<li><span>借款人邮箱：</span>${userCache.user.email!}</li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<ul>
+		<li><span>公司电话：</span><input type="text" name="companyPhone" value="${userCache.companyPhone}" class="easyui-validatebox adminUserTxt" data-options="required: true,validType:'tel'"/><i>*</i></li>
+		<li><span>公司传真：</span><input type="text" name="companyFax" value="${userCache.companyFax}" class="easyui-validatebox adminUserTxt" data-options="validType:'fax'"/></li>
+		<li><span>公司邮件：</span><input type="text" name="companyEmail" value="${userCache.companyEmail!}" class="easyui-validatebox adminUserTxt" data-options="validType:'email'"/></li>
+	</ul>
+</div>
+<div class="adminUserForm">
+	<dl>
+		<dt><span>经营执照：</span><input type="file" name="files" class="adminUserTxt" data-options="required: true"/><i>*</i></dt>
+		<dd><#if userCache.jyzzPicPath??><a href="${userCache.jyzzPicPath!}" class="fileshow"><img src="${userCache.jyzzPicPath!}" /></a></#if></dd>
+	</dl>
+	<dl>
+		<dt class="taxRegNo"><span>税务登记证：</span><input type="file" name="files" class="adminUserTxt"/><#if userCache.companyType!=4><i>*</i></#if></dt>
+		<dd><#if userCache.swdjPicPath??><a href="${userCache.swdjPicPath!}" class="fileshow"><img src="${userCache.swdjPicPath!}"></a></#if></dd>
+	</dl>
+	<dl>
+		<dt class="zzjgCode"><span>组织机构证：</span><input type="file" name="files" class="adminUserTxt"/><#if userCache.companyType!=4><i>*</i></#if></dt>
+		<dd><#if userCache.zzjgPicPath??><a href="${userCache.zzjgPicPath!}" class="fileshow"><img src="${userCache.zzjgPicPath!}"></a></#if></dd>
+	</dl>
+	<dl>
+		<dt><span>开户许可证：</span><input type="file" name="files" class="adminUserTxt"/></dt>
+		<dd><#if userCache.khxkPicPath??> <a href="${userCache.khxkPicPath!}" class="fileshow"><img src="${userCache.khxkPicPath!}"></a></#if></dd>
+	</dl>
+	<dl>
+		<dt><span>贷款卡记录：</span><input type="file" name="files" class="adminUserTxt"/></dt>
+		<dd><#if userCache.dkkPicPath??><a href="${userCache.dkkPicPath!}" class="fileshow"><img src="${userCache.dkkPicPath!}"></a></#if></dd>
+	</dl>
+	<dl>
+		<dt><span>个人征信报告：</span><input type="file" name="files" class="adminUserTxt"/></dt>
+		<dd><#if userCache.grzxPicPath??><a href="${userCache.grzxPicPath!}" class="fileshow"><img src="${userCache.grzxPicPath!}"></a></#if></dd>
+	</dl>
+</div>
+<div class="borrowForm" style="border-bottom:0;">
+	<h2 class="borrowFormTitle">公司照<i>*</i></h2>
+	<div class="guarantee_type">
+		<span>公司照：</span>
+        <div id="entGuaranteeShowBox" style="height: auto;">
+        	<ul id="uploadPiclist3" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+                <li class="add_btn" style="float: left;">
+                  <i class="a"></i> <i class="b"></i>
+                  <input type="file" name="file" id="uploadFile4" onchange="return ajaxFileUpload1('uploadFile4','/imageUp.jsp','picPath','4');" title="点击上传图片" />
+                </li>
+            </ul>
+       </div>
+	</div>	
+</div>
+<input type="hidden" name="fileIndex" id="fileIndex" />
+<input type="hidden" name="fileSize" id="fileSize" />
+<input type="hidden" name="id" value="${userCache.id}" />
+</form>
+<script>
+	$(function(){
+		$("#form").submit(function(){
+			var files = $("input[name='files']");
+			var fileIndex = "";
+			for(var i = 0; i < files.length; i++){
+				if(files[i].value != ""){
+					fileIndex = fileIndex+i+",";
+				}
+			}
+			$("#fileIndex").val(fileIndex.substring(0,fileIndex.length-1));
+			$("#fileSize").val(files.length);
+		});
+		
+	});
+	$("#city").citySelect({
+		url:"${theme_dir}/js/jquery-citySelect/city.json",
+		<#if userCache.province??>
+		prov:"${userCache.province}", //省份 
+	    city:"${userCache.city!}", //城市 
+	    dist:"${userCache.area!}", //区县 
+		<#else>
+		prov:"${userCache.city!}", //省份 
+	    city:"${userCache.area!}", //城市 
+		</#if>
+	    required:true,
+	    nodata:"none" //当子集无数据时，隐藏select 
+	});
+	//担保函列表
+	$.ajax({
+		url:"/modules/user/user/user/getUserPic.html?id=${userCache.user.userId}",
+		type:"get",
+		dataType:"json",
+		success:function(data){
+			if(data.list.length > 0){
+				for(var i = 0;i < data.list.length; i++){
+					var sHtml = "";
+					sHtml += '<li data-mum="' + data.list[i].id + '">';
+					sHtml += '<a href="' + data.list[i].picPath + '" class="fileshow" rel="group1"><img src="' + data.list[i].picPath + '" alt="" style="width:100px;height:100px;float:left;"></a>';
+					sHtml += '<a class="closePic" style="float:left;" href="javascript:;" title="删除图片">x</a>';
+					sHtml += '</li>';
+					$(".photoUpload").append(sHtml);
+				}
+			}
+		}
+	});
+</script>
+<script type="text/javascript">
+	seajs.use("${theme_dir}/js/ajaxfileupload");
+	seajs.use("${theme_dir}/js/upload");
+</script>
+<script type="text/javascript">
+	//图片预览
+	$(".fileshow").fancybox();
+	
+	$("#style").change(function(){
+		var selectVal= $("#style").val();
+		if(selectVal==4){
+			$(".taxRegNo").html('<span>税务登记证：</span><input type="file" name="files" class="adminUserTxt"/>');
+			$(".regCapital").html('<span>注册资本：</span><input type="text" name="regCapital" value="${userCache.regCapital}" autocomplete="off" class="easyui-validatebox adminUserTxt" />');
+			$(".zzjgCode").html('<span>组织机构证：</span><input type="file" name="files" class="adminUserTxt"/>');
+		}else{
+			$(".taxRegNo").html('<span>税务登记证：</span><input type="file" name="files" class="adminUserTxt"/><i>*</i>');
+			$(".regCapital").html('<span>注册资本：</span><input type="text" name="regCapital" value="${userCache.regCapital}" autocomplete="off" class="easyui-validatebox adminUserTxt" data-options="required: true"/><i>*</i>');
+			$(".zzjgCode").html('<span>组织机构证：</span><input type="file" name="files" class="adminUserTxt"/><i>*</i>');
+		}
+	});
+</script>

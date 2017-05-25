@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<style>
+.warning{
+	width:80%;
+	margin-left:10%;
+	color:rgb(137,137,137);
+	margin-top:20px;
+	height:20px;
+	line-height:20px;
+}
+</style>
+<body>
+	<#assign nid="my_account"> 
+	<#assign flag="assets"> 
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<#include "../../include/member_header.html">
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			    <#include "../account_menu.html">
+			</div>
+			<!--左边的导航 结束-->
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">推荐收益</h2>
+				<div class="user_right_main">
+				
+					<table class="table_content" ></table>
+          			<div id="kkpager" class="kkpager"></div>
+				</div>	
+				<div class="warning" >
+					<p>*邀请好友活动：</p>
+					<p>1)即日起成功邀请好友注册，您可以获得20元推荐红包（投资红包）</p>
+					<p>2)好友投资（随投随享除外），您还有返利。投资越多，返利越高。返利为好友投资额的年化0.1%。</p>
+					<p>3)若推荐收益小于1分钱不计入收益<p>
+				</div>
+			</div>
+		</div>
+			<!--右边的内容 结束-->
+	</div>
+	<!--用户中心的主栏目 结束-->
+	<script>
+		seajs.use("${webroot}${theme_dir}/media/js/member/recommendProfit");
+	</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

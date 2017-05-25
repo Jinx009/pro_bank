@@ -1,0 +1,27 @@
+<!-- v1.6.6.2 RDPROJECT-283 lhm 2013-10-21 start -->
+<!-- 新增页面 -->
+<!-- v1.6.6.2 RDPROJECT-283 lhm 2013-10-21 end -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    <title>双乾支付.....</title>
+  </head>
+  <body>
+    <form action="https://www.95epay.cn/sslpayment" method="post" id="orderForm">
+		<input    type="hidden"  name="MerNo"   value="${epay.merNo}"/>
+		<input    type="hidden"  name="BillNo"  value="${epay.billNo}"/>
+		<input    type="hidden"  name="Amount"  value="${epay.amount}"/>
+		<input    type="hidden"  name="PaymentType"   value="${epay.paymentType?if_exists}"/>
+		<input 	  type="hidden"  name="PayType"  value="${epay.payType}">
+		<input    type="hidden"  name="ReturnURL"  value="${epay.returnURL}"/>
+		<input    type="hidden"  name="NotifyURL"   value="${epay.notifyURL?if_exists}"/>
+		<input    type="hidden"  name="MD5info"   value="${epay.md5info}"/>
+		<input    type="hidden"  name="MerRemark"   value="${epay.merRemark?if_exists}"/>
+		<input    type="hidden"  name="products"   value="${epay.products?if_exists}"/>
+    </form>
+    <script language="javascript">
+        document.getElementById("orderForm").submit();  
+    </script>
+  </body>
+</html>

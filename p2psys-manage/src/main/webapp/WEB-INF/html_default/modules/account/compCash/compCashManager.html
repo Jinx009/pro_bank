@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>对公付款银行卡管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth = 700;
+	var winHeight = 400;
+	var addTitle = "对公付款";
+	var addUrl = "/modules/account/compCash/compCashAddPage.html";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'compCashList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+				{ field: 'id', title: '编号', width: 40, checkbox : false },
+				{ field: 'amount', title: '提现金额', width: 50, checkbox : false},
+				{ field: 'webStatusStr', title: '申请状态', width: 50, checkbox : false},
+				{ field: 'tppStatusStr', title: '银联状态', width: 50, checkbox : false},
+				{ field: 'cardNo', title: '银行卡号', width: 100, checkbox : false},
+				{ field: 'accName', title: '账户名称', width: 50, checkbox : false },
+				{ field: 'bankName', title: '开户行名称', width: 100, checkbox : false },
+				{ field: 'addOpName', title: '申请人', width: 50, checkbox : false },
+				{ field: 'verifyOpName', title: '审核人', width: 50, checkbox : false },
+				{ field: 'addTime', title: '添加时间', width: 120, sortable:false,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}	
+				},
+				{ field: 'addIp', title: '添加IP', width: 100, sortable:false }
+			] ],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+
+			},
+		});
+	});
+	
+	function exportExcel(){
+		var url = "/modules/account/compCash/exportExcleCompCashList.html";
+		var webStatus = $("#webStatus").val();
+		var tppStatus = $("#tppStatus").val();
+		var startTime=$("#startTime").val();
+		var endTime=$("#endTime").val();
+		var sou = "?webStatus=" + webStatus + "&tppStatus=" + tppStatus+ "&startTime=" + startTime+ "&endTime=" + endTime;
+		window.location.href = url+sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<span>审核状态：</span><select name="webStatus" id="webStatus" class="status">
+		                  <option value="99">全部</option>
+		                  <option value="1">成功</option>
+		                  <option value="0">处理中</option>
+		                  <option value="2">失败</option>
+		                </select>
+		            <span>银联状态：</span><select name="tppStatus" id="tppStatus" class="status">
+		                  <option value="99">全部</option>
+		                  <option value="1">成功</option>
+		                  <option value="0">处理中</option>
+		                  <option value="2">失败</option>
+		            </select>
+		            <span>时间:</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/>
+	            	<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(0,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>对公付款</a>				
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

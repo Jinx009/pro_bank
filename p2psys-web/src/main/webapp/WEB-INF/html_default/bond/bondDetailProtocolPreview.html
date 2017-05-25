@@ -1,0 +1,461 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body >
+<div style="text-align:center;">
+<p>
+	<span style="text-align:right;font-size:12.0pt;font-family:宋体;">个人借款协议</span>
+</p>
+<br/><br/><br/><br/>
+</div>
+
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">出借人：&nbsp;</span><span
+		style="font-size: 16px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">
+		
+		<#if tenderList??>
+  <table border="1" cellpadding="0" cellspacing="0">
+  	<tr>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">序号</td>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">借款人</td>
+    </tr>
+     <#list tenderList as tender>
+    <tr>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.id?c}</td>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.user.userName}</td>
+    </tr>
+    </#list>
+  </table>
+   </#if>
+		
+		</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">借款人：&nbsp;</span><span style="font-size: 16px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">${borrowUser.userName}</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">重要提示：&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">经XXXXXX公司运营管理的基础版2.0（域名为</span><span
+		style="font-family: Times New Roman">www.xxxxxx.com</span><span
+		style="font-family: 宋体">）网上</span><span
+		style="font-family: Times New Roman">P2P</span><span
+		style="font-family: 宋体">平台（以下简称“基础版2.0”）网上撮合，出借人同意向借款人提供借款。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">基础版2.0为出借人及借款人提供信息发布、合同订立与登记等居间服务。第三方支付平台为出借人及借款人提供在基础版2.0网站绑定账户间的交易资金划转服务，出借人、借款人在网站绑定账户的安全性须自行管理及承担。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">借款人在基础版2.0上所发布的借款信息，均须通过基础版2.0战略合作伙伴审核，并由该战略合作伙伴为借款人的还款作保证。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">出借人及借款人应确保在第三方支付平台及基础版2.0登记的联系方式是正确且通畅的，基础版2.0向各方登记的联系方式发送通知及信息的，视为通知到达。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5.<span
+		style="font-family: 宋体">协议各方应按照法律规定自行处理税收问题。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">6.<span
+		style="font-family: 宋体">《基础版2.0网站资费说明》为本协议附件，与本协议具同等法律效力。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">一、&nbsp;定义&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">除缔约方另有约定之外，本协议相关术语定义如下<span
+		style="font-family: Times New Roman">:</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（一）出借人：本协议所称出借人为符合中华人民共和国法律规定的具有完全民事权利能力和民事行为能力，独立行使和承担本协议项下权利义务的自然人。出借人为基础版2.0网站注册会员。&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（二）借款人：本协议所称借款人为符合中华人民共和国法律规定的具有完全民事权利能力和民事行为能力，独立行使和承担本协议项下权利义务的自然人。</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（三）基础版2.0战略合作伙伴：本协议所称基础版2.0战略合作伙伴为符合中华人民共和国法律规定的具有完全民事权利能力和民事行为能力，独立行使和承担本协议项下权利义务的法人。&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（四）账户：本协议所指的出借人、借款人账户专指本协议各方与基础版2.0网站注册会员名绑定的第三方支付平台账户，该第三方支付平台账户的开户姓名、身份证件号码与其绑定的基础版2.0网站会员名注册时使用的姓名及身份证件号码完全一致。&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（五）筹集期：是指借款人在基础版2.0网站发布借款申请时所设定的筹资期限。出借人只能在该期限内承诺出借，同时将资金划至借款人的账户。该期限以基础版2.0网站发布的信息为准。&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（六）本协议订立与登记：本协议经出借人和借款人通过基础版2.0网站以网络在线点击确认的方式订立。出借人或借款人使用基础版2.0账户登录后，根据基础版2.0网站的相关规则以其基础版2.0账户<span
+		style="font-family: Times New Roman">ID</span><span
+		style="font-family: 宋体">在基础版2.0网站通过点击确认或类似方式签署的电子协议即视为本人真实意愿并以本人名义签署的协议，具有法律效力。基础版2.0向出借人和借款人提供电子协议的备案、查看、核对服务，如对电子协议真伪或电子协议的内容有任何疑问，可以在基础版2.0网站核对。如对此有任何争议，应以基础版2.0记录的协议为准。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（七）次日：本协议提及的次日特指下一个工作日的工作时间，暂定<span
+		style="font-family: Times New Roman">9:00</span><span
+		style="font-family: 宋体">至</span><span
+		style="font-family: Times New Roman">18:00</span><span
+		style="font-family: 宋体">，具体以网站公告为准。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">二、&nbsp;借款基本信息&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（一）借款基本信息&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">借款人在本协议项下的借款本金为</span><span
+		style="font-size: 16px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">${borrow.account}</span><span
+		style="font-size: 16px; font-family: &amp; #39;">元人民币</span>
+</p>
+
+<p>
+  <#if tenderList??>
+  <table border="1" cellpadding="0" cellspacing="0">
+  	<tr>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">代码</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">投资人用户名</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">投资人真实姓名</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">投资金额</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">投资时间</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">待收金额</td>
+    </tr>
+     <#list tenderList as tender>
+    <tr>
+    	<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.id?c}</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.user.userName!}</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.user.realName!}</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.account?c}</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.addTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+		<td style="mso-spacerun:'yes'; font-size:6pt; font-family:'宋体'; ">${tender.repaymentAccount?c}</td>
+    </tr>
+    </#list>
+  </table>
+   </#if>
+  </p>
+
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">注：&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">起息日是指出借人放款成功之日起第</span><span
+		style="font-family: Times New Roman">2</span><span
+		style="font-family: 宋体">日。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">出借人通过基础版2.0以网络在线点击确认的方式接受本协议后，即不可撤销地授权基础版2.0将金额等同于本金金额的资金由出借人基础版2.0用户名项下账户划转至借款人基础版2.0用户名项下账户中，划转完毕即视为借款发放成功。借款发放成功之日即为借款放款日。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">三、&nbsp;各方权利义务&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（一）出借人的权利义务&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">保证其为基础版2.0网站注册会员并在本协议有效期内保持会员身份，并承诺提供的信息真实有效，出借资金来源合法。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">在筹集期中，自愿登录基础版2.0网站进行投资并完成本协议订立与登记，将借款资金划入借款人的账户，同意此资金未划入借款人账户前不计利息。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">借款总金额&nbsp;</span></span><span
+		style="font-size: 12px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">${borrow.account}</span><span
+		style="font-size: 16px; font-family: &amp; #39;">元<span
+		style="font-family: Times New Roman">.</span><span
+		style="font-family: 宋体">同意委托合作的第三方支付平台按约将出借人账户的出借资金划至借款人账户。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">同意委托合作的第三方支付平台直接从借款人的还款资金中划扣服务费，具体金额的计算方式以《基础版2.0网站资费说明》为准。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5.<span
+		style="font-family: 宋体">在借款人出现坏账时，基础版2.0战略合作伙伴垫付借款本息后，出借人在本协议项下的所有权利视为已经得到满足和实现，出借人不得再对借款人提出任何请求或主张，出借人在本协议下所享的全部权利和主张，包括但不限于对借款本息等所享有权利和主张，均无条件转给基础版2.0战略合作伙伴享有。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">6.<span
+		style="font-family: 宋体">应保证其账户状态正常，确保资金划入、划出交易的完成。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（二）&nbsp;借款人的权利义务&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">借款人应根据基础版2.0的不时要求如实向出借人、基础版2.0提供个人情况（包括但不限于姓名、身份证号、学历、联系方式、联系地址、职业信息、联系人信息等）以及借款用途等相关信息。借款人承诺提供的信息真实有效，不得隐瞒任何影响或可能影响其资信能力的事项。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">借款人承诺：如发生任何影响或可能影响借款人经济状况、信用状况、还款能力的事由，包括但不限于借款人的工作单位、职位、工作地点、薪酬等事项的变化，借款人应于前述变更发生之日起</span><span
+		style="font-family: Times New Roman">2</span><span
+		style="font-family: 宋体">个工作日内通知基础版2.0。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">借款人承诺根据本协议列明的借款用途使用借款资金，并保证不挪用借款资金或将借款资金用于以下目的和用途：&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(1)&nbsp;<span
+		style="font-family: 宋体">以任何形式进入证券市场，或用于股本权益性投资；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(2)&nbsp;<span
+		style="font-family: 宋体">用于国家明令禁止或限制的经营活动。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">按约及时登录基础版2.0网站进行还款，将足额的本息与管理费存入借款人账户，并同意委托基础版2.0指定的第三方支付平台按约将对应本息划至各出借人账户。</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5.<span
+		style="font-family: 宋体">应保证其账户状态正常，确保资金划入、划出交易的完成。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">（三）出借人的权利义务&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴负责借款人的线下审核、风险控制、催收工作。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴同意保证借款人依照合同规定按期偿还全部借款及利息。如果借款人不能如期归还本息，基础版2.0战略合作伙伴在该笔借款到期之日后的三十天内代借款人归还。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴在借款人到期未能还款出现逾期或坏账时，对当期应还本息进行全额垫付。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴代为垫付借款人逾期本息后，自动从出借人获得对该款项的追偿权。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴有权就为本合同借款所提供的服务向借款人收取服务费，服务费用的金额和收取方式由战略合作伙伴与借款人另行约定。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">6.<span
+		style="font-family: 宋体">基础版2.0战略合作伙伴在本借款协议成立时必须为出借人出具《不可撤销的保证书》。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">四、违约责任&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">借款人未按协议约定日期及金额归还借款的，且逾期</span><span
+		style="font-family: Times New Roman">30</span><span
+		style="font-family: 宋体">天，基础版2.0有权将借款人逾期还款的事宜在网站上公布。</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">本协议项下的还款逾期超过</span><span
+		style="font-family: Times New Roman">30</span><span
+		style="font-family: 宋体">天，或在逾期后出现逃避、拒绝沟通或拒不承认欠款等恶意行为的，基础版2.0有权将借款人违约失信的相关信息向媒体、用人单位、公安机关、检察机关等披露。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">发生下列任何一项或几项情形的，视为借款人违约：&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(1)&nbsp;<span
+		style="font-family: 宋体">借款人违反其在本协议所做的任何承诺和保证的；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(2)<span
+		style="font-family: 宋体">借款人的任何财产遭受没收、征用、查封、扣押、冻结等可能影响其履约能力的不利事件，且不能及时提供有效补救措施的；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(3)&nbsp;<span
+		style="font-family: 宋体">借款人的财务状况出现影响其履约能力的不利变化，且不能及时提供有效补救措施的。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">若借款人违约或根据基础版2.0战略合作伙伴、出借人合理判断借款人可能发生违约事件的，出借人（委托基础版2.0）有权采取下列任何一项或几项救济措施：&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(1)&nbsp;<span
+		style="font-family: 宋体">宣布已发放借款全部提前到期，借款人应立即偿还所有应付款项；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(2)&nbsp;<span
+		style="font-family: 宋体">解除本协议；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(3)&nbsp;<span
+		style="font-family: 宋体">采取法律、法规以及本协议约定的其他救济措施。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">五、&nbsp;合同生效条款&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">本协议为附条件生效协议，生效条件为：本协议在筹集期内达到借款人本次借款最低筹集金额，且出借人、借款人均登录基础版2.0网站订立与登记《个人借款协议》后，并保存在基础版2.0后，本协议生效。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">不符合前款条件的，视为出借人投资失败，本《个人借款协议》不生效，出借人的投资款项退回出借人账户。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">六、&nbsp;保密条款&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">本协议签署后</span><span
+		style="font-family: Times New Roman">,&nbsp;</span><span
+		style="font-family: 宋体">除非事先得到另两方的书面同意</span><span
+		style="font-family: Times New Roman">,&nbsp;</span><span
+		style="font-family: 宋体">本协议各方均应承担以下保密义务：&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(1)&nbsp;<span
+		style="font-family: 宋体">任何一方不得向非本协议方（基础版2.0除外）披露本协议以及本协议项下的事宜以及与此等事宜有关的任何文件、资料或信息（“保密信息”）；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(2)&nbsp;<span
+		style="font-family: 宋体">任何一方只能将保密信息和其内容用于本协议项下的目的</span><span
+		style="font-family: Times New Roman">,&nbsp;</span><span
+		style="font-family: 宋体">不得用于任何其他目的。</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">本协议各方因下列原因披露保密信息，不受前款的限制：&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(1)<span
+		style="font-family: 宋体">向本协议各方的董事、监事、高级管理人员和雇员及其聘请的会计师、律师、咨询公司披露；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(2)&nbsp;<span
+		style="font-family: 宋体">因遵循可适用的法律、法规的强制性规定而披露；&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">(3)&nbsp;<span
+		style="font-family: 宋体">依据其他应遵守的法规向审批机构或权力机构进行的披露。</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">借款人和出借人提供给基础版2.0的信息及借款人和出借人享受基础版2.0服务产生的信息（包括本协议签署之前提供和产生的），可由基础版2.0共享，法律禁止的除外。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4&nbsp;.<span
+		style="font-family: 宋体">本协议任何一方应采取所有其他必要、适当和可以采取的措施，以确保保密信息的保密性。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5&nbsp;.<span
+		style="font-family: 宋体">本协议各方应促使其向之披露保密信息的人严格遵守本条约定。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">6.<span
+		style="font-family: 宋体">各方在本条项下的权利和义务应在本协议终止或到期后继续有效。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">七、&nbsp;各方约定的其他事项&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">各方授予基础版2.0向合作第三方支付机构及其他机构查询并获取其真实身份及合同项下交易信息的权利。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">借款人对含本协议在内的借款总额项下的所有协议均予以承认并履行。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">3.<span
+		style="font-family: 宋体">借款人须确保一次性足额偿还含本协议在内的借款总额项下所有协议项下的借款本息，否则不视为还款，由此引起的法律后果及违约责任由借款人连带承担。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">4.<span
+		style="font-family: 宋体">借款人对于含本协议在内的借款总额项下本息偿还的还款操作（包括但不限于正常还款、逾期还款等）须登录基础版2.0网站</span><span
+		style="font-family: Times New Roman">,</span><span
+		style="font-family: 宋体">通过各自在基础版2.0网站绑定账户向出借人账户划转款项来完成</span><span
+		style="font-family: Times New Roman">,</span><span
+		style="font-family: 宋体">否则不视为还款</span><span
+		style="font-family: Times New Roman">,&nbsp;</span><span
+		style="font-family: 宋体">由此引起的法律后果及违约责任由借款人连带承担。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">5.<span
+		style="font-family: 宋体">本协议项下的收款、还款等数据信息均以基础版2.0网站生成并公布的内容为准。出借人、借款人可以随时登录基础版2.0网站查询还款</span><span
+		style="font-family: Times New Roman">/</span><span
+		style="font-family: 宋体">收款信息。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">6.<span
+		style="font-family: 宋体">本协议项下的债务不得转让。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">7.<span
+		style="font-family: 宋体">协议各方应对其他方提供的信息及本协议内容保密，未经其他方同意，任何一方不得向协议主体之外的任何人披露，但法律、行政法规另有强制性规定，或监管、审计等有权机关另有强制性要求的除外。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">8.<span
+		style="font-family: 宋体">协议各方知悉并遵守《基础版2.0公司网站服务协议（个人会员版）》、《基础版2.0网站资费说明》的规定，并接受基础版2.0网站对前述文本的修订。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">9.<span
+		style="font-family: 宋体">协议各方根据本协议定义的步骤完成协议订立与登记后，即具有与手写签名同等的法律效力；各方同意，因履行本协议有争议的，以基础版2.0保留的合同等文件版本及网站解释为准。&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">10.<span
+		style="font-family: 宋体">出借人及借款人如因其账户发生销户、换卡、挂失和司法冻结等情况时，为保证业务正常开展，应自行重新绑定其它正常账户。如未及时绑定账户造成资金无法出入账的，须及时通知并申请基础版2.0协助完成后续处理，并承担由此产生的不利后果及相应责任。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">12.<span
+		style="font-family: 宋体">本协议各方承诺，各方不会利用基础版2.0网站进行信用卡套现、洗钱、非法集资或其他不正当交易行为，否则应依法独立承担法律责任。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">13.<span
+		style="font-family: 宋体">本协议各方确认，借款人和出借人授权和委托基础版2.0根据本协议所采取的全部行动和措施的法律后果均归属于借款人和出借人本人；在任何情形下，基础版2.0不是本协议项下任何借款或债务的债务人或需要以其自有资金偿还本协议项下的任何借款或债务。&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">14.<span
+		style="font-family: 宋体">本协议各方确认并同意，委托基础版2.0对本协议项下的任何金额进行计算；在无明显错误的情况下，基础版2.0对本协议项下任何金额的任何证明或确定，应作为该金额有关事项的终局证明。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">八、&nbsp;通知&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">1.<span
+		style="font-family: 宋体">本协议任何一方根据本协议约定做出的通知和</span><span
+		style="font-family: Times New Roman">/</span><span
+		style="font-family: 宋体">或文件均应以书面形式（包括但不限于电子邮件等方式）做出，或者委托基础版2.0通过指定渠道进行公布。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">2.<span
+		style="font-family: 宋体">本协议各方之间的书面通知或文件往来，必须发送至本协议列出的各方的联系人。如以专人送递，在交付后即被视为送达；如以快递或挂号信方式发送的，在快递或挂号信寄出后三日即被视为送达；如以电子邮件发送的，在电子邮件发送之日即被视为送达。若本协议任何一方更改其联系人或联系地址或电子邮件邮箱地址，应尽快按本条约定在相关信息变更之日起三日内书面通知其他各方。&nbsp;&nbsp;</span></span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">九、&nbsp;&nbsp;&nbsp;法律的适用和争议的解决&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">本协议受中华人民共和国法律管辖并按中华人民共和国法律解释。协议履行中发生争议，可由各方协商解决，协商不成，向借款人所在地人民法院起诉。与基础版2.0有关的争议，向基础版2.0所在地人民法院起诉。&nbsp;&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">出借人签订日</span><span
+		style="font-size: 16px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">${vetifyTime!}</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">&nbsp;</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">借款人签订日</span><span
+		style="font-size: 16px; background: rgb(255, 255, 0); background: rgb(255, 255, 0); font-family: &amp; #39;">${vetifyTime!}</span>
+</p>
+<p style="text-indent: 32px; margin-top: 10px; line-height: 150%">
+	<span style="font-size: 16px; font-family: &amp; #39;">&nbsp;</span>
+</p>
+<p>
+	<br />
+</p>
+</body>
+</html>

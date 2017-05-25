@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<#include "../../../../include/resources.html" />
+	<title>
+		素材与产品展示规则
+	</title>
+</head>
+
+<body>
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div id="searchBox" data-options="region:'north',border:false,collapsible:false">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" id="productDetail" name="productDetail" class="sInput" placeholder="输入 [ 产品所属分类 ] 或 [ 产品名称 ] 进行模糊查询" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" title="精确查询" class="advBtn">
+						精确查询
+						<i class="iconfont">
+							&#xe638;
+						</i>
+					</a>
+					<a href="javascript:void(0);" title="刷新" class="reloadIcon" onclick="dataGrid.datagrid('reload');">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe63a;
+						</i>
+					</a>
+					<li>
+						<span>
+							所属分类：
+						</span>
+						<input type="text" id="flagDesc" name="flagDesc" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称：
+						</span>
+						<input type="text" id="productName" name="productName" autocomplete="off" />
+					</li>
+					<li>
+						<span>PC端：</span>
+						<label style="display:inline-block;margin-right:8px;">
+							<input type="radio" name="showForPc" value="-1" class="easyui-validatebox" checked="checked" style="width:10px;" />无限制
+						</label>
+						<label style="display:inline-block;margin-right:8px;">
+							<input type="radio" name="showForPc" value="0" class="easyui-validatebox" style="width:10px;" />不显示
+						</label>
+						<label style="display:inline-block;margin-right:8px;">
+							<input type="radio" name="showForPc" value="1" class="easyui-validatebox" style="width:10px;" />显示
+						</label>
+					</li>
+					<li>
+						<span>微信端：</span>
+						<label style="display:inline-block;margin-right:8px;">
+							<input type="radio" name="showForWechat" value="-1" class="easyui-validatebox" checked="checked" style="width:10px;" />无限制
+						</label>
+						<label style="display:inline-block;">
+							<input type="radio" name="showForWechat" value="0" class="easyui-validatebox" style="width:10px;" />不显示
+						</label>
+						<label style="display:inline-block;">
+							<input type="radio" name="showForWechat" value="1" class="easyui-validatebox" style="width:10px;" />显示
+						</label>
+					</li>
+					<li>
+						<span>
+							&nbsp;
+						</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+var winWidth = 800;
+var winHeight = 600;
+
+var materialTitle = "编辑素材";
+var materialUrlBorrow = "/modules/nb/product/borrowMaterialPage.html";
+var materialUrlPpfund = "/modules/nb/product/ppfundMaterialPage.html";
+
+var recommendTitle = "是否推荐到微信首页？";
+var recommendUrl = "/modules/nb/product/recommendProductPage.html";
+
+var hotTitle = "是否更改此产品的热销榜推荐状态？";
+var hotUrl = "/modules/nb/product/hotProduct.html";
+
+var wechatTitle = "是否更改微信端显示？";
+var pcTitle = "是否更改PC端显示？";
+var platformWechat = "wechat";
+var platformPc = "pc";
+var url = "/modules/nb/product/updateProductDisplaying.html";
+
+var showOrderTitle = "调整序号";
+var showOrderUrl = "/modules/nb/product/productShowOrderPage.html";
+
+$(function() {
+	var editIndex = undefined;
+	dataGrid = $('#dataGrid').datagrid({
+		url: '/modules/nb/product/allProductBasicData.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		columns: [
+			[{
+				field: 'id',
+				title: 'ID',
+				width: 50
+			}, {
+				field: 'productName',
+				title: '产品名称',
+				width: 150
+			}, {
+				field: 'flagDesc',
+				title: '产品所属分类',
+				width: 150
+			}, {
+				field: 'typeDesc',
+				title: '产品类型',
+				width: 150
+			}, {
+				field: 'statusDesc',
+				title: '产品状态',
+				width: 150
+			}, {
+				field: 'isRecommend',
+				title: '微信首页推荐',
+				width: 150,
+				formatter: function(value, row, index) {
+					if (1 === row.isRecommend) {
+						return '<p style="color:green;">是</p>';
+					} else {
+						return '<p style="color:red;">否</p>';
+					}
+				}
+			}, {
+				field: 'hotProduct',
+				title: '热销榜推荐',
+				width: 150,
+				formatter: function(value, row, index) {
+					if (1 === row.hotProduct) {
+						return '<p style="color:green;">是</p>';
+					} else {
+						return '<p style="color:red;">否</p>';
+					}
+				}
+			}, {
+				field: 'showForPc',
+				title: 'PC端显示',
+				width: 150,
+				formatter: function(value, row, index) {
+					if (1 === row.showForPc) {
+						return '<p style="color:green;">是</p>';
+					} else {
+						return '<p style="color:red;">否</p>';
+					}
+				}
+			}, {
+				field: 'showForWechat',
+				title: '微信端显示',
+				width: 150,
+				formatter: function(value, row, index) {
+					if (1 === row.showForWechat) {
+						return '<p style="color:green;">是</p>';
+					} else {
+						return '<p style="color:red;">否</p>';
+					}
+				}
+			}, {
+				field: 'showOrder',
+				title: '序号',
+				width: 80
+			}, {
+				field: 'action',
+				title: '操作',
+				width: 150,
+				formatter: function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',recommendTitle,winWidth,winHeight,recommendUrl);">微信首页推荐</a><i class="iconfont">&#xe639;</i></dt>';
+					str += '<dd style="width:130px;background:white;">';
+					// 素材
+					if (row.ppfundModel) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',materialTitle,winWidth,winHeight,materialUrlPpfund);">素材</a>';
+					} else {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',materialTitle,winWidth,winHeight,materialUrlBorrow);">素材</a>';
+					}
+					// 热销榜推荐
+					if (row.hotProduct == 0) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',hotUrl,hotTitle);">热销榜推荐</a>';
+					} else {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',hotUrl,hotTitle);">取消热销榜推荐</a>';
+					}
+					// 序号
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun(' + row.id + ',showOrderTitle,450,300,showOrderUrl);">调整序号</a>';
+					// 微信显示
+					if (row.showForWechat == 0) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteMFun(' + row.id + ',url,wechatTitle,platformWechat);">显示（微信端）</a>';
+					} else {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteMFun(' + row.id + ',url,wechatTitle,platformWechat);">隐藏（微信端）</a>';
+					}
+					// PC显示
+					if (row.showForPc == 0) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteMFun(' + row.id + ',url,pcTitle,platformPc);">显示（PC端）</a>';
+					} else {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteMFun(' + row.id + ',url,pcTitle,platformPc);">隐藏（PC端）</a>';
+					}
+					str += '</dd>';
+					str += '</dl>';
+					return str;
+				}
+			}]
+		],
+		toolbar: '#toolbar',
+		onLoadSuccess: function() {
+			$('#searchForm table').show();
+			parent.$.messager.progress('close');
+		},
+		onRowContextMenu: function(e, rowIndex, rowData) {
+			e.preventDefault();
+			$(this).datagrid('unselectAll').datagrid('uncheckAll');
+			$(this).datagrid('selectRow', rowIndex);
+			$('#menu').menu('show', {
+				left: e.pageX,
+				top: e.pageY
+			});
+		}
+	});
+});
+</script>
+<script src="${theme_dir}/js/search.js"></script>

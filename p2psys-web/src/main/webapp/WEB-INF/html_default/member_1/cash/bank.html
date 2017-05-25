@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html> 
+<#assign web_title='银行账户 - ${webname!}'>
+<#assign web_description='银行账户，${webname!}p2p网贷平台'>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="my_account"> 
+	<#assign flag="bank">
+	<#include "../../common/function.html">
+	<#include "../../include/member_header.html">
+	<style>
+		.bankDetails{background:#EEEEEE;width:657px;position:absolute;z-index:5;display:none;top:200px;border-radius:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;padding:10px;}
+		.bankDetails table{border-radius:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+		.bankDetails table thead{color:#2370b6;}		
+		.bankDetails table tr{background:#FFFFFF;height:40px;width:100%;padding-bottom:30px;}
+		.bankDetails table tr td{width:33%;text-align: center;}
+		#qianjin {display: none;position: absolute;left: 0;top: 0;z-index: 4;width: 100%;height: 100%;opacity: 0.3;filter: alpha(opacity=30);background: #000;}
+		#bankTables{width:100%;}
+	</style>
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<!-- #main start-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--S-左边的导航user_left 开始-->
+			<div class="user_left">
+				<#assign mid="m_account" >
+				<#include "../account_menu.html">
+			</div>
+			<!--E-左边的导航user_left 结束-->
+
+			<!--S-user_right-->
+			<div class="user_right">
+				<h2 class="user_title">银行卡</h2>
+				<input type="hidden" id="deposit" value="${is_open_deposit}" />
+				<input id="hidWebChannelKey" value="${webChannelKey!}" type="hidden">
+				<!--S-右边的内容user_right_main 开始-->
+				<div class="user_right_main">
+					<ul class="cardList clearfix">
+						   <#list bankList as item>
+						   <li>
+							      <dl>
+							      	<dt><span>银行卡</span>Bank</dt>
+							      	<dd><img alt="" src="${item.picPath!''}">${item.bank!""}</dd>
+							      	<dd>${item.hideBankNo!""}</dd>
+							      </dl>
+							      <!--<span class="unbind"><a href="javascript:;" data-value="${webroot}/member/cash/disableBank.html?id=${item.id}" id="resetBank">解除绑定</a></span>-->
+						   </li>
+						   </#list>
+						   <#if bankList?? && bankList?size == 0>
+						   <li class="addCard">
+							   	<a href="addBankPage.html" title="添加银行卡"><i class="iconfont">&#xe613;</i>添加银行卡</a>
+						   </li>
+						   </#if>
+					</ul>
+				</div>
+		            <div class="user_help">
+			            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+						<p>1、为了您的账户及资金安全，如果需要更换银行卡，请直接联系客服，电话400-6366-800。</p>
+						<p>2、目前绑卡仅支持以下银行：招商银行、工商银行、农业银行、建设银行、中国银行、邮储银行、光大银行、广发银行、平安银行<span style="color:red;padding-left:5px;text-decoration: underline;" onclick="bankDetails();" id="bankDetail">银行卡限额详情列表</span></p>
+						<div class="bankDetails">
+						<table id="bankTables">
+							<thead><td></td><td>单笔限额</td><td>单日限额</td></thead>
+							<tr><td><img src="/data/bank/ICBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+							<tr><td><img src="/data/bank/ABC_OUT.gif"/></td><td>20万(6:00-20:00) 2万(20:00-5:59)</td><td>500万</td></tr>
+							<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+							<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>1万</td><td>1万</td></tr>
+							<tr><td><img src="/data/bank/yz.jpg"/></td><td>1万</td><td>1万</td></tr>
+							<tr><td><img src="/data/bank/CMB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+							<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+							<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+							<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+						</table>
+						
+						</div>
+						<i id="qianjin"></i>
+					</div>
+				</div>
+				<!--E-右边的内容user_right_main 结束-->
+			</div>
+			<!--E-user_right-->
+		</div>
+	</div>
+	<!-- #main start-->
+	<script>seajs.use("member/cash_bank")</script>
+	<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script>
+		function bankDetails(){
+			var webChannelKey = $("#hidWebChannelKey").val();
+   			if(webChannelKey==="llpay_channel_key"){
+   				$.ajax({
+   					url:"/member/recharge/querySupportBank.html?random="+Math.random(),
+   					type:"get",
+   					dataType:"json",
+   					success:function(data){
+   							var str = "<thead><td></td><td>单笔限额</td><td>单日限额</td></thead>";  
+   						    if(data.ret_code!='0000')
+   						    {
+//   						      str += "暂无银行卡"; 
+   						    }else{
+   						      	var length = data.support_banklist.length;
+   						        if(length>0){
+   						        	for (var i = 0; i < length; i++) {
+   						        		var bankCode = data.support_banklist[i].bank_code;
+   						        		var numInput0 = parseFloat(data.support_banklist[i].single_amt)/10000 + "万";
+   							        	var numInput1 = parseFloat(data.support_banklist[i].day_amt)/10000 + "万";
+   						        		if(bankCode==="01020000" || bankCode==="03080000"){
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\" style=\"border: 1px solid #ddd;width: 118px;\"/></td><td>"+numInput0+"</td><td>"+numInput1+"</td></tr>";
+   						        		}else if(bankCode==="01050000"){
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\"/></td><td>"+numInput0+"(0:00-22:00)</td><td>"+numInput1+"(0:00-22:00)</td></tr>";
+   						        		}else{			        			
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\"/></td><td>"+numInput0+"</td><td>"+numInput1+"</td></tr>";
+   						        		}
+   									}
+   						        }
+   						    }
+   						    document.getElementById("bankTables").innerHTML=str;
+   					}
+   				})
+   			}
+			var width = $(window).width();
+			var height = $(document).height();
+			$("#qianjin").css("width",width+"px");
+			$("#qianjin").css("height",height+"px");
+			$(".bankDetails").show();
+			$("#qianjin").show();
+		}
+		
+		$(".bankDetails").bind("click",function(){
+			$(".bankDetails").hide();
+			$("#qianjin").hide();
+		});
+		
+		
+	</script>
+	<#include "../../include/footer.html">

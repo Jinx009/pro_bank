@@ -1,0 +1,33 @@
+<script type="text/javascript">
+$(function() 
+{
+	  $.fn.dataGridOptions.addBorrowFormSubFun("#form",'/modules/user/redPacket/addRedPacket.html');	
+});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+	<div class="borrowForm" style="border-top: none;">
+	<input type="hidden" name="userId" value="${user.userId!}" />
+	<ul>
+		<li>
+			<span>用户名：</span>
+		    <input type="text"  disabled="disabled"  name="userName" value="${user.userName!}">
+		</li>
+		<li>
+		     <span>真实姓名：</span>
+		     <input type="text"  disabled="disabled"  name="realName" value="${user.realName!}">
+		</li>
+		<li><span>选择红包：</span>
+			<select name="redPacketType">
+			<option value="0">无</option>
+			<#if redPackets ??>
+				<#list redPackets as item>
+				<option value="${item.id}">${item.name!}</option>
+				</#list>
+			</#if>
+			</select>
+		</li>
+		<li><span>红包数量： </span>
+		<input type="text" name="redPacketNo" onkeyup="value=value.replace(/[^0-9]/g,'')"  value="1">
+	</ul>
+	</div>
+</form>

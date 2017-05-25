@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>产品收费管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+
+<script type="text/javascript">
+	var dataGrid;
+	
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'productCostList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,sortable:true},
+			{ field: 'name', title: '产品名称', width: 100},
+			{ field: 'code', title: '产品编码', width: 100},
+			{ field: 'manageFee', title: '管理费', width: 100,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'riskReserveFee', title: '风险备用金', width: 120, sortable:true,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'addTime', title: '添加时间', width: 180,formatter:function(value,row,index){
+				return getLocalTime(value,4);
+			}}
+			 ] ],
+	            toolbar : '#toolbar'
+		});
+	});
+	function exportExcel(){
+		var url = "/modules/productCost/exportExcelProductCostList.html";
+		var searchName = $("#searchName").val()
+		var name = $("#name").val();
+		var code = $("#code").val();
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		var sou = "?searchName=" + searchName +"&name=" + name + "&code=" + code + "&startTime=" + startTime + "&endTime=" + endTime;
+		window.location.href = url + sou;
+	}
+	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入产品名称进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>产品名称</span><input type="text" name="name" id="name" autocomplete="off"/></li>
+		        	<li><span>产品编码</span><input type="text" name="code" id="code" autocomplete="off"/></li>
+		        	<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

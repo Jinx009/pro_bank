@@ -1,0 +1,495 @@
+@charset "utf-8";
+$chinaFontfamily:'microsoft yahei',
+Verdana,
+Arial,
+Helvetica,
+sans-serif;
+$fontSize:20; //媒体查询，以rem位单位
+$bodyPadding:10px;
+$bodyColor:#f4f4f4; //body背景颜色 
+$titleFontSize:15px; //标题字体大小
+$descFontSize:16px; //描述字体大小
+$detailFontSize:13px; //详细字体大小
+$titleColor:#545454; //标题颜色
+$titleColor2:#393939; //标题颜色2
+$descColor:#8a8a8a; //描述颜色
+$borderSolidColor:#e1e1e1; //实线边框颜色
+$borderDashedColor:#c8c8c8; //虚线边框颜色
+$eleMargin:16px;
+$divMargin:5px;
+body {
+    background: $bodyColor;
+    font-family: $chinaFontfamily;
+}
+
+a {
+    text-decoration: none;
+}
+
+h3 {
+    display: inline-block;
+    font-size: $titleFontSize;
+    color: $titleColor2;
+}
+
+p,
+span {
+    display: inline-block;
+    font-size: $detailFontSize;
+    color: $descColor;
+}
+
+header {
+    background: #326eaf;
+}
+
+header .head-title {
+    font-family: $chinaFontfamily;
+    font-size: $titleFontSize;
+    color: #fff;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+}
+
+.hr {
+    width: 96%;
+    background: #2b5f98;
+    height: 1px;
+    margin: 0 auto;
+}
+
+nav ul {
+    display: flex;
+    height: 175px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    flex: 1;
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li a img {
+    width: 60px;
+    margin-bottom: $eleMargin;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.wrap {
+    margin-bottom: 109px;
+    // padding-left: $bodyPadding;
+    // padding-right: $bodyPadding;
+    // padding-bottom: $bodyPadding;
+}
+
+.wrap h3.rexiao {
+    font-size: $titleFontSize;
+    color: $titleColor;
+    margin-bottom: $eleMargin - 6px;
+    margin-top: 0;
+}
+
+.wrap h3.rexiao img {
+    width: 12px;
+    height: 17px;
+    position: relative;
+    top: 2px;
+}
+
+.product-item {
+    position: relative;
+    // border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    background: #fff;
+    padding-left: 19px;
+    padding-right: 19px;
+    overflow: hidden;
+}
+
+.hotbar {
+    width: 74px;
+    height: 30px;
+    // background: #ff6c54;
+    position: absolute;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 11px;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+    right: -21px;
+    top: 1px;
+}
+
+.product-name {
+    font-size: $titleFontSize;
+    color: $titleColor;
+    margin-top: $eleMargin;
+    margin-bottom: $eleMargin / 2;
+    width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.product-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title p {
+    font-size: 11px;
+    color: $descColor;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.product-detail {
+    display: flex;
+    align-items: center;
+    border-top: 1px dashed $borderSolidColor;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-top: $eleMargin / 2;
+}
+
+.profit,
+.time-limit,
+.lowest-account {
+    flex: 1;
+}
+
+.product-detail div {
+    font-size: $descFontSize;
+    color: $titleColor;
+}
+
+.product-detail .time-limit,
+.product-detail .lowest-account {
+    padding-top: 8px;
+}
+
+.product-detail span {
+    font-size: $detailFontSize;
+    color: $descColor;
+    display: inline-block;
+    margin-top: $eleMargin;
+}
+
+.product-detail .profit span {
+    margin-top: 4px;
+}
+
+.product-detail .profit div {
+    font-size: 30px;
+    color: #ff7e00;
+    font-weight: bold;
+}
+
+.product-detail .profit div:after {
+    content: "%";
+    font-size: 14px;
+    color: #ff7e00;
+}
+
+.remain-time {
+    border-top: 1px dashed $borderDashedColor;
+    padding-top: $eleMargin / 2;
+    padding-bottom: $eleMargin / 2;
+    font-size: $detailFontSize;
+    color: #ff7e00;
+}
+
+.remain-time span {
+    color: #ff7e00;
+}
+
+
+/* 产品详情*/
+
+.highlights {
+    background: #fff;
+    margin: $divMargin 0;
+    padding: 0 19px 19px;
+}
+
+.highlights h3 {
+    margin: 12px 0 13px;
+    font-weight: normal;
+}
+
+.highlights div {
+    font-size: $detailFontSize;
+    color: $descColor;
+    line-height: 2;
+}
+
+.highlights div p {
+    margin: 0;
+}
+
+.tabs {
+    display: flex;
+    background: #fff;
+    width: 100%;
+}
+
+.tabs a {
+    flex: 1;
+    color: $titleColor2;
+    display: flex;
+    height: 41px;
+    font-size: $titleFontSize;
+    border-bottom: 1px solid $borderSolidColor;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-container {
+    background: #fff;
+}
+
+.active {
+    color: #326eaf !important;
+    border-bottom: none !important;
+    border-right: 1px solid $borderSolidColor;
+    border-left: 1px solid $borderSolidColor;
+}
+
+.qixian {
+    border-bottom: 1px solid $borderSolidColor;
+    margin: $divMargin 0;
+    padding: 0 19px 19px;
+}
+
+.qixian h3 {
+    margin: 12px 0 13px;
+    font-weight: normal;
+}
+
+.qixian div {
+    font-size: $detailFontSize;
+    color: $descColor;
+    line-height: 2;
+}
+
+.qixian div p {
+    margin: 0;
+}
+
+// .qixian p {
+//     word-break: break-all;
+// }
+.tixian {
+    padding: 0 19px;
+}
+
+.tixian h3 {
+    margin: 12px 0 13px;
+    font-weight: normal;
+}
+
+.tixian-time-title,
+.tixian-time-detail1,
+.tixian-time-detail2 {
+    display: flex;
+    align-items: center;
+}
+
+.tixian-time-title span,
+.tixian-time-detail1 span,
+.tixian-time-detail2 span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tixian-time-title span:nth-child(1),
+.tixian-time-detail1 span:nth-child(1),
+.tixian-time-detail2 span:nth-child(1) {
+    margin-left: -10px;
+}
+
+.tixian-time-title span:nth-child(3),
+.tixian-time-detail1 span:nth-child(3),
+.tixian-time-detail2 span:nth-child(3) {
+    margin-right: 10px;
+}
+
+.tixian-time-title {
+    background: #f4f4f4;
+    height: 26px;
+}
+
+.tixian-time-detail1 {
+    height: 60px;
+    border-top: 1px solid $borderSolidColor;
+    border-bottom: 1px solid $borderSolidColor;
+}
+
+.tixian-time-detail2 {
+    height: 36px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.tixian-time-supply {
+    line-height: 2;
+    padding: 12px 0 15px;
+}
+
+.tixian-time-supply p {
+    font-size: 11px;
+    margin: 0;
+}
+
+.xieyi {
+    display: flex;
+    align-items: center;
+    height: 43px;
+    font-size: $titleFontSize;
+    color: $titleColor2;
+    position: relative;
+    padding: 0 19px;
+    border-top: 1px solid $borderSolidColor;
+    border-bottom: 1px solid $borderSolidColor;
+}
+.xieyi a{
+    width: 100%;
+}
+.xieyi a h3 {
+    font-weight: normal;
+}
+
+.xieyi a h3:after {
+    content: ">";
+    position: absolute;
+    right: 21px;
+}
+
+.btn {
+    left: 19px;
+    right: 19px;
+    bottom: 73px;
+    position: fixed;
+    z-index: 999;
+}
+
+.btn a {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 15px;
+    border-radius: 6px;
+    background-color: #ffae00;
+    color: #fff;
+}
+.product-details{
+    padding: 0 19px;
+    overflow: hidden;
+}
+.product-details div p {
+    margin: 0;
+}
+
+.baozhang{
+    padding: 0 19px;
+}
+.pingtai-baozhang{
+    padding: 0 19px 19px;
+}
+
+.baozhang h3,
+.pingtai-baozhang h3 {
+    margin: 12px 0 13px;
+    font-weight: normal;
+}
+
+.baozhang-detail,
+.pingtai-baozhang-detail {
+    display: flex;
+    line-height: 2;
+    overflow: hidden;
+}
+
+.baozhang-detail p,
+.pingtai-baozhang-detail p {
+    margin: 0;
+}
+
+.pingtai-baozhang {
+    border-top: 1px solid $borderSolidColor;
+}
+
+
+/*底部导航*/
+
+.foot-blank {
+    height: 54px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 54px;
+    width: 100%;
+    z-index: 1000;
+    background: #ededed;
+    display: flex;
+    align-items: center;
+}
+
+.footer .nav {
+    width: 100%;
+}
+
+.footer .nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    height: 42px;
+    padding: 0;
+}
+
+.footer .nav ul li {
+    flex: 1;
+    height: 42px;
+    text-align: center;
+}
+
+.footer .nav ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #505050;
+    font-size: 12px;
+}
+
+.footer .nav ul li a .foot-nav-svgwrap {
+    width: 30px;
+    height: 25px;
+    margin: 0 auto;
+    padding-bottom: 6px;
+}
+
+.footer .nav ul li a .foot-nav-icon {
+    fill: transparent;
+    stroke: #7D7D7D;
+    stroke-width: 30px;
+    width: 100%;
+    height: 100%;
+}

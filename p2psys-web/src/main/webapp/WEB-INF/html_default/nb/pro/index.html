@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/themes/theme_default/dist/jquery.js"></script>
+<script src="/themes/theme_default/dist/jquery.form.js"></script>
+<script>
+$(function(){
+	loadForms();
+})
+function loadForms(){
+	$("#form").ajaxForm({
+		success : function(data) {
+			console.log(data.data);
+			$('#img').attr('src','http://127.0.0.1:90'+data.data);
+		},
+		complete : function(t) {
+		}
+	});
+}
+function upload(){
+	$("#form").submit();
+}
+function sendJson(){
+	var json = {};
+	json.data = new Array();
+	var obj = {};
+	obj.name = "hehe";
+	json.data.push(obj);
+	obj = {};
+	obj.name = "haha";
+	json.data.push(obj);
+	json.id = 1;
+	var data = JSON.stringify(json);
+	$.ajax({
+		url:'/manage/addRules.action',
+		data:'data='+data,
+		type:'post',
+		dataType:'json',
+		success:function(res){
+			console.log(res);
+		}
+	})
+	
+}
+</script>
+</head>
+<body>
+<form method="post" id="form" enctype="multipart/form-data"  action="/code/upload.action" >
+	<input type="file" name="file" >
+	<a onclick="upload()" >hehe</a>
+	<img src="" id="img">
+</form>
+<input type="button" onclick="sendJson()" >
+</body>
+</html>

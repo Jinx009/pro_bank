@@ -1,0 +1,25 @@
+<#include "lego/standard_opening.html">
+<link href="${webroot}${theme_dir}/wx/css/list.css" rel="stylesheet">
+<script src="${webroot}${theme_dir}/wx/js/jquery.circliful.list.min.js"></script>
+<link href="${webroot}${theme_dir}/wx/css/jquery.circliful.css"
+	rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="header">
+		<input type="button" value="固定收益类产品" id="btn_show" />
+		<div class="inverted_triangle"></div>
+	</div>
+	<ul id="ul_show">
+		<li id="u_cash"><a href="/wx/ppfundList.html">现金管理产品</a></li>
+		<li id="u_overseas"><a href="/wx/estateList.html">海外投资产品</a></li>
+		<li id="u_float"><a href="/wx/entrustList.html">浮动收益类产品</a></li>
+		<li id="u_fiexd"><a href="/wx/investList.html">固定收益类产品</a></li>
+	</ul>
+	<div class="investItem"></div>
+	<div style="height:100px;" id="kkpager"></div>
+	<#include "lego/bar.html">
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/investList");
+</script>
+</html>

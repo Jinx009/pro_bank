@@ -1,0 +1,28 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/payDetail.css?v=14" >
+    <link rel="stylesheet" type="text/css" href="${webroot}${theme_dir}/media/css/weixin/weixin-bootstrap.css" >
+   	<meta name="viewport" content="width=100%;
+    initial-scale=1.0;
+    maximum-scale=1.0;
+    minimum-scale=1.0;
+    user-scalable=no;" >
+	<title>支付详情</title>
+    <script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+</head>
+<body>		
+	<div class="h_all">
+		<div class="pay_header">
+			<a class="backto" href="/wx/index.html"></a>
+			系统提示信息
+		</div>
+		<div class="sysTips" align="center" style="margin-top:50px">
+			<div class="sysTipsTxt">${rsmsg!""}</div>
+			<div class="sysTipsBtns"></div>
+		</div>
+	</div>
+</body>
+</html>

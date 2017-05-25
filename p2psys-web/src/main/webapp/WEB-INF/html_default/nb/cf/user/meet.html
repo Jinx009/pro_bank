@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/user/meet.js" ></script>
+</head>
+<body class="bg">
+<input type="hidden" id="redirectUrl" value="${redirectUrl}" >
+<input type="hidden" id="status" value="${invester}" >
+<div class="main">
+	<#include "../include/header.html">
+	<div class="middle-content main-box">
+		
+		<div class="main-left">
+			
+			<#include "../include/left_nav.html">
+		</div>
+		<div class="main-right">
+		<div class="main-title">
+			<h3>合格投资人</h3>
+		</div>
+		<!-- <div class="space-4" ></div> -->
+		<div class="row">
+			  <div class="col-sm-12 col-md-12">
+			    <div class="thumbnail meetWrap">
+			      <div class="caption">
+			        <div  class="checkbox">
+					    <label class="meet-lable" >
+					    </label>
+				  	</div>
+			        <h1 class="center" >合格投资人条款</h1>
+			        <h3 class="meet-p">个人投资人承诺其系具备投资于融资项目的相应风险识别能力和风险承担能力，且符合下列条件之一的合格投资者：</h3>
+			        <p class="meet-p" >(1)投资单个融资项目的最低金额不低于100万元人民币的个人。</p>
+					<p class="meet-p" >(2)金融资产不低于300万元或者最近三年个人年均收入不低于50万元的个人；本项所指的金融资产包括银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等。</p>
+					<p class="meet-p" >(3)证券业协会规定的其他投资者。　</p>
+					<p class="meet-p" >个人投资人承诺其将根据平台的要求及时提供相关财产、收入证明等材料。  </p>
+					<div  class="space-4" ></div>
+					<div class="meet-inner-div" >
+						<a class="meet-btn"  id="beInvester" onclick="beInvest()" >若满足以上条件点击成为合格投资人</a>
+					</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!--投资交易金额		end-->
+<#include "../include/footer.html"> 
+<script type="text/javascript">
+	showLi("user_li");
+	changeLeftMenue("合格投资人","");
+</script>
+</body>
+</html>

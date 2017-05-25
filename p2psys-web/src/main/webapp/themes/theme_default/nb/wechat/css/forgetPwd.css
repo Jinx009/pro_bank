@@ -1,0 +1,140 @@
+body
+{
+	font-family: "Microsoft Yahei";
+	background: rgb(246,246,246);
+	width: 100%;
+	height: 100%;
+}
+.forget-a
+{
+	width: 100%;
+	border-radius:0px;
+	letter-spacing: 3px;
+	font-size: 18px;
+}
+.bind-image
+{
+	width:80px;
+	margin-top: 15px;
+}
+.right-btn
+{
+	width: 96%;
+	margin-left: 2%;
+	text-align: right;
+}
+.space-div
+{
+	height: 15px;
+}
+.bind-h
+{
+	font-size:22px;
+	letter-spacing:2px;
+	color: rgb(50,110,173);
+	margin-left:3%;;
+}
+.bind-p
+{
+	margin-left:3%;
+	color: rgb(126,126,126);
+}
+.color-span
+{
+	color: rgb(50,110,173);
+}
+.bind-input
+{
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	background: rgb(218,227,236);
+	height: 40px;
+}
+.bind-form
+{
+	width: 94%;
+	margin-left: 3%;
+}
+.bind-image-div
+{
+	background: rgb(51,110,176);
+	border-radius:0px;
+}
+.bind-group
+{
+	width: 100%;
+}
+.bind-right-div
+{
+	color: white;
+	background: rgb(179,188,197);
+	border-radius:0px;
+}
+.btn-div
+{
+	background: rgb(51,110,176);
+	height: 32px;
+	font-size: 18px;
+	border-radius:16px;
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+	color: white;
+	line-height: 32px;
+	z-index: 99;
+}
+.inner-div
+{
+	position:relative;
+	background:rgb(129,164,204);
+	height: 28px;
+	font-size: 18px;
+	top:2px;
+	padding-bottom:2px;
+	border-radius:16px;
+	width: 98%;
+	margin-left:1%;
+	text-align: center;
+	color: white;
+	line-height: 28px;
+	z-index: 999;
+	border: 1px solid white;
+}
+#main
+{
+	display: none;
+}
+.red-div
+{
+	color: red;
+}
+.success-div
+{
+	text-align: center;
+}
+.big-well
+{
+	z-index: 99;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	top: 0;
+	filter: Alpha(Opacity=30);
+	-moz-opacity:0.3; 
+    opacity:0.3; 
+    background: black;
+    display: none;
+}
+.success-alert
+{
+	z-index: 999;	
+	position:fixed;
+	top: 25%;
+	width: 96%;
+	left: 2%;
+	display: none;
+}

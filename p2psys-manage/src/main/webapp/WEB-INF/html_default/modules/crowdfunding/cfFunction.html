@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../../../include/resources.html">
+	<title>审核完成列表</title>
+	<script type="text/javascript">
+var editTitle = "编辑";
+var editUrl = "/modules/crowdfunding/projectInfoCommonEditPage.html";
+
+var materialsTitle = "素材管理";
+var materialsUrl = "/modules/crowdfunding/materials/materialsCommon.html";
+
+var orderTitle = "购买记录";
+var orderUrl = "/modules/crowdfunding/order/order.html";
+
+var leaderTitle = "领投人选择";
+var leaderUrl = "/modules/crowdfunding/leader/leader.html";
+
+var confirmTitle = "复审通过";
+var confirmUrl = "/modules/crowdfunding/projectConfirm.html";
+
+var cancelTitle = "撤回";
+var cancelUrl = "/modules/crowdfunding/projectCancel.html";
+
+var flagTitle = "产品标签";
+var flagUrl = "/modules/crowdfunding/flag/projectFlag.html";
+
+var profitTitle = "产品权益";
+var profitUrl = "/modules/crowdfunding/profitRule/profitRule.html";
+
+var dataGrid;
+var winWidth = 900;
+var winHeight = 600;
+
+$(function() {
+	var editIndex = undefined;
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'cfFunctionList.html',
+		fit: true,
+		fitColumns: false,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		frozenColumns:[[
+   		    {field: 'id',title: 'ID',width: 40,fixed: false,checkbox: false},
+   		    {field: 'type',title: '众筹类型',width: 100,sortable: false,
+   				formatter: function(value, row, index) {
+   					if (value == 1) {
+   						return "实物众筹";
+   					} else if (value == 2) {
+   						return "股权众筹";
+   					} else if (value == 3) {
+   						return "影视众筹";
+   					} else if (value == 4) {
+   						return "公益众筹";
+   					}
+   					return "";
+   				}
+   			},
+   			{field: 'projectName',title: '项目名称',width:160,checkbox: false},
+   			{field: 'status',title: '标状态',width: 120,sortable: false,
+   				formatter: function(value, row, index) {
+   					if (value == -1) {
+   						return "<input type=button onclick=addSubmit('" + row.id + "') class='sub_btn' value='提交审核' />";
+   					} else if (value == 0) {
+   						return "等待初审";
+   					} else if (value == 1) {
+   						return "初审通过";
+   					} else if (value == 2) {
+   						return "初审通过";
+   					} else if (value == 39) {
+   						return "截标";
+   					} else if (value == 59) {
+   						return "后台管理员撤回";
+   					}
+   					return "";
+   				}
+   			}
+    		]],
+    		columns: [
+   			[{field: 'wannaAccount',title: '募集金额',width: 100,fixed: true,sortable: false},
+   			 {field: 'info',title: '简介',width: 220,sortable: false},
+   			 {field: 'minMoney',title: '最小金额',width: 100,sortable: false }, 
+   			 {field: 'maxMoney',title: '最大金额',width: 100,sortable: false}, 
+   			 {field: 'isExceedAccept',title: '超募接受',width: 100,sortable: false,fixed: true,
+   				formatter: function(value, row, index) {
+   					if (value == 0) {
+   						return "不接受";
+   					} else if (value == 1) {
+   						return "接受";
+   					} 
+   				}
+   			 }, 
+   			 {field: 'minInvestor',title: '最少人数',width: 100,fixed: true,sortable: false}, 
+   			 {field: 'maxInvestor',title: '最多人数',width: 100,fixed: true,sortable: false}, 
+   			 {field: 'isExceedAcceptInvestor',title: '超人数继续',width: 80,sortable: false,
+   				formatter: function(value, row, index) {
+   					if (value == 0) {
+   						return "不接受";
+   					} else if (value == 1) {
+   						return "接受";
+   					}
+   					return "";
+   				}
+   			 }, 
+   			 {field: 'isRecommend',title: '推荐级别',width:100,fixed: true,sortable: false},
+   			 {field: 'startTime',title: '开始时间',width: 160,sortable: false,
+   			 	formatter:function(value,row,index){
+   			 		return getLocalTime(value,4);                  
+   			 	}
+   			 }, 
+   			 {field: 'endTime',title: '结束时间 ',width: 160,sortable: false,
+   				 	formatter:function(value,row,index){
+   				 		return getLocalTime(value,4);                  
+   				 	}
+   			 }, 
+   			 {field: 'rightDueTime',title: '预计权益日',width: 160,sortable: false,
+   				 	formatter:function(value,row,index){
+   				 		return getLocalTime(value,4);                  
+   				 	}
+   			 },
+   			 {field: 'creater',title: '发起人名称',width: 100,sortable: false},  
+   			 {field: 'company',title: '发起人公司',width: 100,sortable: false}, 
+   			 {field: 'address',title: '公司地址',width:220,sortable: false},
+   			 {field: 'companyMoney',title: '公司现估值',width: 100,sortable: false},
+   			 {field: 'manageFee',title: '管理费提成',width: 100,sortable: false},
+   			 {field: 'breach',title: '违约金比率',width: 100,sortable: false},
+   			 {field: 'likeNum',title: '点赞人数',width: 100,sortable: false},
+   			 {field: 'addAmount',title: '金额增加规则',width: 100,sortable: false,
+   				formatter: function(value, row, index) {
+   					if (value == 0) {
+   						return "无规则";
+   					} 
+   					return value;
+   				}
+   			 },
+   			 {field: 'isShowPc',title: 'pc显示',width: 100,fixed: true,sortable: false,
+   				 formatter:function(value,row,index){
+   					if(value == 0){
+   						return "不显示";
+   					}else{
+   						return "显示";
+   					}
+   				}
+   			 },
+   			 {field: 'isShowWechat',title: '微信显示',width: 100,sortable: false,
+   				formatter:function(value,row,index){
+   					if(value == 0){
+   						return "不显示";
+   					}else{
+   						return "显示";
+   					}
+   				}
+   			 },
+   			 {field: 'pcIndexStatus',title: 'pc热销',width: 100,sortable: false,
+   				formatter:function(value,row,index){
+   					if(value == 0){
+   						return "不是";
+   					}else{
+   						return "是";
+   					}
+   				}
+   		   	},
+			{field: 'action',title: '操作',fixed: false,width: 100,sortable: false,
+				formatter: function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt style="width:78px;">';
+					str += '<a onclick="$.fn.dataGridOptions.editFun(' + row.id + ',editTitle,winWidth,winHeight,editUrl);" title="' + editTitle + '">编辑</a><i class="iconfont">&#xe639;</i>';
+					str += '</dt>';
+					str += '<dd style="width:80px;background:white;">';
+					str += "<a onclick=openMyUrl('" + materialsUrl + "?id=" + row.id + "','" + materialsTitle + "','" + row.id + "') >素材</a>";
+					str += "<a onclick=openMyUrl('" + orderUrl + "?id=" + row.id + "','" + orderTitle + "','" + row.id + "') >订单</a>";
+					str += "<a onclick=openMyUrl('" + leaderUrl + "?id=" + row.id + "','" + leaderTitle + "','" + row.id + "') >领投人</a>";
+					str += "<a onclick=openMyUrl('" + profitUrl + "?id=" + row.id + "','" + profitTitle + "','" + row.id + "') >权益</a>";
+					str += "<a onclick=openMyUrl('" + flagUrl + "?id=" + row.id + "','" + flagTitle + "','" + row.id + "') >标签</a>";
+					str += '<a onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',confirmUrl,confirmTitle);">复审通过</a>';
+					str += '<a onclick="$.fn.dataGridOptions.deleteFun(' + row.id + ',cancelUrl,cancelTitle);">撤回</a>';
+					str += '</dd>'
+					str += '</dl>'
+					return str;
+				}
+			}]
+		],
+		toolbar: '#toolbar',
+		onLoadSuccess: function() {
+			$('#searchForm table').show();
+			parent.$.messager.progress('close');
+		},
+		onRowContextMenu: function(e, rowIndex, rowData) {
+			e.preventDefault();
+			$(this).datagrid('unselectAll').datagrid('uncheckAll');
+			$(this).datagrid('selectRow', rowIndex);
+			$('#menu').menu('show', {
+				left: e.pageX,
+				top: e.pageY
+			});
+		}
+	});
+});
+
+function openMyUrl(url, title, projectId) {
+	$("body", parent.document).find('#new_title').val(title + "[ID:" + projectId + "]");
+	$("body", parent.document).find('#new_url').val(url);
+	$("body", parent.document).find('#new_test').click();
+}
+</script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

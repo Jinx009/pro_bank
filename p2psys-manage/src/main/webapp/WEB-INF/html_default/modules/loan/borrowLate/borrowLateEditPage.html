@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrowLate/overdue.html');
+	});
+</script>
+<div class="popShow">
+	<div class="showItem">
+		<span>借款人：</span>
+		${borrowRepayment.user.userName}
+	</div>
+	<div class="showItem">
+		<span>预还金额：</span>
+		${borrowRepayment.repaymentAccount!0}元
+	</div>
+	<div class="showItem">
+		<span>罚息：</span>
+		${borrowRepayment.lateInterest!0}元
+	</div>
+	<div class="showItem">
+		<span>实还金额：</span>
+		${(borrowRepayment.repaymentAccount!0) + (borrowRepayment.lateInterest!0)}元
+	</div>
+</div>
+<form id="form"  method="post">	
+		<input type="hidden" name="id" value="${borrowRepayment.id}"/>
+		<input type="hidden" name="operatorId" value="${session_operator.id}"/>
+</form>
+

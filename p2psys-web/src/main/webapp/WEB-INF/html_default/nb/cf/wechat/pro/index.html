@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>800众服</title>
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/swiper.min.css" />
+    <script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+    <script src="/themes/theme_default/cf/js/url.js" ></script>
+	<!-- <script src="/plugins/vue/vue.min.js"></script> -->
+	<script src="//cdn.bootcss.com/vue/1.0.16/vue.js"></script>
+    <script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+    <script src="//cdn.bootcss.com/Swiper/3.1.7/js/swiper.jquery.min.js"></script>
+    <script type="text/javascript" src="/themes/theme_default/cf/wechat/js/index2.js" ></script>
+    
+</head>
+<body>
+	<input type="hidden" value="${id}" id="id" >
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>首页</span>
+		<div class="back-right">
+			<div class="select">
+				<p>分类</p>
+				<ul>
+					<li  data-value="股权众筹"><a href="/cf/wechat/pro/index.html?id=2" ><b>股权众筹</b></a></li>
+					<li  data-value="实物众筹"><a href="/cf/wechat/pro/index.html?id=1" ><b>实物众筹</b></a></li>
+					<li  data-value="公益众筹"><a href="/cf/wechat/pro/index.html?id=4" ><b>公益众筹</b></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<#include "../include/menue.html">
+	<div class="index-hr" ></div>
+	<div class="swiper-container">
+	  <div class="swiper-wrapper">
+	    <div class="swiper-slide"  v-for="banner in banners" >
+	    	<a :href="banner.bannerLinkUrl" ><img  :data-src="banner.bannerPicUrl"  class="swiper-lazy"/><div class="swiper-lazy-preloader"></div></a>
+	    </div>
+	  </div>
+	  <div class="swiper-pagination"></div>
+	</div>
+	<div class="productList">
+	<template v-for='product in products'>
+			<div class="product-item">
+				<div class="product-img">
+					<a v-if="2===product.type" href="/wechat/pro/detail.action?id={{ product.id }}"><img :src="product.detailImg" class="product-big-img"/></a>
+					<a v-if="1===product.type" href="/wechat/pro/del.action?id={{ product.id }}"><img :src="product.detailImg" class="product-big-img"/></a>
+					<a v-if="4===product.type" href="/wechat/pro/del.action?id={{ product.id }}"><img :src="product.detailImg" class="product-big-img"/></a>
+					<div v-if="product.timeStatus===1" class="product-small-left-img">预热中</div>
+					<div v-if="product.timeStatus===2" class="product-small-left-img">众筹中</div>
+					<div v-if="product.timeStatus===3" class="product-small-left-img">众筹失败</div>
+					<div v-if="product.timeStatus===4" class="product-small-left-img">众筹成功</div>
+					<!-- <img src="/themes/theme_default/cf/wechat/img/attention_active.png" class="product-small-right-img"/> -->
+				</div>
+				<div class="product-title">
+					<h1 v-text='product.projectName'></h1>
+					<p v-text='product.info'></p>
+				</div>
+				<div class="product-bottom">
+					<div class="product-bottom-left">
+						<p>
+							<span v-if="product.type===1" class="product-type">实物众筹</span>
+							<span v-if="product.type===2" class="product-type">股权众筹</span>
+							<span v-if="product.type===4" class="product-type">公益众筹</span>
+							<span class="start-money">最小投资额：<font v-text="product.minMoney | moneyFormat "></font></span>
+						</p>
+						<p class="end-time" v-text="product.endTime | timeFormat 'yyyy.MM.dd' | addPer '截止时间：' '' "></p>
+					</div>
+					<div class="product-bottom-right">
+						<a v-if="2===product.type" href="/wechat/pro/detail.action?id={{ product.id }}"><button>了解更多</button></a>
+						<a v-if="1===product.type" href="/wechat/pro/del.action?id={{ product.id }}"><button>了解更多</button></a>
+						<a v-if="4===product.type" href="/wechat/pro/del.action?id={{ product.id }}"><button>了解更多</button></a>
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar" style="width: {{product.step}}" ></div>
+				</div>
+			</div>
+		</template>
+	</div>
+</body>
+</html>

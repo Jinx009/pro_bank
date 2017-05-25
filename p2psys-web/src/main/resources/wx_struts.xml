@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- zwx start -->
+	<package name="wx" namespace="/wx" extends="project-default">
+
+		<action name="getpwd_phone2" class="com.rongdu.p2psys.web.user.UserAction" method="getpwd_phone2">
+			<result name="getpwd_phone2" type="ftl">
+				/wechat/getpwd_phone2.html
+			</result>
+		</action>
+		<action name="index" class="com.rongdu.p2psys.IndexAction" method="index">
+			<result name="investIndex" type="ftl">
+				/wechat/wx_p2/html/index.html
+			</result>
+		</action>
+		<action name="siteIntro" class="com.rongdu.p2psys.IndexAction" method="siteIntro">
+			<result name="siteIntro" type="ftl">
+				/wechat/800Bank.html
+			</result>
+		</action>
+		<action name="recommend">
+			<result  type="ftl">
+				/wechat/wx_p2/html/recommend.html
+			</result>
+		</action>
+		<!--s<action name="index" class="com.rongdu.p2psys.IndexAction" method="index"> 
+			<result name="investIndex" type="ftl">/wechat/investIndex.html </result> 
+			</action> -->
+		<!-- 登录 -->
+		<action name="login" class="com.rongdu.p2psys.web.user.UserAction" method="login">
+			<result name="login" type="ftl">/wechat/login.html</result>
+		</action>
+		<!-- 注册 -->
+		<action name="register" class="com.rongdu.p2psys.web.user.UserAction" method="personalRegister">
+			<result name="personalRegister" type="ftl">
+				/wechat/register.html
+			</result>
+		</action>
+		<!-- 忘记密码 -->
+     	<action name="getpwd"  class="com.rongdu.p2psys.web.user.UserAction" method="getPwd">
+      		<result name="getpwd_phone1" type="ftl">/wechat/forgetPasswd.html</result>
+      		<result name="getpwd_success" type="redirect">/wx/login.html</result>
+     	</action>
+		<!-- 供应键金融 -->
+		<action name="investList" class="com.rongdu.p2psys.InvestAction" method="index">
+			<result name="investIndex" type="ftl">
+				/wechat/wx_p2/html/list.html
+			</result>
+		</action>
+		<!-- 美国地产 -->
+		<action name="estateList" class="com.rongdu.p2psys.InvestAction" method="estate">
+			<result name="estateIndex" type="ftl">
+				/wechat/wx_p2/html/estateList.html
+			</result>
+		</action>
+		<!-- 委托投资 -->
+		<action name="entrustList" class="com.rongdu.p2psys.InvestAction" method="entrust">
+			<result name="entrustIndex" type="ftl">
+				/wechat/wx_p2/html/entrustList.html
+			</result>
+		</action>
+		<!-- PPfund -->
+		<action name="ppfundList" class="com.rongdu.p2psys.web.ppfund.PpfundAction" method="index">
+			<result name="index" type="ftl">
+				/wechat/wx_p2/html/ppfundList.html
+			</result>
+		</action>
+		<!-- 私人顾问 -->
+        <action name="personalConsultantsPage"  class="com.rongdu.p2psys.web.finance.PersonalConsultantsAction" method="personalConsultantsPage">
+            <result name="personalConsultantsPage" type="ftl">/wechat/private_consultant.html</result>
+        </action>
+	</package>
+	<!-- Chris 多身份对应 begin-->
+	<!-- 
+	<package name="wechatCount" namespace="/nb/wechat/" extends="project-default">
+		<action name="main" class="com.rongdu.p2psys.web.account.MemberAction" method="main">
+			<result name="main" type="ftl">/nb/wechat/account/main.html</result>
+			<result name="main_firm" type="ftl">/wechat/account.html</result>
+			<result name="main_vouch" type="ftl">/wechat/account.html</result>
+		</action>
+	</package>
+	 -->
+	<!-- end -->
+	<package name="wxaccount" namespace="/wx/account" extends="project-default">
+		<!-- 现金管理详情 -->
+		<action name="ppfundDetail" class="com.rongdu.p2psys.web.ppfund.PpfundAction" method="detail">
+			<result name="detail" type="ftl">
+				/wechat/wx_p2/html/ppfundDetail.html
+			</result>
+		</action>
+		<!-- 美国地产详情 -->
+		<action name="estateDetail" class="com.rongdu.p2psys.InvestAction" method="detail">
+			<result name="detail" type="ftl">
+				/wechat/wx_p2/html/estateDetail.html
+			</result>
+		</action>
+		<!-- 供应链金融 -->
+		<action name="detail" class="com.rongdu.p2psys.InvestAction" method="detail">
+			<result name="detail" type="ftl">
+				/wechat/wx_p2/html/detail.html
+			</result>
+		</action>
+		<!-- 委托投资 -->
+		<action name="entrustDetail" class="com.rongdu.p2psys.InvestAction" method="entrustDetail">
+			<result name="entrustDetail" type="ftl">
+				/wechat/wx_p2/html/entrustDetail.html
+			</result>
+		</action>
+		<!-- 我的账户 -->
+		<action name="main" class="com.rongdu.p2psys.web.account.MemberAction" method="main">
+			<result name="main" type="ftl">/wechat/account.html</result>
+			<result name="main_firm" type="ftl">/wechat/account.html</result>
+			<result name="main_vouch" type="ftl">/wechat/account.html</result>
+		</action>
+		<!-- 充值 -->
+		<action name="newRecharge" class="com.rongdu.p2psys.web.recharge.RechargeAction" method="newRecharge">
+			<result name="newRecharge" type="ftl">/wechat/recharge.html</result>
+		</action>
+		<!-- 安全中心 -->
+		<action name="setting" class="com.rongdu.p2psys.web.user.SecurityAction" method="setting">
+			<result name="setting" type="ftl">/wechat/security.html</result>
+		</action>
+        <!-- 身份认证 -->
+        <action name="realNameIdentify" class="com.rongdu.p2psys.web.account.MemberAction" method="realNameIdentify">
+            <result name="realNameIdentify" type="ftl">/wechat/IDAuthentication.html</result>
+        </action>
+		<!-- 绑定银行卡 -->
+		<action name="addBank" class="com.rongdu.p2psys.web.account.CashAction" method="addBankPage">
+			<result name="addBank" type="ftl">/wechat/bankcard-bind.html</result>
+		</action>
+		<!-- 修改登录密码 -->
+        <action name="modifyPwd"  class="com.rongdu.p2psys.web.user.SecurityAction" method="setting">
+          	<result name="setting" type="ftl">/wechat/resetLoginPassword.html</result>
+     	</action>
+     	<!-- 修改支付密码 -->
+     	<action name="modifyPaypwd"  class="com.rongdu.p2psys.web.user.SecurityAction" method="setting">
+          	<result name="setting" type="ftl">/wechat/resetPayPassword.html</result>
+     	</action>
+		<!-- 提现验证码验证 -->
+		<action name="checkylCode" class="com.rongdu.p2psys.web.account.CashAction" method="checkylCode">
+			<result name="checkylCode" type="ftl">/wechat/checkylCode.html</result>
+		</action>
+		<!-- 提现 -->
+		<action name="newCash" class="com.rongdu.p2psys.web.account.CashAction" method="newCash">
+			<result name="newCash" type="ftl">/wechat/mention.html</result>
+		</action>
+		<!-- 我的提现卡 -->
+        <action name="bank"  class="com.rongdu.p2psys.web.account.CashAction" method="bank">
+            <result name="bank" type="ftl">/wechat/myCashCard.html</result>
+        </action>
+        
+        <!-- 预约时间 -->
+        <action name="applyAc"  class="com.rongdu.p2psys.web.finance.PersonalConsultantsAction" method="applyAc">
+            <result name="applyAc" type="ftl">/wechat/appointment.html</result>
+        </action>
+		 <action name="consultantsSuccess"  class="com.rongdu.p2psys.web.finance.PersonalConsultantsAction" method="personalConsultantsPage">
+            <result name="personalConsultantsPage" type="ftl">/wechat/appointment_success.html</result>
+        </action>
+        <!--现金管理投资详情列表-->
+		<action name="ppfund"  class="com.rongdu.p2psys.web.ppfund.PpfundInAction" method="ppfund">
+            <result name="ppfund" type="ftl">/wechat/ppfund_detailList.html</result>
+        </action>
+        <!--资金记录-->
+        <action name="account_log"  class="com.rongdu.p2psys.web.account.AccountAction" method="log">
+            <result name="log" type="ftl">/wechat/account_log.html</result>
+        </action>
+	</package>
+	<!-- end zwx -->
+</struts>

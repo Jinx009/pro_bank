@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+	<div class="usermain clearfix">
+		<!--左边的导航 开始-->
+		<div class="user_left">
+			<#assign mid="m_info" >
+			<#include "../user_menu.html">
+		</div>
+		
+		<div class="user_right">
+			<#if operatorRole??>
+			已选专属客服：<img src="${adminurl}${operatorRole.operator.path!}" alt="${operatorRole.operator.name!}" class="kefu_img float_left">
+		                    <div class="kefu_txt float_left">
+		                        <p>姓名：${operatorRole.operator.name!}</p>
+		                        <p>电话：${operatorRole.operator.phone!}</p>
+		                        <p>qq:${operatorRole.operator.qq!}</p>
+		                    </div>
+		    <#else>
+		    您尚未选择专属客服，请选择。
+		    </#if>
+		</div>
+		<div class="user_right">
+			<div class="user_right_menu">
+				<ul class="user_right_menu clearfix">
+					<li class="h_menu_li">专属客服</li>
+				</ul>
+			</div>
+			<div class="user_right_main">
+				<form action="${webroot}/member/info/setCustomerService.html" id="J_customer">
+					<ul class="customer_list clearfix J_vip_box">
+					<#if list??>
+					<#list list as item>
+						<li class="vip_kefu">
+		                    <img src="${adminurl}${item.operator.path!}" alt="${item.operator.name!}" class="kefu_img float_left">
+		                    <div class="kefu_txt float_left">
+		                        <p>姓名：${item.operator.name!}</p>
+		                        <p>电话：${item.operator.phone!}</p>
+		                        <p>qq:${item.operator.qq!}</p>
+		                    </div>
+		                    <input type="radio" name="customerUserId" value="${item.operator.id!}" id="RadioGroup1_0" class="choose_btn"> 
+						</li>
+					</#list>
+					<#else>
+					暂无
+						
+					</#if>
+					
+					</ul>
+					<div class="customer_btn">
+						<input type="submit" class="btn sub_btn" name="name" value="确认提交" size="30">
+					</div>
+				</form>	
+				
+			</div>
+		
+		</div>		
+		
+		<script>
+			seajs.use("${webroot}${theme_dir}/media/js/member/recharge.js")
+			$("#J_customer").validate({
+				submitHandler:function(form,event,validator){
+					$(form).ajaxSubmit(function(data){
+						var result = data.result;
+						if(result){
+							reLoad();
+						}else{
+							layer.alert(data.msg);
+						}
+					})
+				}
+			})
+		</script>
+		<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

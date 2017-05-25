@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/editGoods.html');
+    });
+</script>
+<form id="form"  method="post">
+<div class="popShow" style="padding-bottom:0;">
+    <div class="showItem">
+    	<span>用户名：</span>
+    	${user.userName}
+    </div>
+    <div class="showItem">
+    	<span>用户真实姓名：</span>
+    	${user.realName}
+    </div>
+    <div class="showItem">
+    	<span>用户可用余额：</span>
+    	${account.useMoney}元
+    </div>
+    <div class="showItem">
+    	<span>充值金额：</span>
+    	<input type="hidden" name="autoToken" value="${autoToken!''}"/>
+    	<input type="text" name="rechargeMoney" class="easyui-validatebox" data-options="required: true" />
+    </div>
+</div>
+</form>

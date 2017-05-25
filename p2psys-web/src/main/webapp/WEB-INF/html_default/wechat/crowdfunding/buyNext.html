@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/wechat/index.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/progress/js/radialIndicator.js" ></script>
+<link href="/themes/theme_default/crowdfunding/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<title>确认选择</title>
+<style type="text/css">
+.top_nav
+{
+	background: rgb(49,113,185);
+	text-align: center;
+	width: 100%;
+	height: 2.8em;
+	vertical-align: middle;
+}
+.top_nav table
+{
+	width: 100%;
+	height: 100%;
+}
+.top_td
+{
+	vertical-align: middle;
+	font-size: 1.2em;
+	color: white;
+	height: 100%;
+	letter-spacing: 0.1em;
+}
+body
+{
+	font-family: "Microsoft YaHei";
+}
+.main
+{
+	width: 96%;
+	margin-left: 2%;
+}
+.main_table
+{
+	width: 100%;
+}
+.main_table td
+{
+	text-align: left;
+	vertical-align: middle;
+}
+.main_table span
+{
+	font-size: 1.2em;
+	letter-spacing: 0.1em;
+	text-align: left;
+}
+.blue_span
+{
+	font-size: 1.2em;
+	letter-spacing: 0.1em;
+	color: rgb(48,113,184);
+}
+.letter_tr
+{
+	height: 5px;
+}
+.inner_table
+{
+	width: 100%;
+	height: 100%;
+}
+.inner_table td
+{
+	height: 100%;
+}
+.profit_table
+{
+	width: 100%;
+}
+.two_span
+{
+	color: gray;
+}
+:-ms-input-placeholder
+{
+	color: rgb(48,113,184);
+}
+::-webkit-input-placeholder
+{
+	color: rgb(48,113,184);
+}
+:-moz-placeholder
+{
+	color: rgb(48,113,184);
+}
+::-moz-placeholder
+{
+	color: rgb(48,113,184);
+}
+.div_one
+{
+	height: 0.6em;
+	background: rgb(222,222,222);
+}
+.my_input
+{
+	width: 70%;
+	height: 26px;
+}
+.little_blue_span
+{
+	font-size: 0.6em;
+	letter-spacing: 0.1em;
+	color: rgb(48,113,184);
+}
+.next_btn
+{
+	text-align: center;
+	height: 2em;
+	color: white;
+	background: rgb(51,110,176);
+	border-radius:0.3em;
+	letter-spacing: 0.4em;
+	font-size: 1.2em;
+}
+.back_btn
+{
+	text-align: center;
+	height: 2em;
+	color: white;
+	background: rgb(177,177,177);
+	border-radius:0.3em;
+	letter-spacing: 0.4em;
+	font-size: 1.2em;
+}
+.right_logo
+{
+	width: 100%;
+	text-align: center;
+}
+.right_logo img
+{
+	width: 20%;
+}
+.info_table
+{
+	width: 96%;
+	margin-left: 2%;
+	text-align: center;
+}
+
+.bar {
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	min-height: 60px;
+	max-height: 100px;
+	width: 100%;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 5%;
+	height: 30%;
+	width: 30%;
+}
+
+.bar {
+	margin-top:50px;
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	height: 66px;
+	width: 100%;
+	z-index: 100;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+	font-size: 12px;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 3px;
+	height: 36px;
+	width: 36px;
+}
+.dd {
+	width: 25%;
+	height: 120px;
+	position: absolute;
+	left: 25%;
+	bottom: 80px;
+	color: #5D5D5D;
+	font-size: 15px;
+	z-index: 999;
+	display: none;
+}
+
+.ddd {
+	height: 40px;
+	background-color: white;
+}
+
+.ddd:hover {
+	
+}
+
+.dddd {
+	height: 40px;
+	line-height: 40px;
+	width: 92%;
+	margin-left: 4%;
+}
+
+.dddd:hover {
+	background-color: #D7D7D7;
+}
+
+.veil {
+	background-color: black;
+	filter: alpha(opacity = 10);
+	-moz-opacity: 0.1;
+	opacity: 0.1;
+}
+</style>
+
+<script type="text/javascript">
+var profit_data;
+$(function()
+{	
+	var project_id = $("#project_id").val();
+	
+	var invest_id = $("#invest_id").val();
+
+	if(""!=invest_id&&null!=invest_id&&"undefined"!=invest_id)
+	{
+		$("#msg").show();
+		$("#error_msg").show();
+		
+		$("#profit_name").hide();
+		$("#give_num").hide();
+		
+	}
+	$.ajax({
+		url:"/crowdfunding/projectInfoDetail.html?projectId="+project_id,
+		type:"GET",
+		dataType:"json",
+		async:false,
+		success:function(res)
+		{
+			var data = res;
+			$("#project_name").html(data.project_name);
+			var give_num = parseFloat(data.stakeShare)*100;
+			$("#give_num").html(give_num+"%");
+		}
+	})	
+	$.ajax({
+		url:"/crowdfunding/getProjectRules.html?id="+project_id,
+		type:"GET",
+		dataType:"json",
+		async:false,
+		success:function(res)
+		{
+			profit_data = res.rules;
+			var data = res.rules;
+			for(var i = 0;i<data.length;i++)
+			{
+				var left_html = "<tr><td valign=top ><p>"+data[i].entryPrice+"-"+data[i].ceilingPrice+"</p></td><td  id=invest"+i+"  ></td>";
+				
+				$("#rule_info").append(left_html);
+				
+				var profit_num = 1;
+				
+				for(var j = 0;j<data[i].ruleList.length;j++)
+				{
+					var group_id = data[i].ruleList[j].groupId;
+					
+					if($("#"+data[i].id+group_id).length>=1)
+					{
+						$("#"+data[i].id+group_id).append(data[i].ruleList[j].rightDescription+";");
+					}
+					else
+					{
+						$("#invest"+i).append("<p id="+data[i].id+group_id+" >"+profit_num+":"+data[i].ruleList[j].rightDescription+";</p>");
+						profit_num++;
+					}
+				}
+			}
+		}
+	})
+	changeText();
+})
+function goNext()
+{
+	var record_id = $("#record_id").val();
+	var user_id = $("#user_id").val();
+	var pwd = $("#pwd").val();
+	var money = $("#my_money").val();
+	
+	var params = "pwd="+pwd+"&user_id="+user_id+"&record_id="+record_id+"&money="+money;
+	
+	$.ajax({
+		url:"/crowdfunding/investWechat.html",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		success:function(res)
+		{
+			if("success"==res.result)
+			{
+				showSuccess();
+			}
+			else
+			{
+				$("#fail_msg").html(res.result);
+				
+				$("#top_error").show(100);
+				$("#top_success").hide();
+			}
+		}
+	})
+}
+function goBack()
+{
+	var project_id = $("#project_id").val();
+	
+	location.href = "/wechat/crowdfunding/buy.html?project_id="+project_id;	
+}
+function hideError()
+{
+	$("#pay_success").hide();
+	$("#top_error").hide();
+	$("#top_success").show();	
+}
+function goSuccessBack()
+{
+	location.href = "/wechat/crowdfunding/index.html";		
+}
+function showSuccess()
+{
+	$("#success_project_name").html($("#project_name").html()+"产品订单");
+	
+	$("#top_error").hide();
+	$("#top_success").hide();	
+	$("#pay_success").show(100);
+}
+function changeText()
+{
+	var value = parseFloat($("#my_money").val());  
+	var invest_id = $("#invest_id").val();
+
+	if(""!=invest_id&&null!=invest_id&&"undefined"!=invest_id)
+	{
+		changeThisText();
+	}
+	else
+	{
+		for(var i =0 ;i<profit_data.length;i++)
+		{
+			if(parseFloat(profit_data[i].entryPrice)<=value&&0!=parseFloat(profit_data[i].ceilingPrice)&&parseFloat(profit_data[i].ceilingPrice)>=value)
+			{
+				
+				min_money =	 parseFloat(profit_data[i].baseMoneyUnitPrice);
+				
+				var type = 1;
+				
+				for(var j =0 ;j<profit_data[i].ruleList.length;j++)
+				{
+					if(0==parseInt(profit_data[i].ruleList[j].profitType))
+					{
+						type = 0;
+					}
+				}
+				if(0==type)
+				{
+					$("#person").show();
+				}
+				else
+				{
+					$("#person").hide();
+				}
+				
+			
+				$("#profit_span").html("<br><span class='red_span' >"+$("#invest"+i).html()+"</span>");
+				
+			}
+			if(parseFloat(profit_data[i].entryPrice)<=value&&"0"==parseFloat(profit_data[i].ceilingPrice))
+			{
+				min_money =	 parseFloat(profit_data[i].baseMoneyUnitPrice);
+				
+				var type = 1;
+				
+				for(var j =0 ;j<profit_data[i].ruleList.length;j++)
+				{
+					if(0==parseInt(profit_data[i].ruleList[j].profitType))
+					{
+						type = 0;
+					}
+				}
+				if(0==type)
+				{
+					$("#person").show();
+				}
+				else
+				{
+					$("#person").hide();
+				}
+				
+				$("#profit_span").html("<br><span  class='red_span' >"+$("#invest"+i).html()+"</span>");
+			}
+			
+		}
+	}
+
+}
+
+function changeThisText()
+{
+	
+	
+	var invest_id = $("#invest_id").val();
+	for(var i = 0;i<profit_data.length;i++)
+	{
+		if(profit_data[i].id==invest_id)
+		{
+			var profit_num = 1;
+			
+			$("#profit_span").append("<span id=this"+invest_id+" ></span>");
+			
+			var type = 1;
+			
+			for(var j = 0;j<profit_data[i].ruleList.length;j++)
+			{
+				var group_id = profit_data[i].ruleList[j].groupId;
+				
+				if($("#this"+invest_id+group_id).length>=1)
+				{
+					$("#this"+invest_id+group_id).append(profit_data[i].ruleList[j].rightDescription+";");
+				}
+				else
+				{
+					$("#this"+invest_id).append("<p id=this"+invest_id+group_id+" >"+profit_num+":"+profit_data[i].ruleList[j].rightDescription+";</p>");
+					profit_num++;
+				}
+				if(0==parseInt(profit_data[i].ruleList[j].profitType))
+				{
+					type = 0;
+				}
+			}
+			
+			if(0==type)
+			{
+				$("#person").show();
+			}
+			else
+			{
+				$("#person").hide();
+			}
+		}
+		
+		
+	}
+	
+		
+}
+</script>
+</head>
+<body>
+<input type="hidden" id="invest_id" value="${invest_id}" >
+<input type="hidden" id="my_money" value=${money} >
+<input type="hidden" id="project_id" value="${project_id}" >
+<input type="hidden" id="user_id" value="${user_id}" >
+<input type="hidden" id="record_id" value="${record_id}" >
+<div id="top_success" >
+<div class="top_nav" >
+	<table>
+		<tr>
+			<td class="top_td" >信息确认</td>
+		</tr>
+	</table>
+</div>
+<div id="main" class="main" >
+	<div style="height: 1em" ></div>
+	<table class="main_table" >
+		<tr>
+			<td width="30%" ><span>项目名称</span></td>
+			<td width="70%" ><span class="blue_span"  id="project_name" ></span> </td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr  >
+			<td width="30%" ><span  id="msg" style="display: none" >投资份数</span></td>
+			<td width="70%"><span class="blue_span" id="error_msg" style="display: none"  >${num}</span></td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td ><span >投资金额</span></td>
+			<td >
+				<input type="hidden" id="my_money" value="${money}"  >
+				<span style="color: rgb(48,113,184);"  id="money" >￥${real_money}</span>
+			</td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span id="profit_name" >权益占比</span></td>
+			<td><span id="give_num" class="blue_span" ></span></td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td valign="top"   colspan="2" >
+				<div  style="border-radius:0.6em;width: 100%;text-align: left;background: rgb(222,222,222)" >
+					<br>
+					<span class="red_span" style="width: 90%;margin-left: 5%;"  >您享有的收益如下(多选一):</span>
+					<div id="profit_span" style="width: 90%;margin-left: 5%;" ></div>
+					<div style="height: 1em" ></div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span>姓名</span>  </td>
+			<td><span id="username" >${username}</span> </td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span>手机</span>  </td>
+			<td> <span id="tel" >${tel}</span></td>
+		</tr>
+		
+		<tr class="letter_tr" ></tr>
+		<tr class="letter_tr" ></tr>
+	</table>
+	<div style="height: 1.2em" ></div>
+	<div id="person" >
+	<table class="main_table" >
+	
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td  width="30%" ><span>通讯地址</span>  </td>
+			<td  width="70%" > <span id="address_top" >${address_grade} ${address_father} ${address_son}</span></td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td> </td>
+			<td> <span id="address" >${address}</span></td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span>运费</span> </td>
+			<td><span>免运费</span> </td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span>邮编</span></td>
+			<td><span id="zipCode" >${post_num}</span> </td>
+		</tr>
+	</table>
+	</div>
+	<table class="main_table" >
+		<tr class="letter_tr" ></tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td><span>交易密码</span></td>
+			<td>
+				<table style="width: 100%">
+					<tr>
+						<td width="70%" ><input type="password" id="pwd"  class="form-control" style="width: 100%;height: 26px" ></td>
+						<td width="30%"> <a class="little_blue_span">&nbsp;&nbsp;&nbsp;忘记密码</a> </td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr class="letter_tr" ></tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td colspan="2" style="text-align: center;" class="next_btn" onclick="goNext()" >确认</td>
+		</tr>
+		<tr class="letter_tr" ></tr>
+		<tr>
+			<td colspan="2"  style="text-align: center;" class="back_btn" onclick="goBack()" >返回</td>
+		</tr>
+	</table>
+	
+</div>
+</div>
+
+
+<div id="top_error" style="display: none" >
+	<div class="top_nav" >
+		<table>
+			<tr>
+				<td class="top_td" >支付成功</td>
+			</tr>
+		</table>
+	</div>
+	<div class="right_logo" >
+		<div style="height:50px" ></div>
+		<img src="/themes/theme_default/crowdfunding/pay_fail.png" />
+		<div style="height:50px" ></div>
+	</div>
+	<table class="info_table" >
+		<tr>
+			<td width="45%" valign="middle"  ><hr style="width: 100%;height: 1px" > </td>
+			<td width="10%" valign="middle"  ><img src="/themes/theme_default/crowdfunding/buy_car.png" width="90%" /></td>
+			<td width="45%" valign="middle"  ><hr style="width: 100%;height: 1px" > </td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle" >
+				<h3>支付失败</h3>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle" style="text-align: left;color: gray"  ><p style="color: gray;" >失败原因</p></td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle" style="text-align: left;color: gray"  ><p style="color: gray;text-indent: 2em" id="fail_msg" ></p></td>
+		</tr>
+		<tr height="50px" ></tr>
+		<tr>
+			<td colspan="3" valign="middle" style="background: rgb(35,112,182);color: white;letter-spacing: 0.1em;font-size: 1.2em;border-radius:0.3em" height="45px" onclick="hideError()"  >确定</td>
+		</tr>
+	</table>
+	
+</div>
+
+
+<div id="pay_success" style="display: none" >
+	<div class="top_nav" >
+		<table>
+			<tr>
+				<td class="top_td" >支付成功</td>
+			</tr>
+		</table>
+	</div>
+	<div class="right_logo" >
+		<div style="height:50px" ></div>
+		<img src="/themes/theme_default/crowdfunding/pay_sure.png" />
+		<div style="height:50px" ></div>
+	</div>
+	<table class="info_table" >
+		<tr>
+			<td width="45%" valign="middle"  ><hr style="width: 100%;height: 1px" > </td>
+			<td width="10%" valign="middle"  ><img src="/themes/theme_default/crowdfunding/buy_car.png" width="90%" /></td>
+			<td width="45%" valign="middle"  ><hr style="width: 100%;height: 1px" > </td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle" >
+				<h3>￥ ${money}</h3>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle"  ><hr style="width: 100%;height: 1px" ></td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle" >
+				<h4 style="color: gray" id="success_project_name"  ></h4>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" valign="middle"  ><hr style="width: 100%;height: 1px" ></td>
+		</tr>
+		<tr height="50px" ></tr>
+		<tr>
+			<td colspan="3" valign="middle" style="background: rgb(35,112,182);color: white;letter-spacing: 0.1em;font-size: 1.2em;border-radius:0.3em" height="45px" onclick="goSuccessBack()"  >确定</td>
+		</tr>
+		<tr height="10px" ></tr>
+		<tr>
+			<td colspan="3" valign="middle" style="background: rgb(177,177,177);color: white;letter-spacing: 0.1em;font-size: 1.2em;border-radius:0.3em" height="45px" onclick="hideError()"  >返回</td>
+		</tr>
+	</table>
+</div>
+
+<div style="height: 6em" ></div>
+<div class="bar">
+	<div class="toggle" id="ichi">
+		<div>
+			<img class="press-icon" alt=""
+				src="${webroot}${theme_dir}/wx/img/home_normal.png" id="ichiichi">
+		</div>首页
+	</div>
+	<div class="toggle" id="ni">
+		<div style="position: relative;">
+			<img class="press-icon" alt=""	src="${webroot}${theme_dir}/wx/img/lise_normal.png" id="nini">
+		</div>
+		<a href="/wechat/crowdfunding/index.html"	style="color: white" >产品系列</a>
+	</div>
+	<div class="toggle" id="san">
+		<div  onclick="goLoginPage()">
+			<img class="press-icon" src="${webroot}${theme_dir}/wx/img/account_normal.png" id="sansan">
+		</div>
+		<a	style="text-decoration: none; color: white">我的账户</a>
+	</div>
+	<div class="toggle" id="yon">
+		<div onclick="goMorePage()">
+			<img class="press-icon"	src="${webroot}${theme_dir}/wx/img/more_normal.png" id="yonyon">
+		</div>
+		<a 	style="text-decoration: none; color: white">更多</a>
+	</div>
+</div>
+
+
+<div id="more" class="more" style="display: none"   >
+	<table class="table table-bordered" style="width: 100%;text-align: center;margin-top: 15px" >
+		<thead>
+			<tr>
+				<th style="width: 40%" >投资规则(金额区间)</th><th style="width: 60%" >收益规则(多选一)</th>
+			</tr>
+		</thead>
+		<tbody id="rule_info"></tbody>
+		<tr style="height: 2em" ></tr>
+		<tr>
+			<td colspan="2"  onclick="tableBack();" style="text-align: center;color: white;font-size: 1.2em;background: gray;border-radius:0.3em;letter-spacing: 1em;"  >返回</td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>

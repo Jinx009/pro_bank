@@ -1,0 +1,48 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/finance/site/financeSiteEdit.html');
+	});
+</script>
+<style>
+  .formitm{margin:15px 0; clear:both; height:33px;}
+</style>
+
+<div class="borrowForm">
+<form id="form"  method="post" enctype="multipart/form-data">
+	<div>
+		<div class="borrowFormMuti">
+			<span>栏目标题：</span>
+			<input type="text" name="title" value="${financeSite.title}" />
+		</div>
+		<div class="borrowFormMuti"><span>栏目图片：</span><input type="file" name="file" title="点击上传图片" /></div>
+		<div class="borrowFormMuti"><span></span><#if financeSite.picPath??><input type="hidden" name="picPath" value="${financeSite.picPath!}"> <a href="${financeSite.picPath}" class="fileshow" rel="guaranteePic"><img src="${financeSite.picPath}" width="100px" height="100px"/></a></#if></div>
+		
+		<div class="borrowFormMuti"><span>状态：</span>
+			<select name="status">
+				<option value="1" <#if financeSite.status==1>selected=selected</#if>>显示</option>
+				<option value="2" <#if financeSite.status==2>selected=selected</#if>>隐藏</option>
+			</select>
+		</div>
+		<div class="borrowFormMuti">
+			<div class="tits" style="margin-bottom:20px;">栏目内容：</div>
+			<div class="conts">        				
+				<#include "umeditor.htm"> 
+				<@showUeditor width=870 heigth=300 id="message" name="content" content="${financeSite.content!}" />
+			</div>
+		</div><div>
+			<span>添加时间：</span>
+			${(financeSite.addTime)?string('yyyy-MM-dd HH:mm:ss')}
+		</div>
+		<div>
+			<span>添加IP：</span>
+			${financeSite.addIp}
+		</div>
+	</div>
+	<input type="hidden" name="id" value="${financeSite.id}"/>
+	<input type="hidden" name="addTime" value="${financeSite.addTime?string('yyyy-MM-dd hh:mm:ss')}"/>
+	<input type="hidden" name="addIp" value="${financeSite.addIp}"/>
+</form>
+</div>
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>

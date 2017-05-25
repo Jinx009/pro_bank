@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="/plugins/box/css/reset.css">
+<link rel="stylesheet" href="/plugins/box/css/atom.css">
+<link rel="stylesheet" href="/plugins/box/css/global.css">
+<link rel="stylesheet" href="/plugins/box/css/open.css">
+<script src="/themes/theme_default/cf/active/js/jquery.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<title>800众服</title>
+<script type="text/javascript">
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp: ${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+    ]
+});
+
+wx.ready(function() {
+    wx.checkJsApi({
+        jsApiList: ['chooseImage'],
+        success: function(res) {
+            wx.showMenuItems({
+                menuList: ['menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                    'menuItem:share:timeline'
+                ]
+            });
+        }
+    });
+    wx.onMenuShareTimeline({
+        title: '800众服，赐你2016投资锦囊！',
+        desc: '800众服，赐你2016投资锦囊！',
+        link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa37b227117def502&redirect_uri=http://www.800zf.cn/active/wechat/box.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect',
+        imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+        success: function() {goUrl();},
+        cancel: function() {}
+    });
+    wx.onMenuShareAppMessage({
+        title: '800众服，赐你2016投资锦囊！',
+        desc: '800众服，赐你2016投资锦囊！',
+        link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa37b227117def502&redirect_uri=http://www.800zf.cn/active/wechat/box.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect',
+        imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+        success: function() {goUrl();},
+        cancel: function() {}
+    });
+});
+
+wx.error(function(res) {}); 
+function goUrl(){
+	location.href = "/active/wechat/invite.action";
+}
+</script>
+<style type="text/css">
+.chest-btn{
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(107, 102, 103)), to(rgb(224, 179, 183)))
+}
+</style>
+</head>
+<body ontouchstart="" class="open-body">
+<input type="hidden" value="${nick}" id="nick" >
+  <div class="wrapper">
+    <div class="bg rotate"></div>
+    <div class="open-has ">
+      <h3 class="title-close"><span class="user">800众服</span>赐你2016年度投资锦囊</h3>
+      <h3 class="title-open"  >恭喜你${nick}：</br>成功领取<span class="user">800众服</span>2016投资锦囊</h3>
+      <div class="mod-chest">
+        <div class="chest-close show ">
+          <div class="gift"></div>
+          <div class="tips">
+            <i class="arrow"></i>
+          </div>
+        </div>
+        <div class="chest-open ">
+          <div class="mod-chest-cont open-cont">
+            <div class="content">
+              <div class="gift">
+                2016您适合小额投资；幸运投资行业：互联网
+              </div>
+              <div class="func">
+                <button class="chest-btn" style="font-family:Microsoft Yahei;"  >右上角分享福利多多哦</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="open-none" style="display:none">
+      <h3>锦囊发完了，下次来早点！</h3>
+      <div class="mod-chest">
+        <div class="chest-open show"></div>
+      </div>
+      <div class="func">
+        <button class="chest-btn" style="font-family:Microsoft Yahei;" >右上角分享福利多多哦</button>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="/plugins/box/js/zepto.min.js"></script>
+<script type="text/javascript">
+document.ontouchmove = function(e){
+    e.preventDefault();
+}
+document.onmousemove = function(e){
+    e.preventDefault();
+}
+ $(".chest-close").click(function(){
+   $(this).addClass("shake");
+   var that=this;
+   this.addEventListener("webkitAnimationEnd", function(){
+     $(that).closest(".open-has").addClass("opened");
+     setTimeout(function(){
+       $(that).removeClass("show");
+       $(that).closest(".mod-chest").find(".chest-open").addClass("show");
+       var nick = $('#nick').val(),info='',pro='';
+       if(''==nick||null==nick){
+      	 info = '2016您需要谨慎收敛，适合保守投资；</br>幸运投资领域：企业服务；</br>企业服务已经呈现出了很好的发展态势，而且这个领域的发展空间还有待开发，未来值得期待。';
+      	 pro = '企业服务';
+       }else if(nick.length<=4){
+      	 info = '2016您需要尝试新鲜事物，适合激进投资；</br>幸运投资领域：虚拟现实</br>随着算法的演进和周边元器件的迭代，会有持续的投资机会出现。从当前的时间点来看，这个行业处于相当早期的阶段。';
+      	  pro = '虚拟现实';
+       }else if(nick.length>4&&nick.length<=8){
+      	 info = '2016您可以放手去做，财富在向您招手；</br>幸运投资领域： 泛娱乐</br>广大的互联网用户对娱乐的需求更多，娱乐形式更多样化，而泛娱乐也是货币化最快的。';
+      	  pro = '泛娱乐领域';
+       }else{
+      	 info = '2016您可以投资稳定回报的领域；</br>幸运投资领域：消费升级</br>这个领域并不会与经济周期直接相关，那么投资机会将更稳定。以技术驱动为核心的项目有机会成为热点，诸如新的消费品牌、消费类型的智能硬件等。';
+      	 pro = '消费升级';
+       }
+       var nick = $('#nick').val();
+       wx.onMenuShareTimeline({
+           title: '800众服，赐你2016投资锦囊！',
+           desc: '800众服说2016年'+nick+'会在'+pro+'行业发大财，行大运，你呢？',
+           link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa37b227117def502&redirect_uri=http://www.800zf.cn/active/wechat/box.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect',
+           imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+           success: function() {goUrl();},
+           cancel: function() {}
+       });
+       wx.onMenuShareAppMessage({
+           title: '800众服，赐你2016投资锦囊！',
+           desc: '800众服说2016年'+nick+'会在'+pro+'领域发大财，行大运，你呢？',
+           link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa37b227117def502&redirect_uri=http://www.800zf.cn/active/wechat/box.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect',
+           imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+           success: function() {goUrl();},
+           cancel: function() {}
+       });
+       $('.gift').html(info);
+       setTimeout(function(){
+         $(".chest-open").addClass("blur");
+       },500)
+     },200)
+   }, false);
+ })
+</script>
+</body>
+</html>

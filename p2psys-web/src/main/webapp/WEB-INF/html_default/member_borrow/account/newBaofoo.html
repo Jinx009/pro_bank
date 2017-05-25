@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>宝付支付充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <!-- v1.6.7.2 RDPROJECT-703 zza 2014-02-12 start -->
+  <body>
+    <div>宝付支付充值跳转中,请您不要关闭浏览器......</div>
+    <form action="http://tgw.baofoo.com/payindex" method="post" id="frm1">
+		<input name='MemberID' type='hidden' value="${baoFoo.memberID}"/>
+		<input name='TerminalID' type='hidden' value="${baoFoo.terminalID}"/>
+		<input name='InterfaceVersion' type='hidden' value="${baoFoo.interfaceVersion}"/>
+		<input name='KeyType' type='hidden' value="${baoFoo.keyType}"/>
+		<input name='PayID' type='hidden' value="${baoFoo.payID}"/>		
+		<input name='TradeDate' type='hidden' value="${baoFoo.tradeDate}" />
+		<input name='TransID' type='hidden' value="${baoFoo.transID}" />
+		<input name='OrderMoney' type='hidden' value="${baoFoo.orderMoney}"/>
+		<input name='ProductName' type='hidden' value="${baoFoo.productName}"/>
+		<input name='Amount' type='hidden' value="${baoFoo.amount}"/>
+		<input name='Username' type='hidden' value="${baoFoo.username}"/>
+		<input name='AdditionalInfo' type='hidden' value="${baoFoo.additionalInfo}"/>
+		<input name='PageUrl' type='hidden' value="${baoFoo.pageUrl}"/>
+		<input name='ReturnUrl' type='hidden' value="${baoFoo.returnUrl}"/>	
+		<input name='Signature' type='hidden' value="${baoFoo.signature}"/>
+		<input name='NoticeType' type='hidden' value="${baoFoo.noticeType}"/>
+    </form>
+    <script type="text/javascript">
+    	document.getElementById("frm1").submit();
+    </script>
+  </body>
+</html>

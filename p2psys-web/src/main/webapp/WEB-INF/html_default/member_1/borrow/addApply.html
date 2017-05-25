@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<style type="text/css"> 
+<!-- 
+* {padding:0; margin:0;} 
+body, html {text-align:left; font-size:12px; line-height:150%; margin:0 auto; background:#fff; padding-top:20px;} 
+fieldset {padding:10px; width:550px; margin:0 auto;} 
+legend {font-size:14px; font-weight:bold;} 
+.inputtext {border:none; background:#fff;} 
+.user_right_border .c label{display:block;}
+--> 
+</style>
+ 
+<div id="container">
+	<div class="usermain clearfix">
+		<div class="user_left">
+		<#assign mid="m_borrow" >
+			<#include "../trade_menu.html">
+		</div>
+		<div class="user_right">
+			<h2 class="user_title">信用额度</h2>
+			<div class="user_tab clearfix">
+				<ul>
+					<li><a href="${webroot}/member/invest/mine.html">申请额度</a></li>
+					<li class="active">申请记录</li>
+				</ul>
+			</div>
+			
+			<div class="user_right_main">
+				<#if session_user_identify.realNameStatus==1>
+		            	<#if applyIngCount?exists&&applyIngCount&gt;0>
+		            		<div class="small_add">
+								<p>申请已提交</p>
+							</div>
+						<#else>
+							<div class="small_add" id="J_applyCredit">
+								<span class="add_ico1"></span>
+								<span class="add_ico2"></span>
+								<p>申请信用额度</p>
+							</div>
+						</#if>
+					<#else>
+						<div class="small_add">
+							<p><a href="${webroot}/member/cash/bank.html?borrow=1">请先绑定银行卡</a></p>
+						</div>
+		            </#if>
+		            
+		            <form action="/member/borrow/doCreditApply.html"  method="post" title="申请信用额度" id="J_credit_form" class="hide">
+			<#if applyIngCount?exists&&applyIngCount&gt;0>
+			<#else>
+				<div class="user_right_border">
+					<div class="l b_bold">申请者：</div>
+					<div class="c">
+						${session_user.userName}
+					</div>
+				</div>
+				<div class="user_right_border">
+					 <div class="l b_bold"> 申请类型：</div>
+					<div class="c">
+						<select name="type">
+						<option value="credit" selected="selected">借款信用额度</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="user_right_border">
+					<div class="l b_bold"> 申请金额：</div>
+					<div class="c">
+						<input type="text" id="amount" name="amount" maxlength="5" onkeyup="this.value=this.value.trim();this.value=value.replace(/[^0-9]/g,'')" /> 
+					</div>
+				</div>
+				<div class="user_right_border">
+					<div class="l b_bold">详细说明：</div>
+					<div class="c">
+						<textarea rows="5" cols="40" name="content" onKeyDown="gbcount(this.form.content,this.form.total1,this.form.used1,this.form.remain1);"
+							onKeyUp="gbcount(this.form.content,this.form.total1,this.form.used1,this.form.remain1);"></textarea>
+					</div>
+				</div>
+				<div class="l b_bold">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp最多字数： 
+				<input disabled maxLength="4" name="total1" size="3" value="200" style="background-color:#fff;" class="inputtext"> 
+				已用字数： 
+				<input disabled maxLength="4" name="used1" size="3" value="0" style="background-color:#fff;" class="inputtext"> 
+				剩余字数： 
+				<input disabled maxLength="4" name="remain1" size="3" value="200" style="background-color:#fff;" class="inputtext"> 
+				</div>
+				<div class="user_right_border">
+					<div class="l b_bold">其它地方借款详细说明：</div>
+					<div class="c">
+					<textarea rows="5" cols="40" name="remark" onKeyDown="gbcount(this.form.remark,this.form.total2,this.form.used2,this.form.remain2);"
+							onKeyUp="gbcount(this.form.remark,this.form.total2,this.form.used2,this.form.remain2);"></textarea> 
+					</div>
+				</div>
+				<div class="l b_bold">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp最多字数： 
+				<input disabled maxLength="4" name="total2" size="3" value="200" style="background-color:#fff;" class="inputtext"> 
+				已用字数： 
+				<input disabled maxLength="4" name="used2" size="3" value="0" style="background-color:#fff;" class="inputtext"> 
+				剩余字数： 
+				<input disabled maxLength="4" name="remain2" size="3" value="200" style="background-color:#fff;" class="inputtext"> 
+				</div>
+				<div class="user_right_border">
+					<div class="l b_bold"></div>
+					<div class="c">
+						<input type="submit"   name="name"  class="btn sub_btn"  value="确认提交" size="30" /> 
+					</div>
+				</div>
+				<p class="errorMsg"></p>
+				</#if>
+				</form>
+				
+				<script>
+					$( "#J_credit_form" ).dialog({ autoOpen: false , modal: true ,height: 490,width:580 });
+					$('#J_applyCredit').click(function(){
+						
+						$( "#J_credit_form" ).dialog( "open" );
+					});
+					$("#J_credit_form").validate({
+						rules:{
+							amount:{
+								required:true,
+								max:10000
+							},
+							content:{
+								required:true
+							}
+						},
+						messages:{
+							amount:{
+								required:"请填写申请金额",
+								 max:"申请金额不能超过10000"
+							},
+							content:{
+								required:"请写上详细信息"
+							}
+						},
+						submitHandler:function(form,event,validator){
+							$(form).ajaxSubmit(function(data){
+								if(data.result==true)
+								{
+									reLoad()
+								}else{
+									$(form).find(".errorMsg").text(data.msg)
+								}	
+							})
+						}
+					})
+				</script>
+			</div>
+	     </div>
+		</div>
+	</div>	
+</div>
+<script>seajs.use('member/borrow_amountApply');</script>
+<#include "../../include/footer.html"> 

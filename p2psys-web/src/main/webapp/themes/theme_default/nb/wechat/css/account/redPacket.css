@@ -1,0 +1,121 @@
+body
+{
+	font-family: "Microsoft Yahei";
+}
+.data-div
+{
+	width: 96%;
+	margin-left: 2%;
+	font-family: "Microsoft Yahei";
+}
+.data-div .table
+{
+	width: 100%;
+}
+#table_two
+{
+	width: 96%;
+	margin-left: 2%;
+	display: none;
+}
+#table_three
+{
+	width: 96%;
+	margin-left: 2%;
+	display: none;
+}
+#table_one
+{
+	width: 100%;
+}
+.my-btn-group
+{
+	width: 96%;
+	margin-left: 2%;
+}
+.my-btn-group button 
+{
+	width: 33%;
+}
+.space-div
+{
+	height: 20px;
+}
+.no_redPacket
+{
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 5px;
+}
+.bg-success
+{
+	background:white;
+	width: 100%;
+	letter-spacing: 1px;
+}
+.inner-btn
+{
+	width: 40%;
+	margin-left: 30%;
+	text-align: center;
+}
+.table th,td
+{
+	text-align: center;
+}
+.my-body
+{
+	width: 100%;
+}
+#div_one
+{
+	width: 100%;
+}
+.table 
+{
+	
+}
+.panel-body
+{
+	padding: 0px;
+}
+.success-div
+{
+	text-align: center;
+}
+.big-well
+{
+	z-index: 99;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	top: 0;
+	filter: Alpha(Opacity=30);
+	-moz-opacity:0.3; 
+    opacity:0.3; 
+    background: black;
+    display: none;
+}
+.success-alert
+{
+	z-index: 999;	
+	position:fixed;
+	top: 25%;
+	width: 96%;
+	left: 2%;
+	border:1px solid rgb(51,111,173);
+	border-radius:10px;
+	display: none;
+	text-align: center;
+	background: rgb(247,247,247);
+}
+.loading
+{
+	position: fixed;
+	z-index: 9999;
+	top: 40%;
+	display: none;
+	text-align: center;
+	width: 100%;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='随机付款 - ${webname!}'> <#assign
+web_description='账户结果，${webname!}p2p网贷平台'> <#include
+"../../include/resource1.html">
+
+<body onload="closeWindow('${msg!}')" >
+	<#assign nid="my_account"> <#assign flag="rLog"> <#include
+	"../../common/function.html"> <#include
+	"../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<!--#container-->
+	<div id="container" class="clearfix">
+		<!--S-usermain-->
+		<div class="usermain clearfix">
+			<!--左边的导航user_left 开始-->
+			<div class="user_left"><#assign mid="m_account" > <#include
+				"../account_menu.html"></div>
+			<div class="user_right">
+
+				<h2 class="user_title">随机金额绑卡验证</h2>
+				<!--右边的内容user_right_main 开始-->
+				<div class="user_right_main clearfix">
+					<section class="warp">
+						<div class="addBankForm">
+							<form id="addBankForm" method="post" action="${webroot}/member/cash/addRandomBank.html">
+							<ul>
+								<li><label>随机金额：</label> <input type="text" name="money" id="money" autocomplete="off" class="bankTxt"/><span>元</span></li>
+								
+								<li>
+									<label>&nbsp;</label>
+									<input type="hidden" name="accId" value="${accId}" />
+									<input type="hidden" name="accName" value="${accName}" />
+									<input type="hidden" name="cardNo" value="${cardNo}" />
+									<input type="hidden" name="mobile" value="${mobile}" />
+									<input type="submit" class="cardAddBtn"  name="name"  value="确认并验证" size="30" /> 
+								</li>
+							</ul>
+							
+						</form>
+						<input type="hidden" id="errorMsg" value="${errorMsg!}">
+						</div>
+					</section>
+				</div>
+					<div class="user_help">
+			            <h3><b class="user_help_tip"></b>温馨提示：</h3>
+						<p>系统已给您的本张银行卡打入一笔 0.01 到 0.99 元的随机认证资金，您需要查询该银行卡的收支明细，正确输入该金额才能认证成功。认证金额较小，可能不会有到账短信通知，请登录网银或者拨打银行热线咨询。</p>
+					</div>
+			</div>
+			<!--E-右边的内容user_right_main 结束-->
+		</div>
+		<!--E-user_right-->
+	</div>
+	
+	<!-- #main start-->
+	<script>seajs.use("member/cash_input")</script>
+	<#include "../../include/footer.html">

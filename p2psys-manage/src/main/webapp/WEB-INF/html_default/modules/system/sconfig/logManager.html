@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>系统操作日志</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    var dataGrid;
+    var winWidth =  700;
+    var winHeight = 500;
+    var logTitle = "系统操作日志查看";
+	var logUrl = "/modules/system/sconfig/logPage.html";
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'logList.html',
+            fit : true,
+            fitColumns : false,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+		singleSelect:true,
+            frozenColumns:[[
+              { field: 'id', title: '编号', width: 50,fixed:true,  sortable:false},
+              { field: 'type', title: '日志类型', width: 80, sortable:false,
+
+            	  formatter: function(value,row,index){
+	            	  if (value == 1) {
+	            		  return "接入日志";
+	            	  } else if (value == 2) {
+	            		  return "错误日志";
+	            	  } else {
+	            		  return "操作日志";
+	            	  }
+	    		 }  
+              },
+              { field: 'addUser', title: '创建者', width: 80, sortable:false }
+            ]], 
+            columns : [ [             
+              { field: 'addTime', title: '创建时间', width: 125, sortable:false ,
+            	  formatter: function(value,row,index){
+  					if (row.addTime){
+  						return getLocalTime(value,1);
+  					} else {
+  						return value;
+  					}
+  				  }  
+              },
+              { field: 'remoteAddr', title: '操作IP地址', width: 125, sortable:false },
+              { field: 'requestUri', title: '请求URI', sortable:false },
+              { field: 'method', title: '操作方法', width: 100, sortable:false },
+              { field: 'params', title: '操作提交的数据', width: 450, sortable:false ,
+            	  formatter: function(value,row,index){
+	            	  var params = row.params;
+	            	  if(params != null && params.length > 0){
+	            		  if(params.length > 126){
+	            			  return params.substring(0,126);  
+	            		  }
+	            	  }
+					  return params;
+	    		 }
+              },
+              { field: 'exception', title: '内容', width: 280, sortable:false ,
+            	  formatter: function(value,row,index){
+	            	  var exception = row.exception;
+	            	  if(exception != null && exception.length > 0){
+	            		  if(exception.length > 126){
+	            			  return exception.substring(0,126);  
+	            		  }
+	            	  }
+					  return exception;
+	    		 }
+              },
+              { field : 'action',
+                title : '操作',
+                width :50,
+                formatter : function(value, row, index) {
+                  var str = '';
+                  str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.selectFun('+row.id+',logTitle,winWidth,winHeight,logUrl);" title="'+logTitle+'">查看</a>';
+                  return str;
+                }
+            } ] ],
+            toolbar : '#toolbar'
+        });
+    });
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+       <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+       		<div class="sLeft">
+	            <form id="searchForm">
+	            	日志类型：
+		                <select name="type" class="type">
+		                  <option value="" selected="selected">全部</option>
+		                  <option value="1">接入日志</option>
+		                  <option value="2">错误日志</option>
+		                  <option value="3">操作日志</option>
+		                </select>
+		                &nbsp;&nbsp;&nbsp;&nbsp;时间：<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime" style="width:100px;"/>&nbsp;-&nbsp;<input type="text"  style="width:100px;" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/>
+		                 &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                            <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>

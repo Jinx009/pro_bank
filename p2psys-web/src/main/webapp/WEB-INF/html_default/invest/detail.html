@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html">
+<body>
+  <#assign nid="invest"> 
+
+  <#include "../include/header.html">
+<input type="hidden" value="${flagId}" id="flagId"/>
+  <div class="invest-detal-title">
+     <div class="invset-detail-con clearfix">
+         <!-- <span class="float_left" id="lc-title"></span> -->
+         <span class="float_left">理财产品 > <a href="/invest/entrust.html" id="flag"></a> > <font>详细信息</font></span>
+         <span class="float_right">
+           <div class="bdsharebuttonbox">
+                <a href="#" class="bds_more" data-cmd="more"></a>
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              </div>
+              <!-- E-百度分享 -->
+              <script>
+              window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+              </script>
+         </span>
+     </div>
+  </div>
+ <div id="" class="container">
+  <div id="loading_tip" style="display: none;"><img src="/themes/theme_default/images/loading.gif" alt="玩命加载中,请耐心等待..." data-bd-imgshare-binded="1">玩命加载中,请耐心等待...</div>
+    <div class="invest-main-box" id="invest-main-box"> <div class="clearfix invest-border">
+
+  </div>
+
+
+    <div class="mb20 bdr1-e6e6e6 bg-white" style="width:1190px; margin:0 auto;">
+      <div class="detail-menus clearfix" style="">
+        <div class="detail_menus_center" style="">
+          
+          <a href="javascript:void(0)" class="a2">借款描述</a>
+          <a href="javascript:void(0)" class="a4">借款资料</a>
+          <a href="javascript:void(0)" class="a5">投资记录</a>
+          <p id="invest_btn" class="js_hide" href="javascript:;">立即投资</p>
+        </div>
+      </div>
+      <div class="invest_detail_content">
+      
+        
+        <div class="borrow-desc mb30">
+          <h3 class="invest-detail-h3">借款描述</h3>
+          <div class="pl30 pt20">
+            <p style="text-indent:2em"></p>
+          </div>
+        </div>
+        
+    
+    
+        <div class="borrow-detail mb30">
+          <h3 class="invest-detail-h3">借款资料</h3>
+          <div class="tab-content" style="width:800px; margin:50px auto 0;">
+            <div class="album">
+              <ul class="img-box bdr1-e6e6e6">
+              
+                
+                  <li style="display: list-item;"><a href="http://127.0.0.1:8099/data/upload/20150307/1425713321047.png" class="fancybox" rel="gallery"><img src="http://127.0.0.1:8099/data/upload/20150307/1425713321047.png" alt="借款资料" data-bd-imgshare-binded="1"></a></li>
+                
+              
+              </ul>
+              <a href="javascript:void(0)" class="prev"></a>
+              <a href="javascript:void(0)" class="next"></a>
+              <ul class="hd">
+              
+                <li class="active"></li>
+              
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="invest-record">
+          <h3 class="invest-detail-h3">投资记录</h3>
+          <table id="invest-txjl-tbl">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>投资人</th>
+                <th>投资金额</th>
+                <th>投资时间</th>
+                <th>投资方式</th>
+                <th>状态</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            <tr><td colspan="6">暂无投资记录</td></tr>
+            
+            </tbody>
+          </table>
+          <div id="kkpager" class="ml20 mr20"></div>
+        </div>
+      </div>
+    </div></div>
+    </div>
+  </div>
+<script>seajs.use("invest/detail");</script>
+<#include "../include/footer.html">
+</body>
+</html>

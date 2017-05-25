@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width; height=device-height;" name="viewport">
+		<link href="/themes/theme_default/media/css/zcStyle.css" rel="stylesheet">
+		<title>众筹支付</title>
+	</head>
+	<body>
+		<!--header	start-->
+		<div id="header">
+			<div id="head_info">
+				<div class="clearfix head_top">
+					<div class="float_left">
+						<a href="/"><div class="logo"></div></a>
+						<span class="navChild"><a href="/aboutUs/siteIntro.html">关于我们</a></span>
+						<span class="navChild"><a href="/crowdfunding/index.html?id=2">我要投资</a></span>
+						<span class="navChild"><a href="/member/main.html">我的账户</a></span>
+						<span class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+						<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+					</div>
+					<div class="float_right">
+						<span class="loginStatus">
+							<span class="welcomePhone">欢迎您，131****9876</span>
+							<a href="${webroot}/user/logout.html">退出</a>
+							<a class="guide" href="/crowdfunding/index.html">在e800Bank投资</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--header	end-->
+		<!--paySuccess	start-->
+		<div class="paySuccess">
+			<div class="payTop"> 
+				<div class="paytopmiddle">
+					<div class="payStatus"><img src="/themes/theme_default/images/raise/paySuccess.png"/></div>
+					<div class="payMoney">
+						<b>支付成功</b>
+						<p>支付金额￥<span class="money">80000</span></p>
+					</div>	
+				</div>
+			</div>
+			<div class="payBottom">
+				<p style="display:none">小小，您使用<span class="money">交通银行</span>银行卡完成本次交易。</p>
+				<p><span id="cpdd">XXX</span>产品订单</p>
+				<p style="display:none">交易单号 <span>1234567890</span></p>
+			</div>
+		</div>
+		<!--paySuccess	end-->
+		<div class="blank">
+		</div>
+		<#include "../include/raise_footer.html">
+	</body>
+</html>

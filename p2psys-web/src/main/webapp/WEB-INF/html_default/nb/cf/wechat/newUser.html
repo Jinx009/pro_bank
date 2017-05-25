@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>十步畅游众服秘籍</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=750,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/themes/theme_default/cf/active/newUser/css/jquery.fullPage.css">
+<link rel="stylesheet" type="text/css" href="/themes/theme_default/cf/active/newUser/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/themes/theme_default/cf/active/newUser/css/newbieGuide.css">
+<script src="/themes/theme_default/cf/active/newUser/js/jquery-1.8.3.min.js"></script>
+<script src="/themes/theme_default/cf/active/newUser/js/jquery.fullPage.min.js"></script>
+<script  src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+<script>
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp:${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'hideMenuItems',
+      'showMenuItems',
+      'hideAllNonBaseMenuItem',
+      'showAllNonBaseMenuItem',
+      'translateVoice',
+      'startRecord',
+      'stopRecord',
+      'onRecordEnd',
+      'playVoice',
+      'pauseVoice',
+      'stopVoice',
+      'uploadVoice',
+      'downloadVoice',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage',
+      'getNetworkType',
+      'openLocation',
+      'getLocation',
+      'hideOptionMenu',
+      'showOptionMenu',
+      'closeWindow',
+      'scanQRCode',
+      'chooseWXPay',
+      'openProductSpecificView',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
+});
+
+wx.ready(function() {
+    wx.checkJsApi({
+        jsApiList: ['chooseImage'],
+        success: function(res) {
+            wx.showMenuItems({
+                menuList: ['menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                    'menuItem:share:timeline'
+                ]
+            });
+        }
+    });
+    wx.onMenuShareTimeline({
+        title: '众筹大热？十步教你玩转，坐等数钱吧。。。',
+        desc: '众筹大热？十步教你玩转，坐等数钱吧。。。',
+        link: 'https://www.800zf.cn/cf/wechat/newUser.action',
+        imgUrl: 'https://www.800zf.cn/themes/theme_default/cf/active/newUser/img/page_one_1.png',
+        success: function() {},
+        cancel: function() {}
+    });
+    wx.onMenuShareAppMessage({
+        title: '众筹大热？十步教你玩转，坐等数钱吧。。。',
+        desc: '众筹大热？十步教你玩转，坐等数钱吧。。。',
+        link: 'https://www.800zf.cn/cf/wechat/newUser.action',
+        imgUrl: 'https://www.800zf.cn/themes/theme_default/cf/active/newUser/img/page_one_1.png',
+        success: function() {},
+        cancel: function() {}
+    });
+});
+
+wx.error(function(res){
+});
+$(function(){
+	$('#dowebok').fullpage({
+		continuousVertical: true
+	});
+});
+</script>
+</head>
+<body>
+	<div id="dowebok">
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_one.png" class="page-img" alt="page-one" />
+			<img src="/themes/theme_default/cf/active/newUser/img/page_one_1.png" alt="page-one-1" class="page-one-1"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_one_2.png" alt="page-one-1" class="page-one-2"/>
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_two.png" class="page-img" alt="page-two"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_two_1.png" alt="page-two-1" class="page-two-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_three.png" class="page-img" alt="page-three"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_three_1.png" alt="page-three-1" class="page-three-1" />
+			<img src="/themes/theme_default/cf/active/newUser/img/page_three_2.png" alt="page-three-2" class="page-three-2" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_four.png" class="page-img" alt="page-four"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_four_1.png" alt="page-four-1" class="page-four-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_five.png" class="page-img" alt="page-five"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_five_1.png" alt="page-five-1" class="page-five-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_six.png" class="page-img" alt="page-six"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_six_1.png" alt="page-six-1" class="page-six-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_seven.png" class="page-img" alt="page-seven"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_seven_1.png" alt="page-seven-1" class="page-seven-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_eight.png" class="page-img" alt="page-eight"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_eight_1.png" alt="page-eight-1" class="page-eight-1" />
+			<img src="/themes/theme_default/cf/active/newUser/img/page_eight_2.png" alt="page-eight-2" class="page-eight-2" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_nine.png" class="page-img" alt="page-nine"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_nine_1.png" alt="page-six-1" class="page-nine-1" />
+		</div>
+		<div class="section">
+			<img src="/themes/theme_default/cf/active/newUser/img/page_ten.png" class="page-img" alt="page-ten"/>
+			<img src="/themes/theme_default/cf/active/newUser/img/page_ten_1.png" alt="page-six-1" class="page-ten-1" />
+		</div>
+	</div>
+</body>
+</html>

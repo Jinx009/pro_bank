@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>选择果果号</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+    $(function() {
+    	dataGrid = $('#getGuoguoList').datagrid({
+            url : '/modules/user/user/user/getGuoguoList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'userId',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '序号', sortable:false,width:20},
+              { field: 'number', title: '果果号', sortable:false,width:20},
+              { field: 'type', title: '果果号类型', sortable:false,width:40,formatter: function(value,row,index){
+				if(value==1){
+					return '个人投资者';
+				}else if(value==2 || value==4){
+					return '借款者';
+				}else if(value==5){
+					return '机构投资者';
+				}
+			}}
+             ]]
+        }); 
+    });
+    var getSelected = function($dialog, $input ,$select) {
+    	var selected = $('#getGuoguoList').datagrid('getSelected');
+    	$input.val(selected.number);
+    	$select.val(selected.type);
+      $select.parents("ul").find(".jg-type").css("display","none")
+      $select.parents("ul").find(".jg-type").css("display","none")
+      $select.parents("ul").find(".jg-type .adminUser").removeClass('easyui-validatebox')
+      $select.parents("ul").find(".gr-type .adminUser").removeClass('easyui-validatebox')
+      	if(selected.type == 4){
+      		$select.parents("ul").find(".jg-type").css("display","block")
+          $select.parents("ul").find(".jg-type .adminUser").addClass('easyui-validatebox')
+      	}
+      	if(selected.type == 2){
+      		$select.parents("ul").find(".gr-type").css("display","block")
+          $select.parents("ul").find(".gr-type .adminUser").addClass('easyui-validatebox')
+      	}
+      	if(selected.type == 1 || selected.type == 5){
+      		$select.parents("ul").find(".jg-type").css("display","none");
+      		$select.parents("ul").find(".gr-type").css("display","none");
+      	}
+      	$dialog.dialog('destroy'); 
+    	$.parser.parse($select.parents("ul"));
+    };
+    
+</script>
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<div data-options="region:'north',border:false,collapsible:false" id="searchBox"  style="margin-top:0;">
+		<div class="sLeft">
+         <form id="searchForm">
+         	<select name="type" id="type" class="type">
+         		<option value="0">全部</option>
+				<option value="1">个人投资者</option>
+				<option value="5">机构投资者</option>
+				<option value="2">借款者</option>
+			</select><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+         </form>
+        </div>
+     </div>
+	<div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+	    <table id="getGuoguoList"></table>
+	</div>
+</div>
+</body>
+</html>
+
+

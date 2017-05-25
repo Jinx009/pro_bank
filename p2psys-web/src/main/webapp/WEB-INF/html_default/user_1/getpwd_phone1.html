@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<!--找回密码 开始-->
+	<#include "../include/header.html">
+	<div id="forgetPwdWrap" class="clearfix">
+		<ul class="forgetPwdTab clearfix">
+			<li class="active1"><a href="/user/getpwd.html?showType=2" title="通过【手机】找回密码"><i class="iconfont">&#xe626;</i>手机找回</a></li>
+			<li style="border-right:0;"><a href="/user/getpwd.html?showType=1" title="通过【邮箱】找回密码"><i class="iconfont">&#xe627;</i>邮箱找回</a></li>
+		</ul>
+		<form action="/user/getpwd.html" method="post" id="mobile_phonegetForm">
+		<dl class="forgetPwdForm">
+			<dt>通过手机找回密码</dt>
+			<dd class="showErrorTips" style="height:36px"><span class="errorTips" style="display:none"><em><i class="iconfont">&#xe60f;</i><b></b></em></span></dd>
+			<dd><label>手机号码</label><input onkeyup="value=value.replace(/[^0-9]/g,'')" type="text" name="mobilePhone" class="password" maxlength="11" value="${user.mobile_phone?if_exists}"></dd>
+			<#if msg?exists && msg !="">
+			<dd><label>验证码</label><span class="codeBox"><input type="text" name="valicode" maxlength="4" class="code ignore" /><img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img"  onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" /><i class="iconfont" id="refreshCode">&#xe628;</i></span></dd>
+			<#else>
+			<dd><label>验证码</label><span class="codeBox"><input type="text" name="valicode" maxlength="4" class="code" /><img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img"  onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" /><i class="iconfont" id="refreshCode">&#xe628;</i></span></dd>
+			</#if>
+			<dd><label>&nbsp;</label><input type="hidden" value="2" name="getType">
+             						<input type="hidden" value="1" name="step">
+             						<input type="submit" value="下一步" class="nextBtn"></dd>
+		</dl>
+		</form>
+	</div>
+	<#include "../include/loginFooter.html"> 	
+	<script>
+		seajs.use("${webroot}${theme_dir}/media/js/user/getpwd_phone1")
+	</script>
+<!--找回密码 结束-->
+</body>
+</html>

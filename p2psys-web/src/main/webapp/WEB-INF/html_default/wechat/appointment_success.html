@@ -1,0 +1,49 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html>
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no;" >
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>预约成功</title>
+	<style type="text/css">
+		*{margin:0;padding:0;font-size:15px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+		.h_all{width:100%;height:auto;margin:0 auto;}
+		/* appointment_header start */
+		.h_all .appointment_header{width:100%;height:45px;background-color:#2370B6;text-align:center;line-height:45px;padding:0 0;font-size:20px;color:#fff;}
+		/*end appointment_header*/
+
+		/* appointment_success start */
+		.h_all .appointment_success{width:100%;height:280px;text-align:center;}
+		.h_all .appointment_success img{display:block;margin:65px auto;width:68px;height:68px;}
+		.h_all .appointment_success p{display:block;margin:-20px auto;line-height:25px;font-family:Microsoft YaHei;font-size:20px;color:#333;}
+		/* end appointment_success */
+
+		/* appointment_over start */
+		.h_all .appointment_over{width:90%;height:45px;border-radius:5px;margin:-50px auto;line-height:45px;text-align:center;
+		background:#2370B6;}
+		.h_all .appointment_over:hover{background:#249FF1;cursor:pointer;}
+		.h_all .appointment_over a{text-decoration:none;color:#fff;font-size:20px;}
+		/* end appointment_over */
+	</style>
+ </head>
+ <body>
+		<div class="h_all">
+				<div class="appointment_header">
+					预约成功
+				</div>
+				<!-- appointment_success start -->
+				<div class="appointment_success">
+						<img src="${webroot}${theme_dir}/media/css/images/wx/succeed.png" width="68" height="68" alt="预约成功" />
+						<p>预约成功</p>
+				</div>
+				<!-- end appointment_success -->
+				<!-- appointment_over start -->
+				<div class="appointment_over">
+					<a href="/wx/personalConsultantsPage.html">完成</a>
+				</div>
+				<!-- end appointment_over -->
+		</div>
+ </body>
+</html>

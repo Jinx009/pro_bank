@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign nid="account_home" > 
+<#assign web_title='我的账户 - ${webname!}' >
+<#assign web_description='我的账户，${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<body>
+<#include "../include/member_borrow_header.html"> 
+<!--header-end-->  
+<div id="account_home_msg_wrapper" class="forenoon2">
+<div class="account_home_msg clearfix">
+<a href="${webroot}/member_borrow/info/face.html" class="user_img"><img id="user_img" src="${webroot}/avatar/${session_user.userId?c}.jpg"></a>
+<dl></dl>
+<div class="account_home_msg11">
+</div> 
+</div>
+</div>
+
+<div class="member_borrow_home clearfix">
+  <div class="left clearfix">
+    <dl class="balance">
+      <dt>可提现余额</dt>
+      <dd><em></em>元</dd>
+     <dd class="balance_btn">
+     	<a href="${webroot}/member/recharge/newRecharge.html?borrow=1" class="withhold">充值</a>
+        <a href="${webroot}/member/cash/newCash.html?borrow=1" class="withdraw">提现</a>
+     </dd>
+    </dl>
+    <div class="borrow_money">
+      <dl>
+        <dt>正在借款项目</dt>
+        <dd><em></em>个</dd>
+      </dl>
+      <dl class="money">
+        <dt>正在借款金额</dt>
+        <dd><em></em>元</dd>
+      </dl>
+      <p><a href="${webroot}/member_borrow/borrow/mine.html">查看正在借款项目详情</a></p>
+    </div>
+  </div>
+  <dl class="right">
+    <dt><a href="${webroot}/member_borrow/borrow/repayment.html">待还详情&gt;&gt;</a>下一个待还日期</dt>
+    <dd class="noCalendar">
+
+    </dd>
+    <dd class="total">
+        <span>待还总额<em></em>元</span>
+        <span>待还总项目<em></em>个</span>
+    </dd>
+  </dl>
+</div>
+    <div class="account_home_con">
+      <ul class="clearfix">
+        <li>借款中项目</li>
+        <li>还款中项目</li>
+        <li>交易记录</li>
+      </ul>
+      <div class="con con1 clearfix dueIn_msg" id="main_invest_tab" style="display: block;width:1150px;">
+        <table id="main_invest">
+        </table>
+      </div>
+      <div class="con con1 clearfix" id="main_collection_tab" style="display:none;width:1150px;">
+        <table id="main_collection"></table>
+    </div>
+      <div class="con con1 clearfix trade_log" id="trade_log_tab" style="display:none;width:1150px;">
+        <div class="tradeLogTable_wrap">
+          <table id="tradeLogTable"></table>
+        </div>
+      </div>
+    </div>
+    </div>
+<script>
+seajs.use('${webroot}${theme_dir}/media/js/member_borrow/main');
+</script>
+<#include "../include/footer.html">
+</body>
+</html>

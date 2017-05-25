@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提现管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var deleteTitle = "真的确定解绑该银行卡？";
+	var deleteUrl = "/modules/account/cash/accountbank/disableBank.html";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountBankList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50, checkbox : false },
+				{ field: 'userName', title: '用户名', width: 120, checkbox : false },
+				{ field: 'realName', title: '真实姓名', width: 100, checkbox : false },
+				{ field: 'bankNo', title: '银行账号', width: 150, checkbox : false }
+			]],
+			columns : [ [
+				{ field: 'status', title: '状态', width: 50, checkbox : false,
+					formatter: function(value,row,index){
+						if (value == 0){
+							return "已解绑";
+						} else if(value == 1){
+							return "启用";
+						}
+						return "";
+					}	
+				},
+				{ field: 'bank', title: '所属银行', width: 100, checkbox : false },
+				{ field: 'addTime', title: '添加时间', width: 150, sortable:false,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}	
+				},
+				{ field: 'channelKey', title: '支付通道', width: 150, sortable:false,
+					formatter: function(value,row,index){
+						if(value == "unionpay_channel_key") {
+							return "银联通道";
+						} else if(value == "llpay_channel_key") {
+							return "连连通道";
+						}
+					}	
+				},
+				{ field: 'addIp', title: '添加IP', width: 100, sortable:false }
+				/* ,
+				{field : 'action',title : '操作',width :80,fixed :true,
+					formatter : function(value, row, index) {
+						var str = '';
+						if (row.status == 1) {
+							str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',deleteUrl,deleteTitle);">解绑</a>'; 
+						}
+						str += '&nbsp;';
+						
+						return str;
+					}
+				} */
+			] ],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+
+			},
+		});
+	});
+	
+	function exportExcel(){
+		var url = "/modules/account/cash/accountbank/exportExcelAccountBankList.html";
+		var searchName = $("#searchName").val()
+		var userName = $("#userName").val();
+		var status = $("#status").val();
+		var bankNo = $("#bankNo").val();
+		var sou = "?searchName=" + searchName +"&userName=" + userName + "&status=" + status + "&bankNo=" + bankNo;
+		window.location.href = url + sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入用户名/银行账户/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		       		<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		       		<li><span>真实姓名</span><input type="text" name="realName" id="realName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" id="status" class="status">
+							<option value=-1  selected="selected">全部</option>
+							<option value=0>关闭</option>
+							<option value=1>启用</option>
+						</select></li>
+		       		<li><span>银行账号</span><input type="text" id="bankNo" name="bankNo" autocomplete="off"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

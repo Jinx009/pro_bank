@@ -1,0 +1,39 @@
+<div class="popForm">
+	<input type="hidden" id="id" name="id" value="${productTypeFlag.id}" />
+	<div class="formitm">
+		<label class="lab">标签名称</label>
+		<div class="ipt">
+			<input type="text" id="flagName" name="flagName" class="w400 easyui-validatebox" value="${productTypeFlag.flagName}" readonly="readonly" data-options="required: true" maxlength="30" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">标签描述</label>
+		<div class="ipt">
+			<input type="text" id="flagDescription" name="flagDescription" class="w400 easyui-validatebox" value="${productTypeFlag.flagDescription}" readonly="readonly" data-options="required: true" maxlength="30" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">标签备注</label>
+		<div class="ipt">
+			<textarea id="remark" name="remark" class="w400 easyui-validatebox" data-options="required: false" readonly="readonly">${productTypeFlag.remark!''}</textarea>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">PC首页图标</label>
+		<div class="ipt">
+			<img src="${productTypeFlag.iconUrl!''}" id="iconUrl" name="iconUrl" alt="无法预览PC首页图标" style="height:100px" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">PC产品列表头图</label>
+		<div class="ipt">
+			<img src="${productTypeFlag.listUrl!''}" id="listUrl" name="listUrl" alt="无法预览PC产品列表头图" style="height:100px" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">微信图片</label>
+		<div class="ipt">
+			<img src="${productTypeFlag.picUrl!''}" id="picUrl" name="picUrl" alt="无法预览微信图片" style="height:100px" />
+		</div>
+	</div>
+</div>

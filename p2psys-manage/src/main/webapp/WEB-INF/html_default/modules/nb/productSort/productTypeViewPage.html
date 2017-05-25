@@ -1,0 +1,45 @@
+<div class="popForm">
+	<input type="hidden" id="id" name="id" value="${productType.id}">
+	<div class="formitm">
+		<label class="lab">
+			类别名称
+		</label>
+		<div class="ipt">
+			<input type="text" id="typeName" name="typeName" class="w400 easyui-validatebox" readonly="readonly" value="${productType.typeName}" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">
+			类别编码
+		</label>
+		<div class="ipt">
+			<input type="text" id="typeCode" name="typeCode" class="w400 easyui-validatebox" readonly="readonly" value="${productType.typeCode}" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">
+			类别描述
+		</label>
+		<div class="ipt">
+			<input type="text" id="flagDescription" name="typeDescription" class="w400 easyui-validatebox" readonly="readonly" value="${productType.typeDescription}" />
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">
+			类别备注
+		</label>
+		<div class="ipt">
+			<textarea id="remark" name="remark" class="w400 easyui-validatebox" readonly="readonly">
+				${productType.remark!''}
+			</textarea>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">
+			产品类别特征
+		</label>
+		<div class="ipt">
+			<input type="text" id="typeCategory" name="typeCategory" class="w400 easyui-validatebox" readonly="readonly" value="${productType.typeCategory!''}" />
+		</div>
+	</div>
+</div>

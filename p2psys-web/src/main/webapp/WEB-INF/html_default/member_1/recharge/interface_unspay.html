@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>银生支付跳转中...</title>
+</head>
+<body >
+ <div>银生支付充值跳转中,请您不要关闭浏览器......</div>
+ <form action="https://www.unspay.com/unspay/page/linkbank/payRequest.do" method="get" id="E_FORM">
+  <table align="center">
+     <tr>
+      <td></td>
+      <td><input type="text" name="version" value="${unspay.version}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="text" name="merchantId" value="${unspay.merchantId}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="text" name="merchantUrl" value="${unspay.merchantUrl}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="text" name="responseMode" value="${unspay.responseMode}"></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><input type="text" name="orderId" value="${unspay.orderId}" ></td>
+    </tr>
+    
+	 <tr>
+      <td></td>
+      <td><input type="text" name="currencyType" value="${unspay.currencyType}" ></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td><input type="text" name="amount" value="${unspay.amount}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="text" name="assuredPay" value="${unspay.assuredPay}"></td>
+    </tr>
+	 <tr>
+      <td></td>
+      <td><input type="text" name="time" value="${unspay.time}"></td>
+    </tr>
+	 <tr>
+      <td></td>
+      <td><input type="text" name="remark" value="${unspay.remark}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="text" name="mac" value="${unspay.mac}"></td>
+    </tr>
+     <tr>
+      <td></td>
+      <td><input type="text" name="bankCode" value="${unspay.bankCode}"></td>
+    </tr>
+  </table>
+ 
+</form>
+  <script language="javascript">
+        document.getElementById("E_FORM").submit();  
+    </script>
+</body>
+</html>

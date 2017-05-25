@@ -1,0 +1,29 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.addBorrowFormSubFun("#form",'/modules/loan/borrow/addBorrow.html');
+	});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<div class="borrowForm" style="border-top:none;">
+	<h1 class="borrowFormTitle">修改组合信息</h1>
+	<ul>
+		<li><span>组合名称：</span><input type="text" name="bidNo" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<li><span>组合类型：</span><select name="CombinationName"><option>保守组合</option><option>稳健组合</option></select></li>
+		<li><span>最高预期收益：</span><input type="text" name="expectedUp" value="20" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'riskRate[0,500]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>最低预期收益：</span><input type="text" name="expectedLow" value="5" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px"data-options="required: true,validType:'jkapr[0,500]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+	</ul>
+	<div class="borrowFormMuti">
+		<span>组合亮点：</span>
+		<textarea rows="" cols=""></textarea>
+	</div>
+   <div class="borrowFormMuti"><span>组合说明：</span><input type="file" name="file" title="点击上传html文件" /></div>
+</div>
+<div class="borrowForm" style="border-top:none;">
+<h1 class="borrowFormTitle">产品选择</h1>
+  <ul>
+	<li><span>[随投随取]</span><span>零钱包</span><input type="checkbox" id="product_1" name="product" value="1" class="day_chose" ><input type="text" name="product_1" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:30px"><em>%</em></li>
+	<li><span>[固定收益]</span><span>智稳赢1号</span><input type="checkbox" id="product_2" name="product" value="2" class="day_chose" ><input type="text" name="product_2" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:30px"><em>%</em></li>
+  </ul>
+</div>
+</form>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

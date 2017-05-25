@@ -1,0 +1,32 @@
+<script type="text/javascript">
+	$(function() {
+		$('#userResources').tree({
+			url : "/modules/system/menu/myMenuList.html",
+			parentField : 'pid',
+			loadFilter: function(rows){return $.fn.treeConvert.menu(rows.rows);},
+			onLoadSuccess : function(node,data) {
+				parent.$.messager.progress('close');
+				if (data.length < 1) {
+					$('#userResources').append('<img src="${theme_dir}/css/images/blue_face/bluefaces_35.png" style="margin:10px auto;display:block;" alt="您没有任何权限" /><div style="text-align:center;font-size:18px;">您没有任何权限</div>');
+				}
+			}
+		});
+	});
+</script>
+<div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',border:false" title="">
+		<#if (session_operator.name) == "">
+			<img src="${theme_dir}/css/images/blue_face/bluefaces_35.png" alt="" />
+			<div>登录已超时，请重新登录，然后再刷新本功能！</div>
+			<script type="text/javascript" charset="utf-8">
+				try {
+					parent.$.messager.progress('close');
+				} catch (e) {
+				}
+			</script>
+		</#if>
+		<#if (session_operator.name) != "">
+			<ul id="userResources"></ul>
+		</#if>
+	</div>
+</div>

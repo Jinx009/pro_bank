@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<#include "include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "include/header.html"> 
+
+<div id="main" class="clearfix">
+	<div class="box">
+		<div class="box-con">
+			<p class="reg-pro">
+           	 系统提示信息
+            </p>
+            <div align="center" id="msg_content">
+            <br><br>
+            <img src="/data/images/base/loading.gif" />系统处理中...
+            </div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript"> 
+var timer =  setInterval("testTime()",1000); 
+function testTime() { 
+	 $.ajax({
+         type: "post",//使用get方法访问后台
+         dataType: "json",//返回json格式的数据
+         url: "/public/getResult.html",//要访问的后台地址
+         data: "tenderFlag=" + '${tenderFlag!}',//要发送的数据
+         timeout:1000*1,
+         success: function(msg){//msg为返回的数据，在这里做数据绑定
+             var data = msg.msg_data;
+         if(data){
+        	 if(data == 'success'){
+            	 document.getElementById('msg_content').innerHTML = "<br><br>恭喜您${r_msg!}!!!<br><br><a href='${ok_url!}'>返回上一步</a>";
+            	 clearInterval(timer);
+             }else{
+            	 document.getElementById('msg_content').innerHTML = "<br><br>" +data+"！！！<br><br><a href='${back_url!}'>返回上一步</a>";
+            	 clearInterval(timer);
+             } 
+         }
+         },
+         error:function(){
+        	 document.getElementById('msg_content').innerHTML = "<br><br>服务器响应过慢，请您1分钟后查看";
+        	 clearInterval(timer);
+         }
+     });
+} 
+</script>
+<#include "include/footer.html"> 
+</body>
+</html>

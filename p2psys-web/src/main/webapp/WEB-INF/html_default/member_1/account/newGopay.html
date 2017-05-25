@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>国付宝支付充值跳转中......</title>
+<meta http-equiv="content-Type" content="hidden/html; charset=utf-8" />
+</head>
+<body>
+	<div>国付宝支付充值跳转中,请您不要关闭浏览器......</div>
+	<form action="https://gateway.gopay.com.cn/Trans/WebClientAction.do"
+		method="post" id="frm1">
+		version:<input type="hidden" name="version" value="${newGoPay.version!}" />
+		charset<input type="hidden" name="charset" value="${newGoPay.charset!}" />
+		language<input type="hidden" name="language" value="${newGoPay.language!}" /> 
+		signType<input type="hidden" name="signType" value="${newGoPay.signType!}" /> 
+		tranCode<input type="hidden" name="tranCode" value="${newGoPay.tranCode!}" /> 
+		merchantID<input type="hidden" name="merchantID" value="${newGoPay.merchantID!}" />
+		merOrderNum<input type="hidden" name="merOrderNum" value="${newGoPay.good.merOrderNum!}" /> 
+		tranAmt<input type="hidden" name="tranAmt" value="${newGoPay.good.tranAmt!}" /> 
+		feeAmt<input type="hidden" name="feeAmt" value="${newGoPay.good.feeAmt!}" /> 
+		currencyType<input type="hidden" name="currencyType" value="${newGoPay.currencyType!}" />
+		frontMerUrl<input type="hidden" name="frontMerUrl" value="${newGoPay.frontMerUrl}" />
+ 		backgroundMerUrl<input type="hidden" name="backgroundMerUrl" value="${newGoPay.backgroundMerUrl}" /> 
+ 		tranDateTime<input type="hidden" name="tranDateTime" value="${newGoPay.good.tranDateTime}" /> 
+ 		virCardNoIn<input type="hidden" name="virCardNoIn" value="${newGoPay.virCardNoIn}" />
+		tranIP<input type="hidden" name="tranIP" value="${newGoPay.tranIP!}" />
+		isRepeatSubmit<input type="hidden" name="isRepeatSubmit" value="${newGoPay.isRepeatSubmit!}" /> 
+		signValue<input type="hidden" name="signValue" value="${newGoPay.signValue!}" />
+		<#if newGoPay??&&newGoPay.bankCode??>
+		userType<input type="hidden" name="userType" value="${newGoPay.userType!}" />
+		bankCode<input type="hidden" name="bankCode" value="${newGoPay.bankCode!}" />
+		</#if>
+		gopayServerTime<input type="hidden" name="gopayServerTime" value="" />
+	</form>
+	<script type="text/javascript">
+		document.getElementById("frm1").submit();
+	</script>
+</body>
+</html>

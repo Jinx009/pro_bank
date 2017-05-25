@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/themes/theme_default/cf/js/raphael-min.js" ></script>
+<script src="/themes/theme_default/cf/js/morris.min.js" ></script>
+<script src="/themes/theme_default/cf/js/user/main.js" ></script>
+</head>
+<body class="bg">
+	<div class="main">
+		<#include "../include/header.html">
+		<div class="middle-content main-box">
+			<div class="main-left">
+				<#include "../include/left_nav.html">
+			</div>
+			
+			<div class="main-right">
+				<div class="main-title">
+					<h3>我的资产&nbsp;&nbsp;&nbsp;</h3>
+					<!-- <a href="http://test.e800bank.com/app/center.html?x=${x}&y=${y}" >800资产</a> -->
+				</div>
+				<div class="asset">
+					<div class="asset-left">
+						<div id="hero-donut" class="asset-circle"></div> 	
+					</div>
+					<div class="asset-right">
+						<div class="asset-table">
+							<div class="asset-table-cell">
+								<dl>
+									<dt id="useMoney" ></dt>
+									<dd>可用余额</dd>
+								</dl>
+								<dl>
+									<dt id="investMoney" ></dt>
+									<dd>投资资产</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="asset-bottom">
+					<h3 class="title">我的银行卡</h3>
+					<div class="asset-bank">
+						<div class="asset-bank-left">
+							<div class="bind-card">
+								<p></p>
+							</div>
+						</div>
+						<div class="asset-bank-right">
+							<a href="/cf/user/recharge.html" class="btn rechargeBtn">充值</a>
+							<a href="/cf/user/cash.html" class="btn cashBtn">提现</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<#include "../include/footer.html"> 
+
+<div class="clearfix"></div>
+<script type="text/javascript">
+	showLi("user_li");
+	changeLeftMenue("我的资产","");
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<#assign nid="account_home" > 
+<#assign web_title='我的账户 - ${webname!}' >
+<#assign web_description='我的账户，${webname!}p2p网贷平台' >
+<#include "../include/resource1.html"> 
+<#include "../common/function.html">
+<body>
+<#include "../include/member_guarantee_header.html"> 
+<!--header-end-->  
+<div id="account_home_msg_wrapper" class="member_borrow_main">
+	<div class="account_home_msg clearfix">
+		<img id="user_img" src="${webroot}/avatar/${session_user.userId?c}.jpg">
+		<dl></dl> 
+	</div>
+</div>
+<div class="account_home clearfix">
+      <dl class="member_guarantee_account float_left">
+        <dt>
+          <div class="float_left today_income">
+            <label>正在担保项目</label>
+            <p>0  个</p>
+          </div>
+          <em class="float_left"></em>
+          <div class="float_left">
+            <label>待登记项目</label>
+            <p>0  个</p>
+          </div>
+        </dt>
+        <dd>
+          <span>正在担保项目金额<em>0元</em></span>
+          	待登记项目金额<em>0元</em>
+        </dd>
+      </dl>
+	<dl class="member_guarantee_item float_right">
+		<dt>催收项目<em>0</em>个<span><a href="/member_guarantee/collection/collectionList.html">查看详情</a></span></dt>
+		<dd>逾期项目<em class="red">0</em>个<span><a href="/member_guarantee/overdue/overdueList.html">查看详情</a></span></dd>
+	</dl>
+</div>
+<div class="account_home_con">
+	<ul class="clearfix">
+		<li>待登记项目</li>
+	 	<li>催收项目</li>
+	</ul>
+	<div class="con clearfix dueIn_msg main_registration_list" style="display: block;">
+		<table id="main_registration"></table>
+	</div>
+	<div class="con clearfix main_collection_list" style="display:none;">
+    	<table id="main_collection"></table>
+	</div>
+</div>
+<script>
+	seajs.use('${webroot}${theme_dir}/media/js/member_guarantee/main');
+</script>
+<#include "../include/footer.html">
+</body>
+</html>

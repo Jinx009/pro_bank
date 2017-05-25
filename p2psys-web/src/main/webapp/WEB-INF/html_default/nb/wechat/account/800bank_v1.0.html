@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+<link rel="stylesheet" href="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.min.css">
+<script src="/themes/theme_default/dist/jquery.js" ></script>
+<script src="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.jquery.min.js"></script>
+<script src="/themes/theme_default/nb/wechat/js/800bank.js" ></script>
+<title>800Bank</title>
+<script  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+<script type="text/javascript">
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp:${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      'hideMenuItems',
+      'showMenuItems',
+      'hideAllNonBaseMenuItem',
+      'showAllNonBaseMenuItem',
+      'translateVoice',
+      'startRecord',
+      'stopRecord',
+      'onRecordEnd',
+      'playVoice',
+      'pauseVoice',
+      'stopVoice',
+      'uploadVoice',
+      'downloadVoice',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage',
+      'getNetworkType',
+      'openLocation',
+      'getLocation',
+      'hideOptionMenu',
+      'showOptionMenu',
+      'closeWindow',
+      'scanQRCode',
+      'chooseWXPay',
+      'openProductSpecificView',
+      'addCard',
+      'chooseCard',
+      'openCard'
+    ]
+});
+
+wx.ready(function () 
+{
+	wx.checkJsApi({
+    jsApiList: ['chooseImage'],
+    success: function(res) 
+    {
+    }
+	});
+	wx.onMenuShareTimeline({
+		 title: '800Bank', 
+		 link: 'http://www.800bank.com.cn/nb/wechat/account/800bank.html?code=${userCode}', 
+		 imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.png', 
+		 success: function ()
+		 { 
+		 },
+		  cancel: function () 
+		 { 
+		 }
+	 });
+});
+
+wx.error(function(res)
+{
+	//
+});
+</script>
+		
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+</head>
+<body>
+	<input type="hidden" value="${appId}" id="appId" >
+    <input type="hidden" value="${timestamp}" id="timestamp" >
+    <input type="hidden" value="${nonceStr}" id="nonceStr" >
+    <input type="hidden" value="${signature}" id="signature"  >
+
+	<p class="title">欢迎关注800Bank官方微信</p>
+	
+	<!-- <div class="index">
+		<a href="/nb/wechat/product/product_menue.action" ><img src="/themes/theme_default/nb/wechat/img/indexIcon.jpg" class="indexBg"/></a>
+	</div> -->
+  <!-- 轮播图开始 -->
+      <div class="swiper-container">
+        <div class="swiper-wrapper" id="bannerList" ></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <!-- 轮播图结束 -->
+
+	<div class="indexDetail">
+		<p>
+			<span class="indexType">${productType.typeName!''}</span>
+			<span class="indexTitle">${product.productName!''}</span>
+			<span class="indexHasCast"></span>
+		</p>
+		<span class="indexYieldDesc">年化预期收益率</span><a href = "${url}" ><div class="btn">了解详情</div></a><br />
+		<span class="indexYield" id="rate" >
+			<input type="hidden" id="rateValueLow" value="${product.lowestRefundRate}" >
+			<input type="hidden" id="highestRefundRate" value="${product.highestRefundRate}" >
+			<input type="hidden" id="interestRateValue" value="${interestRateValue}" >
+		 </span>
+		<p class="indexProductTip" style="word-break:break-word; " >推荐理由：${product.recommendReason};</p>
+	</div>
+	<a href="/nb/wechat/product/product_menue.html"  ><div class="sureBtn" >查看更多产品</div></a>
+
+	<#include "../../include/wechat_footer.html"> 
+</body>
+</html>

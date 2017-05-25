@@ -1,0 +1,107 @@
+<#include "lego/standard_opening.html">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link href="${webroot}${theme_dir}/wx/css/jquery.circliful.css"
+	rel="stylesheet" type="text/css" />
+<link href="${webroot}${theme_dir}/wx/css/index.css" rel="stylesheet">
+<script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+<script src="${webroot}${theme_dir}/wx/js/jquery.circliful.min.js"></script>
+<style>
+.wechat_back
+{
+    background: url('${webroot}${theme_dir}/wx/img/wechat/wechat_back.jpg')top center no-repeat; 
+   background-size:cover;
+    width: 100%;
+    height: 100%;
+    background-position: top;
+    text-align: center;
+    overflow: scroll;
+}
+.table_style
+{
+	position: fixed;
+	bottom:80px;
+	width:100%;
+	height: 40px;
+	text-align: center;
+	margin-left: 0px;
+}
+.table_style td
+{
+	text-align: center;
+}
+body
+{
+	width: 100%;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+	<div style="display: none" >
+		<div>
+			<img class="banner" alt="图片加载中.."
+				src="${webroot}${theme_dir}/wx/img/banner_logo_phone.jpg">
+		</div>
+		<div id="index-borrow"></div>
+		<div>
+			<div class="btn" style="width:90%;margin-left:5%;height:40px;line-height:40px;font-size:18px;">我要投资</div>
+		</div>
+		<div class="link-div">
+			<div class="link">
+				<span id="other">看看其他微投资产品</span>
+			</div>
+		</div>
+		<div style="height:100px;"></div>
+	</div>
+	<div class="wechat_back" id="wechat_recommend"   >
+	</div>
+	<table class="table_style" style="width: 100%" >
+		<tr>
+			<td width="10%" ></td>
+			<td width="20%" style="text-align:right;" ><img src="${webroot}${theme_dir}/wx/img/wechat/left.gif" height="32px" > </td>
+			<td width="40%" ><img src="${webroot}${theme_dir}/wx/img/wechat/wechat_detail.png" height="40px" onclick="lookRecommend('/wx/account/detail.html?id=91')"  > </td>
+			<td width="20%" ><img src="${webroot}${theme_dir}/wx/img/wechat/right.gif" width="100%" style="display: none" ></td>
+			<td width="10%"  ></td>
+		</tr>
+	</table>
+	<#include "lego/bar.html">
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/index");
+</script>
+<script type="text/javascript">
+$(document).ready(
+	function() 
+	{
+		$('.btn').click(function() 
+		{
+			window.location.href = "account/ppfundDetail.html?id=" + $('#id').val();
+		});
+		$('#other').click(function() 
+		{
+			window.location.href = "ppfundList.html";
+		});
+	}
+);
+function lookRecommend(url)
+{
+	var storage = window.sessionStorage;
+	
+	storage.wechat_type = 1;
+    
+    location.href = url;
+}
+$(function(){
+    button = $('#button');
+
+    button.click(function(e) {
+      e.preventDefault();
+      $(this).toggleClass('active');
+    });
+
+    $(window).resize(function(e) {
+      button.removeClass('active');
+    });
+  });
+</script>
+</html>

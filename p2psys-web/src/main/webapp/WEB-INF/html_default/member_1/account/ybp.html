@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    <title>鏄撳疂鍏呭�璺宠浆涓�.....</title>
+  </head>
+  <body>
+    <form action="${ybpay.nodeAuthorizationURL}" method="post" id="orderForm">
+		<input type='hidden' name='p0_Cmd'   value='${ybpay.p0_Cmd}'>
+			<input type='hidden' name='p1_MerId' value='${ybpay.p1_MerId}'>
+			<input type='hidden' name='p2_Order' value='${ybpay.p2_Order}'>
+			<input type='hidden' name='p3_Amt'   value='${ybpay.p3_Amt}'>
+			<input type='hidden' name='p4_Cur'   value='${ybpay.p4_Cur}'>
+			<input type='hidden' name='p5_Pid'   value='${ybpay.p5_Pid}'>
+			<input type='hidden' name='p6_Pcat'  value='${ybpay.p6_Pcat}'>
+			<input type='hidden' name='p7_Pdesc' value='${ybpay.p7_Pdesc}'>
+			<input type='hidden' name='p8_Url'   value='${ybpay.p8_Url}'>
+			<input type='hidden' name='p9_SAF'   value='${ybpay.p9_SAF}'>
+			<input type='hidden' name='pa_MP'    value='${ybpay.pa_MP}'>
+			<input type='hidden' name='pd_FrpId' value='${ybpay.pd_FrpId}'>
+			<input type="hidden" name="pr_NeedResponse"  value="${ybpay.pr_NeedResponse}">
+			<input type='hidden' name='hmac'     value='${ybpay.hmac}'>
+    </form>
+    <script language="javascript">
+      document.getElementById("orderForm").submit();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<div class="popForm" style="padding-bottom:0;">
+	<div class="formitm">
+		<label class="lab">组合名称：</label>
+		<div class="ipt">${mod.productName}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">组合类型：</label>
+		<div class="ipt">${mod.typeDesc}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">组合顺序：</label>
+		<div class="ipt">${mod.showOrder}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">最高预期收益：</label>
+		<div class="ipt">${mod.highestRefundRate!0}%</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">最低预期收益：</label>
+		<div class="ipt">${mod.lowestRefundRate!0}%</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">组合亮点：</label>
+		<div class="ipt">${mod.lightspot!''}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">初审是否通过：</label>
+		<div class="ipt">
+		<#if mod.status==1>
+			通过
+		<#else>
+			不通过
+		</#if>
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt">${mod.verifyRemark!''}</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">产品：</label>
+		<div class="ipt">
+		   <#list mod.subProductList as pro>
+			    [${pro.typeDesc}]  ${pro.productName} ${pro.rate}%<br/>
+		   </#list>
+	  </div>
+  </div>
+</div>

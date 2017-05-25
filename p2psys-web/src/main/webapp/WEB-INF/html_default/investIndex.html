@@ -1,0 +1,259 @@
+﻿<!DOCTYPE HTML>
+<html>
+<#assign nid="index" >
+<#include "include/resource1.html"> 
+<style>
+	body{background: #fff;}
+	.index_num {  
+		color: transparent;  
+		-webkit-text-stroke: 2px #306a97;
+		font-size:50px;
+		color:#FFFFFF;  
+	}
+	#imgTextDiv{
+		position: relative;
+		top:-320px;
+		height: 60px;
+		width: 140px;
+		filter: Alpha(Opacity=0);
+		-moz-opacity:0; 
+   		opacity:0; 
+   		left:0px;
+   		background: white;
+   		z-index:9998;
+   		color: white;
+   		line-height: 60px;
+	}
+	#imgDiv{
+		position: relative;
+		top:-530px;
+		height: 160px;
+		width: 250px;
+   		z-index:9998;
+   		left:0px;
+   		display: none;
+	}
+</style>
+<div id="header" class="hide">
+	<!--S 头部信息显示-->
+	<div id="header_info">
+		<div  class="clearfix header_top">
+	        <div class="float_left">
+	        	<a href="/"><div class="logo"></div></a>
+	        	
+				<#if !nid??><#assign nid="index"></#if> <#macro showSiteUrl site>
+				${webroot}${site.url!} </#macro> <#if tree??&&tree.hasChild()>
+				<#list tree.child as item> 
+				
+				<#if
+				(item.model.status)??&&item.model.status==1><span style="display:inline-block; margin-top:10px;"><a class="<#if ((item.model.nid)??&&(item.model.nid)==nid)>hover<#else></#if>"
+					href="<@showSiteUrl site=item.model/>">${item.model.name!}</a></span>
+				</#if> 
+				</#list>
+				</#if>
+			</div>
+	        <div class="float_right">
+	        	<span class="loginStatus">
+	        	<#if session_user?exists >
+	        	欢迎您，
+	        	<a href="${webroot}/member/main.html">${session_user.userName?substring(0,4)}****${session_user.userName?substring(7,11)}</a><a href="${webroot}/user/logout.html" title="退出登录">退出</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				<#else>
+				<a href="${webroot}/user/login.html">登录</a><a href="${webroot}/user/register.html" >注册</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				</#if>
+				</span>
+			</div>
+	    </div>
+	</div>
+  
+</div>
+
+
+<div class="index-header" >
+	<div class="index-header-box">
+		<div class="header-top clearfix">
+			<div class="float_left clearfix">
+				<div class="logo"></div>
+				<a href="${webroot}/aboutUs/siteIntro.html">关于我们</a>
+				<a href="${webroot}/aboutUs/questionIntro.html">帮助中心</a>
+			</div>
+			<div class="float_right">
+				<span class="loginStatus">
+	        	<#if session_user?exists >
+	        	欢迎您，
+	        	<a href="${webroot}/member/main.html">${session_user.userName?substring(0,4)}****${session_user.userName?substring(7,11)}</a><a href="${webroot}/user/logout.html" title="退出登录">退出</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				<#else>
+				<a href="${webroot}/user/login.html">登录</a><a href="${webroot}/user/register.html" >注册</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				</#if>
+				</span>
+			</div>
+		</div>
+		
+		<div class="header-mid" style="padding-top:371px;">		
+			<div class="btnAll">
+				<div class="leftBtn"><a href="/activity.html"><img src="${webroot}${theme_dir}/media/css/images/leftBtn.png"/></a></div>
+				<div class="rightBtn"><a href="${webroot}/invest/productList.html"><img src="${webroot}${theme_dir}/media/css/images/rightBtn.png"/></a></div>
+			</div>	
+		</div>
+
+		 <div class="header-line"  style="margin-top:77px;">了解我们提供的服务</div>
+
+		<div class="index-header-tab clearfix" id="index-tab">
+			<a class="in-left" href="/" style="display:none;width:215px;"></a>
+			<div class="in-mid">
+				<span>我要投资</span>
+				<a href="/yardIndex.html">800社区</a>
+				<a href="/mainIndex.html">尊享账户</a>
+			</div>
+			<a class="in-right" href="/invest/productList.html" style="width:100px;display:none;">在800Bank投资</a>
+		</div> 
+	</div>
+	<div id="imgTextDiv"  onmouseover="showText()" onmouseout="hideText()" >test</div>
+	<img src="/themes/theme_default/images/index_top.png" id="imgDiv" >
+</div>
+<div class="investindex-con">
+	<div class="investindex-start">
+		<h1>为您定制财富管理服务</h1>
+		<p>800Bank为您提供平衡化及多样化的投资组合，让您的财富比梦想走得更远。</p>
+		<a href="${webroot}/invest/productList.html">让我们开始吧</a>
+	</div>
+</div>
+
+
+<div class="investindex-productbg"  style="display:none;">
+	<div class="investindex-product clearfix">
+		<div class="product-left">
+			<div class="product-left-con hide" id="product-right-con1">
+				<div class="product-left-img">
+					<span>项目名称</span>
+				</div>
+				<div class="product-right-word clearfix">
+					<a href="${webroot}/ppfund/index.html" class="all-btn">查看全部</a>
+					
+				</div>
+			</div>
+
+			<div class="product-left-con hide " id="product-right-con2">
+				<div class="product-left-img">
+					<span>项目名称</span>
+				</div>
+				<div class="product-right-word clearfix">
+					<a href="${webroot}/invest/estate.html" class="all-btn">查看全部</a>
+					
+				</div>
+			</div>
+
+			<div class="product-left-con hide" id="product-right-con3">
+				<div class="product-left-img">
+					<span>项目名称</span>
+				</div>
+				<div class="product-right-word clearfix">
+					<a href="${webroot}/invest/index.html" class="all-btn">查看全部</a>
+					
+				</div>
+			</div>
+
+			<div class="product-left-con hide" id="product-right-con4">
+				<div class="product-left-img">
+					<span>项目名称</span>
+				</div>
+				<div class="product-right-word clearfix">
+					<a href="${webroot}/invest/entrust.html" class="all-btn">查看全部</a>
+					
+				</div>
+			</div>
+
+		</div>
+		<div class="product-right">
+			<ul>
+			  <li class="active"><span>现金管理产品</span></li>
+			  <li><span>海外投资产品</span></li>
+			  <li><span>固定收益类产品</span></li>
+			  <li><span>浮动收益类产品</span></li>
+			  <!--<li><span>债权转让</span></li>-->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="money-data">
+	<h1>属于您的财富管家</h1>
+	<p>800个月的贴心互联网私人理财服务，我们用心为您刻画财富积累的长度，用智慧为您创造财富积累的深度。</p>
+	<div class="money-data-title">投资金额</div>
+	<div class="money-sj">
+		  <div class="nstSlider" data-range_min="0" data-range_max="10000" data-cur_min="0">
+    	    <div class="leftGrip"><div class="leftLabel"></div></div>
+	      </div>
+	</div>
+	<ul class="update clearfix">
+		<li>
+			<span class="update1">3.5</span>%<br/>普通银行存款利率
+		</li>
+		<li>
+			<span class="update2">4.5</span>%<br/>余额宝年化收益
+		</li>
+		<li>
+			<span class="update3">12</span>%<br/>800Bank平均年化收益
+		</li>
+	</ul>
+	<div class="money-tip">800个月后，潜在的财富深度可达<span class="tipmoney">￥<em>0</em></span></div>
+</div>
+
+
+<div class="index-panter">
+	<div class="index-panter-con">
+		<h1>最值得信赖的合作伙伴</h1>
+		<p>800Bank长期与优秀企业合作，只为给您打造最安全最优质的理财服务平台。</p>
+	</div>
+	<div class="img-scroll">
+		<div class="prev"></div>
+	    <div class="next"></div>
+		<div class="img-list">
+	        <ul class="clearfix" id="partnerList">
+	           
+	        </ul>
+	    </div>
+	</div>
+
+</div>
+
+
+<#include "include/footer.html">
+<script type="text/javascript" src="/themes/theme_default/media/js/jquery.1.11.1.js" ></script>
+<script type="text/javascript">
+
+</script>
+<script>
+	$(function()
+	{
+		ddd();
+			
+		$(window).scroll(function() 
+		{
+			ddd();
+		});                
+		$(window).bind("resize", ddd);
+	})
+	function hideText()
+	{
+		$("#imgDiv").hide();
+	}
+	function showText()
+	{
+		$("#imgDiv").show();
+	}
+	function ddd()
+	{
+		var width = $(window).width();
+		var apr = 1058/1920;
+			
+		var marginWidth = width*apr;
+			
+		$("#imgTextDiv").css("left",marginWidth);
+		$("#imgDiv").css("left",(marginWidth+140));
+			
+	}	
+	seajs.use("${webroot}${theme_dir}/media/js/home");
+	seajs.use("${webroot}${theme_dir}/media/js/hometablist");
+</script>
+</body>
+</html>

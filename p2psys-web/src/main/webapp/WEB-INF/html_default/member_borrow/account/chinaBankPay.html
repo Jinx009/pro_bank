@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>网银在线充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+  	<form method="post" action="https://pay3.chinabank.com.cn/PayGate" id="orderForm">
+	  	<input type="hidden" name="v_md5info" value="${cbp.v_md5info}" size="100">
+	    <input type="hidden" name="v_mid" value="${cbp.v_mid}">
+	    <input type="hidden" name="v_oid" value="${cbp.v_oid}">
+	    <input type="hidden" name="v_amount" value="${cbp.v_amount}">
+	    <input type="hidden" name="v_moneytype" value="${cbp.v_moneytype}">
+	    <input type="hidden" name="v_url" value="${cbp.v_url}">
+	  	<input type="hidden" name="remark1" value="${cbp.remark1}"> 
+		<input type="hidden" name="remark2" value="${cbp.remark2}"> 
+		<#if cbp??&&cbp.pmode_id??>
+		<input type="hidden" name="pmode_id" value="${cbp.pmode_id}"> 
+		</#if>
+		<script type="text/javascript">
+	      document.getElementById("orderForm").submit();
+	    </script>
+	</form>
+  </body>
+</html>

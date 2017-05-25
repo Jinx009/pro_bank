@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	var layout_west_tree;
+	var layout_west_tree_url = '';
+	var sessionInfo_userId = '${(session_operator.id)!""}';
+	if (sessionInfo_userId) {
+		layout_west_tree_url = '/modules/system/menu/leftMenuList.html';
+	}
+	var _menus =(function(){
+		var result;
+		$.ajax({
+				type:'post',
+				url: "/modules/system/menu/leftMenuList.html",
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					result = $.fn.treeConvert.menu(data.rows);
+				}		
+			});
+			return result;
+		})()
+	InitLeftMenu();	
+</script>
+<div id="nav"></div>

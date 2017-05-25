@@ -1,0 +1,32 @@
+<div id="header">
+	<!--S 头部信息显示-->
+	<div id="header_info">
+		<div  class="clearfix header_top">
+	        <div class="float_left">
+	        	<a href="/"><div class="logo"></div></a>
+	        	
+				<#if !nid??><#assign nid="index"></#if> <#macro showSiteUrl site>
+				${webroot}${site.url!} </#macro> <#if tree??&&tree.hasChild()>
+				<#list tree.child as item> 
+				
+				<#if
+				(item.model.status)??&&item.model.status==1><span style="display:inline-block; margin-top:10px;"><a class="<#if ((item.model.nid)??&&(item.model.nid)==nid)>hover<#else></#if>"
+					href="<@showSiteUrl site=item.model/>">${item.model.name!}</a></span>
+				</#if> 
+				</#list>
+				</#if>
+			</div>
+	        <div class="float_right">
+	        	<span class="loginStatus">
+	        	<#if session_user?exists >
+	        	欢迎您，
+	        	<a href="${webroot}/member/main.html">${session_user.userName?substring(0,4)}****${session_user.userName?substring(7,11)}</a><a href="${webroot}/user/logout.html" title="退出登录">退出</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				<#else>
+					<a href="${webroot}/user/login.html">登录</a><a href="${webroot}/user/register.html" >注册</a><a href="${webroot}/invest/productList.html" class="guide">在800Bank投资</a>
+				</#if>
+				</span>
+			</div>
+	    </div>
+	</div>
+  
+</div>

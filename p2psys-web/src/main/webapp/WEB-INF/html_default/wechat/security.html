@@ -1,0 +1,69 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>800bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="header"><a class="backto" href="javascript:history.back(-1);"></a>设置</div>
+  <div class="row-group">
+		<div class="row">
+			  
+		    <#if session_user_identify?? && session_user_identify.realNameStatus == 0 >
+		    	<a href="/wx/account/addBank.html" style="text-decoration:none;display:block;">
+			    	<img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png" />
+			    	<span class="row-title">身份认证</span>
+				  	<span class="row-value">未认证</span>
+				  	<img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png"  alt="未认证" />
+		  		</a>
+		  	</#if>
+		  	<#if session_user_identify?? && session_user_identify.realNameStatus == 1 >
+		  	  	<img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png" />
+		  	  	<span class="row-title">身份认证</span>
+			  	<span class="row-value">已认证</span>
+			  	<img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png"  alt="已认证" />
+			</#if>
+			<#if session_user_identify?? && session_user_identify.realNameStatus == 2 >
+			    <img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png" />
+			    <span class="row-title">身份认证</span>
+				<span class="row-value">审核中</span>
+				<img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png"  alt="审核中" />
+			</#if>
+		</div>
+		<div class="row">  
+			  <#if bankList?? && bankList?size gt 0 >
+			  <a href="/wx/account/bank.html" style="text-decoration:none;display:block;">
+			  	  <img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png">
+			  	  <span class="row-title">我的银行卡</span>
+				  <span class="row-value">已绑定</span>
+				  <img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png"  alt="已绑定"/>
+			  </a>
+			  <#else>
+			  <a href="/wx/account/addBank.html" style="text-decoration:none;display:block;">
+			  	  <img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/identity.png">
+			      <span class="row-title">我的银行卡</span>
+				  <span class="row-value">去绑定</span>
+				  <img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png"  alt="去绑定"/>
+			  </a>
+			  </#if>
+		</div>
+  </div>
+  <div class="row-group">
+		<a class="row"  href="/wx/account/modifyPwd.html" id="modifyPwdForm" style="text-decoration:none;">
+			  <img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/bankcard.png">
+			  <span class="row-title">修改登录密码</span>
+			  <img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png" />
+		</a>
+		<a class="row" href="/wx/account/modifyPaypwd.html" id="modifyPayPwdForm" style="text-decoration:none;">
+			  <img class="row-icon" src="${webroot}${theme_dir}/wx/static/css/images/bankcard.png">
+			  <span class="row-title">修改交易密码</span>
+			  <img class="row-arrow" src="/WEB-INF/html_default/wechat/static/css/images/R_arrow.png" />
+		</a>
+  </div>
+  
+  <a class="button button-block button-main" style="margin-top: 25px;text-decoration:none;" href="/wx/logOut.html">退出当前账户</a>
+</body>
+</html>

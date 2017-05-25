@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>汇付投标跳转页面</title>
+</head>
+<body>
+<div align="center">汇付投标跳转页面跳转中，去不要关闭页面...</div>
+	<form action="${pnr.url}" method="post" id="frm1" style="display: none;">
+		<input type="text" value="${pnr.version}" name="Version" /> 
+		<input type="text" value="${pnr.cmdId}" name="CmdId" /> 
+		<input type="text" value="${pnr.merCustId}" name="MerCustId" /> 
+			<input type="text" value="${pnr.retUrl}" name="RetUrl" /> 
+			<input type="text" value="${pnr.bgRetUrl}" name="BgRetUrl" /> 
+			<input type="text" value="${pnr.ordId}" name="OrdId" /> 
+			<input type="text" value="${pnr.ordDate}" name="OrdDate" />
+			 <input type="text" value="${pnr.transAmt}" name="TransAmt" />
+			 <input type="text" value="${pnr.usrCustId}" name="UsrCustId" />
+			 <input type="text" value="${pnr.maxTenderRate}" name="MaxTenderRate" /> 
+			<input type="text" value="${pnr.merPriv}" name="MerPriv" />
+		<textarea rows="6" cols="60" name="BorrowerDetails" >${pnr.borrowerDetails}</textarea>
+		<textarea rows="6" cols="60" name="ChkValue">${pnr.chkValue}</textarea>
+	</form>
+	<script language="javascript">
+		document.getElementById("frm1").submit();
+	</script>
+</body>
+</html>

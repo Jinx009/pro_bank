@@ -1,0 +1,9 @@
+<#include "base_top.html">
+<#if type?exists>
+	<#assign borrow_type=type>
+</#if>
+    <div class="menu-info">
+        <a <#if borrow_type?exists&&borrow_type=="repayment"> class="current"</#if> href="/wx/infoborrow.html?type=repayment">待还记录</a>
+        <a <#if borrow_type?exists&&borrow_type=="repaymentyes"> class="current"</#if> href="/wx/infoborrow.html?type=repaymentyes" >已还记录</a>
+    </div>
+<#include "base_bottom.html">

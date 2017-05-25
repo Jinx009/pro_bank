@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/progress/js/radialIndicator.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/crowdfunding/wechat/index.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/media/js/weburl.js" ></script>
+<link href="/themes/theme_default/crowdfunding/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.nav_table
+{
+	width: 100%;
+	background: rgb(49,113,185);
+}
+.nav_table th
+{
+	width: 50%;
+	height: 3em;
+	font-size: 1.2em;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: 200;
+	letter-spacing: 0.1em;
+}
+.th_active
+{
+	color: gray;
+}
+body
+{
+	font-family: "Microsoft YaHei";
+	color: white;
+}
+.normal_div
+{
+	width: 94%;
+	margin-left: 3%;
+	margin-top: 1em;
+}
+.top_img
+{
+	width: 100%;
+	height: 100%;
+}
+.sm_height
+{
+	height: 10em;
+}
+.div_one
+{
+	height: 2em;
+}
+.info_table
+{
+	width: 94%;
+	margin-left: 3%;
+	height: 10em;
+	vertical-align: middle;
+}
+.info_td
+{
+	text-align: center;
+	vertical-align: middle;
+}
+.info_table td
+{
+	text-align: left;
+}
+.div_gray
+{
+	height: 0.6em;
+	background: rgb(222,222,222);
+}
+.in_info_table
+{
+	width: 100%;
+	height: 10em;
+	color: black;
+	text-align: left;
+}
+.top_font
+{
+	font-size: 1em;
+	color: rgb(89,89,89); 
+	
+}
+.progress_div
+{
+	width: 100%;
+}
+.top_p
+{
+	font-size: 1.1em;
+	color: rgb(35,112,181);
+}
+.bar {
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	min-height: 60px;
+	max-height: 100px;
+	width: 100%;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 5%;
+	height: 30%;
+	width: 30%;
+}
+
+.bar {
+	margin-top:50px;
+	width: 100%;
+	background-color: #363D3F;
+	position: fixed;
+	*position: absolute;
+	bottom: 0px;
+	height: 66px;
+	width: 100%;
+	z-index: 100;
+}
+
+.toggle {
+	width: 25%;
+	float: left;
+	text-align: center;
+	color: white;
+	height: 100%;
+	font-size: 12px;
+}
+
+.press-icon {
+	margin-bottom: 0;
+	margin: 0 auto;
+	margin-top: 3px;
+	height: 36px;
+	width: 36px;
+}
+.dd {
+	width: 25%;
+	height: 120px;
+	position: absolute;
+	left: 25%;
+	bottom: 80px;
+	color: #5D5D5D;
+	font-size: 15px;
+	z-index: 999;
+	display: none;
+}
+
+.ddd {
+	height: 40px;
+	background-color: white;
+}
+
+.ddd:hover {
+	
+}
+
+.dddd {
+	height: 40px;
+	line-height: 40px;
+	width: 92%;
+	margin-left: 4%;
+}
+
+.dddd:hover {
+	background-color: #D7D7D7;
+}
+
+.veil {
+	background-color: black;
+	filter: alpha(opacity = 10);
+	-moz-opacity: 0.1;
+	opacity: 0.1;
+}
+</style>
+<script type="text/javascript">
+$(function()
+{
+	var web_url = $("#ichiichi").attr("src").split("/")[0];
+	$.ajax({
+		url:"/crowdfunding/projectInfoList.html",
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			var data = res.data.list;
+			for(var i = 0;i<data.length;i++)
+			{
+				var htmlStr = "";
+				if("2"==data[i].type)
+				{
+					var progress;
+					var total_money;
+					var person_num;
+					var left_day;
+					
+					$.ajax({
+						url:"/crowdfunding/projectTotalInfo.html?id="+data[i].id,
+						type:"GET",
+						dataType:"json",
+						async:false,
+						success:function(res)
+						{
+							progress = parseFloat(res.totalInfo.scale)*100;
+							total_money = (parseFloat(res.totalInfo.toltalMoney)/10000).toFixed(1);
+							person_num = res.totalInfo.supportCount;
+							left_day = res.totalInfo.leftDays;
+						}
+					})
+					var img_num = 0;
+					htmlStr += "<div class='normal_div sm_height' >";
+					for(var j = 0;j<data[i].materials.length;j++)
+					{
+						if(0===img_num)
+						{
+							if("2000"==data[i].materials[j].materialCode)
+							{
+								htmlStr += "<img onclick=getDetail('"+data[i].id+"') src="+back_web_url+data[i].materials[j].materialContent+"  class='top_img' />";
+								img_num++;
+							}
+						}
+					}
+					htmlStr += "</div><div class='div_one' ></div><table  onclick=getDetail('"+data[i].id+"')  class='info_table' ><tr><td width='25%' class='info_td' >";
+					htmlStr += "<div id=indicatorContainer"+i+" class='progress_div'  ></div></td>";
+					htmlStr += "<td width='6%' ></td><td width='69%'><table class='in_info_table'><tr><td colspan='3' valign='middle' class='top_font' >";
+					htmlStr += "筹资金额:￥"+data[i].planedMaxAmount;
+					htmlStr += "</td></tr><tr><td valign='top' width='33%' ><p class='top_p'>"+total_money+"万</p><p>已筹集</p></td>";
+					htmlStr += "<td valign='top' width='33%'><p class='top_p'>"+person_num+"人</p><p>人数</p>";
+					htmlStr += "</td><td valign='top' width='33%'><p class='top_p'>"+left_day+"</p><p>剩余天数</p></td></tr>";
+					htmlStr += "</table></td></tr></table><div class='div_gray' ></div> ";
+					
+					$("#main1").append(htmlStr);
+					
+					$('#indicatorContainer'+i).radialIndicator
+					({
+						radius: 40,
+				        barColor: 'rgb(129,216,207)',
+				        barWidth: 6,
+				        initValue:progress,
+				        roundCorner : true,
+				        percentage: true
+				    });
+				}
+				else
+				{
+					var progress;
+					var total_money;
+					var person_num;
+					var left_day;
+					
+					$.ajax({
+						url:"/crowdfunding/projectTotalInfo.html?id="+data[i].id,
+						type:"GET",
+						dataType:"json",
+						async:false,
+						success:function(res)
+						{
+							progress = parseFloat(res.totalInfo.scale)*100;
+							total_money = (parseFloat(res.totalInfo.toltalMoney)/10000).toFixed(1);
+							person_num = res.totalInfo.supportCount;
+							left_day = res.totalInfo.leftDays;
+						}
+					})
+					var img_num = 0;
+					htmlStr += "<div class='normal_div sm_height' >";
+					for(var j = 0;j<data[i].materials.length;j++)
+					{
+						if(0==img_num)
+						{
+							if("2000"==data[i].materials[j].materialCode)
+							{
+								htmlStr += "<img onclick=getDetail('"+data[i].id+"') src="+back_web_url+data[i].materials[j].materialContent+"  class='top_img' />";
+								img_num++;
+							}
+						}
+					}
+					htmlStr += "</div><div class='div_one'></div><table class='info_table'  onclick=getDetail('"+data[i].id+"')  ><tr><td width='25%' class='info_td' >";
+					htmlStr += "<div id=indicatorContainer"+i+" class='progress_div'  ></div></td>";
+					htmlStr += "<td width='6%' ></td><td width='69%'><table class='in_info_table'><tr><td colspan='3' valign='middle' class='top_font' >";
+					htmlStr += "";
+					htmlStr += "</td></tr><tr><td valign='top' width='33%' ><p class='top_p'>"+total_money+"万</p><p>已筹集</p></td>";
+					htmlStr += "<td valign='top' width='33%'><p class='top_p'>"+person_num+"人</p><p>人数</p>";
+					htmlStr += "</td><td valign='top' width='33%'><p class='top_p'>"+left_day+"</p><p>剩余天数</p></td></tr>";
+					htmlStr += "</table></td></tr></table><div class='div_gray' ></div> ";
+					
+					$("#main2").append(htmlStr);
+					
+					$('#indicatorContainer'+i).radialIndicator
+					({
+						radius: 40,
+				        barColor: 'rgb(129,216,207)',
+				        barWidth: 6,
+				        initValue:progress,
+				        roundCorner : true,
+				        percentage: true
+				    });
+				}
+			}
+		}
+	})
+	
+})
+
+function getDetail(project_id)
+{
+	location.href = "/wechat/crowdfunding/detail.html?project_id="+project_id	
+}
+
+function showMain(index)
+{
+	if("1"==index)	
+	{
+		$("#th_one").removeClass("th_active");
+		$("#th_two").addClass("th_active");
+		$("#main1").css("display","block");
+		$("#main2").css("display","none");
+	}
+	else
+	{
+		$("#th_two").removeClass("th_active");
+		$("#th_one").addClass("th_active");
+		$("#main1").css("display","none");
+		$("#main2").css("display","block");
+	}
+}
+</script>
+<title>众筹首页</title>
+</head>
+<body>
+<input type="hidden" value="${user_id}" id="user_id" >
+<table class="nav_table" >
+	<tr>
+		<th id="th_one"  onclick="showMain('1')"  >权益众筹</th>
+		<th id="th_two" onclick="showMain('2')" class="th_active" >实物众筹</th>
+	</tr>
+</table>
+<div id="main1" ></div>
+
+<div id="main2" style="display: none"  ></div>
+
+
+<div style="height: 4em" ></div>
+
+
+<div class="bar">
+	<div class="toggle" id="ichi">
+		<div>
+			<img class="press-icon" alt="" 
+				src="${webroot}${theme_dir}/wx/img/home_normal.png" id="ichiichi">
+		</div>首页
+	</div>
+	<div class="toggle" id="ni">
+		<div style="position: relative;">
+			<img class="press-icon" alt=""	src="${webroot}${theme_dir}/wx/img/lise_normal.png" id="nini">
+		</div>
+		<a href="/wechat/crowdfunding/index.html"	style="color: white" >产品系列</a>
+	</div>
+	<div class="toggle" id="san">
+		<div  onclick="goLoginPage()">
+			<img class="press-icon" src="${webroot}${theme_dir}/wx/img/account_normal.png" id="sansan">
+		</div>
+		<a	style="text-decoration: none; color: white">我的账户</a>
+	</div>
+	<div class="toggle" id="yon">
+		<div onclick="goMorePage()">
+			<img class="press-icon"	src="${webroot}${theme_dir}/wx/img/more_normal.png" id="yonyon">
+		</div>
+		<a 	style="text-decoration: none; color: white">更多</a>
+	</div>
+</div>
+
+</body>
+</html>

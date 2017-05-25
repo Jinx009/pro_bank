@@ -1,0 +1,136 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.addBorrowFormSubFun("#form",'/modules/loan/ppfund/ppfundAdd.html');
+	    $('#timeLimit').attr("disabled",true);
+        $('#timeLimit').val("");
+	    $("#changetomopney").click(function(){
+	    	if($('#changetomopney').attr("checked"))
+	    	{	
+	    		 $('.borrowFormTxt2').attr("disabled",true);
+		         $('.borrowFormTxt2').val("");
+	           
+	        }else{
+	        	 $('.borrowFormTxt2').attr("disabled",false);
+	        }
+	    });
+	    
+	    $("#isFixedTerm1").click(function(){
+	    	if($('#isFixedTerm1').attr("checked"))
+	    	{	
+	    		 $('#cycle').attr("disabled",true);
+		         $('#cycle').val("");
+		         $('#timeLimit').attr("disabled",false);
+	           
+	        }else{
+	        	 $('#cycle').attr("disabled",false);
+	        	 $('#timeLimit').attr("disabled",true);
+		         $('#timeLimit').val("");
+	        }
+	    });
+	    
+	    $("#isFixedTerm2").click(function(){
+	    	if($('#isFixedTerm2').attr("checked"))
+	    	{	
+	    		 $('#cycle').attr("disabled",false);
+	        	 $('#timeLimit').attr("disabled",true);
+		         $('#timeLimit').val("");
+	           
+	        }else{
+	        	 $('#cycle').attr("disabled",true);
+		         $('#cycle').val("");
+		         $('#timeLimit').attr("disabled",false);
+	        }
+	    });
+	    	
+	    
+	    var value = $("#typeId").find("option:selected").text();
+		var realValue = $("#typeId").val();
+		$("#type").val(realValue);
+	    
+  			
+	});
+	
+	
+	
+	function getTypeId(){
+		
+		var value = $("#typeId").find("option:selected").text();
+		var realValue = $("#typeId").val();
+		$("#type").val(realValue);
+		
+	}
+	
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<div class="borrowForm" style="border-top:none;">
+	<h1 class="borrowFormTitle">基本信息</h1>
+	<ul>
+		<li>
+			<span>产品标签：</span>
+			<select id="flagId" name="flagId">
+				<#list productTypeFlagList as item>
+				<option value="${item.id}">${item.flagName}</option>
+				</#list>
+			</select>
+		</li>
+		
+		<li>
+			<span>产品类别：</span>
+			<select id="typeId" name="typeId" onchange="getTypeId();">
+				<#list productTypeList as item>
+				<option value="${item.id}">${item.typeName}</option>
+				</#list>
+			</select>
+		</li>
+		
+		<input type="hidden" value="" id="type" name="type"/>
+		
+		<li><span>产品编码：</span><input type="text" name="pidNo" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<li><span>产品名称：</span><input type="text" name="name" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<!-- <li><span>金额不限:</span><input type="checkbox" id="changetomopney" id="moneychose"></li> -->
+		<li><span>产品顺序：</span><input type="text" name="showOrder" id="showOrder" autocomplete="off" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'"  onkeyup="this.value=this.value.replace(/\D/g,'')"/></li>
+		<li><span>产品金额：</span><input type="text" name="account" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 borrowFormTxt2 easyui-validatebox"  data-options="required: true,validType:'maxLength[25]'"><em>元</em></li>
+		<li><span>年利率：</span><input type="text" name="apr" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'apr[1,24]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>借款管理费率：</span><input type="text" name="manageRate" value="2.5" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'jkapr[0,5]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>风险备用费率：</span><input type="text" name="riskReserveRate" value="1" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" data-options="required: true,validType:'riskRate[0,5]'" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>%</em></li>
+		<li><span>固定期限:</span>是<input type="radio" name="isFixedTerm" id="isFixedTerm1" value="1"> 否<input type="radio" name="isFixedTerm" id="isFixedTerm2" value="0" checked="checked"></li>
+		<li><span>周期天数:</span><input type="text" name="cycle" value="1" id="cycle" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>天</em></li>
+		<li><span>借款期限：</span><input type="text" name="timeLimit" id="timeLimit" autocomplete="off" size="15" class="borrowFormTxt1 easyui-validatebox"  style="width:60px"  onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" ><em>天</em></li>
+		<li><span>计息方式：</span><select name="interestWay"><option value="0">T+0</option><option value="1">T+1</option></select></li>
+		<li><span>选择红包：</span>
+				<select name="red_packet_id">
+				<option value="0">无</option>
+				<#if redPackets ??>
+					<#list redPackets as item>
+					<option value="${item.id}">${item.name!}</option>
+					</#list>
+				</#if>
+				</select></li>
+		<li><span>单笔最低金额：</span><input type="text" name="lowestAccount" autocomplete="off" value="80" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 borrowFormTxt2 easyui-validatebox"><em>元</em></li>
+		<li><span>单笔最高金额：</span><input type="text" name="mostAccount" autocomplete="off" value="0" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 borrowFormTxt2 easyui-validatebox"><em>元</em></li>
+		<!-- <li><span>最高投资总额：</span><input type="text" name="mostAccountTotal" autocomplete="off" value="0" onkeyup="value=value.replace(/[^0-9]/g,'')" size="15" class="borrowFormTxt1 borrowFormTxt2 easyui-validatebox"><em>元</em></li> -->
+		<li><span>每日开始时间：</span><input type="text" name="startTime" autocomplete="off" value="8:00" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+		<li><span>每日结束时间：</span><input type="text" name="endTime" autocomplete="off" value="22:00" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'maxLength[25]'" /></li>
+	</ul>
+	<div class="borrowFormMuti"><span>借款图片：</span><input type="file" name="file" title="点击上传图片" /></div>
+	<div class="borrowFormMuti"><span>借款详情：</span>
+	<#include "umeditor.htm"> 
+		<@showUeditor width=870 heigth=300 id="message" name="content" content="" />
+	</div>
+</div>
+<div class="borrowForm">
+	<div class="guarantee_type">
+		<span>资料<br>图片：</span>
+	        <div id="uploadGuaranteeBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="borrowPagePic" class="photoUpload" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="zlfile" id="uploadFile" onchange="return ajaxFileUpload1('uploadFile','/imageUp.jsp','picPath');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+	</div>	
+</div>
+</form>
+
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

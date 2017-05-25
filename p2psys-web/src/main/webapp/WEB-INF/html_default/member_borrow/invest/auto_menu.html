@@ -1,0 +1,6 @@
+<ul id="tab" class="list-tab clearfix">
+	<li <#if auto_type?exists&&auto_type=="list">class="active"</#if>><a href="auto.html">自动投标列表</a></li>
+	<#if !auto?exists||auto?size lt 1>
+	<li <#if auto_type?exists&&auto_type=="add">class="active"</#if>><a href="auto.html?type=add">添加自动投标</a></li>
+	</#if>
+</ul>

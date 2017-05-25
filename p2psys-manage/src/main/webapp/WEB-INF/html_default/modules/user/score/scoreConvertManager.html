@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>积分兑换现金/VIP管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入兑换人进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>类型</span><select name="scoreTypeNid" id="scoreTypeNid">
+						<option value="">全部</option>
+						<option value="score_convert_money">积分兑换现金</option>
+						<option value="score_convert_vip">积分兑换VIP</option>
+					</select></li>
+					<li><span>状态</span><select name="status" id="status">
+						<option value="-99">全部</option>
+						<option value="-1">无用数据</option>
+						<option value="0">待审核</option>
+						<option value="1">审核通过</option>
+						<option value="2">审核未通过</option>
+					</select></li>
+		        	<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  700;
+    var winHeight = 500;
+    var verifyTitle = "积分兑换审核";
+    var verifyUrl =  "/modules/user/score/verifyScoreConvertPage.html";
+    var verifyWinParmeters = "'{0}','"+verifyTitle+"',700,530,'"+verifyUrl+"'";
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : '/modules/user/score/scoreConvertList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'id', title: '编号', width: 50,fixed:true, sortable:false },              
+              { field: 'userName', title: '兑换人', width: 80,fixed:true, sortable:false },
+              { field: 'scoreTypeName', title: '类型', width: 60, sortable:false },
+              { field: 'status', title: '状态', width: 100, sortable:false,
+            	formatter: function(value,row,index){
+            		if(value == 0){
+            			return "未审核";
+            		}else if(value == 1){
+            			return "审核通过";
+            		}else if(value == 2){
+            			return "审核不通过";
+            		}else{
+            			return "无用数据";
+            		}
+              	} 
+              },
+              { field: 'score', title: '兑换积分', width: 50, sortable:false }, 
+              { field: 'money', title: '金额', width: 50, sortable:false,
+            	  formatter: function(value,row,index){
+					return value + "元";
+				  }   
+              },
+              { field: 'addTime', title: '添加时间', width: 180, fixed:true,sortable:false, 
+            	  	formatter: function(value,row,index){
+            	  		return getLocalTime(value,4);
+  				  	}  
+              }, 
+              { field: 'remark', title: '备注', width: 50, sortable:false }, 
+              { field : 'action',
+                title : '操作',
+                width :75,
+                fixed:true,
+                formatter : function(value, row, index) {
+                    var str = '';
+                    str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+verifyWinParmeters+');" src="{1}" title="积分兑换审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/pencil.png');
+                    str += '&nbsp;';     
+                    return str;
+                }
+            } ] ],
+            toolbar : '#toolbar',
+            onLoadSuccess : function() {
+                $('#searchForm table').show();
+                parent.$.messager.progress('close');
+            },
+            onRowContextMenu : function(e, rowIndex, rowData) {
+                e.preventDefault();
+                $(this).datagrid('unselectAll').datagrid('uncheckAll');
+                $(this).datagrid('selectRow', rowIndex);
+                $('#menu').menu('show', {
+                    left : e.pageX,
+                    top : e.pageY
+                });
+            }
+        });
+    });
+</script>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/swiper.min.css" />
+	    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	    <script src="/themes/theme_default/cf/wechat/js/swiper.min.js" ></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+	    <script src="/themes/theme_default/cf/wechat/js/cash/cash_newCash.js"></script>
+	    <script src="/themes/theme_default/cf/js/common.js"></script>
+	</head>
+	<body class="bg">
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>提现</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="main">
+			<div class="tabs">
+				<a href="#" class="active">线上提现</a>
+				<a href="#">线下提现</a>
+			</div>	
+			<div class="swiper-container recharge-content">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="recharge-content">
+							<span id="cashForm">
+								<div class="main-col" id="">
+									<div class="main-col-left"><span>提现金额</span></div>
+									<div class="main-col-right"><input type="text" id="money" name="money" placeholder="请输入提现金额" value=""/></div>
+								</div>
+								<span id="cityCodeSpan" style="display: none;">
+									<div class="main-col">
+										<div class="main-col-left"><span>支行名称</span></div>
+										<div class="main-col-right"><input type="text" placeholder="请输入支行名称" name="branch" id="branch" value="" maxlength="12"  autocomplete="off" /></div>
+									</div>
+									<div class="main-col">
+										<select id="province"  name="province"  onclick="loadCity('province');" onchange="getCityInfo(this.value,'city');" >
+								    		<option value="" selected="selected">请选择省份</option>
+								    	</select>
+								    	<span>-</span>
+								    	<select id="city"  name="city"  onchange="" >
+								    		<option value="" selected="selected">请选择市区</option>
+								    	</select>
+									</div>
+								</span>
+								<p class="error-tip" id="onlineError"></p>
+								<!-- <div class="product-detail-btn" id="sub">提现到我的银行卡</div> -->
+							</span>
+							<input type="hidden" id="isCityType" value="0">
+							<div class="recharge-tip">
+								<div class="recharge-tip-left"></div>
+								<div class="recharge-tip-right">
+									<h3>温馨提示</h3>
+									<p>1.预计到账时间：工作日14:00之前申请提现，预计T+1个工作日到账；工作日14:00以后申请提现，预计T+2个工作日到账； 遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。</p>
+									<p>2.提现手续费2元/笔，推广期间免费。每日限提2次</p>
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="swiper-slide">
+						<div class="recharge-content">
+							<div class="main-col">
+								<div class="main-col-left"><span>提现金额</span></div>
+								<div class="main-col-right"><input type="text"  id="cashMoney2"
+												name="cashMoney2" placeholder="提现金额" value="${minCashMoney!0}" maxlength="9" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" aria-required="true" aria-invalid="true" aria-describedby="money-error" size="10"  autocomplete="off" /></div>
+							</div>
+							<div class="recharge-tip">
+								<div class="recharge-tip-left"></div>
+								<div class="recharge-tip-right"><h3>线下最低提现￥<span id="minCashMoneyTis">${minCashMoney!0}</span></h3></div>
+							</div>
+							<div class="main-col">
+								<div class="main-col-left"><span>姓名</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入姓名" id="userName2" name="realName"/></div>
+							</div>
+							<div class="main-col">
+								<div class="main-col-left"><span>身份证号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" id="cardId2" name="cardId"/></div>
+							</div>
+							<div class="main-col">
+								<div class="main-col-left"><span>银行卡号</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入身份证号" id="bankNo2" name="bankNo2" maxlength="25" onblur="getBankInfo(this,'onlineError2')" onkeyup="value=value.replace(/[^\d]/g,'')"  autocomplete="off" /></div>
+							</div>
+							<div class="main-col">
+								<div class="main-col-left"><span>支行名称</span></div>
+								<div class="main-col-right"><input type="text" placeholder="请输入支行名称" name="branch2" id="branch2" value="" maxlength="12"  autocomplete="off" /></div>
+							</div>
+							<div class="main-col" id="addBankCode">
+								<select id="province2"  name="province2"  onclick="loadCity('province2');" onchange="getCityInfo(this.value,'city2');" >
+						    		<option value="" selected="selected">请选择省份</option>
+						    	</select>
+						    	<span>-</span>
+						    	<select id="city2"  name="city2"  onchange="" >
+						    		<option value="" selected="selected">请选择市区</option>
+						    	</select>
+							</div>
+							<p class="error-tip" id="onlineError2"></p>
+							<div class="">
+								<div class="recharge-tip-content">
+									<h3>温馨提示:</h3>
+									<p>线下提现最低金额<span id="minCashMoneyTis">${minCashMoney}</span>元。</p>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="minCashMoney" id="minCashMoney" value="${minCashMoney!0}">
+						<input type="hidden"  id="cashToken" name="nbCashToken" value="${nbCashToken!}">
+						
+					</div>
+				</div>
+			</div>
+			<input type="hidden" name="useMoney" id="useMoney" value="0">
+			<div class="blank"></div>
+			<div class="product-detail-btn" id="">提现到我的银行卡</div>
+		
+		</div>
+		
+		<script type="text/javascript">
+			$(function(){
+				 // tab切换收益详情 产品详情 保障方式
+				/* $('.back').bind('click',function(){
+					window.history.go(-1);
+				}) */
+				
+			    var tabsSwiper = new Swiper('.swiper-container', {
+			        speed: 500,
+			        onSlideChangeStart: function() {
+			            $(".tabs .active").removeClass('active');
+			            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+			        }
+			    });
+			   
+			    $(".tabs a").on('touchstart mousedown', function(e) {
+			        e.preventDefault()
+			        $(".tabs .active").removeClass('active');
+			        $(this).addClass('active');
+			        tabsSwiper.slideTo($(this).index());
+			        if($(this).index()===0){
+			        	if(isBank===0){
+			        		$(".product-detail-btn").text("去认证");
+				        	$(".product-detail-btn").attr("onclick","auth()");
+			        	}else{			        		
+				        	$(".product-detail-btn").text("线上提现");
+				        	$(".product-detail-btn").attr("onclick","sub()");
+			        	}
+			        }else if($(this).index()===1){
+			        	$(".product-detail-btn").text("线下提现");
+			        	$(".product-detail-btn").attr("onclick","offSub()");
+			        }
+			    });
+			
+			    $(".tabs a").click(function(e) {
+			        e.preventDefault();
+			    });
+			})
+		</script>
+	</body>
+</html>

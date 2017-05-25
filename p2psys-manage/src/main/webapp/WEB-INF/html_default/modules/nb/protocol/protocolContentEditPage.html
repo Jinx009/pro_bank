@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>协议编辑</title>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/themes/theme_default/nb/css/recommend/recommendProfit.css" type="text/css">
+
+<script type="text/javascript">
+function postData()
+{
+	var params = "id="+$("#id").val()+"&nid="+$("#nid").val()+"&content="+$("#content").val();
+	$.ajax({
+		url:"/modules/nb/protocol/editProtocolContent.html",
+		type:"POST",
+		data:params,
+		dataType:"json",
+		async:false,
+		success:function(res)
+		{
+			if(""!=res.result)
+			{
+				alert("操作成功!");
+			}
+		}
+	})	
+}
+</script>
+</head>
+<body>
+<div style="width: 96%;margin-left: 2%;" ></div>
+<form id="form" method="post" class="form" enctype="multipart/form-data" >
+	<input type="hidden" id="id" name="id" value="${protocol.id!0}" />
+	<div class="panel panel-default">
+ 		 <div class="panel-body">
+			    协议代码：
+		  </div>
+	</div>
+	<input type="text"  name="nid" class="form-control" id="nid"  value="${protocol.nid!}" style="height: 40px;width: 220px;" >
+	<div class="panel panel-default">
+ 		 <div class="panel-body"><font color='red'>  协议内容（温馨提示：‘%’存入数据库会报错，凡‘%’改为‘percent!’）： </font> </div>
+	</div>
+	<br>
+	<textarea style="width:100%;height: 500px;" id="content" name="content" class="form-control"  >${protocol.content!}</textarea>
+	<div class="panel panel-default">
+ 		 <div class="panel-body">
+			    <a class="btn btn-success" onclick="postData()" >提交</a>
+		  </div>
+	</div>
+</form>
+</body>
+</html>

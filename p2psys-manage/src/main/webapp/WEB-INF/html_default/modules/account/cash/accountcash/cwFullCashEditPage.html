@@ -1,0 +1,71 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/cash/accountcash/cwFullCashEdit.html');
+	});
+</script>
+<div class="g-win740 popWin">
+	   	<div class="g-list">
+			<span class="j-label" style="width: 50%">用户名：${user.userName}</span>
+		</div>
+		<div class="g-list">
+			<span class="j-label" style="width: 50%">真实姓名：${user.realName}</span>
+		</div>
+		<div class="g-list">
+			<span class="j-label" style="width: 80%">银行账号：${accountCash.bankNo}</span>
+		</div>
+	    <div class="g-list">
+			<span class="j-label" style="width: 50%">提现银行：${accountCash.bank}</span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">提现支行：${accountCash.branch}</span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">提现金额：${accountCash.money}元</span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">到账金额：${accountCash.credited}元</span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">费用：${accountCash.fee}元</span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">状态：
+		  	<#-- <#if accountCash.status==0||accountCash.status=5||accountCash.status=7>审核中<#elseif accountCash.status==1>成功<#elseif accountCash.status==4>用户取消<#else>审核失败</#if> -->
+		  	<#if accountCash.status==0>待审核
+		  		<#elseif accountCash.status==1>审核通过>
+		  		<#else>审核失败
+		  	</#if>
+		  </span>
+		</div>
+		<div>
+		  <span class="j-label" style="width: 50%">添加时间：${accountCash.addTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+		</div>		
+		<div>
+		  <span class="j-label" style="width: 50%">IP：${accountCash.addIp!}</span>
+		</div>	
+	<form id="form"  method="post">	
+		<div class="g-textarea">
+		   <span class="j-label" style="width: 80%">到账金额：
+			<input type="text" name="money" value="${accountCash.credited}" readonly="readonly"/>
+			</span>
+		</div>
+		<div class="g-textarea">
+		   <span class="j-label" style="width: 80%">费率：
+			<input type="text" name="fee" value="${accountCash.fee}" />
+			</span>
+		</div>
+		 <div class="g-radio">
+		    <span class="j-label">是否通过：</span>
+			<input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过
+			<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true"/>不通过
+		</div>
+		<div class="g-textarea">
+		    <span class="j-label">备注：</span>
+			<textarea name="remark" class="easyui-validatebox" data-options="required: false"></textarea>
+		</div>
+		<div class="g-btn">
+		    <input name="id" value="${accountCash.id}" type="hidden"/>
+		    <input name="fullVerifyCashToken" value="${fullVerifyCashToken}" type="hidden" />
+		</div>	
+</form>
+</div>

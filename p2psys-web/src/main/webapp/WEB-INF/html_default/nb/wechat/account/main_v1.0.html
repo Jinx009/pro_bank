@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+		<script src="/themes/theme_default/dist/jquery.js" ></script>
+		<script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+		<script src="/themes/theme_default/nb/wechat/js/account/account.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				// 导航颜色修改
+        $("#foot_nav_my_a").css("color","#326eaf").find("svg").css({"fill":"#326eaf","stroke-width":"0"});
+				$(".account_right").click(function(){
+					$(".right_list").toggle();
+				});
+			})
+			/**
+			 * 开启弹窗
+			 */
+			function showError()
+			{
+				//$("#success_div").show();
+				document.getElementById("success_div").style.display="block";
+			}
+			/**
+			 * 关闭弹窗
+			 */
+			function hideError()
+			{
+				location.href = "/nb/wechat/cash/newCash.html";
+			}
+		</script>
+		<style>
+			/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+
+/* 底部导航*/
+		</style>
+	</head>
+	<body>
+		<div class="account_top">
+			<div class="account_right">
+				<img src="/themes/theme_default/nb/wechat/img/accountRight.png"/>
+			</div>
+			<p class="account_title">总资产(元)</p>
+			<p id="total" class="account_money">0</p>
+			<p class="account_income_title">累计收益</p>
+			<p class="account_income_money" id="netProfit">0</p>			
+			<div class="right_list">
+				<div class="right_list_bg"><img src="/themes/theme_default/nb/wechat/img/right_bg.png"/></div>
+				<div class="right_list_content">
+					<a href="/nb/wechat/account/assets.html"><p class="right_list_actived">投资详情</p></a>
+					<a href="/nb/wechat/account/log.action"><p>资金明细</p></a>
+					<a href="/nb/wechat/account/recommendProfitRecord.html"><p>推荐收益</p></a>	
+				</div>
+				
+			</div>
+		</div>
+		<div class="account_bg">
+			<img src="/themes/theme_default/nb/wechat/img/account_bg.png"/>
+		</div>
+		<div class="account_bottom">
+			<div class="account_bottom_col1">
+				<dl>
+					<dt><img src="/themes/theme_default/nb/wechat/img/userMoney.png"/></dt>
+					<dt id="useMoney">0</dt>
+					<dd>可用余额</dd>
+				</dl>
+				
+				<dl>
+				<a href="/nb/wechat/account/collect.html">
+					<dt><img src="/themes/theme_default/nb/wechat/img/collectionMoney.png"/></dt>
+					<dt id="collect_mb">0</dt>
+					<dd>待收金额</dd>
+				</a>
+				</dl>
+				
+				<dl>
+				<a href="/nb/wechat/account/lock.html">
+					<dt><img src="/themes/theme_default/nb/wechat/img/noUserMoney.png"/></dt>
+					<dt id="noUseMoney">0</dt>
+					<dd>锁定金额</dd>
+				</a>
+				</dl>
+			</div>
+			
+			<div class="account_bottom_col2">
+				<a href="/nb/wechat/account/experienceGold.html"> 
+					<dl style="border-right: 1px solid #d3dae1;">
+						<dt class="myExpression">
+							<img src="/themes/theme_default/nb/wechat/img/xsb.png" style="padding-top:0px;width:48%;"/>
+						<!-- 	<span id="experienceMoney">&yen;0</span> -->
+								<!-- <span style="font-size: 12px;">新活动上线</span> -->
+						</dt>
+						<dd>新手专享</dd>
+					</dl>
+				</a> 
+				<a href="/nb/wechat/account/redPacket.html"  >
+					<dl>
+						<dt class="redpacket">
+							<img src="/themes/theme_default/nb/wechat/img/redPacket.png"/>
+							<span id="redPacketMoney">&yen;0</span>
+						</dt>
+						<dd>我的红包</dd>
+					</dl>
+				</a>
+			</div>
+		</div>
+		
+		<div class="accountBtn">
+			<a href="/nb/wechat/recharge/newRecharge.html?operType=recharge"  ><div class="account_recharge">充值</div></a>
+			<a href="javascript:showError()"  ><div class="account_newCash">提现</div></a>
+		</div>
+		
+		<div class="success-alert"  id="success_div" onclick="hideError()" style="text-align: left;" >
+		   	<div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;line-height: 20px;"><h3><b class="user_help_tip"></b>温馨提示</h3>到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账； 遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。
+		  		<div style="height: 30px" ></div>
+		  	</div>
+		   	<div class="error-btn" id="divText"  style="text-align: center;">确定</div>
+		   	<div class="space-div" ></div>
+		</div>
+		
+		<div class="blank"></div>
+		<input type="hidden" value="${randTime}"  name="randTime" />
+		<!--底部导航-->
+    <div class="foot-blank"></div>    
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                   <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                   <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+               </ul>   
+        </div>
+    </div>
+    <!-- 底部导航 -->
+	</body>
+	
+</html>

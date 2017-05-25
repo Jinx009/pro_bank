@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script src="/themes/theme_default/dist/jquery.js" ></script>
+  <script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+  <link href="/themes/theme_default/nb/pc/css/bootstrap.min.css" rel="stylesheet">
+    <title>投资协议</title>
+    <style>
+       .face{
+       	width:96%;
+       	position: absolute;
+       	top:10px;
+       	left: 2%;
+       	bottom:5px;
+       	border: 1px solid rgb(227,227,227);
+       	border-radius:6px;
+       }
+       body{
+       		width: 100%;
+       		margin: 0px;
+       }
+       .close1{
+       	font-size: 28px;
+       	color: black;
+       	position: absolute;
+       	right: 5px;
+       	top: 5px;
+       	text-decoration: none;
+       }
+       .modal1-body{
+       	font-size:28px;
+       	color: black;
+       	position: absolute;
+       	width: 96%;
+       	top: 40px;
+       	left: 2%;
+       }
+       .modal1-body p{
+       		font-size: 28px;
+       }
+       .space-div-2{
+       		height: 20px;
+       }
+    </style>
+     <script  type="text/javascript" >  
+  	$(function(){
+  		$(".modal1-body p").css("line-height","100px");
+		var id = GetQueryString("id");
+		var type = GetQueryString("type");
+		if(id!=null&&type!=null)
+		{
+			if(type=="product")
+			{
+				$("#goback").attr("href","../product/productDetail.action?product_id=" + id); 
+			}
+			$.ajax({
+				type : "post",
+				url : "/nb/wechat/account/protocolContent.html?type=" + type + " &id=" + id,
+				dataType : "json",
+				success : function(json) {
+					var htmlContent = $("#content");
+			        htmlContent.append(json.content); 
+				}
+			})
+		}else{
+			alert("获取协议参数出错！");
+		}
+	})
+	
+	function GetQueryString(name)
+	{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null) {
+	    	 return  unescape(r[2]); 
+    	 }else {
+    		 return null;
+    	 }
+	    
+	}
+</script>
+ </head>
+<body>
+<div class="face" >
+		<a id="goback" class="close1"  href="assets.html" >返回</a>
+		<div id="content" class="modal1-body"></div>
+		<div class="space-div-2" ></div>
+</div>
+ </body>
+</html>

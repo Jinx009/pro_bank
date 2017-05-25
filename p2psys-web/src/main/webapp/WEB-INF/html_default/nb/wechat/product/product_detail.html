@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>800Bank</title>
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/normalize.css">
+    <link rel="stylesheet" href="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.min.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/product/productDetail.css">
+    <script src="/themes/theme_default/dist/jquery.js"></script>
+    <script src="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.jquery.min.js"></script>
+    <script src="/plugins/vue/vue.min.js"></script>
+    <script src="/plugins/underscore-v1.7.0/underscore-1.7.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/product/productDetail.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    wx.config({
+        debug: false,
+        appId: '${appId}',
+        timestamp: ${timestamp},
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage'],
+            success: function(res) {
+                wx.showMenuItems({
+                    menuList: ['menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                        'menuItem:share:timeline'
+                    ]
+                });
+            }
+        });
+        wx.onMenuShareTimeline({
+            title: '${title}',
+            desc: '${desc}',
+            link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.action?product_id=${product_id}%26promot=${userCode}',
+            imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg',
+            success: function() {},
+            cancel: function() {}
+        });
+        wx.onMenuShareAppMessage({
+            title: '${title}',
+            desc: '${desc}',
+            link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.action?product_id=${product_id}%26promot=${userCode}',
+            imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg',
+            success: function() {},
+            cancel: function() {}
+        });
+    });
+
+    wx.error(function(res) {});
+    </script>
+    <style>
+    	.product-details div p img{
+    		    width: 100%;
+    	}
+    </style>
+</head>
+
+<body>
+    <!-- 引用变量 -->
+    <input type="hidden" value="${promot}" id="promot">
+    <input type="hidden" value="${listSize}" id="listSize">
+    <input type="hidden" value="${product_id}" id="product_id">
+    <!-- 产品概览 -->
+    <header>
+        <div class="head-title">产品详情</div>
+    </header>
+    <div class="wrap">
+        <div class="product-list" id="product_detail">
+            <div class="product-item">
+                <div v-if="product.proStatus===1" class="hotbar" v-style="background:'#97a7b5'">抢光</div>
+                <div v-if="product.proStatus===2" class="hotbar" v-style="background:'#97a7b5'">结束</div>
+                <div v-if="product.proStatus===3" class="hotbar" v-style="background:'#ff6c54'">热销</div>
+                <div class="product-title">
+                    <h3 class="product-name" v-text="product.productName"></h3>
+                    <p v-if="product.accountCan" v-text="product.accountCan | moneyFormat | addPer '可投余额：￥' ''"></p>
+                </div>
+                <div class="product-detail">
+                    <div class="profit">
+                        <div v-text="product.highestRefundRate | fixDot"></div>
+                        <span v-if='!product.interestRateValue'>预期年化收益率</span>
+                        <span v-if='product.interestRateValue' v-text='product.interestRateValue | fixDot | addPer "+" "%"' v-style="v_css.floatRate"></span>
+                        <!-- <span>预期收益</span> -->
+                    </div>
+                    <div class="time-limit">
+                        <div v-if="product.timeLimit>0" v-text='product.timeLimit+"天"'></div>
+                        <div v-if="product.timeLimit==0" v-text='"活期"'></div>
+                        <span>投资期限</span>
+                    </div>
+                    <div class="lowest-account">
+                        <div v-text="product.lowestAccount | moneyFormat | addPer '￥' '' "></div>
+                        <span>起投金额</span>
+                    </div>
+                </div>
+                <div v-if="product.isNone && product.reTime" class="remain-time">
+                    <span v-text='product.reTimeStr'></span>
+                    <!-- <span>剩余时间：16天15小时18分13秒</span> -->
+                </div>
+            </div>
+        </div>
+        <!-- 产品 -->
+        <div class="highlights">
+            <h3>产品亮点</h3>
+            <div v-html='matlists.highlights'></div>
+            <!-- <p>低门槛畅通高大上信托产品！扬州市区土地抵押，100%股权质押，千亿资产集团担保</p> -->
+        </div>
+        <div class="tabs">
+            <a href="#" class="biaoji active">收益详情</a>
+            <a href="#">产品详情</a>
+            <a href="#">保障方式</a>
+        </div>
+        <div id="tabs-container" class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                <div class="content-slide">
+                    <div class="qixian">
+                        <h3>产品期限</h3>
+                        <div v-html='matlists.qixian'></div>
+                        <!-- <p>产品期限为68天。产品到日后，本息将在到期日当天上午8点返回您800Bank账户</p> -->
+                    </div>
+                    <div class="tixian">
+                        <h3>提现至银行卡到账时间</h3>
+                        <div class="tixian-time">
+                            <div class="tixian-time-title">
+                                <span>类型</span>
+                                <span>提现时间</span>
+                                <span>到账时间</span>
+                            </div>
+                            <div class="tixian-time-detail1">
+                                <span>工作日</span>
+                                <span>15:00前<br>15:00后</span>
+                                <span>后一个工作日<br>后两个工作日</span>
+                            </div>
+                            <div class="tixian-time-detail2">
+                                <span>节假日</span>
+                                <span>任意时间</span>
+                                <span>后两个工作日</span>
+                            </div>
+                        </div>
+                        <div class="tixian-time-supply">
+                            <p>实际到帐时间根据账户托管方（第三方支付平台）及提现银行而有所差异。
+                            <br>* 温馨提示：提现手续费2元/笔，推广期间免费。每日限提2次。
+                            <br>* 理财非存款，投资需谨慎</p>
+                        </div>
+                    </div>
+                    <div class="xieyi">
+                        <a href='/nb/wechat/account/protocol.html?type=product&id=${product_id}'><h3>查看合同</h3></a>
+                    </div>
+                    </div>
+                </div>
+                <!-- swiper-slide3 -->
+                <div class="swiper-slide">
+                <div class="content-slide">
+                    <div class="product-details">
+	                    <div v-html='matlists.product_details'></div>
+                        <!-- 详情 -->
+                    </div>
+                </div>
+                </div>
+                <!-- swiper-slide2 -->
+                <div class="swiper-slide">
+                <div class="content-slide">
+                    <div class="baozhang">
+                        <h3>项目保障</h3>
+                        <div class="baozhang-detail">
+                        	   <div v-html='matlists.baozhang'></div>
+                            <!-- <p>1.原债务人提供股权质押、实际控制人提供连带这人担保等多重保障</p>
+                            <p>2.融资方承诺回购</p> -->
+                        </div>
+                    </div>
+                    <div class="pingtai-baozhang">
+                        <h3>平台安全保障</h3>
+                        <div class="pingtai-baozhang-detail">
+                            <p>1.精选产品、严格风控<br>
+                                2.双支付渠道、银行托管<br>
+                                3.双重风险保障金制度<br>
+                                4.银行级技术安全保障<br>
+                                5.母公司全程风控指导</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- swiper-slide3 -->
+            </div>
+            <!-- swiper-wrapper -->
+        </div>
+        <!-- swiper-container -->
+        <div v-if="product.proStatus===3 || product.proStatus===4" class="btn">
+        <a href='/nb/wechat/account/pay.action?productBasicId=${product_id}'>立即投资</a>
+    </div>
+    <div v-if="product.proStatus===1" class="btn">
+        <a href='javascript:;' v-style="background:'#97A7B5'">抢光了</a>
+    </div>
+    <div v-if="product.proStatus===2" class="btn">
+        <a href='javascript:;' v-style="background:'#97A7B5'">结束了</a>
+    </div>
+    </div>  <!-- wrap -->
+
+    
+
+    <!--底部导航-->
+    <div class="foot-blank"></div>
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 底部导航 -->
+</body>
+
+</html>

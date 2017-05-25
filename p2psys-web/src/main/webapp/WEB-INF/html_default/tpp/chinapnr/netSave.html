@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>汇付天下充值跳转中......</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>汇付天下充值跳转中,请您不要关闭页面......</div>
+    <form action="${pnr.url}" method="post" id="frm1" style="display: none;">
+      <input type="text" name="Version" value="${pnr.version}" />
+	  <input type="text" name="CmdId" value="${pnr.cmdId}">
+	  <input type="text" name="MerCustId" value="${pnr.merCustId}">
+	  <input type="text" name="OrdId" value="${pnr.ordId!}">
+	  <input type="text" name="UsrCustId" value="${pnr.usrCustId}">
+	  <input type="text" name="TransAmt" value="${pnr.transAmt}">
+	  <input type="text" name="BgRetUrl" value="${pnr.bgRetUrl}">
+	  <input type="text" name="RetUrl" value="${pnr.retUrl}"/>
+	  <input type="text" name="OrdDate" value="${pnr.ordDate}">
+	  <input type="text" name="MerPriv" value="${pnr.merPriv}">
+	  <textarea name="ChkValue" cols="60" rows="6">${pnr.chkValue}</textarea>
+    </form> 
+    <script type="text/javascript">
+      document.getElementById("frm1").submit();
+    </script>
+  </body>
+</html>

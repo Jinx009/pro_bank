@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/addGoods.html');
+    });
+</script>
+<form id="form"  method="post">
+<div class="popShow" style="padding-bottom:0;">
+    	<div class="showItem">
+    		<span>商品类别：</span>
+    		<select name="categoryId">
+			<#list itemList as item>
+				<option value="${item.id}">${item.name}</option>
+			</#list>
+			</select>
+    	</div>
+    	<div class="showItem">
+    		<span>商品名称：</span>
+    		<input type="text" name="name" class="easyui-validatebox" data-options="required: true" />
+    	</div>    	
+    	<div class="showItem">
+    		<span>所需积分：</span>
+    		<input type="text" name="score" class="easyui-validatebox" data-options="required: true" />
+    	</div>
+    	<div class="showItem">
+    		<span>市场价：</span>
+    		<input type="text" name="marketPrice" class="easyui-validatebox" data-options="required: true" />
+    	</div>
+    	<div class="showItem">
+    		<span>商城售价：</span>
+    		<input type="text" name="cost" class="easyui-validatebox" data-options="required: true" />
+    	</div>
+    	<div class="showItem">
+    		<span>商品库存：</span>
+    		 <input type="text" name="store" class="easyui-validatebox" data-options="required: true" />
+    	</div>
+</div>
+<div class="popForm" style="padding-top:0;">
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品详情：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="description" name="description" type="text/plain"></script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品属性信息：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="attribute" name="attribute" type="text/plain"></script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">备注：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<textarea name="remark" style="width:690px;" class="easyui-validatebox" maxlength="255"></textarea>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">资料上传：</label>
+		<div style="margin-left:140px;" class="ipt">
+			<input type="hidden" name="uploadLoanId" id="uploadLoanId"/>
+	        <div id="addPicBox" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="uploadStatus" id="uploadFile" onchange="return ajaxFileUpload('uploadFile','/imageUp.jsp');" title="点击上传图片" />
+	                </li>
+	            </ul>
+	       </div>
+		</div>
+	</div>
+	<input name="addToken" value="${addToken!}" type="hidden">   
+</div>
+ </form>
+<!-- 编辑器 -->
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var descriptionBox = UE.getEditor('description', {
+        autoHeight: false,
+        initialFrameWidth:710,
+        toolbars: [
+                   ['undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                    'fontsize', 'paragraph', 'customstyle','anchor', 'bold', 'indent','italic','underline', 'strikethrough', 'subscript','fontborder', 
+                    'superscript', 'formatmatch', 'source', 'blockquote', 'pasteplain', 'selectall', 'print', 'horizontal', 'removeformat', 'time', 
+                     'date', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown','deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells',
+                       'deletecaption','inserttitle','mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable','simpleupload', 'insertimage','edittable',
+                       'edittd', 'link', 'spechars', 'searchreplace','backcolor','insertorderedlist','insertunorderedlist', 'fullscreen', 'directionalityltr', 'directionalityrtl', 
+                       'rowspacingtop', 'rowspacingbottom', 'pagebreak', 'imagenone', 'imageleft', 'imageright', 'attachment','imagecenter','lineheight','edittip ', 'autotypeset', 
+                       'touppercase', 'tolowercase', 'background', 'template','inserttable', 'drafts', 'charts'
+                   ]
+               ]
+        
+    });
+    var descriptionBox = UE.getEditor('attribute', {
+        autoHeight: false,
+        initialFrameWidth:710,
+        toolbars: [
+                   ['undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                    'fontsize', 'paragraph', 'customstyle','anchor', 'bold', 'indent','italic','underline', 'strikethrough', 'subscript','fontborder', 
+                    'superscript', 'formatmatch', 'source', 'blockquote', 'pasteplain', 'selectall', 'print', 'horizontal', 'removeformat', 'time', 
+                     'date', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown','deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells',
+                       'deletecaption','inserttitle','mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable','edittable',
+                       'edittd', 'link', 'spechars', 'searchreplace','backcolor','insertorderedlist','insertunorderedlist', 'fullscreen', 'directionalityltr', 'directionalityrtl', 
+                       'rowspacingtop', 'rowspacingbottom', 'pagebreak', 'imagenone', 'imageleft', 'imageright', 'attachment','imagecenter','lineheight','edittip ', 'autotypeset', 
+                       'touppercase', 'tolowercase', 'background', 'template','inserttable', 'drafts', 'charts'
+                   ]
+               ]
+    });
+</script>

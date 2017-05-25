@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500; //弹出窗口宽度
+	var winHeight = 500; //弹出窗口高度
+	var addTitle = "添加推广人"; //添加窗口标题
+	var addUrl =  "/modules/user/user/user/userPromotAddPage.html"; // 添加窗口链接地址
+	var editTitle = "编辑推广人"; //编辑窗口标题
+	var editUrl =  "/modules/user/user/user/userPromotEditPage.html"; //编辑窗口链接地址
+	var detailTitle = "查看推广人下的用户"; //编辑窗口标题
+	var detailUrl =  "/modules/user/user/user/userPromotDetailPage.html"; //编辑窗口链接地址
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'referrerList.html',  //表格数据接口地址
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 
+			{ field: 'id', title: '编号',  fixed:true,sortable:false },
+			{ field: 'saleCode', title: '销售代码', width: 120, sortable:false },
+			{ field: 'saleName', title: '销售姓名', width: 120, sortable:false },
+			{ field: 'realName', title: '客户姓名', width: 100, sortable:false },
+			{ field: 'phone', title: '客户电话', width: 100, sortable:false },
+			{ field: 'recommendCode', title: '推荐码', width: 100, sortable:false },
+			{ field: 'referrer', title: '推荐人', width: 100, sortable:false },
+			{ field: 'referrerPhone', title: '推荐人手机号', width: 100, sortable:false },
+			{ field: 'codeUsedTimes', title: '推荐码使用次数', width: 100, sortable:false }
+			] ]
+		});
+	});	
+	
+	 function exportExcel(){
+			var url = "/modules/customer/exportExcelReferrer.html";
+			var searchName = $("#searchName").val();
+			var sou = "?searchName=" + searchName; 
+			window.location.href = url + sou;
+		}
+	 function deletePromot(id,userName)
+	 {
+		 
+		 $.ajax({
+			 url:"/modules/user/user/user/userPromotDelete.html",
+			 type:"POST",
+			 data:"id="+id+"&userName="+userName,
+			 dataType:"json",
+			 success:function(res)
+			 {
+				 if(res!=null)
+				{
+					 location.reload();
+				}
+			 }
+		 })
+	 }
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox" style="overflow-y:hidden;">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入客户手机/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+		</div>		 
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

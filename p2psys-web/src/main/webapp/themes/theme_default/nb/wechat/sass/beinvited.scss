@@ -1,0 +1,224 @@
+@charset "utf-8";
+//常用变量
+$chinaFontfamily:'microsoft yahei',
+Verdana,
+Arial,
+Helvetica,
+sans-serif;
+$fontSize:20; //媒体查询，以rem位单位
+//颜色变量
+$bannerColor:#0d3552;
+$fontColor:#ffae00;
+$checkColor:#326eaf;
+$bgColor:#ededed;
+//长度变量
+$bodyPadding:17px;
+$inputFontSize:13px;
+body {
+    background-color: $bgColor;
+}
+.swiper-container {
+    height: 220px;
+}
+
+.swiper-wrapper .swiper-slide a img {
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    background: $bannerColor;
+}
+
+.yellow-bar {
+    height: 20px;
+    font-family: $chinaFontfamily;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background: #ffae00;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.yellow-bar a {
+    display: flex;
+    align-items:center;
+    height: 20px;
+    text-decoration: none;
+}
+
+.yellow-bar a img {
+    height: 14px;
+}
+
+.yellow-bar a span {
+    margin-left: 4px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.header .wrap {
+    width: 224rem / $fontSize;
+    height: 43rem / $fontSize;
+    line-height: 43rem / $fontSize;
+    margin: 0 auto;
+}
+
+.header .wrap a img {
+    width: 90rem / $fontSize;
+}
+
+.header .wrap span {
+    font-family: $chinaFontfamily;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: italic;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.bar {
+    margin-top: 12px;
+}
+
+.bar a {
+    display: block;
+    margin: 0 auto;
+    width: 238rem/$fontSize;
+}
+
+.bar a img {
+    width: 100%;
+}
+
+.login,
+.code {
+    padding-right: $bodyPadding;
+    margin-top: 12px;
+}
+
+form#invest {
+    padding-left: $bodyPadding;
+    padding-right: $bodyPadding;
+    padding-bottom: $bodyPadding*2;
+}
+
+span.tips {
+    font-family: $chinaFontfamily;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: $fontColor;
+}
+
+.invest-input {
+    border: none;
+    width: 100%;
+    height: 49px;
+    line-height: 49px;
+    padding-left: 19px;
+    font-family: $chinaFontfamily;
+    font-size: $inputFontSize;
+    margin-top: 12px;
+    border-radius: 6px;
+}
+
+.send-yzm {
+    // display: flex;
+    // flex-direction:row;
+    // flex-wrap: nowrap;
+    margin-right: -($bodyPadding+2);
+}
+
+.send-yzm .in-box {
+    width: 50%;
+    float: left;
+}
+
+.send-yzm input {
+    // flex: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 6px 0 0 6px;
+}
+
+.send-yzm #send-msg {
+    // flex: auto;
+    font-family: $chinaFontfamily;
+    letter-spacing: 1px;
+    height: 49px;
+    line-height: 49px;
+    color: $fontColor;
+    background-color: #fff;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    width: 50%;
+    padding: 0;
+}
+
+.protocol {
+    color: #8a8a8a;
+    font-family: $chinaFontfamily;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.protocol a {
+    color: #8a8a8a;
+    font-family: $chinaFontfamily;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.submit-button button {
+    border: none;
+    width: 100%;
+    height: 41rem/$fontSize;
+    line-height: 41rem/$fontSize;
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: $chinaFontfamily;
+    font-size: 15px;
+    border-radius: 6px;
+    margin-top: 36px;
+}
+
+.submit-button button#confirm {
+    background-color: $fontColor;
+    color: #fff;
+}
+
+.submit-button button#login {
+    background-color: #ededed;
+    color: $fontColor;
+    border: 1px solid $fontColor;
+    margin-top: 12px;
+}
+
+.disabled {
+    background-color: #ddd !important;
+}
+
+.close-layer {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layermbox1 .layermcont {
+    padding: $bodyPadding*2 !important;
+}

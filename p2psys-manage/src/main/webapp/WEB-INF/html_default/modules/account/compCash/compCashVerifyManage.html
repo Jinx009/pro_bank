@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>对公付款银行卡管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth = 700;
+	var winHeight = 400;
+	var verifySuccessTitle = "审核成功";
+	var verifySuccessMsg = "确认通过?"
+	var verifySuccessUrl = "/modules/account/compCash/compCashVerifySuccess.html";
+	var verifySuccessParmeters = "'{0}','" + verifySuccessUrl+"'";
+	var verifyFailTitle = "审核失败";
+	var verifyFailMsg = "确认拒绝?";
+	var verifyFailUrl = "/modules/account/compCash/compCashVerifyFail.html";
+	var verifyFailParmeters = "'{0}','" + verifyFailUrl+"'";
+	var params = '';
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'compCashVerifyList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [
+				{ field: 'id', title: '编号', width: 40, checkbox : false },
+				{ field: 'amount', title: '提现金额', width: 50, checkbox : false},
+				{ field: 'cardNo', title: '银行卡号', width: 100, checkbox : false},
+				{ field: 'accName', title: '账户名称', width: 50, checkbox : false },
+				{ field: 'bankName', title: '开户行名称', width: 100, checkbox : false },
+				{ field: 'addOpName', title: '申请人', width: 50, checkbox : false },
+				{ field: 'addTime', title: '添加时间', width: 120, sortable:false,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}	
+				},
+				{ field: 'addIp', title: '添加IP', width: 100, sortable:false },
+				{ field : 'action',title : '操作',width :75,fixed:true,
+	                formatter : function(value, row, index) {
+	                    var str = '';
+	                    str += $.formatString('<img onclick="$.fn.dataGridOptions.sureFun('+row.id+',verifySuccessUrl,verifySuccessMsg);" src="{1}" title="付款确认"/>', row.id, '${theme_dir}/css/images/extjs_icons/arrow/accept.png');
+	                    str += '&nbsp;'; 
+	                    str += $.formatString('<img onclick="$.fn.dataGridOptions.sureFun('+row.id+',verifyFailUrl,verifyFailMsg);" src="{1}" title="付款取消"/>', row.id, '${theme_dir}/css/images/extjs_icons/cancel.png');
+	                    str += '&nbsp;';
+	                    return str;
+	                }
+				}
+			] ],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+
+			},
+		});
+	});
+	
+	function exportExcel(){
+		var url = "/modules/account/compCash/exportExcleCompCashList.html";
+		var status = $("#status").val()
+		var sou = "?status=" + status;
+		window.location.href = url;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	
+	            <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

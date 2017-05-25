@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html">
+<body>
+<#include "../include/header.html">
+<div id="regWrap">
+	<div class="regBox">
+		<div class="float_left newAcc">
+			<div class="unite-info">
+		        <h2>只差一步，即可完成登录设置</h2>
+		        <p>快速完成账号创建</p>
+		        <p>完成账号创建后，即可直接登录哦！</p>
+		    </div>
+		    <form id="bindRegForm" method="post" class="u-info">
+		        <div class="form">
+		            <div class="item fore1">
+		                <span class="label"><b class="ftx04">*</b>用户名：</span>
+		                <div class="float_left item-ifo">
+		                    <input id="userName" name="userName" type="text" class="text" size="22" maxlength="60" value="" onKeyUp="value=value.replace(' ','')">
+		                </div>
+		            </div>
+
+		            <div id="o-password">
+		                <div class="item fore2">
+		                    <span class="label"><b class="ftx04">*</b>邮箱：</span>
+
+		                    <div class="float_left">
+		                        <div class="item-ifo">
+		                            <input type="text" id="email" name="email" class="text" >
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="item fore5">
+		                <span class="label">&nbsp;</span>
+						
+		                <div class="fl item-ifo">
+		                    <a class="" id="protocol" href="javascript:void(0);">《融都用户协议》</a><br/>
+		                    <input type="button" class="btn-img btn-unite" style="margin-top:10px;" id="loginsubmit" value="立即注册" />
+		                </div>
+
+		            </div>
+					
+		            <div>
+		                <input type="hidden" name="openId"  value="${openId!}" />
+                        <input type="hidden" name="openType"  value="${openType!}" />
+		            </div>
+		        </div>
+		    </form>
+		</div>
+		<div class="float_right haveAcc">
+			    <form id="formlogin" method="post" onsubmit="return false;">
+			        <h3>已有账号？直接绑定</h3>
+			        <div class="item fore1">
+			            <span class="label">用户名：</span>
+			            <div class="float_left item-ifo">
+			                <input type="text" id="username" name="userName" autocomplete="off" onpaste="return false;" class="text" tabindex="1" style="color: rgb(153, 153, 153);" value="请输入邮箱/手机号" onblur="if(this.value==&#39;&#39;) {this.value=&#39;请输入邮箱/手机号&#39;;this.style.color=&#39;#999999&#39;}" onfocus="if(this.value==&#39;请输入邮箱/手机号&#39;) this.value=&#39;&#39;">
+			                <i class="i-name"></i>
+			                <label id="loginname_error" class=""></label>							
+			            </div>
+			        </div>
+			        <div class="item fore2">
+			            <span class="label">密码：</span>
+			            <div class="float_left item-ifo">			             
+			                <input type="password" id="nloginpwd" name="pwd" class="text" autocomplete="off" />
+			            </div>
+			        </div>
+
+			        <div class="item fore3" id="o-authcode">
+			            <label class="label">验证码：</label><br />
+                    	<input class="code" name="validCode" type="text" maxlength="4" placeholder="请输入验证码"/>&nbsp;<img src="${webroot}/validimg.html" alt="点击刷新" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" class="valicode_img" />
+			        </div>
+			        <div class="item fore4">
+				        <input type="button" class="btn-img btn-unite" id="loginSubmit" value="登录" />
+				        <a href="${webroot}/user/getpwd.html">忘记密码？</a>
+				    </div>
+			    </form>
+
+		</div>
+	</div>
+</div>
+<#include "../include/footer.html"> 
+</body>
+</html>

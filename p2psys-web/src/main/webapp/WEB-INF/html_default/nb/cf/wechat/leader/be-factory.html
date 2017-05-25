@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/leader/factory.css" />
+		<script src="/themes/theme_default/cf/js/url.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+		<script src="/plugins/vue/vue.min.js"></script>
+	    <script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/leader/beFactory.js" ></script>
+	</head>
+	<body>
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>领投人智库信息</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="main-content">
+			<div class="main-col">
+				<div class="main-col-left"><b>智库状态：</b></div>
+				<div class="main-col-right">
+					<span  v-if="0===model.size" >未申请</span>
+					<span  v-if="1===model.size" >审核中</span>
+					<span  v-if="-1===model.size" >申请通过</span>
+				</div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><b>姓名：</b></div>
+				<div class="main-col-right"><input type="text" id="name"  readonly="readonly" /></div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"><b>历史领投：</b></div>
+				<div class="main-col-right"><input type="text" id="history" /></div>
+			</div>
+			<div class="main-col be-text">
+				<div class="main-col-left"><b>个人简介：</b></div>
+				<div class="main-col-right height100"><textarea class="be-area" id="info" ></textarea></div>
+			</div>
+			<div class="main-col no-bottom">
+				<div class="main-col-left"><b>擅投行业：</b></div>
+			</div>
+			<div class="main-col height-auto" id="flagDiv" >
+				<div class="width100" >
+					<template v-repeat="item in model.items">
+						<div class="width50" >
+							<span v-text="item.name" ></span>
+							<input type="checkbox" value="{{item.id}}" id="flag{{item.id}}" name="flag" > 
+						</div>
+					</template>
+				</div>
+			</div>
+			<div class="main-col">
+				<div class="main-col-left"></div>
+				<div class="main-col-right"></div>
+			</div>
+			<div class="main-col be-text">
+				<div class="main-col-left"><b>领投理由：</b></div>
+				<div class="main-col-right height100"><textarea class="be-area" id="reason" ></textarea></div>
+			</div>
+		</div>
+		<div class="blank"></div>
+		<div class="product-detail-btn" v-if="0===model.obj.size" onclick="sendData()"  >确定申请</div>
+		<div class="product-detail-btn" v-if="1===model.obj.size" onclick="sendData()"  >保存资料</div>
+		<div class="product-detail-btn" v-if="-1===model.obj.size" onclick="sendData()"  >保存资料</div>
+	</body>
+</html>

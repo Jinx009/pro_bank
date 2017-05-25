@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+</head>
+<body class="bg">
+<div class="main">
+	<#include "../include/header.html">
+	<div class="middle-content main-box">
+		<div class="main-left">
+		</div>
+		<div class="main-right">
+		<div class="main-title">
+			<h3>创建新用户</h3>
+		</div>
+		<div class="cash-wrap">
+			<div class="cash-left col-no-padding">
+				<form class="form-horizontal">
+					<div class="form-group">
+					    <label class="col-sm-3 control-label col-no-padding">手机号：</label>
+					    <div class="col-sm-9 col-no-padding">
+					    	<input type="text" id="payPwd"   placeholder="请输入手机号" class="form-control">
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label class="col-sm-3 control-label col-no-padding">真实姓名：</label>
+					    <div class="col-sm-9 col-no-padding">
+					    	<input type="text" id="rePayPwd"  placeholder="请输入姓名" class="form-control">
+					    </div>
+					</div>
+					<div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-9 col-no-padding">
+					    	<button class="sure-btn" type="button" onclick="doSet()" >新建</button>
+					    </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+</div>
+<!--投资交易金额		end-->
+<script type="text/javascript">
+	function doSet(){
+		$.ajax({
+			url:'/cf/user/create.action',
+			type:'POST',
+			data:'userName='+$('#payPwd').val()+'&realName='+$('#rePayPwd').val(),
+			dataType:'json',
+			success:function(res){
+				if(200==res.code){
+					layer.alert('注册成功！',{title:false,closeBtn:0});
+				}else{
+					layer.alert(res.data,{title:false,closeBtn:0});
+				}
+				
+			}
+		})
+	}
+</script>
+</body>
+</html>

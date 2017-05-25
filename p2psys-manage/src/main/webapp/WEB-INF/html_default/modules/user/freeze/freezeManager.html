@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  500; //弹出窗口宽度
+	var winHeight = 430; //弹出窗口高度
+	var addTitle = "添加用户"; //添加窗口标题
+	var addUrl =  "/modules/user/freeze/freezeAddPage.html"; // 添加窗口链接地址
+	var editTitle = "编辑用户"; //编辑窗口标题
+	var resetMsg = "你确定要删除这条记录吗？";
+	var editUrl =  "/modules/user/freeze/freezeEditPage.html"; //编辑窗口链接地址
+	var deleteUrl = "/modules/user/freeze/freezeDelete.html?status=0";	//停用
+	var openUrl = "/modules/user/freeze/freezeDelete.html?status=1";	//启用
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'freezeList.html',  //表格数据接口地址
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50, fixed: true,sortable : true},
+			{ field: 'userName', title: '用户名', width: 100, sortable:false },
+			{ field: 'status', title: '状态', width: 50,fixed: true, sortable:false,
+				formatter: function(value,row,index){
+					if (value == 0){
+						return "未启用";
+					} else if(value == 1){
+						return "启用";
+					}
+					return "";
+				}	
+			},
+			{ field: 'mark', title: '冻结点', width: 250, sortable:false,
+				formatter: function(value,row,index){
+					if (value == 'recharge'){
+						return "充值";
+					} else if(value == 'cash'){
+						return "提现";
+					} else if(value == 'tender'){
+						return "投标";
+					}
+					return "";
+				}	
+			},
+			{ field: 'remark', title: '备注', width: 300, sortable:false },
+			{ field: 'addTime', title: '添加时间', width: 130, sortable:false,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}	
+			},
+			{ field: 'addIp', title: '添加IP', width: 100, sortable:false },
+			  {	field : 'action',
+				title : '操作',
+				width :50,
+				fixed: true,
+				formatter : function(value, row, index) { //功能按钮添加
+					var str = '';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+					return str;
+				}
+			} ] ]
+		});
+	});		
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名进行搜索"/><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+		<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" autocomplete="off"/></li>
+		        	<li><span>状态</span><select name="status" class="status">
+							<option value=-1>全部</option>
+							<option value=0 selected="selected">未启用</option>
+							<option value=1>启用</option>
+						</select></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>		 
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+	<div id="toolbar" style="display: none;">		
+		<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn">添加</a>				
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

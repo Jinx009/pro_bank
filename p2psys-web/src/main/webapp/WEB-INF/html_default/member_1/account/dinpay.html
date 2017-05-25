@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>智付支付充值跳转中......</title>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+</head>
+<body onLoad="document.dinpayForm.submit();">
+	<form name="dinpayForm" method="post"
+		action="https://payment.dinpay.com/ReceiveMerchantAction.do">
+		<div>智付支付充值跳转中,请您不要关闭浏览器.....</div>
+		<input type="hidden" name="OrderMessage" value="${dinpay.orderInfo}" /> 
+		<input type="hidden" name="digest" value="${dinpay.md5Sign}" /> 
+		<input type="hidden" name="M_ID" value="${dinpay.m_id}" /> 
+		<input type="hidden" name="P_Bank" value="${dinpay.p_Bank}">
+	</form>
+</body>
+</html>

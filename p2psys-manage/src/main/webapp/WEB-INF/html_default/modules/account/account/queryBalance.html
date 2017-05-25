@@ -1,0 +1,31 @@
+<div class="popShow">
+	<div class="showItem">
+		<span>用户名：</span>
+		${user.userName}
+	</div>
+	<div class="showItem">
+		<span>用户真实姓名：</span>
+		${user.realName!"--"}
+	</div>
+	<div class="showItem">
+		<span>用户汇付帐号：</span>
+		${user.apiUsercustId}
+	</div>
+	<div class="showItem">
+		<span>平台可用金额：</span>
+		${(account.useMoney!0)?string(",##0.00")}元
+	</div>
+	<div class="showItem">
+		<span>汇付可用金额：</span>
+		${map.apiUseMoney!0}元
+	</div>
+	<div class="showItem">
+		<span>平台冻结金额：</span>
+		${(account.noUseMoney!0)?string(",##0.00")}元
+	</div>
+	<div class="showItem">
+		<span>汇付冻结金额：</span>
+		${map.apiNoUseMoney!0}元
+	</div>
+</div>
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="800Bank800Bank立志于成为中国最受推崇的互联网私人财富管家。凭借着对产业和金融的深入理解，800Bank一举推出互联网金融3.0模式，提供投贷联动、股权众筹、跨境投资等综合性的资本市场投融资方式，为投资者实现多维度的财富管理。">
+	<meta name="keywords" content="互联网金融、普惠金融、互联网理财、私人银行、财富管理、投资理财、个人理财、资产配置、海外投资、跨境投资、股权投资、股权众筹、现金管理、浮动收益、固定收益、股票基金、房产众筹、美元汇率、海外地产、美国地产、小额投资、随存随取、保本保息、高收益、P2P、投融资、信贷">
+    <title>800Bank</title>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/recharge/recharge_newRecharge.js"></script>
+   <style>
+    	body {background: #fafafa; }
+    	.recharge>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{display:block;color: #FFFFFF;background-color: #3c94d1;text-decoration: none;}
+    	a{color: #a1a1a1;text-decoration: none;}
+    	a:hover{color: #a1a1a1;}
+    	.nav-tabs>li>a{margin-right: 0px;}
+    	
+    </style>
+    <script type="text/javascript">
+    
+			function nextPage(){
+    			var rcMoney = $("#oneRCMoney").val();
+    			var webChannelKey = $("#webChannelKey").val();
+    			if(rcMoney.length>0 && rcMoney>0){
+    				document.getElementById("home1").style.display="none";
+    				document.getElementById("home2").style.display="block";
+					if(webChannelKey==="银联支付"){							
+						document.getElementById("addYLBank").style.display="block";
+						//document.addBankForm.action = "/nb/pc/cash/addBank.html";
+					}
+    				$("#rechMoney2").html(rcMoney+"元");
+    				$("#money_order").val(rcMoney);
+    			}else{
+    				alert("请输入充值金额！");
+    			}
+    		}
+			
+		
+	   		$(function(){
+	   			changeLeftMenue("我要充值");
+	   		})
+	 
+    </script>
+    
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+			<div class="col-md-3 main_left padding_col0">
+					<#include "../include/member_menu.html">
+			</div>
+     <!-- 用户中心左导航菜单 end -->		
+		  <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		  	<p class="space-div-3"></p>
+   	  		<p class="account_title">我要充值</p>
+				  <ul class="row recharge" role="tablist">
+				    <li role="presentation" class="col-md-3 padding_col0 text active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">在线充值</a></li>
+				    <li role="presentation" class="col-md-2 padding_col0 text "><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">线下充值</a></li>
+				  </ul>
+
+				 <div class="tab-content">
+						<div id="home" class="tab-pane active" role="tabpanel">
+
+							<!--右边的内容user_right_main 开始-->
+							<div class="user_right_main clearfix">
+								<section class="warp">
+									<div class="addBankForm" style="padding-top: 30px;">
+										<form id="addBankForm" method="post" action="/nb/pc/recharge/addRandomBank.html">
+										 	<div class="form-group row newCash_col margin0">	
+													<div class="col-md-1 padding_col0"></div>
+													<div class="col-md-10 padding_col0">
+														<label class=" col-md-2 padding_col0 ">随机金额:</label>
+								    				<input type="text" class="col-md-4 padding_col0 rechargeForm_inp" id="money" name="money" placeholder="随机金额">		
+													</div>
+													<div class="col-md-1 padding_col0"></div>
+								    		</div>
+								    		<input type="hidden" name="accId" value="${accId!}" />
+											<input type="hidden" name="accName" value="${accName!}" />
+											<input type="hidden" name="cardNo" value="${cardNo!}" />
+											<input type="hidden" name="mobile" value="${mobile!}" />
+											<div class="form-group row newCash_col margin0">
+													 <div class="col-md-1 padding_col0"></div>
+													 <div class="col-md-10 padding_col0">
+										   		 	<button class="col-md-offset-2 col-md-3 newChashBtn padding_col0" type="submit" >确认并验证</button>
+										   		 </div>
+										  	</div>
+									</form>
+									<input type="hidden" id="errorMsg" value="${errorMsg!}">
+									</div>
+								</section>
+							</div>
+								<div class="col-md-5 padding_col0">
+									<div class="warmPrompt" style="padding: 0px 10px 0px 15px;width: 860px;">
+										<p class="warmPromptTitle">温馨提示：</p>
+										<p>系统已给您的本张银行卡打入一笔 0.01 到 0.99 元的随机认证资金，您需要查询该银行卡的收支明细，正确输入该金额才能认证成功。认证金额较小，可能不会有到账短信通知，请登录网银或者拨打银行热线咨询。</p>
+									</div>
+								</div>
+						</div>
+					
+				 	 <!-- 线上充值结束 -->
+			    
+			    <!-- 线下充值开始 -->
+			    <div role="tabpanel" class="tab-pane" id="profile">
+			    		<#include "../recharge/offLineRecharge.html"> 
+			    </div>
+			    <!-- 线下充值结束 -->
+  			</div>
+		  	
+
+		  </div>	
+	</div>
+</div>
+	
+	<div class="clearfix"></div>
+	
+</
+<div style="height: 80px;">	
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var info = '${prompt!}';
+		var msg2 = "${msgInfo!}";
+		//console.log(info);
+		if(null!==info&&""!==info)
+		{
+			showAlertDiv(false,info,msg2,null);
+		}
+	})
+
+</script>
+
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+  </body>
+</html>
+	

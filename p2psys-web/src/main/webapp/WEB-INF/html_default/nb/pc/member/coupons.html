@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="800Bank">
+        <meta name="description" content="800Bank-有温度的互联网投资平台 ">
+        <title>800Bank</title>
+        <link href="/themes/theme_default/nb/pc/css/member/redPacket.css" rel="stylesheet" />
+        <script type="text/javascript" src="/themes/theme_default/nb/pc/js/member/coupons.js"></script>
+        <style>
+            .my-table th, td {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- header begin -->
+        <#include "../include/member_header.html">
+            <!-- header  end -->
+            <div class="container-fluid">
+                <div class="container main_top">
+                    <div class="row">
+                        <!-- 用户中心左导航菜单 begin -->
+                        <div class="col-md-3 main_left padding_col0 ">
+                            <#include "../include/member_menu.html">
+                        </div>
+                        <!-- 用户中心左导航菜单 end -->
+                        <div class="col-md-9 main_right col-lg-9 col-xs-9">
+                            <div class="info">
+                                <div class="space-div-4"></div>
+                                <div class="space-div-1"></div>
+                                <p class="margin5p">我的加息券</p>
+                                <div class="space-div-2"></div>
+                                <ul class="nav nav-tabs my-tabs">
+                                    <li role="presentation" id="li_1" class="active"><a id="nab_1" onclick="changeTo('1')">未使用</a></li>
+                                    <li role="presentation" id="li_2"><a id="nab_2" onclick="changeTo('2')">已使用</a></li>
+                                    <li role="presentation" id="li_3"><a id="nab_3" onclick="changeTo('3')">已过期</a></li>
+                                    <li role="presentation" id="li_4"><a id="nab_4" onclick="changeTo('4')">已赠予</a></li>
+                                </ul>
+                                <div class="info-min">
+                                    <table class="table my-table " id="table_content1">
+                                        <thead>
+                                            <tr class="space-div-2"></tr>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>有效期</th>
+                                                <th>加息比例</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tr v-if="!unusedList.length" class='space-div-4'>
+                                            <td colspan=4 class='warning-p'>
+                                                <div class='width100 left'>
+                                                    <h3 class='red-packet-h3'>您暂无可用加息券啦</h3>
+                                                    <div class='space-div-05'>&nbsp;&nbsp;</div>
+                                                    <p class='red-packet-p'>赶快来邀请更多好友获得加息券吧!&nbsp;&nbsp;
+                                                        <a class='btn btn-info td-btn' href='/nb/pc/member/userInvite.html' style='background: rgb(62,148,209)'>去邀请好友</a></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div v-else>
+                                            <tr v-for="unused in unusedList" class="coupons-detail">
+                                                <input type="hidden" value="{{ unused.id }}" class="coupons-id">
+                                                <input type="hidden" value="{{ unused.toMobile }}" class="coupons-userto-mobile">
+                                                <td class="coupons-name">
+                                                    <span v-text="unused.couponCategoryName"></span>
+                                                    <b class="tips" style="display:none" tip_toggle="0">{{ unused.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                                </td>
+                                                <td>
+                                                    <span v-text="unused.couponValidFrom | dateFormat"></span>
+                                                    <span>~</span>
+                                                    <span v-text="unused.couponValidTo | dateFormat"></span>
+                                                </td>
+                                                <td v-text="unused.toRateAdjust | addPer '' '%'"></td>
+                                                <td>
+                                                    <a href='/nb/pc/product/product_list.html?id=1' class='btn btn-info td-btn' style='background: rgb(62,148,209)'>投资</a>
+                                                    <a class='btn btn-info td-btn btn-donation' style='background: rgb(62,148,209)'>赠送</a>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                    <table class="table my-table none" id="table_content2">
+                                        <thead>
+                                            <tr class="space-div-2"></tr>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>使用日期</th>
+                                                <th>加息比例</th>
+                                            </tr>
+                                        </thead>
+                                        <tr v-if="!usedList.length" class='space-div-4'>
+                                            <td colspan=4 class='warning-p center'>暂无数据</td>
+                                        </tr>
+                                        <div v-else>
+                                            <tr v-for="used in usedList" class="coupons-detail">
+                                                <td class="coupons-name">
+                                                    <span v-text="used.couponCategoryName"></span>
+                                                    <b class="tips" style="display:none" tip_toggle="0">{{ used.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                                </td>
+                                                <td v-text="used.updateTime | dateFormat"></td>
+                                                <td v-text="used.toRateAdjust | addPer '' '%'"></td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                    <table class="table my-table none" id="table_content3">
+                                        <thead>
+                                            <tr class="space-div-2"></tr>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>有效期</th>
+                                                <th>加息比例</th>
+                                            </tr>
+                                        </thead>
+                                        <tr v-if="!overdueList.length" class='space-div-4'>
+                                            <td colspan=4 class='warning-p center'>暂无数据</td>
+                                        </tr>
+                                        <div v-else>
+                                            <tr v-for="overdue in overdueList" class="coupons-detail">
+                                                <td class="coupons-name">
+                                                    <span v-text="overdue.couponCategoryName"></span>
+                                                    <b class="tips" style="display:none" tip_toggle="0">{{ overdue.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                                </td>
+                                                <td>
+                                                    <span v-text="overdue.couponValidFrom | dateFormat"></span>
+                                                    <span>~</span>
+                                                    <span v-text="overdue.couponValidTo | dateFormat"></span>
+                                                </td>
+                                                <td v-text="overdue.toRateAdjust | addPer '' '%'"></td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                    <table class="table my-table none" id="table_content4">
+                                        <thead>
+                                            <tr class="space-div-2"></tr>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>有效期</th>
+                                                <th>加息比例</th>
+                                                <th>被赠予人</th>
+                                            </tr>
+                                        </thead>
+                                        <tr v-if="!donateList.length" class='space-div-4'>
+                                            <td colspan=4 class='warning-p center'>暂无数据</td>
+                                        </tr>
+                                        <div v-else>
+                                            <tr v-for="donate in donateList" class="coupons-detail">
+                                                <td class="coupons-name">
+                                                    <span v-text="donate.couponCategoryName"></span>
+                                                    <b class="tips" style="display:none" tip_toggle="0">{{ donate.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                                </td>
+                                                <td>
+                                                    <span v-text="donate.couponValidFrom | dateFormat"></span>
+                                                    <span>~</span>
+                                                    <span v-text="donate.couponValidTo | dateFormat"></span>
+                                                </td>
+                                                <td v-text="donate.toRateAdjust | addPer '' '%'"></td>
+                                                <td v-text="donate.toMobile | telMosaics"></td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                                <div id="kkpager" class="no-data"></div>
+                            </div>
+                            <div class="space-div-4"></div>
+                            <div class="space-div-4"></div>
+                            <div class="space-div-4"></div>
+                            <div class="space-div-4"></div>
+                            <div class="warning-div">
+                                <p class="color-warning-p">*加息券使用规则：</p>
+                                <!-- <p class="warning-p" >>现金红包可直接兑换为可用余额，投资红包可以当做投资本金使用(推荐红包每次投资仅可使用一个)。</p> -->
+                                <p class="warning-p">1、加息券可用于购买800Bank的任一产品</p>
+                                <p class="warning-p">2、加息券用于购买随投随享产品时享受首日加息福利，第二日起恢复正常收益。</p>
+                                <p class="warning-p">3、每张加息券仅限在购买某款产品时使用一次，不可二次使用</p>
+                                <p class="warning-p">4、加息券可转赠，点击转赠按钮输入赠与人手机号码即可完成转赠</p>
+                                <p class="warning-p">5、被赠予人在投资时可根据加息券使用规则享受加息福利</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="space-div-8"> </div>
+            <#include "../include/top_static.html">
+                <#include "../include/member_footer.html">
+                    <script src="//cdn.bootcss.com/vue/1.0.4/vue.min.js"></script>
+    </body>
+
+</html>

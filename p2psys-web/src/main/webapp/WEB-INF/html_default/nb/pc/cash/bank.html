@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="800Bank800Bank立志于成为中国最受推崇的互联网私人财富管家。凭借着对产业和金融的深入理解，800Bank一举推出互联网金融3.0模式，提供投贷联动、股权众筹、跨境投资等综合性的资本市场投融资方式，为投资者实现多维度的财富管理。">
+	<meta name="keywords" content="互联网金融、普惠金融、互联网理财、私人银行、财富管理、投资理财、个人理财、资产配置、海外投资、跨境投资、股权投资、股权众筹、现金管理、浮动收益、固定收益、股票基金、房产众筹、美元汇率、海外地产、美国地产、小额投资、随存随取、保本保息、高收益、P2P、投融资、信贷">
+   
+    <title>800Bank</title>
+    <style>
+		.bankDetails_box{background:#EEEEEE;width:657px;position:absolute;z-index:5;display:none;top:200px;border-radius:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;padding:10px;}
+		.bankDetails_box table{border-radius:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+		.bankDetails_box table thead{color:#2370b6;}		
+		.bankDetails_box table tr{background:#FFFFFF;height:40px;width:100%;padding-bottom:30px;}
+		.bankDetails_box table tr td{width:25%;text-align: center;}
+		#qianjin {display: none;position: absolute;left: 0;top: 0;z-index: 4;width: 100%;height: 100%;opacity: 0.3;filter: alpha(opacity=30);background: #000;}
+		#bankTables{width:100%;}
+	</style>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/member/bank.js"></script>
+    <script type="text/javascript">
+   		$(function(){
+   			changeLeftMenue("我的银行卡");
+   			$(".bankDetails_box").bind("click",function(){
+   				$(".bankDetails_box").hide();
+   				$("#qianjin").hide();
+   			});
+   		})
+   		function bankDetails(){
+			 var webChannelKey = $("#hidWebChannelKey").val();
+   			if(webChannelKey!="unionpay_channel_key"){
+   				$.ajax({
+   					url:"/member/recharge/querySupportBank.html?random="+Math.random(),
+   					type:"get",
+   					dataType:"json",
+   					success:function(data){
+   							var str = "<thead><td></td><td>单笔限额</td><td>单日限额</td><td>单月限额</td></thead>";  
+   						    if(data.ret_code!='0000')
+   						    {
+//   						      str += "暂无银行卡"; 
+   						    }else{
+   						      	var length = data.support_banklist.length;
+   						        if(length>0){
+   						        	for (var i = 0; i < length; i++) {
+   						        		var bankCode = data.support_banklist[i].bank_code;
+   						        		var numInput0 = parseFloat(data.support_banklist[i].single_amt)/10000 + "万";
+   							        	var numInput1 = parseFloat(data.support_banklist[i].day_amt)/10000 + "万";
+   							        	var numInput2 = parseFloat(data.support_banklist[i].month_amt)/10000 + "万";
+   						        		if(bankCode==="01020000" || bankCode==="03080000"){
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\" style=\"border: 1px solid #ddd;width: 118px;\"/></td><td>"+numInput0+"</td><td>"+numInput1+"</td><td>"+numInput2+"</td></tr>";
+   						        		}else if(bankCode==="01050000"){
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\"/></td><td>"+numInput0+"(0:00-22:00)</td><td>"+numInput1+"(0:00-22:00)</td><td>"+numInput2+"</td></tr>";
+   						        		}else{			        			
+   						        			str += "<tr><td><img src=\"/data/bank/llbank/"+bankCode+".gif\"/></td><td>"+numInput0+"</td><td>"+numInput1+"</td><td>"+numInput2+"</td></tr>";
+   						        		}
+   									}
+   						        }
+   						    }
+   						    document.getElementById("bankTables").innerHTML=str;
+   					}
+   				})
+   			} 
+			var width = $(window).width();
+			var height = $(document).height();
+			var bankDetails_width = width-$(".bankDetails_box").width();
+			$(".bankDetails_box").css("left",bankDetails_width/2+"px");
+			$("#qianjin").css("width",width+"px");
+			$("#qianjin").css("height",height+"px");
+			$(".bankDetails_box").show();
+			$("#qianjin").show();
+		}
+		
+		
+   </script>
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+			<div class="col-md-3 main_left padding_col0">
+					<#include "../include/member_menu.html">
+			</div>
+     <!-- 用户中心左导航菜单 end -->		
+		  <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		  	
+		  	<p class="space-div-3"></p>
+   	  		<p class="account_title">我的银行卡</p>
+		  	
+		  	<div class="row row_col"  id="bankInfo_div">
+		  		
+		  	</div>	  
+		  	
+		  	<div class="row leftPadding">
+		  		<div class="bankTip">
+		  		    <p class="bankWarmTip">温馨提示：</p>
+					<p>1、为了您的账户及资金安全，如果需要更换银行卡，请直接联系客服，电话400-6366-800。</p>
+					<p>2、目前绑卡仅支持以下银行：招商银行、工商银行、农业银行、建设银行、中国银行、邮储银行、光大银行、广发银行、平安银行等，具体请查看：<span class="bankList" onclick="bankDetails();" id="bankDetail">银行卡限额详情列表</span></p>						
+					<p>3、限额表仅供参考，实际以支付界面提示为准。</p>
+				</div>
+		  	</div>
+		  
+		</div>	  
+	</div>
+</div>
+	
+	<div class="clearfix"></div>
+	
+</div>
+
+<div class="bankDetails_box">
+	<table id="bankTables">
+		<thead><td></td><td>单笔限额</td><td>单日限额</td><td>单月限额</td></thead>
+		<tr><td><img src="/data/bank/ICBC_OUT.gif" style="border: 1px solid #ddd;width: 118px;"/></td><td>5万</td><td>5万</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/ABC_OUT.gif"/></td><td>20万(6:00-20:00) 2万(20:00-5:59)</td><td>500万</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>20万</td><td>无</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>1万</td><td>1万</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/yz.jpg"/></td><td>1万</td><td>1万</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/CMB_OUT.gif"  style="border: 1px solid #ddd;width: 118px;"/></td><td>5万</td><td>5万</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>20万</td><td>无</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>20万</td><td>无</td><td>无</td></tr>
+		<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>20万</td><td>无</td><td>无</td></tr>
+	</table>
+</div>
+<i id="qianjin"></i>
+
+<div style="height: 80px;">	
+</div>
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>浮动收益</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	$(function() {
+		$('#win').dialog({
+			title : "标详情",
+		    width : 500,    
+		    height : 300,
+		    minimizable : false,
+		    maximizable : false,
+		    collapsible : false,
+		    left : 200,
+		    top : 200,
+		    modal:true   
+		});
+		$('#win').dialog("close", true);
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'floatIncomeList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+ 			showFooter : true,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50,sortable:true},
+				{ field: 'userName', title: '用户名', width: 110},
+				{ field: 'realName', title: '真实用户名', width: 110},
+				{ field: 'typeName', title: '类型', width: 120}
+			]],
+			columns : [[ 			
+				{ field: 'total', title: '账户总额（元）', width: 120 },
+				{ field: 'money', title: '操作金额（元）', width: 120 },
+				{ field: 'useMoney', title: '可用金额（元）', width: 120 },
+				{ field: 'noUseMoney', title: '冻结金额（元）', width: 120 },
+				{ field: 'collection', title: '待收金额（元）', width: 120 },
+				{ field: 'toUserName', title: '交易对方', width: 100},
+				{ field:'remark', title:'备注',width: 300},
+				{ field: 'addTime', title: '添加时间', width: 150,
+					formatter: function(value,row,index){
+						if (value){
+							return getLocalTime(value,4);
+						} else {
+							return "";
+						}
+					}
+				},
+				{field : 'action',title : '操作',width :100,hidden:true,
+					formatter : function(value, row, index) {
+						var str = '';
+						str += '&nbsp;';                    
+						return str;
+					}
+				} 
+			 ]],
+			 toolbar : '#toolbar',
+			onClickCell : function(rowIndex, field, value){
+				if(field == "borrowName"){
+					$.ajax({
+						url : '/modules/loan/borrow/borrowDetail.html?value='+value,
+						dataType: "json",
+						success : function(result){
+							$("#content").text(result.borrow.content);
+							$("#name").text(result.borrow.name);
+							$("#account").text(result.borrow.account);
+							$("#accountYes").text(result.borrow.accountYes);
+							$('#win').dialog("open", true);
+						}
+					});
+				}	
+			}
+			
+			
+			
+			
+		});
+	});
+	function exportExcel(){
+		var url = "/modules/account/accountlog/exportExcelFloatIncomeAccountLog.html";
+		var searchName = $("#searchName").val();
+		var userName = $("#userName").val();
+		var borrowName = $("#borrowName").val();
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		var sou = "?searchName="+ searchName +"&userName=" + userName + "&borrowName=" + borrowName + "&startTime=" + startTime + "&endTime=" + endTime;
+		window.location.href = url + sou;
+	}
+	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" id="searchName" placeholder="输入用户名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		        	<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span></span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+		<#--<div id="win">
+			<div>标名称：<span id="name"></span></div>
+			<div>借款标信息内容：<span id="content"></span></div>
+			<div>借款总额：<span id="account"></span></div>
+			<div>实还总金额：<span id="accountYes"></span></div>
+		</div>--> 
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

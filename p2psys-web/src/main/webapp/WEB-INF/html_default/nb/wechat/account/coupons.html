@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <link href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/Swiper/3.1.7/css/swiper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/account/coupons.css">
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/Swiper/3.1.7/js/swiper.jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/1.0.4/vue.min.js"></script>
+    <script src="/plugins/layer.mobile-v1.6/layer.m.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/account/coupons.js"></script>
+    <title>我的加息券</title>
+    <style>
+    /*layer弹出框样式begin*/
+    
+    .layermchild .layermbtn {
+        border-top: none;
+    }
+    
+    .layermchild .layermbtn span {
+        background: #ffae00;
+        color: #fff;
+        height: 27px;
+        width: 100px;
+        line-height: 27px;
+        font-size: 11px;
+        font-weight: 400;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+    
+    .layermchild .layermbtn span:first-child {
+            height: 29px;
+    line-height: 29px;
+    background: #fff;
+    color: #ffae00;
+    border: 1px #ffae00 solid;
+        border-radius: 6px;
+        margin-right: 20px
+    }
+    
+    .layermchild .layermbtn:before {
+        content: none;
+    }
+    /*layer弹出框样式end*/
+    </style>
+</head>
+
+<body>
+    <!-- <input type="hidden" value="${userId}" id="userId" > -->
+    <div class="tabs">
+        <a href="#" class="active">未使用</a>
+        <a href="#">已使用</a>
+        <a href="#">已失效</a>
+        <a href="#">已赠予</a>
+    </div>
+    <!-- tabs -->
+    <div style="height:41px;"></div>
+    <div class="wrap">
+        <div id="tabs_container" class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- 未使用 -->
+                <div class="swiper-slide">
+                    <div class="content-slide">
+                        <div v-if="!unusedList.length" class="none">暂无信息</div>
+                        <div v-else class="not-none">
+                            <div class="coupons-table">
+                                <div class="coupons-titles">
+                                    <h3>投资加息券</h3>
+                                    <div class="coupons-title">
+                                        <span>名称</span>
+                                        <span>失效日期</span>
+                                        <span>加息比例</span>
+                                        <span>操作</span>
+                                    </div>
+                                    <!-- coupons-title -->
+                                </div>
+                                <!-- coupons-titles -->
+                                <div v-for="unused in unusedList" class="coupons-detail">
+                                    <input type="hidden" value="{{ unused.id }}" class="coupons-id">
+                                    <input type="hidden" value="{{ unused.toMobile }}" class="coupons-userto-mobile">
+                                    <!-- 名称不能超过6个字 -->
+                                    <span class="coupons-name" v-text="unused.couponCategoryName"></span>
+                                    <b class="tips" style="display:none" tip_toggle="0">{{ unused.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                    <span v-text="unused.couponValidTo | dateFormat"></span>
+                                    <span v-text="unused.toRateAdjust"></span>
+                                    <span class="btn">
+                                        <a class="btn-use" href="/nb/wechat/product/product_menue.action">使用</a>
+                                        <a class="btn-donation" href="javascript:;">转赠</a>
+                                    </span>
+                                </div>
+                                <!-- coupons-detail -->
+                            </div>
+                            <!-- coupons-table -->
+                        </div>
+                        <!-- not-none -->
+                        <div class="not-none2">
+                            <h2>加息券使用规则</h2>
+                            <p>1、加息券可用于购买800Bank的非随投随享产品</p>
+                            <!-- <p>2、加息券用于购买随投随享产品时享受首日加息福利，第二日起恢复正常收益。</p> -->
+                            <p>2、每张加息券仅限在购买某款产品时使用一次，不可二次使用</p>
+                            <p>3、加息券可转赠，点击转赠按钮输入赠与人手机号码即可完成转赠</p>
+                            <p>4、被赠予人在投资时可根据加息券使用规则享受加息福利</p>
+                        </div>                        
+                    </div>
+                    
+                    <!-- content-slide -->
+                </div>
+                <!-- .swiper-slide1 -->
+                <!-- 已使用 -->
+                <div class="swiper-slide">
+                    <div class="content-slide">
+                        <div v-if="!usedList.length" class="none">暂无信息</div>
+                        <div v-else class="not-none">
+                            <div class="coupons-table">
+                                <div class="coupons-titles">
+                                    <h3>投资加息券</h3>
+                                    <div class="coupons-title">
+                                        <span>名称</span>
+                                        <span>使用日期</span>
+                                        <span>加息比例</span>
+                                    </div>
+                                    <!-- coupons-title -->
+                                </div>
+                                <!-- coupons-titles -->
+                                <div v-for="used in usedList" class="coupons-detail">
+                                    <!-- 名称不能超过6个字 -->
+                                    <span class="coupons-name" v-text="used.couponCategoryName"></span>
+                                    <b class="tips" style="display:none" tip_toggle="0">{{ used.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                    <span v-text="used.updateTime | dateFormat"></span>
+                                    <span v-text="used.toRateAdjust"></span>
+                                </div>
+                                <!-- coupons-detail -->
+                            </div>
+                            <!-- coupons-table -->
+                            
+                        </div>
+                        <!-- not-none -->
+                        <div class="not-none2">
+                            <h2>加息券使用规则</h2>
+                            <p>1、加息券可用于购买800Bank的非随投随享产品</p>
+                            <!-- <p>2、加息券用于购买随投随享产品时享受首日加息福利，第二日起恢复正常收益。</p> -->
+                            <p>2、每张加息券仅限在购买某款产品时使用一次，不可二次使用</p>
+                            <p>3、加息券可转赠，点击转赠按钮输入赠与人手机号码即可完成转赠</p>
+                            <p>4、被赠予人在投资时可根据加息券使用规则享受加息福利</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- .swiper-slide2 -->
+                <!-- 已过期 -->
+                <div class="swiper-slide">
+                    <div class="content-slide">
+                        <div v-if="!overdueList.length" class="none">暂无信息</div>
+                        <div v-else class="not-none">
+                            <div class="coupons-table">
+                                <div class="coupons-titles">
+                                    <h3>投资加息券</h3>
+                                    <div class="coupons-title">
+                                        <span>名称</span>
+                                        <span>失效日期</span>
+                                        <span>加息比例</span>
+                                    </div>
+                                    <!-- coupons-title -->
+                                </div>
+                                <!-- coupons-titles -->
+                                <div v-for="overdue in overdueList" class="coupons-detail">
+                                    <!-- 名称不能超过6个字 -->
+                                    <span class="coupons-name" v-text="overdue.couponCategoryName"></span>
+                                    <b class="tips" style="display:none" tip_toggle="0">{{ overdue.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                    <span v-text="overdue.couponValidTo | dateFormat"></span>
+                                    <span v-text="overdue.toRateAdjust"></span>
+                                </div>
+                                <!-- coupons-detail -->
+                            </div>
+                            <!-- coupons-table -->
+                        </div>
+                        <!-- not-none -->
+                        <div class="not-none2">
+                            <h2>加息券使用规则</h2>
+                            <p>1、加息券可用于购买800Bank的非随投随享产品</p>
+                            <!-- <p>2、加息券用于购买随投随享产品时享受首日加息福利，第二日起恢复正常收益。</p> -->
+                            <p>2、每张加息券仅限在购买某款产品时使用一次，不可二次使用</p>
+                            <p>3、加息券可转赠，点击转赠按钮输入赠与人手机号码即可完成转赠</p>
+                            <p>4、被赠予人在投资时可根据加息券使用规则享受加息福利</p>
+                        </div>                        
+                    </div>
+                </div>
+                <!-- .swiper-slide3 -->
+                <!-- 已赠予 -->
+                <div class="swiper-slide">
+                    <div class="content-slide">
+                        <div v-if="!donateList.length" class="none">暂无信息</div>
+                        <div v-else class="not-none">
+                            <div class="coupons-table">
+                                <div class="coupons-titles">
+                                    <h3>投资加息券</h3>
+                                    <div class="coupons-title">
+                                        <span>名称</span>
+                                        <span>失效日期</span>
+                                        <span>加息比例</span>
+                                        <span>被赠予人</span>
+                                    </div>
+                                    <!-- coupons-title -->
+                                </div>
+                                <!-- coupons-titles -->
+                                <div v-for="donate in donateList" class="coupons-detail">
+                                    <!-- 名称不能超过6个字 -->
+                                    <span class="coupons-name" v-text="donate.couponCategoryName"></span>
+                                    <b class="tips" style="display:none" tip_toggle="0">{{ donate.fromMobile | telMosaics }}赠送给您的加息券</b>
+                                    <span v-text="donate.couponValidTo | dateFormat"></span>
+                                    <span v-text="donate.toRateAdjust"></span>
+                                    <span v-text="donate.toMobile | telMosaics"></span>
+                                </div>
+                                <!-- coupons-detail -->
+                            </div>
+                            <!-- coupons-table -->
+                        </div>
+                        <!-- not-none -->
+                        <div class="not-none2">
+                            <h2>加息券使用规则</h2>
+                            <p>1、加息券可用于购买800Bank的非随投随享产品</p>
+                            <!-- <p>2、加息券用于购买随投随享产品时享受首日加息福利，第二日起恢复正常收益。</p> -->
+                            <p>2、每张加息券仅限在购买某款产品时使用一次，不可二次使用</p>
+                            <p>3、加息券可转赠，点击转赠按钮输入赠与人手机号码即可完成转赠</p>
+                            <p>4、被赠予人在投资时可根据加息券使用规则享受加息福利</p>
+                        </div>                        
+                    </div>
+                </div>
+                <!-- .swiper-slide4 -->
+            </div>
+            <!-- .swiper-wrapper -->
+        </div>
+        <!-- #tabs_container -->
+    </div>
+    <!-- wrap -->
+    <!--底部导航-->
+    <div class="foot-blank"></div>
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 底部导航 -->
+
+</body>
+
+</html>

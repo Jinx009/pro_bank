@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+ <#assign web_title="【投资】投资理财_投资项目_小投资创业项目 - ${webname!}">
+		<#assign web_description="${webname!}通过“风险保障金”和严格的风控体系，打造最安全的p2p网络借贷平台。${webname!}承诺提供百分百本金保障，为投资理财人士提供低门槛、高收益的个人投资理财服务。">
+		<#assign meta_keywords="投资,投资理财,投资项目,小投资创业项目">
+<#include "../include/resource1.html">
+<body style="padding:0;">
+<#assign nid="bond">
+<#include "../include/header.html">
+    <div id="container" class="noBg clearfix" style="background:none;">
+    <div class="ss-bond clearfix">
+    <input type="hidden" id="name" name="name" placeholder="请输入标题关键字" class="searchTxt" autocomplete="off">
+    <input type="hidden" value="搜索" class="searchBtn">
+    <div class="investSearch clearfix">
+            <ul>
+                <li>
+                    <label>借款标种</label>
+                    <span id="type">
+                        <a href="javascript:;" class="current" data-val="100">不限</a>
+                        <a href="javascript:;" data-val="103">固定收益类产品</a>
+                        <a href="javascript:;" data-val="112">担保标</a>
+                        <a href="javascript:;" data-val="102">信用标</a>
+                    </span>
+                </li>
+                <li>
+                    <label>年化收益</label>
+                    <span id="aprSearch">
+                        <a href="javascript:;" class="current" data-val="-1">不限</a>
+                        <a href="javascript:;" data-val="1">0-6%</a>
+                        <a href="javascript:;" data-val="2">6-12%</a>
+                        <a href="javascript:;" data-val="3">12-18%</a>
+                        <a href="javascript:;" data-val="4">18-20%</a>
+                        <a href="javascript:;" data-val="5">20%以上</a>
+                    </span>
+                </li>
+                <li>
+                    <label>债权总价</label>
+                    <span id="moneySearch">
+                        <a href="javascript:;" class="current" data-val="-1">不限</a>
+                        <a href="javascript:;" data-val="2">1万以下</a>
+                        <a href="javascript:;" data-val="3">1-5万</a>
+                        <a href="javascript:;" data-val="4">5-10万</a>
+                        <a href="javascript:;" data-val="5">10-20万</a>
+                        <a href="javascript:;" data-val="6">20-50万</a>
+                        <a href="javascript:;" data-val="7">50万以上</a>
+                    </span>
+                </li>
+                <li>
+                    <label>剩余期限</label>
+                    <span id="timeSearch">
+                        <a href="javascript:;" class="current" data-val="-1">不限</a>
+                        <a href="javascript:;" data-val="2">30天以内</a>
+                        <a href="javascript:;" data-val="3">30-60天</a>
+                        <a href="javascript:;" data-val="4">60-90天</a>
+                        <a href="javascript:;" data-val="5">90天以上</a>
+                    </span>
+                </li>
+                <li>
+                    <label>项目状态</label>
+                    <span id="status">
+                        <a href="javascript:;" class="current" data-val="-2">不限</a>
+                        <a href="javascript:;" data-val="1">受让中</a>
+                        <a href="javascript:;" data-val="6">转让完成</a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="bond-annotation">
+            <font style="font-size:24px;color:#ff6633;font-weight:bold;">债权转让</font>能提高投资人的资金流动性，当你需要流动资金时，可以通过出售你名下拥有的符合相应条件的债权给其他投资人，从而完成债权转让，获得流动资金。
+        </div>
+    </div>
+    	<div class="bondList float_left">
+                    <ul class="bondOrder">
+                        	<li class="current"><a href="javascript:;" data-val="normal">默认排序</a></li>
+                        	<li><a href="javascript:;" data-val="desc" data-type="addTime">发布时间<i class="desc"></i></a></li>
+                        	<li><a href="javascript:;" data-val="desc" data-type="apr">年化收益<i class="desc"></i></a></li>
+                        	<li><a href="javascript:;" data-val="desc" data-type="remainDays">剩余期限<i class="desc"></i></a></li>
+                    </ul>
+                    <div class="bondtListBox"></div>
+                    <div id="kkpager"></div>
+    	</div>
+    	<div class="bondRecord float_right">
+    		<h2>最新转让成交记录</h2>
+    		<ul></ul>
+    	</div>
+    </div>
+    <div id="transfer" style="display:none; width:800px; height:500px; overflow-y:scroll; padding:30px; line-height:35px;">
+        <#include "../bond/bondSellProtocolPreview.html"> 
+    </div>
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/bond/index");
+</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

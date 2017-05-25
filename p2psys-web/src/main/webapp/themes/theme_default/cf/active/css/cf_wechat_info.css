@@ -1,0 +1,111 @@
+body{
+	/* background: url('/themes/theme_default/cf/active/images/invite_2.jpg');
+	color: #ffffff;
+	text-align: center;
+	background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+    width: 100%;
+    height: 100%;
+    font-family: "Microsoft Yahei";
+    left: 0;
+    right: 0; */
+}
+.main-img{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 888;
+}
+.main{
+	position: fixed;
+	top: 40%;
+	left: 0px;
+	width: 100%;
+	height: 60%;
+	z-index: 9999;
+	font-family: "Microsoft Yahei";
+}
+.main-span{
+	position: absolute;
+	left: 13%;
+	width: 74%;
+	top: 0px;
+	text-align: left;
+	color: white;
+	font-family: "Microsoft Yahei";
+}
+.main-name{
+	position: absolute;
+	top: 80px;
+	left: 13%;
+	width: 74%;
+	border-radius:20px;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 2em;
+	background: none;
+	border: 1px solid white;
+	color: white;
+	font-family: "Microsoft Yahei";
+}
+::-webkit-input-placeholder { 
+	color: white;
+	font-family: "Microsoft Yahei";
+}
+:-moz-placeholder { 
+	color: white;
+	font-family: "Microsoft Yahei";
+}
+::-moz-placeholder {
+	color: white;
+	font-family: "Microsoft Yahei";
+}
+:-ms-input-placeholder { 
+	color: white;
+	font-family: "Microsoft Yahei";
+} 
+.main-birthday{
+	position: absolute;
+	top: 135px;
+	left: 13%;
+	width: 74%;
+	border-radius:20px;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 2em;
+	background: none;
+	border: 1px solid white;
+	color: white;
+}
+.main-div{
+	position: absolute;
+	top:235px;
+	left: 13%;
+	width: 74%;
+	border-radius:20px;
+	height: 30px;
+	line-height: 30px;
+	background: white;
+	border: 1px solid white;
+	color: rgb(154,31,36);
+	text-align: center;
+	font-family: "Microsoft Yahei";
+}
+.main-tel{
+	position: absolute;
+	top: 185px;
+	left: 13%;
+	width: 74%;
+	border-radius:20px;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 2em;
+	background: none;
+	border: 1px solid white;
+	color: white;
+}

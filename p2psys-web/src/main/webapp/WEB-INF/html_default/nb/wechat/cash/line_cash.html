@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>线下提现</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <style>
+  	.backBtn{width: 96%;margin:0 auto;color:#FFFFFF;background-color: #ffae00;height: 45px;line-height: 45px;text-align: center;border-radius: 5px;margin-top: 5%;cursor: pointer;}
+  	.border{
+			border: 1px solid red;
+		}
+		.form-control {
+		float:left;
+		display: inline-block;
+		width: 48%;
+		height: 34px;
+		padding: 6px 12px;
+		color:#898989;
+		font-size: 14px;
+		line-height: 1.42857143;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+	}
+  </style>
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  
+  <script type="text/javascript">
+	  window.onload=function()
+		{
+			var oT=document.getElementById('infoyhzh');
+			oT.onkeydown=function(ev)
+			{   
+				var oW=oT.value;
+				var oEvent=ev||event;
+				if(oEvent.keyCode==8)
+				{
+					if(oW)
+					{
+						for(var i=0;i<oW.length;i++)
+						{
+							var newStr=oW.replace(/\s$/g,'');
+						}
+						oT.value=newStr
+					}
+				}else{
+					for(var i=0;i<oW.length;i++)
+					{
+						var arr=oW.split('');
+		
+						if((i+1)%5==0)
+						{
+							arr.splice(i,0,' ');
+						}
+					}
+					oT.value=arr.join('');
+				}
+			}
+		}
+	  /**
+	   * 验证身份证号
+	   * @param num
+	   * @returns {Boolean}
+	   */
+	  function isIdCardNo(num) 
+	  {
+	      var factorArr = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1);
+	      var parityBit = new Array("1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2");
+	      var varArray = new Array();
+	      var intValue;
+	      var lngProduct = 0;
+	      var intCheckDigit;
+	      var intStrLen = num.length;
+	      var idNumber = num;
+	    
+	      if ((intStrLen != 15) && (intStrLen != 18)) 
+	      {
+	          return false;
+	      }
+	      for (i = 0; i < intStrLen; i++) 
+	      {
+	          varArray[i] = idNumber.charAt(i);
+	          if ((varArray[i] < '0' || varArray[i] > '9') && (i != 17)) 
+	          {
+	              return false;
+	          } 
+	          else if (i < 17) 
+	          {
+	              varArray[i] = varArray[i] * factorArr[i];
+	          }
+	      }
+	      if (intStrLen == 18) 
+	      {
+	         
+	          var date8 = idNumber.substring(6, 14);
+	          if (isDate8(date8) == false) 
+	          {
+	              return false;
+	          }
+	          for (i = 0; i < 17; i++) 
+	          {
+	              lngProduct = lngProduct + varArray[i];
+	          }
+	          intCheckDigit = parityBit[lngProduct % 11];
+	          if (varArray[17] != intCheckDigit) 
+	          {
+	              return false;
+	          }
+	      }
+	      else 
+	      {        
+	          var date6 = idNumber.substring(6, 12);
+	          if (isDate6(date6) == false) 
+	          {
+	              return false;
+	          }
+	      }
+	      return true;
+	  }
+
+	  function isDate6(sDate) 
+	  {
+	      if (!/^[0-9]{6}$/.test(sDate)) 
+	      {
+	          return false;
+	      }
+	      var year, month, day;
+	      year = sDate.substring(0, 4);
+	      month = sDate.substring(4, 6);
+	      if (year < 1700 || year > 2500) return false
+	      if (month < 1 || month > 12) return false
+	      return true;
+	  }
+
+	  function isDate8(sDate) 
+	  {
+	      if (!/^[0-9]{8}$/.test(sDate)) 
+	      {
+	          return false;
+	      }
+	      var year, month, day;
+	      year = sDate.substring(0, 4);
+	      month = sDate.substring(4, 6);
+	      day = sDate.substring(6, 8);
+	      var iaMonthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	      if (year < 1700 || year > 2500) return false
+	      if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) iaMonthDays[1] = 29;
+	      if (month < 1 || month > 12) return false
+	      if (day < 1 || day > iaMonthDays[month - 1]) return false
+	      return true;
+	  }
+		function loadCity(){
+  			var pc = $("#province").children().length;
+  			if(pc<=1){  				
+	  			var province = document.getElementById("province");
+	  		    var cityArr =  eval('${cityCodeList}');
+	  		    var num = 1;
+	  		    $.each(cityArr,function(i,item){
+	  		    	var obj = cityArr[i];
+	  		    	if(obj.city===""){
+	  		    		province[num]=new Option(obj.province,obj.province);
+		  		        num++;
+	  		    	}
+	  		    })
+  			}
+		}
+		
+		function getCityInfo(tem){
+  			var city = document.getElementById("city");
+  			city.options.length=1;
+  		    var cityArr =  eval('${cityCodeList!}');
+  		    var num = 1;
+  		    $.each(cityArr,function(i,item){
+  		    	var obj = cityArr[i];
+  		    	if(obj.province===tem && obj.city!=""){
+  		    		city[num]=new Option(obj.city,obj.city);
+	  		        num++;
+  		    	}
+  		    })
+  		}
+	  
+  	function hideForm()
+  	{
+  		$("#main_info").css("display","none");
+  		$("#table_info").css("display","block");
+  	}
+  	function hideTable()
+  	{
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  	}
+  	
+  	function checkBankNo(){
+  		var realName = document.getElementById("realName").value;
+  		var cardId = document.getElementById("cardId").value;
+  		var bankno = document.getElementById("infoyhzh").value;
+  		var branch=document.getElementById("branch");
+  		var selcity = $("#city").val();
+  		
+  		if(realName.length==0){
+  			$("#span_realName").html('请输入真实姓名');
+			$("#realName").addClass("border");
+  		}else if(cardId.length==0){
+	  		$("#span_cardId").html('请输入您的身份证号');
+  			$("#cardId").addClass("border");
+  	  	}else if(!isIdCardNo(cardId.trim())){
+  	  		$("#span_cardId").html('身份证号格式不正确');
+			$("#cardId").addClass("border");
+		}else if(bankno.length==0){
+  			$("#span_infoyhzh").html('请输入提现银行卡号');
+			$("#infoyhzh").addClass("border");
+  		}else if(selcity.length==0){
+			//$("#span_selcity").html('请选择地区');
+			$("#city").addClass("border");
+		}else if((branch.value).length==0){	
+			$("#span_branch").html('请输入支行名称');
+			$("#branch").addClass("border");
+	  	}else{
+  			$.ajax({
+  		   		 url:"/nb/wechat/cash/binBank.html?cardNo="+bankno+"&random="+Math.random(),
+  		   		 data:{cardNo:bankno},
+  		   		 type:"get",
+  		   		 dataType:"json",
+  		   		 success:function(data){
+  		 			if(document.getElementById("cardtip")!=null){
+  		 				 document.getElementById("cardtip").style.display="block";
+  			   			 if(data.ret_code=='0000' && data.card_type=='2'){
+  			   				 	document.getElementById("cardtip").innerHTML="<img src='/data/bank/llmini/"+data.bank_code+".png'>"+data.bank_name;
+  			   					document.form1.submit();
+  			   			 }else if(data.card_type=='3'){
+  			   				 	document.getElementById("cardtip").innerHTML="不支持信用卡，请重新输入！";
+  			   			 }else{
+  			   				 	document.getElementById("cardtip").innerHTML="卡号有误，请检查！";
+  			   			 }
+  		   			}
+  		   		 }
+  			 	})
+  		}
+  	}
+
+	function delClass(){
+		$("#realName").removeClass("border");
+		$("#cardId").removeClass("border");
+		$("#infoyhzh").removeClass("border");
+		$("#branch").removeClass("border");
+		$("#span_realName").html('');
+		$("#span_cardId").html('');
+		$("#span_infoyhzh").html('');
+		$("#span_branch").html('');
+	}
+	
+	function checkBankInfo(){
+		var cardNo = document.getElementById("infoyhzh").value;
+		if(cardNo.length==0){
+			 document.getElementById("cardtip").style.display="none";
+		}else{
+			$.ajax({
+	   		 url:"/nb/wechat/cash/binBank.html?cardNo="+cardNo+"&random="+Math.random(),
+	   		 data:{cardNo:cardNo},
+	   		 type:"get",
+	   		 dataType:"json",
+	   		 success:function(data){
+	 			if(document.getElementById("cardtip")!=null){
+	 				 document.getElementById("cardtip").style.display="block";
+		   			 if(data.ret_code=='0000' && data.card_type=='2'){
+		   				 	document.getElementById("cardtip").innerHTML="<img src='/data/bank/llmini/"+data.bank_code+".png'>"+data.bank_name;
+		   			 }else if(data.card_type=='3'){
+		   				 document.getElementById("cardtip").innerHTML="不支持信用卡，请重新输入！";
+		   			 }else{
+		   				 document.getElementById("cardtip").innerHTML="卡号有误，请检查！";
+		   			 }
+	   			}
+	   		 }
+		 	})
+		}
+	}
+  </script>
+</head>
+<body>
+<div id="main_info" >
+<form id="lineCashForm" method="post" action="${webroot}/nb/wechat/cash/doylOfflineCash.html" name="form1" >
+  <div class="content">
+		<div class="edit">
+				<span class="f12">提现金额：</span>
+				<span id="available_Balance">${money!0}</span>元
+			<input type="hidden" name="money" id="money" value="${money!0}" />
+			<input type="hidden" name="operType" id="operType" value="cash" />
+		</div>
+		<#if realName??>
+   			<div class="edit">
+	   			<input type="text" name="realName" id="realName" value="${realName}" autocomplete="off" class="cash_money" readOnly="readonly" maxLength="12"/>
+	      	</div>
+   		<#else>
+   			<div class="edit">
+	   			<input type="text" name="realName" id="realName"  autocomplete="off" placeholder="真实姓名" class="cash_money" onfocus="delClass()" maxLength="12"/>
+	   			<span id="span_realName" class="fillingAmount"></span>
+	      	</div>
+   		</#if>
+	     <#if cardId??>
+	   			<div class="edit">
+		   			<input type="text" name="cardId" id="cardId" value="${cardId}" autocomplete="off" class="cash_money" readOnly="readonly" maxLength="18"/>
+		      	</div>
+	   		<#else>
+	   			<div class="edit">
+		   			<input type="text" name="cardId" id="cardId"  autocomplete="off" placeholder="身份证号" class="cash_money" onfocus="delClass()" maxLength="18"/>
+		   			<span id="span_cardId" class="fillingAmount"></span>
+		      	</div>
+	   		</#if> 	
+		<div class="edit">
+            <input type="text" name="bankNo" id="infoyhzh" autocomplete="off"  placeholder="银行卡号" onpaste="return false;" onfocus="delClass()" onblur="checkBankInfo()" maxLength="25" />
+        	<span id="span_infoyhzh" class="fillingAmount"></span>
+        </div>
+        <p style="width:92%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:10px;display: none;" id="cardtip"></p>
+        <div class="edit">
+	            <select  id="province"  name="province"  onclick="loadCity();" onchange="getCityInfo(this.value);" class="form-control">
+	               	<option value="" selected="selected">---请选择省份---</option>
+	            </select>
+	            <div style="float:left;width:4%;text-align:center;color:#898989;height:34px;line-height:34px;">-</div>
+	            <select  id="city"  name="city"  onchange="" class="form-control" >
+	               	<option value="" selected="selected">---请选择市区---</option>
+	            </select>
+	            <span id="span_selcity" class="fillingAmount"></span>
+        </div>
+        <div class="edit" style="margin-bottom:2%;">
+            <input class="code" type="text" name="branch" id="branch" style="width: 95%" autocomplete="off" placeholder="支行名称" onfocus="delClass()" maxlength="12">
+			<span id="span_branch" class="fillingAmount"></span>
+        </div>
+        <p style="width:92%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:10px;">如不确定，请联系银行客服查找</p>
+		<input  type="hidden" name="payType" id="payType" value="1" />
+		<input type="hidden" name="user_id" value="${session_user.userId}" />
+		<span id="cashBtn" class="sureBtn" style="display:block;" onclick="checkBankNo()">确认提现</span>
+	</div>
+
+</form>
+  <!-- <div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;">温馨提示：可支持绑定招商银行、工商银行、农业银行、中国银行、邮储银行、光大银行、广发银行、平安银行。<span style="color: red" onclick="hideForm()" >点击查看各银行提款限额。</span>
+  <div style="height: 30px" ></div>
+  </div>
+  </div> -->
+
+
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+
+  <div id="table_info" style="display: none" onclick="hideTable()" >
+  		<table style="width:96%;margin-left: 2%" >
+  			<tr height="25px" ></tr>
+			<tr><td></td><td>单笔限额</td><td>单日限额</td></tr>
+			<tr><td><img src="/data/bank/ICBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>1万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/yz.jpg"/></td><td>1万</td><td>1万</td></tr>
+			<tr><td><img src="/data/bank/CMB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>20万</td><td>无</td></tr>
+			<tr><td valign="top" ><img src="/data/bank/ABC_OUT.gif"/></td><td valign="top" >2-20万</td><td  valign="top" >500万</td></tr>
+			<tr height="25px" ></tr>
+			<tr><td colspan="3" style="color: red" >备注:中国农业银行6:00-20:00限额20万其余时段 限额2万，点击表格即可关闭此页。</td></tr>
+			
+		</table>
+		<div class="backBtn">返回</div>
+  </div>
+</body>
+</html>

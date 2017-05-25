@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	$(function()
+	{
+		$('#siteNewDialog').dialog(
+		{
+			title : '添加',
+			width : 900,
+			height : 798,
+			modal : true
+		});
+		$('#siteNewDialog').dialog("close");
+		$.fn.dataGridOptions.formSubFun("#form",'/modules/nb/homepage/bannerAdd.html'); 	
+	});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+	<input id="isEnable" name="isEnable" value="1" type="hidden"/>
+		<div class="formitm">
+			<label class="lab">名称</label>
+			<div class="ipt">
+				<input type="text" name="bannerName" id="bannerName" class="w400 easyui-validatebox"
+				data-options="required: true" maxlength="30" /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">关键字</label>
+			<div class="ipt">
+				<input type="text" name="bannerKeywords" id="bannerKeywords" class="w400 easyui-validatebox"
+					data-options="required: true" maxlength="30"  /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">链接地址</label>
+			<div class="ipt">
+			<input type="text" name="bannerLinkUrl"  id="bannerLinkUrl" class="w400 easyui-validatebox" 
+			data-options="required: true" maxlength="255"/> <b>*</b>
+			</div>
+		</div>	
+		<div class="formitm">
+			<label class="lab">排序</label>
+			<div class="ipt">
+				<input type="text" name="bannerOrder" id="bannerOrder" class="w400 easyui-validatebox"
+					data-options="required: true" maxlength="30"  onkeyup="this.value=this.value.replace(/\D/g,'')"/> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">图片</label>
+			<div class="ipt">
+				<input type="file" id="file" name="file"  class="w400 easyui-validatebox" data-options="required: false" />
+				<br>
+				<span style="color: red;" >(*微信素材标准尺寸600*400；PC标准尺寸1920*600)</span>
+			</div>
+		</div>
+		<input type="hidden" value="${useStatus}" name = "useStatus" id="useStatus" >
+		
+		
+		<div class="formitm">
+			<label class="lab">备注</label>
+			<div class="ipt">
+				<textarea name="remark"  id="remark" class="w400 easyui-validatebox"
+					data-options="required: false"></textarea>
+			</div>
+		</div>
+					
+	</form>
+</div>
+
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

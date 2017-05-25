@@ -1,0 +1,9 @@
+#part3{background:#ECFCFF; min-height: 400px;}
+/*--------------------------------*/
+.sHoverItem{width: 260px; height: 180px;  margin:10px; float: left; font-family: "arial"; border: 6px solid #ccc;}
+.sIntro{background-color: rgb(235,137,112); text-align: center; font-family: "arial";}
+.container{width: 1168px; height: 636px; border:solid 1px #ddd; margin: 20px auto; background:powderblue; }
+.sHoverItem img{height:180px; width:260px;}
+.sIntro h2{font-family: "arial"; font-size:36px; text-align: center; color: #FFF; border-bottom: 1px dashed #fff;margin:0px 20px; padding:10px;}
+.sIntro p{font-size:14px; text-align: center; color: #FFF; margin:0px 10px; padding: 10px; color: #438199;}
+.sIntro button{font-family: "arial"; font-size:16px; color: white;  background-color: #0AB5DA; border:none; border-radius: 10px; padding:4px 10px; }

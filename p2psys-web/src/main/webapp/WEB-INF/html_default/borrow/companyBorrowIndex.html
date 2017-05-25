@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<#assign web_title='【贷款】抵押贷款_商业贷款_个人贷款 - ${webname!}'>
+<#assign web_description='${webname!}p2p网络贷款平台，为有资金需求的企业或个人提供提供安全便捷的网络借贷服务，如短期小额贷款、个人信用贷款、抵押贷款或无抵押贷款等，帮助企业实现资金周转。'>
+<#assign meta_keywords="贷款,抵押贷款,商业贷款,个人贷款">
+<#include "../include/resource.html">
+<body style="background:#fff;">
+<#assign nid="borrow" >
+<#include "../include/header.html">
+<#assign webroot=request.getContextPath()> 
+<link href="${webroot}${theme_dir}/media/css/jquery.mCustomScrollbar.css" rel="stylesheet">
+<script type="text/javascript" src="${webroot}${theme_dir}/media/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+		(function($){
+			$(window).load(function(){
+				
+				$.mCustomScrollbar.defaults.theme="light-2"; 
+				$("#ho").mCustomScrollbar({
+					axis:"x",
+					advanced:{autoExpandHorizontalScroll:true}
+				});
+		
+			});
+		})(jQuery);
+	</script>
+<div class="borrow-box">
+	<div class="borrow-box-con">
+	<div>
+		<a  class="borrow-fastbtn" href="#borrow-appointment">立即预约借款</a>
+	</div>
+	</div>
+</div>
+
+<div class="borrow-step3bg">
+<div class="borrow-step3" id="borrow-step3">
+	<ul class="clearfix">
+	  <li><span>低</span>超低利息</li>
+	  <li><span>专</span>专属客服</li>
+	  <li><span>快</span>快速审批</li>
+	  <li style="border:0;"><span>迅</span>迅速筹标</li>
+	</ul>
+</div>
+</div>
+
+<div class="borrow-appointment" id="borrow-appointment">
+  <div class="borrow-appointment-title">首页&gt;我要借款</div>
+  <ul class="appointment-tab">
+  	 <li class="appointment-tab1">
+  	 	<div class="appointment-tab-con">
+  	 		<h3>适用于企业借款</h3>
+	  	 	<span>申请条件：</span>
+	  	 	  <p>企业成立时间或主要控制人本行业从业时间在1年以上</p>
+			  <p>法人代表年龄21-55周岁</p>
+			  <p>近期无重大经济纠纷或未结案诉讼</p>
+			  <p style="height:32px; background:none;"></p>
+			  <a class="qh-btn"></a>
+		</div>
+  	 </li>
+  	 <li class="appointment-tab2">
+  	 	<div class="appointment-tab-con">
+	  	 	<h3>适用于个人借款</h3>
+	  	 	<span>申请条件：</span>
+	  	 	  <p>年龄21-55周岁的中国大陆公民（港、澳、台除外）</p>
+			  <p>现工作单位工作满3个月及以上（不含试用期）</p>
+			  <p>月均工资3000元以上</p>
+			  <p>目前仅限江浙沪个人用户</p>
+			<a class="qh-btn" href="/borrow/index.html#borrow-appointment"></a>
+		</div>	
+  	 </li>
+  </ul>
+
+<div class="appointment-con">
+	<div class="appointment-con-title1">
+		在线企业申请借款
+	</div>
+	<div class="appointment-box clearfix">
+		<form action="/borrowBespeak/doBespeak.html" id="bespeakForm">
+			<div class="appointment-box-left">
+			<div class="J_borrow1 borrow_tab_content_list ">
+	        <div class="item_con clearfix">	
+		      	<ul class="clearfix item_con_left">
+		      		<li class="clearfix J_item_list">
+		                <label>果果号：</label>
+		                <span id="infojdmoney">
+		                    <input type="text" name="userName" class="J_input" autocomplete="off"  id="account" value="${userName}" onkeyup="value=value.replace(/[^0-9]/g,'')">
+		                </span>
+		                <a href="${webroot}/user/borrowRegister.html" class="sq">立即注册</a>
+		            </li>
+		            <li class="clearfix J_item_list">
+		                <label>借款金额：</label>
+		                <span id="infojdmoney" style="position: relative;width:264px; height:31px; float:left;">
+		                    <input type="text" maxlength="12"  name="money" class="J_input" autocomplete="off" data-item="元" id="account" value="" onkeyup="value=value.replace(/[^0-9]/g,'')"><b class="icon">元</b>
+		                </span>
+		            </li>
+		            <li class="clearfix J_item_list">
+		                <label>借款期限：</label>
+		                <select name="timeLimit">
+						  <option value ="1">1个月</option>
+						  <option value ="3">3个月</option>
+						  <option value="6">6个月</option>
+						  <option value="9">9个月</option>
+						  <option value="12">12个月</option>
+						</select>
+		            </li>
+		             <li class="clearfix J_item_list">
+		                <label>借款利率：</label>
+		                <span id="infojdmoney" style="position: relative;width:264px; height:31px; float:left;">
+		                    <input type="text" name="apr" class="J_input" autocomplete="off" data-item="元" id="account" value="" onkeyup="value=value.replace(/[^0-9]/g,'')"><b class="icon">%</b>
+		                </span>
+		            </li>
+		             <li>
+	                	<label>借款种类：</label>
+	                    <input class="radio" type="radio" value="103" name="loanType" checked="checked">
+	                    <span class="radio">固定收益类产品</span>
+	                    <input class="radio" type="radio" value="102" name="loanType">
+	                    <span class="radio">信用标</span>
+	                     <input class="radio" type="radio" value="112" name="loanType">
+	                    <span class="radio">担保标</span>
+                	</li>
+		           <li class="clearfix J_item_list select-eara">
+	                    <label>所属地区：</label>
+	                    <div class="ipt" id="city">
+	                   <select class="prov" name="province"><option value="上海" selected="selected">上海</option></select>  
+	                    <select class="city" name="city" disabled="disabled"><option value="黄浦区">黄浦区</option></select> 
+	                    <select class="dist" name="area" disabled="disabled"><option value=""></option></select> 
+	                            </div>
+                  </li>
+		           <li class="clearfix J_item_list">
+		                <label>所属行业：</label>
+		                <span id="infojdmoney" style="position: relative;">
+		                    <input type="text" name="industry" class="J_input" autocomplete="off" data-item="元" id="account" value="" >
+		                </span>
+		           </li>
+		           <li class="clearfix J_item_list">
+		                <label>固定资产总额：</label>
+		                <span id="infojdmoney" style="position: relative;width:264px; height:31px; float:left;">
+		                    <input type="text" name="fixedMoney" class="J_input" autocomplete="off" data-item="元" id="account" value="" onkeyup="value=value.replace(/[^0-9]/g,'')"><b class="icon">元</b>
+		                </span>
+		            </li>
+		            	
+		          
+                	</li>
+		            	<li class="clearfix J_item_list">
+		                <label>还款来源：</label>
+		                <select name="repaySource">
+						  <option value ="7">业务经营收入</option>
+						  <option value ="8">转让财产收入</option>
+						  <option value="9">股息、红利等权益性投资收益</option>
+						  <option value="10">租金收入</option>
+						  <option value="11">其他收入</option>
+						</select>
+		            </li>
+		             <li class="clearfix J_item_list">
+		                <label>借款用途：</label>
+		                <span id="infojdmoney">
+		                    <textarea rows="8" cols="50" name="borrowUse"></textarea>
+		                </span>
+		                <p style="padding-left:137px;">(温馨提示：借款用途字数为200个以内)</p>
+		            </li>
+	           </ul>
+		    </div>  
+		   </div>   
+		</div>  
+
+			<div class="appointment-box-right">
+				 <span style="font-size:16px;">相关资料上传</span>
+				 <p style="font-size:16px; padding-top:5px; color:#666;">例：企业注册相关资料扫描件、公司章程、企业经营情况介绍材料等</p>
+				 <div class="user_filesList clearfix">
+					<div class="user_filesListshow clearfix">
+						<div class="user_filesList_content">
+							<ul>
+								<li class="addFile"><a href="javascript:;">+</a></li>
+							</ul>
+							<ul class="tp-img">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user_help">
+					<h3><b class="user_help_tip"></b>温馨提示：</h3>
+					<p>1、上传图片大小不能超过1M。</p>
+					<p>2、上传的格式为*.jpg、*.gif、*.png。</p>
+				</div>
+			</div>
+			<input type="hidden" name="type" value="2"/>
+			<p><input type="submit" value="提交申请" class="bespeakBtn"/></p>
+		</form>
+	</div>
+</div>
+
+
+</div>
+
+<div class="borrow-step1bg">
+<div class="borrow-step1" id="borrow-step1">
+	<div class="borrow-step-title clearfix">
+		<div class="float_left">
+			<h1>借款流程</h1>
+			<p><span>轻松几步</span>让您的借款无烦恼！</p>
+		</div>
+	</div>
+	<img src="/themes/theme_default/images/borrow-step1-img.png">
+</div>
+</div>
+
+<div class="borrow-step4bg">
+<div class="borrow-step4" id="borrow-step4">
+	<div class="pro-more">有更多问题？请查看<a href="">帮助中心</a></div>
+</div>
+</div>
+<script>
+seajs.use("borrow");
+seajs.use("/themes/theme_default/media/js/borrowBespeak/bespeak");
+</script>
+<script type="text/javascript">
+  $('.borrow-step4 ul li').each(function(index) {
+    if(index % 2 == 1) {
+        $(this).css("margin-right","0");
+    }
+  });
+</script>
+
+<#include "../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/accountBack/accountBackEdit.html');
+	});
+</script>
+<div class="popShow" style="padding-bottom:0;">
+	<div class="showItem">
+		<span>流水号：</span>
+		${accountBack.tradeNo}
+	</div>
+	<div class="showItem">
+		<span>状态：</span>
+		<#if accountBack.status==1>扣款成功
+			<#elseif accountBack.status==2>扣款失败
+			<#else>等待审核
+		</#if>
+	</div>
+	<div class="showItem">
+		<span>用户名：</span>
+		${user.userName}
+	</div>
+	<div class="showItem">
+		<span>真实姓名：</span>
+		${user.realName}
+	</div>
+	<div class="showItem">
+		<span>扣款金额：</span>
+		${accountBack.money}元
+	</div>
+	<div class="showItem">
+		<span>添加时间：</span>
+		${accountBack.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+	<div class="showItem">
+		<span>IP：</span>
+		${accountBack.addIp}
+	</div>
+	<div class="showItem">
+		<span>线下扣款备注：</span>
+		${accountBack.remark}
+	</div>
+</div>
+<form id="form"  method="post">	
+<div class="popForm" style="padding-top:0;">
+		<div class="formitm">
+		     <label class="lab">是否通过：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" class="easyui-validatebox" value="1" checked="checked" data-options="required: true"/>通过
+				<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true"/>不通过
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea name="remark" class="w400 easyui-validatebox" data-options="required: false" maxlength="250"></textarea>
+		     </div>
+		</div>
+		<input type="hidden" name="verifyBackToken" value="${verifyBackToken}" />
+		<input name="id" value="${accountBack.id}" type="hidden"/>
+		<input name="money" value="${accountBack.money}" type="hidden"/>
+		<input name="userId" value="${user.userId}" type="hidden"> 	
+</div>
+</form>

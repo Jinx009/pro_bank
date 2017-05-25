@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>提现</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="header nonebottom"><a class="backto" id="backto" href="javascript:history.back(-1);"></a>提现</div>
+		<form action="/member/cash/doylCash.html" method="post" target="_blank" name="form1" id="J_cash" novalidate="novalidate">
+		<div class="input-group m10">
+				<div class="input-row nonetop input-title-row">
+					<div class="input-row-inner">
+							<span class="f12">可提现金额：</span>
+							<span id="available_Balance">${account.useMoney!0}</span>元
+					</div>
+				</div>
+				<div class="input-row">
+					<div class="input-row-inner">
+						<input type="number" name="money" id="money" class="input-text" autocomplete="off"    onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"
+						 placeholder="提现金额"/>
+					</div>
+					<div class="input-error-tip"></div>
+				</div>
+	  </div>
+	  <div class="input-row m10">
+			<div class="input-row-inner">
+			<#if session_user?? && session_user.payPwd ?? && session_user.payPwd != ''>
+				<input class="input-text" type="password" name="payPwd" placeholder="输入交易密码">
+			<#else>
+				<a href="/wx/account/modifyPaypwd.html">请先设置交易密码</a>
+			</#if>
+			</div>
+			<div class="input-error-tip"></div>
+	</div>
+	  <!--
+	  <a class="button button-main button-block mt25" onclick="form1.submit();" >提交</a>
+	  -->
+	  <input class="button button-block button-main mt25" style="width: 93%;margin:auto;" type="submit" value="提交"  />
+	  </form>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+   	  <script type="text/javascript">
+			seajs.use("${webroot}${theme_dir}/wx/js/cash_newCash")
+	  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>盛付通资金托管-回调页面</title>
+  </head>
+	<body>
+		<div>
+      <h1>回调页面</h1>
+      <hr>
+			<ul>
+				<c:forEach var="map" items="${content}">
+					<li><label>${map.key}：</label>${map.value}</li>
+				</c:forEach>
+			</ul>
+		</div>
+	</body>
+</html>

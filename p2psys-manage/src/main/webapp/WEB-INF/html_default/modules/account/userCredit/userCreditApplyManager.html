@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>账户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  700;
+	var winHeight = 550;
+	var editTitle = "审核";
+	var editUrl =  "/modules/account/userCredit/userCreditApplyEditPage.html";
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'userCreditApplyList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'addTime',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,fixed:true,sortable:true},
+			{ field: 'userName', title: '用户名', width: 100,fixed:true},
+			{ field: 'realName', title: '真实姓名', width: 60},
+			{ field: 'userType', title: '用户类型', width: 60,formatter:function(value,row,index){
+				if(value==1){
+					return '个人投资人';
+				}else if(value==2){
+					return '个人借款人';
+				}else if(value==4){
+					return '机构借款人';
+				}else if(value==5){
+					return '机构投资人';
+				}else{
+					return '投资/借款人';
+				}
+			}},
+			{ field: 'account', title: '申请额度', width: 80},
+			
+			//{ field: 'accountOld', title: '原来额度', width: 80, sortable:true},
+			{ field: 'status', title: '状态', width: 60,formatter:function(value,row,index){
+				if(value==1){
+					return '审核通过';
+				}else if(value==-1){
+					return '未通过';
+				}else{
+					return '<font color="red">待审核</font>';
+				}
+			}}, 
+			{ field: 'addTime', title: '申请时间', width: 150,fixed:true, sortable:true,formatter:function(value,row,index){
+				return getLocalTime(value,4);
+			}},
+			/* { field: 'content', title: '内容', width: 220, sortable:true},
+			{ field: 'remark', title: '备注', width: 220, sortable:true}, */
+			{field : 'action',title : '操作',width :50,fixed:true,
+				formatter : function(value, row, index) {
+					var str = '';
+					if (row.status==2) {
+						str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">审核</a>';
+					}
+					return str;
+				}
+			} 
+			 ] ]
+		});
+	});
+
+	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索"/><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	            	<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName"  autocomplete="off"/></li>
+		       		<li><span>真实姓名</span><input type="text" name="realName"  id="realName"  autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="status">
+					<option value="99">全部</option>
+					<option value="2" selected="selected">待审核</option>
+					<option value="1">审核通过</option>
+					<option value="-1">审核不通过</option>
+				</select></li>
+		       		<li><span>申请时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

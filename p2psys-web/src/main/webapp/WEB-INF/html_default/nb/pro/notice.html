@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="applicable-device"content="pc,mobile">
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/ace.min.css">
+	<link href="/themes/theme_default/cf/pro/css/datepicker.css">
+	<link rel="stylesheet" href="/themes/theme_default/cf/pro/css/800zf.css">
+	<script src="/themes/theme_default/cf/pro/js/jquery.js"></script>
+	<script src="/themes/theme_default/dist/jquery.form.js"></script>
+	<script src="/plugins/layer/layer.js" ></script>
+	<script src="/plugins/vue/vue.min.js" ></script>
+	<script src="/themes/theme_default/cf/pro/js/bootstrap.min.js"></script>
+	<script src="/themes/theme_default/cf/js/url.js"></script>
+	<script src="/themes/theme_default/cf/pro/js/pro/notice.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+</head>
+<body>
+<#include "include/header.html">
+<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="#">项目管理</a></li>
+		  <li class="active">通知中心</li>
+		</ol>
+		<div class="page-content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="widget-box">
+								<div class="widget-header widget-header-blue widget-header-flat">
+									<h4 class="lighter">项目通知中心</h4>
+									<div class="widget-toolbar">
+										<label>
+											<small class="green">
+												<b></b>
+											</small>
+											<span class="lbl"></span>
+										</label>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<div class="alert alert-success" v-repeat="model in item" >
+											<strong  v-text="model.typeName" >
+											</strong>
+											<font v-text="model.content" ></font>
+											<br />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<script src="/themes/theme_default/cf/pro/js/fuelux.wizard.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace-elements.min.js"></script>
+<script src="/themes/theme_default/cf/pro/js/ace.min.js"></script>
+</body>
+</html>

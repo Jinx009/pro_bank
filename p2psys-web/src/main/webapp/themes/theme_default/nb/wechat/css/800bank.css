@@ -1,0 +1,237 @@
+@charset "UTF-8";
+a {
+  text-decoration: none; }
+
+.swiper-container {
+  height: 220px; }
+
+.swiper-wrapper .swiper-slide a img {
+  width: 100%;
+  height: 100%; }
+
+.yellow-bar {
+  height: 20px;
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #ffae00;
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.yellow-bar a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 20px;
+  text-decoration: none; }
+
+.yellow-bar a img {
+  height: 14px; }
+
+.yellow-bar a span {
+  margin-left: 4px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px; }
+
+.wrap {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  position: relative; }
+
+.wrap .more {
+  text-align: right;
+  height: 32px;
+  line-height: 32px; }
+
+.wrap .more a {
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #a3a3a3; }
+
+.wrap .main h3 {
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 15px;
+  color: #545454;
+  letter-spacing: 1px;
+  display: inline-block;
+  height: 17px;
+  line-height: 17px;
+  margin: 0; }
+
+.wrap .main .recommend a {
+  display: block;
+  text-decoration: none;
+  height: 116px;
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: -10px; }
+
+.wrap .main .recommend {
+  text-align: center; }
+
+.wrap .main .recommend a p.indexYield {
+  color: #ff7e00;
+  font-size: 47px;
+  display: inline; }
+
+.wrap .main .recommend a p.indexYield span {
+  font-size: 20px;
+  margin-left: -18px; }
+
+.detail-p {
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #8a8a8a;
+  margin-top: 10px;
+  margin-bottom: 0; }
+
+.hr-sep {
+  background: #e5e5e5;
+  height: 1px;
+  width: 65%;
+  margin: 10px auto; }
+
+.wrap .main .detail {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 44px; }
+
+.wrap .main .detail .detail-item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center; }
+
+.wrap .main .feature {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 93%;
+  margin: 24px auto; }
+
+.feature .feature-detail {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+  color: #8a8a8a;
+  font-size: 13px; }
+
+.feature .feature-detail .feature-icon {
+  border-radius: 4px;
+  background-image: -webkit-linear-gradient(90deg, #f16070 0%, #ff6464 0%, #ffae00 100%);
+  width: 13px;
+  height: 13px;
+  color: #fff;
+  font-size: 11px;
+  display: inline-block;
+  line-height: 13px; }
+
+.wrap .main .btn a {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: "microsoft yahei", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  border-radius: 6px;
+  background-color: #ffae00;
+  color: #fff; }
+
+/*底部导航*/
+.foot-blank {
+  height: 54px; }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 1000;
+  background: #ededed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.footer .nav {
+  width: 100%; }
+
+.footer .nav ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 42px;
+  padding: 0; }
+
+.footer .nav ul li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 42px;
+  text-align: center; }
+
+.footer .nav ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #505050;
+  font-size: 12px; }
+
+.footer .nav ul li a .foot-nav-svgwrap {
+  width: 30px;
+  height: 25px;
+  margin: 0 auto;
+  padding-bottom: 6px; }
+
+.footer .nav ul li a .foot-nav-icon {
+  fill: transparent;
+  stroke: #7D7D7D;
+  stroke-width: 30px;
+  width: 100%;
+  height: 100%; }
+
+/* 底部导航*/
+
+/*# sourceMappingURL=800bank.css.map */

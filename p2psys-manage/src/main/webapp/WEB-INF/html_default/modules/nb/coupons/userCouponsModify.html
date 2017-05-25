@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function() {
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/coupons/userCouponsModifyConfirm.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${couponInfo.id}">
+		<div class="formitm">
+			<label class="lab">
+				加息券使用者
+			</label>
+			<div class="ipt">
+				${couponInfo.toMobile!''}
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				原比例
+			</label>
+			<div class="ipt">
+				${couponInfo.toRate!''}
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				调整比例
+			</label>
+			<div class="ipt">
+				<input type="text" id="toRateAdjust" name="toRateAdjust" class="easyui-validatebox" data-options="required:true" maxlength="30" value="${couponInfo.toRateAdjust!''}" style="width:200px;" /> %
+				<b>*</b>
+			</div>
+		</div>
+	</form>
+</div>

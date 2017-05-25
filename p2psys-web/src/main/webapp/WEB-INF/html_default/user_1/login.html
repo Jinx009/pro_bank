@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#assign nid="member">
+	<div class="login-header">
+		<div class="login-header-con">
+			<a href="/index.html"><div class="login-header-top"></div></a>
+			<div class="login-header-down">
+				<span>快速登录</span>　｜　<a href="/user/register.html">免费注册</a>
+			</div>
+			<a href="/index.html" class="go-index">返回首页</a>
+			<div class="login-jt"><img src="/themes/theme_default/images/login-jt.png"></div>
+		</div>
+	</div>
+
+<div class="login-line"></div>
+
+	<div class="login-con">
+		<div id="loginBanner" class="clearfix">
+		<div class="loginBannerBd">
+			<div class="loginFormBox">
+				<form name="login" id="login" method="post" action="doLogin.html">
+					<dl>
+						<dd><input type="text" name="userName" id="username" class="username" autocomplete="off" placeholder="邮箱/手机号码" /></dd>
+						<dd><input type="password" id="password" name="password" class="password" autocomplete="off" placeholder="登录密码" oninput="doEncrypt();" />
+							<input type="hidden" name="pwd" id="pwd" value="" />
+							<input type="hidden" name="encrypt" id="encrypt" value="0" />
+						</dd>
+					    <dd class="showErrorTips" style="display:none"><span class="errorTips"><em><i class="iconfont">&#xe60f;</i><b>请输入用户名和密码</b></em></span>
+					    <#if isLock?? && isLock == 1><span class="errorTips"><em><i class="iconfont">&#xe60f;</i><b>该账户已被锁定，请于24小时重新操作，如有疑问请与客服联系，400-6366-800</b></em></span></#if>
+					    </dd>
+					    <dd>
+					    	<a href="${webroot}/user/getpwd.html?showType=2">忘记密码？</a> 
+					    </dd>
+					    <dd><input type="hidden" name="openId"  value="${openId!}" />
+		                    <input type="hidden" name="openType"  value="${openType!''}" />
+	                        <input type="submit" value="立即登录" class="login_btn" onclick="doEncrypt();" />
+	                        </dd>
+					</dl>
+					<input type="hidden" name="count" value="${count!}" id="count" />
+					<input type="hidden" name="redirectURL" value="${redirectURL!}" />
+				</form>
+				<input type="hidden" name="email" id="email" /> 
+                <input type="hidden" name="userid" id="userid" />
+				<div class="quickLoginBar">
+					没有账号？<a href="/user/register.html">免费注册</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+	<#include "../common/rsa.html">
+	<@formEncrypt encryptId_="#password" encryptId="#pwd" />
+	<#include "../include/footer.html">
+	<script>
+		seajs.use("${webroot}${theme_dir}/media/js/user/login")
+	</script>
+	
+</body>
+</html>

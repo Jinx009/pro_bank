@@ -1,0 +1,119 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/operator/operatorEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post" enctype="multipart/form-data">
+    	<div class="formitm">
+		     <label class="lab">姓名：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" value="${operator.name!''}" class="w400 easyui-validatebox" data-options="required: true,validType:'chinese'" maxlength="8"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">用户名：</label>
+		     <div class="ipt">
+		     	<input type="text" name="userName" value="${operator.userName!''}" class="w400 easyui-validatebox" data-options="required: true,validType:'name'" maxlength="16"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">部门：</label>
+		     <div class="ipt">
+		     	<input type="text" name="department" value="${operator.department!''}" class="w400 easyui-validatebox" />	
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">工号：</label>
+		     <div class="ipt">
+		     	<input type="text" name="no" value="${operator.no!''}" class="w400 easyui-validatebox" />		
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">电话：</label>
+		     <div class="ipt">
+		     	<input type="text" name="phone" value="${operator.phone!''}" class="w400 easyui-validatebox" data-options="required: true,validType:'tel'" />
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">手机：</label>
+		     <div class="ipt">
+		     	<input type="text" name="mobile" value="${operator.mobile!''}" class="w400 easyui-validatebox" data-options="required: true,validType:'mobile'"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">qq：</label>
+		     <div class="ipt">
+		     	<input type="text" name="qq" value="${operator.qq!''}" class="w400 easyui-validatebox" data-options="required: true,validType: 'qq'"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">邮箱：</label>
+		     <div class="ipt">
+		     	<input type="text" name="email" value="${operator.email!''}" class="w400 easyui-validatebox" data-options="required: true,validType: 'email'"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">口令卡序列号：</label>
+		     <div class="ipt">
+		     	<input type="text" name="serialId" value="${operator.serialId!''}" class="w400 easyui-validatebox" data-options="required: false,validType: 'serialId'"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<input type="hidden" name="isDelete" value="0"/>
+		<div class="formitm">
+		     <label class="lab">用户角色：</label>
+		     <div class="ipt">
+		     	 <#if roleList??>
+					 <#list roleList as item>
+						<input type="checkbox" name="roleId" value="${item.id!}" id="id_${item.id!}"   
+							<#if operatorRoleList??>  
+								<#list operatorRoleList as lItem> 
+								  <#if lItem.role.id! == item.id! > checked="checked" </#if> 
+								</#list>
+							</#if> 
+						style="margin-top:-2px;" />&nbsp;&nbsp;
+			            <font>${item.name!}</font>&nbsp;&nbsp;&nbsp;&nbsp;
+					</#list>
+			   </#if>
+		     </div>
+		</div>
+		<!-- 理财经理及理财顾问只能二选其一 -->
+		<script>
+		   $("#id_2").click(function(){
+			   $("#id_3").attr("checked",false)
+		   })
+		    $("#id_3").click(function(){
+			   $("#id_2").attr("checked",false)
+		   })
+		</script>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea name="remark" class="w400 easyui-validatebox" data-options="required: false" >${operator.remark!''}</textarea>
+		     </div>
+		</div>
+						
+		<input name="id" value="${operator.id}" type="hidden"/>
+		<input type="hidden" name="addUser" value="${operator.addManager!''}"/>
+		<input type="hidden" name="addTime" value="${operator.addTime!''}"/>
+		<input type="hidden" name="status" value="${operator.status!0}"/>
+		
+		<div class="formitm">
+		     <label class="lab">更换图片：</label>
+		     <div class="ipt">
+		     	<input type="file" name="file" id="uploadify" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">原图片：</label>
+		     <div class="ipt">
+		     	<img src="${operator.path!}" title="${operator.name!}" alt="${operator.name!}" height="100px" width="100px"/>		
+		     </div>
+		</div>
+	</form>
+</div>

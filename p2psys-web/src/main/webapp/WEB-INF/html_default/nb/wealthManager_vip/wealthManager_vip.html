@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script  src="/themes/theme_default/media/js/jquery.js"></script> 
+</head>
+<body>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				type:'get',
+				cache:false,
+				url:'/nb/wealthManager_vip/findWealthManager.html',
+				dataType:'json',
+				success:function(data){
+					var type = eval(data.list);
+					var userIds = eval(data.userIds);
+					if(type==1){
+						console.log("有专属的财富管家。");
+						for(var i = 0;i<userIds.length;i++){
+							var email = userIds[i].wealthManager.email;
+							var icon = userIds[i].wealthManager.icon;
+							var phone = userIds[i].wealthManager.phone;
+							var name = userIds[i].wealthManager.name;
+							console.log("email="+email+",icon="+icon+",phone="+phone+",name="+name);
+						}
+					}
+					
+					if(type==0){
+						console.log("没有专属的财富管家。");
+					}
+					
+				}
+			});
+		})
+	</script>
+	
+</body>
+</html>

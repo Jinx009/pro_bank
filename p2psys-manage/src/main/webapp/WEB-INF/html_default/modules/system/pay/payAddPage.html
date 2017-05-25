@@ -1,0 +1,150 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/pay/payAdd.html');
+	});
+</script>
+<div class="popForm">
+    <form id="form"  method="post" enctype="multipart/form-data" >
+	    <div class="formitm">
+		     <label class="lab">接口名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" class="w400 easyui-validatebox"  data-options="required: true"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+			<label class="lab">图片上传：</label>
+			<div class="ipt">
+				<input type="file" name="file" />
+				<p>上传最大的图片为1M，上传的格式为jpg.gif</p>
+			</div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用间连：</label>
+		     <div class="ipt">
+				 <input type="radio" name="enable" value="1" />启用&nbsp;&nbsp;
+	             <input type="radio" name="enable" value="0" checked="checked" />不启用
+	             <b>*</b>
+             </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否开启直连：</label>
+		     <div class="ipt">
+				 <input type="radio" name="enableDirect" value="1" />启用&nbsp;&nbsp;
+	             <input type="radio" name="enableDirect" value="0" checked="checked" />不启用
+	             <b>*</b>
+             </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">排序：</label>
+		     <div class="ipt">
+		     	<input type="text" name="sort" class="easyui-validatebox"  data-options="required: true"/>
+		     	<b>*</b>
+		     </div>		      
+		</div>
+		<div class="formitm">
+		     <label class="lab">接口标识：</label>
+		     <div class="ipt">
+		     	<input type="text" name="nid" class="w400 easyui-validatebox"  data-options="required: true"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">商户号：</label>
+		     <div class="ipt">
+		     	<input type="text" name="merchantId" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">充值费率：</label>
+		     <div class="ipt">
+		     	<input type="text" name="rechargeFee" class="w400 easyui-validatebox" data-options="required: true"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">商品key：</label>
+		     <div class="ipt">
+		     	<input type="text" name="goodsKey" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">请求地址：</label>
+		     <div class="ipt">
+		     	<input type="text" name="requestUrl" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">回调地址：</label>
+		     <div class="ipt">
+		     	<input type="text" name="returnUrl" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">接口转入账户：</label>
+		     <div class="ipt">
+		     	<input type="text" name="intoAccount" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">编码格式：</label>
+		     <div class="ipt">
+		     	<input type="text" name="chartset" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">加密方式：</label>
+		     <div class="ipt">
+		     	<input type="text" name="signType" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">支付方式：</label>
+		     <div class="ipt">
+		     	<input type="text" name="payStyle" class="w400 easyui-validatebox"  />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">卖家email：</label>
+		     <div class="ipt">
+		      	<input type="text" name="sellerEmail" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">处理模式：</label>
+		     <div class="ipt">
+		     	<input type="text" name="transport" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">商品描述：</label>
+		     <div class="ipt">
+		     	<input type="text" name="orderDescription" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">网关url：</label>
+		     <div class="ipt">
+		     	<input type="text" name="gatewayUrl" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">订单查询url：</label>
+		     <div class="ipt">
+		     	<input type="text" name="orderInquireUrl" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">证书路径：</label>
+		     <div class="ipt">
+		     	<input type="text" name="certPosition" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">终端号：</label>
+		     <div class="ipt">
+		      <input type="text" name="terminalId" class="w400 easyui-validatebox" />
+		     </div>
+		</div>
+	</form>
+</div>

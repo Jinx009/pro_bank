@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="my_account">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix" >
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+    	<#assign mid="m_info" >
+		<#include "../account_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<h2 class="user_title">我的消息</h2>
+		<div class="user_right_main">
+			<div class="messagebar">
+				<input type="checkbox" class="checkAll regular-checkbox" /><label class="checkAll_label"></label>选择所有
+				<em id="msgTip"></em>
+				<span><a href="javascript:;" id="delMsg" title="删除信息">删除信息</a>|
+				<a href="javascript:;" id="signRead" title="标记已读">标记已读</a>|
+				<a href="javascript:;" id="signUnRead" title="标记未读">标记未读</a>
+				</span>
+			</div>
+			<form action="/member/message/set.html">
+				<ul class="messagelist clearfix" id="messagelist"></ul>
+			</form>
+			<div id="kkpager"></div>
+		</div>
+ 	 </div>
+	<!--右边的内容 结束-->
+	</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<script>seajs.use('member/message_detail');</script>
+<#include "../../include/footer.html"> 
+</body>
+</html>

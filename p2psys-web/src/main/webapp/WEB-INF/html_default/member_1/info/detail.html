@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html"> 
+<body>
+<#assign nid="my_account">
+<#include "../../include/member_header.html">
+<!--header-end-->
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix">
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+	<#assign mid="m_info" >
+		<#include "../account_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<h2 class="user_title">账户设置</h2>
+		<div class="user_tab clearfix">
+			<ul>
+				<li class="active"><a href="${webroot}/member/info/detail.html">个人资料</a></li>
+				<li><a href="${webroot}/member/security/setting.html">安全中心</a></li>
+			</ul>
+		</div>
+		<div class="pd30 clearfix">
+			<!-- S baseinfo -->
+			<div class="user_baseinfo">
+				<a href="${webroot}/member/info/face.html" class="user_face" title="修改头像">
+					<img src="${webroot}/avatar/${session_user.userId?c}.jpg" width="80" height="80" />	
+					<span></span>
+					<b>修改<br/>头像</b>
+				</a>
+				<div class="user_status">
+					<div class="user_infobar">您的个人信息完整度为 <strong>${percentage}%</strong></div>
+					<div class="user_statusbar"><span style="width:${percentage}%;"></span></div>
+				</div>
+			</div>
+			<!-- E baseinfo -->
+			<div class="user_infobox">
+				<ul class="user_userinfo">
+					<#if session_user.apiStatus ==1>
+					<li><i class="iconfont user_rightico">&#xe60e;</i><label class="itemtit">实名信息</label><span class="itemshow">${session_user.realName?if_exists}&nbsp;&nbsp;${session_user.cardId.substring(0,10)}****${session_user.cardId.substring(14,18)}</span></li>
+					<li><i class="iconfont user_rightico">&#xe60e;</i><label class="itemtit">手机号码</label><span class="itemshow"><#if session_user.mobilePhone??>${session_user.mobilePhone}</#if>&nbsp;</span></li>
+					<#else>
+					<li><i class="iconfont user_errorico">&#xe60f;</i><label class="itemtit">实名信息</label><span class="itemshow">未认证&nbsp;</span><span class="itemopt"><a href="/member/security/realNameIdentify.html" title="马上去认证">马上去认证</a></span></li>
+					<li><i class="iconfont user_errorico">&#xe60f;</i><label class="itemtit">手机号码</label><span class="itemshow">未认证&nbsp;</span></li>
+					</#if>					
+					<li><i class="iconfont user_rightico">&#xe60e;</i><label class="itemtit">电子邮箱</label><span class="itemshow"><#if session_user.email??>${session_user.email}</#if>&nbsp;</span></li>
+				</ul>
+			</div>
+		</div>		
+	</div>
+  </div>
+	<!--右边的内容 结束-->
+</div>
+</div>
+<!--用户中心的主栏目 结束-->
+<#include "../../include/footer.html"> 
+</body>
+</html>

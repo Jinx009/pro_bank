@@ -1,0 +1,95 @@
+/*-S-图标字体*/
+@font-face {font-family: "iconfont";
+  src: url('../iconfont/iconfont.eot'); /* IE9*/
+  src: url('../iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+  url('../iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../iconfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.panel-icon {
+  font-family:"iconfont" !important;
+  font-size:20px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*#nav .accordion-collapse{
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+#nav .accordion-header .accordion-collapse:before{content:"\e627";}
+#nav .accordion-header-selected .accordion-collapse:before{content:"\e626";}*/
+/*-E-图标字体*/
+/*小图标选择页面*/
+.p-icons{overflow-x:hidden;margin:0px; padding:0px;}
+.p-icons ul{list-style:none;}
+.p-icons .g-iconTable{width:100%;margin:0px;float:left; border:1px solid #ccc;border-right:none; border-bottom:none;}
+.p-icons .g-iconDiv{width:60px; height:28px;float:left; cursor:pointer; border:1px solid #ccc; border-left:none; border-top:none;}
+.p-icons .i-iconImg{width:16px;height:16px;border:none; margin:5px 0 0 5px;}
+.p-icons input{margin-left:10px;}
+
+.tooltip{
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+
+.amount:before{content:"\e61f";}
+.income:before{content:"\e625";}
+.pending_audit:before{content:"\e624";}
+.statistics:before{content:"\e622";}
+.bid_records:before{content:"\e610";}
+.bid_ends:before{content:"\e607";}
+.statistics_m:before{content:"\e608";}
+.operation_m:before{content:"\e609";}
+.check:before{content:"\e60a";}
+.re_send:before{content:"\e60b";}
+.start:before{content:"\e60c";}
+.delete:before{content:"\e604";}
+.add:before{content:"\e60e";}
+.reset:before{content:"\e60f";}
+.preview:before{content:"\e606";}
+.edit:before{content:"\e611";}
+.borrow_m:before{content:"\e612";}
+.user_m:before{content:"\e613";}
+.no_locked:before{content:"\e602";}
+.bid_mark:before{content:"\e616";}
+.auditing:before{content:"\e617";}
+.cancel:before{content:"\e619";}
+.update:before{content:"\e603";}
+.financial_m:before{content:"\e61a";}
+.after_borrow:before{content:"\e61c";}
+.authorize:before{content:"\e61e";}
+.spread_m:before{content:"\e61d";}
+.locked:before{content:"\e601";}
+.system_m:before{content:"\e614";}
+.registered_user:before{content:"\e600";}
+.audit_m:before{content:"\e632";}
+.after_borrow:before{content:"\e635";}
+.extension_m:before{content:"\e62a";}
+.borrow_m:before{content:"\e631";}
+
+.user {background: url('images/extjs_icons/user/user.png') no-repeat center center;}
+.user_add {background: url('images/extjs_icons/user/user_add.png') no-repeat center center;}
+.user_edit {background: url('images/extjs_icons/user/user_edit.png') no-repeat center center;}
+.user_suit {background: url('images/extjs_icons/user/user_suit.png') no-repeat center center;}
+.user_gray {background: url('images/extjs_icons/user/user_gray.png') no-repeat center center;}
+.user_orange {background: url('images/extjs_icons/user/user_orange.png') no-repeat center center;}
+
+.refresh {background: url('images/extjs_icons/arrow/arrow_refresh.png') no-repeat center center;}
+.msg_ico{background: url('images/notice.png') no-repeat center center;}
+.tj_ico{background: url('images/tj.png') no-repeat center center;}
+

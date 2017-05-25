@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>环讯实名认证...</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>环讯实名认证跳转中...,请您不要关闭页面</div>
+    <form action="${ips.submitUrl}" method="post" id="frm1" style="display: none">
+    	<input id="argMerCode" name="argMerCode" value="${ips.merCode}"  />
+    	<input id="arg3DesXmlPara" name="arg3DesXmlPara" value="${ips.desXmlPara}"  />
+    	<input id="argSign" name="argSign" value="${ips.sign}"  />
+	 <#-- <input type="submit" value="提交" />  -->
+    </form>
+    <script type="text/javascript">
+    	document.getElementById("frm1").submit();  
+    </script>
+   
+  </body>
+</html>

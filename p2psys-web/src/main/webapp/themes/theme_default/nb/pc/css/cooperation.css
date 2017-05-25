@@ -1,0 +1,27 @@
+.center{
+	margin-top:50px;
+	margin-bottom:50px;
+	text-align: center;
+	cursor: pointer;
+}
+.img{
+	margin-left: 5%;
+	width: 90%;
+}
+.space-header{
+	height: 100px;
+}
+body{
+	background: white;
+}
+.margin0{
+	width: 100%;
+	margin: 0;
+	min-height: 500px;
+}
+h1{
+	text-align: center;
+}
+.space-div-4{
+	height: 40px;
+}

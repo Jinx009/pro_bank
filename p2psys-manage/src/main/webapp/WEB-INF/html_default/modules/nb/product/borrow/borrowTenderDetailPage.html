@@ -1,0 +1,83 @@
+<div class="sRight">
+	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出Excel</a>
+</div>
+<table id="tenderListGrid"></table>
+<script type="text/javascript">
+$(function() {
+	$('#tenderListGrid').datagrid({
+		url: '/modules/nb/product/borrow/borrowTenderDetailList.html?borrowId=${id}',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		columns: [
+			[
+			{
+				field: 'userName',
+				title: '投资人',
+				width: 80
+			},
+			 {
+				field: 'realName',
+				title: '投资人真实姓名',
+				width: 80
+			}, {
+				field: 'money',
+				title: '投资金额',
+				width: 80,
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'account',
+				title: '有效投资金额',
+				width: 110,
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'repaymentAccount',
+				title: '回收本息',
+				width: 80,
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'tenderType',
+				title: '投资渠道',
+				width: 80,
+				formatter: function(value, row, index) {
+					if (value == 0) {
+						return '网站投资';
+					} else if (value == 1) {
+						return '自动投资';
+					} else if (value == 2) {
+						return '手机投资';
+					}
+				}
+			}, {
+				field: 'addTime',
+				title: '投资时间',
+				width: 150,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}, {
+				field: 'addIp',
+				title: 'IP地址',
+				width: 120
+			}]
+		]
+	});
+});
+
+function exportExcel() {
+	var url = "/modules/nb/product/borrow/exportExcelTenderDetailList.html?borrowId=${id}";
+	window.location.href = url;
+}
+</script>

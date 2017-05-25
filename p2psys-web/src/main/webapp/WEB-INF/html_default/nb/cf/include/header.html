@@ -1,0 +1,71 @@
+<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<nav class="navbar navbar-fixed-top nav-bg">
+  <div class="middle-content">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/index.html"><img src="/themes/theme_default/cf/img/logo.png"/></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav right-nav" id="nav_li" >
+        <li id="index_li" ><a href="/index.html">首页</a></li>
+        <li id="project_li" class="active"><a href="/pro/list.html?id=2">项目中心</a></li>
+        <li id="user_li" ><a href="/cf/user/main.html">账户中心</a></li>
+<!--          <li id="leader_li" ><a href="/leaderFactory.html">领投人中心</a></li> -->
+        <li id="help_li" ><a href="/cf/help.html">帮助中心</a></li>
+        <li id="dream_li" ><a href="/cf/dream.html">发起梦想</a></li> 
+        <li id="about_li" ><a href="/cf/aboutUs.html">关于我们</a></li>
+		<div class="navbar-right" id="hideDiv" ></div>
+      </ul>
+    </div>
+  </div>
+</nav>
+<input id="hideUser" type="hidden" value="${hide_session_username}"  >
+<script>
+$(function(){
+	var hideUser = $("#hideUser").val();
+	if(null!=hideUser&&""!=hideUser){
+		$("#hideDiv").html("<p class='login-state' data-toggle='collapse' data-parent='#accordion' href='#header' aria-expanded='false' aria-controls='header'>"+
+		    				"<a href='#'><img src='/themes/theme_default/cf/img/login_icon.png'/><span>"+hideUser+"</span></a></p>"+
+		    				"<ul id='header' class='collapse collapse-bottom' role='tabpanel'>"+
+		    				"<li class='login-state'><a tabindex='-1' style='display: block;height: 100%;' onclick='doLoginOut()' >退出账户</a></li></ul>");
+	}else{
+		$("#hideDiv").html("<p class='login-state' data-toggle='collapse' data-parent='#accordion' href='#header' aria-expanded='false' aria-controls='#header'>"+
+		    				"<a href='#'><img src='/themes/theme_default/cf/img/login_icon.png'/><span><span onclick=goLogin() >登录</span><span onclick=goRegister() >注册</span></span></a></p>");
+	}
+})
+/**
+ * 导航选择样式
+ */
+function showLi(id){
+	$("#nav_li li").each(function(){
+		$(this).removeClass("active");
+	})
+	$("#"+id).addClass("active");
+}
+/**
+ * 登出
+ */
+function doLoginOut(){
+	$.ajax({
+		url:"/cf/loginOut.action",
+		type:"POST",
+		dataType:"json",
+		success:function(res){
+			if("success"==res.result){
+				location.reload();
+			}
+		}
+	})
+}
+/**
+ * 去登录
+ */
+function goLogin(){
+	location.href = "/cf/login.html?redirectUrl="+window.location.pathname;
+}
+/**
+ * 去注册
+ */
+function goRegister(){
+	location.href = "/cf/register.html?redirectUrl="+window.location.pathname;
+}
+</script>

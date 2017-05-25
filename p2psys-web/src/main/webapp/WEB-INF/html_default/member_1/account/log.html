@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			<#assign mid="m_invest">
+			   <#include "../account_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">资金记录</h2>
+				<div class="user_right_main">
+					<ul class="member_search">
+						<li id="shortTime">
+							日期范围
+							<span id="timeStatus">
+								<a href="javascript:;" class="current" data-val="9">全部</a>
+								<a href="javascript:;" data-val="7">最近7天</a>
+								<a href="javascript:;" data-val="1">1个月</a>
+								<a href="javascript:;" data-val="2">2个月</a>
+								<a href="javascript:;" data-val="3">3个月</a>
+								<em>具体日期&gt;&gt;</em>	
+							</span>	
+						</li>
+						<li id="fullTime" style="display:none;">
+							起止日期
+							<input type="text" class="dateInput" name="startTime" id="startTime" value="${startTime?default('')}"/> - 
+							<input type="text" class="dateInput" name="endTime" id="endTime" value="${endTime?default('')}"/>
+							<input id="searchBtn" value="搜索" type="button" class="searchBtn">
+							<em>&lt;&lt;日期范围</em>	
+						</li>
+						<li>
+							交易类型 
+							<span id="status">
+								<a href="javascript:;" data-val="0" class="current" >全部</a>
+								<a href="javascript:;" data-val="tender" >投标</a>
+								<a href="javascript:;" data-val="invest" >扣除冻结款</a>
+								<a href="javascript:;" data-val="stop_tender_unfreeze" >截标解冻多余费用</a>
+								<a href="javascript:;" data-val="manage_fee" >利息管理费用</a>
+								<a href="javascript:;" data-val="unfreeze" >解冻资金</a>
+								<a href="javascript:;" data-val="wait_interest" >待收利息</a>
+								<a href="javascript:;" data-val="cash_success" >提现成功</a>
+								<a href="javascript:;" data-val="capital_collect" >本金收回</a>
+								<a href="javascript:;" data-val="interest_collect" >利息收回</a>
+								<a href="javascript:;" data-val="late_repayment_income" >逾期利息</a>
+								<a href="javascript:;" data-val="online_recharge" >充值成功</a>
+							</span>
+						</li>
+						
+					</ul>
+					<table id="member_table" class="table_content"></table>
+					<div id="kkpager"></div>
+				</div>	
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/account_log');</script>
+	<script src="/plugins/laydate-v1.1/laydate.js"></script>
+	<script src="/themes/theme_default/media/js/date.js"></script>
+	<#include "../../include/footer.html">
+</body>
+</html>

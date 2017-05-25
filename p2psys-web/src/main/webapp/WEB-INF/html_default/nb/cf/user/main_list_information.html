@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>800众服</title>
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+		<link rel="stylesheet" href="/themes/theme_default/cf/css/datepicker.css" />
+		<script type="text/javascript" src="/themes/theme_default/cf/js/jquery-1.9.1.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/bootstrap-datepicker.js" ></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/common.js" ></script>
+		<script src="/themes/theme_default/nb/pc/date/WdatePicker.js"></script>
+		<script src="/themes/theme_default/media/js/sea.js"></script>
+        <script src="/themes/theme_default/media/js/seajs-text.js"></script>
+		<script type="text/javascript" src="/themes/theme_default/cf/js/user/member.js"></script>
+		<script type="text/javascript">seajs.use("/themes/theme_default/js/ajaxfileupload");</script>
+		<script type="text/javascript">
+		
+		//微信素材
+		function ajaxWechat(sId, _url,name,type) {
+			$.ajaxFileUpload({
+				url: _url,
+				secureuri: false,
+				fileElementId: sId,
+				dataType: 'json',
+				data:{typeCode:'aaa'},
+				success: function(data) {
+					if(data.state=="SUCCESS"){
+						$("#headerImg").attr("src",data.url);
+						$.ajax({
+							url:"/cf/user/uploadHeadImge.html",
+							type:"get",
+							dataType:"json",
+							data:{
+								userId:$("#userId").val(),
+								headerImg:data.url
+							},
+							success:function(res){
+								
+							}
+						});
+					}else{
+						alert("上传头像失败，请重试!");
+					}
+				},
+				error: function(data,status, e) {
+					alert("上传头像失败，请重试!");
+				}
+			});
+		}
+		</script>
+		
+		<style type="text/css">
+		/*a  upload */
+			.a-upload {
+			    padding: 4px 10px;
+			    height: 28px;
+			    line-height: 20px;
+			    position: relative;
+			    cursor: pointer;
+			    color: #888;
+			    background: #fafafa;
+			    border: 1px solid #ddd;
+			    border-radius: 4px;
+			    overflow: hidden;
+			    display: inline-block;
+			    *display: inline;
+			    *zoom: 1
+			}
+			
+			.a-upload  input {
+			    position: absolute;
+			    font-size: 100px;
+			    right: 0;
+			    top: 0;
+			    opacity: 0;
+			    filter: alpha(opacity=0);
+			    cursor: pointer
+			}
+			
+			.a-upload:hover {
+			    color: #444;
+			    background: #eee;
+			    border-color: #ccc;
+			    text-decoration: none
+			}
+			.diy{
+			font-size: 14px;
+			
+			}
+			.diy a:hover{
+			color:red;
+			}
+		</style>
+	</head>
+	<body class="bg">
+		<div class="main">
+			<#include "../include/header.html">	
+			
+			<div class="middle-content main-box">
+				<div class="main-left">
+					<#include "../include/left_nav.html">
+				</div>
+				
+				<div class="main-right">
+					<div class="main-title">
+						<h3>基本信息</h3>
+					</div>
+					
+					<div class="table-wrap">
+						
+						<form class="form-horizontal">
+							<div class="row row-no-margin">
+								<div class="col-md-10 col-no-padding">
+									<div class="row row-no-margin">
+										<div class="col-md-4 col-no-padding">
+											<div class="user-headIcon">   
+												<div class="user-headIcon-top"><img id="headerImg" src="/themes/theme_default/cf/img/team_icon.jpg"/></div>
+												<p class="user-headIcon-bottom"><a href="javascript:;" class="a-upload"><input type="file" name="zlfile" id="detail" onchange="return ajaxWechat('detail','/imageUp.jsp','himg');">点击这里更换头像</a></p>
+											<input type="hidden" name="himg" id="himg" value="" />
+											</div>
+										</div>
+										<div class="col-md-6 col-no-padding information">
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">昵称</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="text" id="nickName" class="form-control"  onkeyup="this.value=this.value.replace(/[^a-zA-Z\u4e00-\u9fa5]/g,'')">
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">生日</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	 <input type="text" class="form-control dateInput" name="birthday" id="birthday"  value="" placeholder="" onClick="WdatePicker()" />
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">性别</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <!-- 	<input type="text" id="sex" class="form-control"> -->
+											    <div class="radio">
+												  <label>
+												    <input type="radio" name="sex" id="sexM" value="1">男
+												  </label>
+												  <label>
+												  <input type="radio" name="sex" id="sexF"  value="0"  >女
+												  </label>
+												</div>
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">邮箱</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="text" id="email" class="form-control"  >
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">手机号码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="text" id="mobilePhone" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" >
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">真实姓名</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="text" id="realName" class="form-control" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')">
+											    </div>
+											</div>
+											
+											<div class="form-group row-no-margin" id="noShow">
+											    <label class="col-sm-4 control-label">登陆密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<button class="form-control btn main-btn" type="button" id="modifyPwd">修改</button>
+											    </div>
+											</div>
+											<div id="show" style="display: none;">
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label" id="opwd">原始登陆密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="password" id="pwd" class="form-control" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')"  placeholder="原始登陆密码"  maxlength="32">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">新密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <input type="password" id="newPwd" class="form-control"  onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')"  placeholder="新密码只能字母和数字(限大于等于8位)"  maxlength="32">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">确认密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <input type="password" id="confirmNewPwd" class="form-control" placeholder="确认密码">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label"></label>
+											    <div class="col-sm-8 col-no-padding diy">
+											   		<a href="#" class="up">收起</a>
+											   		<a href="#" class="saveInfor" id="saveInfor">保存</a>
+											    </div>
+											</div>
+										   </div>
+										   
+										   <div class="form-group row-no-margin" id="noPayShow">
+											    <label class="col-sm-4 control-label">支付密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <input type="hidden" id="payStatus" />
+											    	<button class="form-control btn main-btn" type="button" id="modifyPayPwd">修改</button>
+											    </div>
+											</div>
+										   <div id="payShow" style="display: none;">
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label" id="opayPwd">原始支付密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    	<input type="password" id="paypwd" class="form-control"   placeholder="原始支付密码" maxlength="6">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">新密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <input type="password" id="newpayPwd" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"  placeholder="新密码只能数字(限6位)" maxlength="6">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label">确认密码</label>
+											    <div class="col-sm-8 col-no-padding">
+											    <input type="password" id="confirmNewpayPwd" class="form-control"   placeholder="新密码只能数字(限6位)">
+											    </div>
+											</div>
+											<div class="form-group row-no-margin">
+											    <label class="col-sm-4 control-label"></label>
+											    <div class="col-sm-8 col-no-padding diy">
+											   		<a href="#" class="payUp">收起</a>
+											   		<a href="#" class="saveInfor" id="saveInfor">保存</a>
+											    </div>
+											</div>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2 text-right" id="save_">
+									<button class="form-control btn main-btn saveInfor" type="button">保存</button>
+								</div>
+							</div>
+							<input type="hidden" id="userId"  >
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dialog-box-position none" id="errorDiv" style="display: none;">
+	<div class="dialog">
+		<div class="dialog-left"><img src="/themes/theme_default/cf/img/dialog-img.png"/></div>
+		<div class="dialog-right">
+			<div class="dialog-txt">
+				<h1 id="errorMsg" ></h1>	
+			</div>
+			<div class="dialog-small-btn">
+				<div class="product-detail-btn cursor" id="successBtn"  onclick="goUrl()" >确定</div>
+			</div>
+		</div>
+	</div>	
+</div>
+		<#include "../include/footer.html"> 
+		<script type="text/javascript">
+			showLi("user_li");
+			changeLeftMenue("我的资料","");
+		</script>
+	</body>
+</html>

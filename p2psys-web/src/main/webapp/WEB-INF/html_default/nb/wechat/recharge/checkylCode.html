@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>充值验证码</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  <script type="text/javascript" src="${webroot}${theme_dir}/nb/wechat/js/wechat_alert.js" ></script>
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+  </style>
+  <script type="text/javascript">
+	window.onload=function()
+	{
+		var oT=document.getElementById('card_no');
+		oT.onkeydown=function(ev)
+		{   
+			var oW=oT.value;
+			var oEvent=ev||event;
+			if(oEvent.keyCode==8)
+			{
+				if(oW)
+				{
+					for(var i=0;i<oW.length;i++)
+					{
+						var newStr=oW.replace(/\s$/g,'');
+					}
+					oT.value=newStr
+				}
+			}else{
+				for(var i=0;i<oW.length;i++)
+				{
+					var arr=oW.split('');
+	
+					if((i+1)%5==0)
+					{
+						arr.splice(i,0,' ');
+					}
+				}
+				oT.value=arr.join('');
+			}
+		}
+	}
+
+	function checkBankCard(){
+		var accName = document.getElementById("accName").value;
+		var accId = document.getElementById("accId").value;
+		var cardNo = document.getElementById("card_no").value.replace(/[ ]/g,"");
+		var mobile = document.getElementById("mobilePhone").value;
+		var code = document.getElementById("code").value;
+		var bankcodeKey = document.getElementById("bankCodeKey").value;
+		var obj = $("#bindId").val();
+		if(obj!=undefined){
+			document.form1.submit();
+		}else{			
+			if(accName.length==0){
+				//document.getElementById("span_accName").innerHTML="请输入真是姓名";
+				wechatAlert("请输入真实姓名！","0");
+			}else if(accId.length==0){
+				//document.getElementById("span_accId").innerHTML="请输入身份证号码";
+				wechatAlert("请输入身份证号码！","0");
+			}else if(mobile.length==0){
+				//document.getElementById("span_mobile").innerHTML="请输入银行预留号码";
+				wechatAlert("请输入银行预留号码！","0");
+			}else if(code.length==0){
+				//document.getElementById("span_mobile").innerHTML="请输入银行预留号码";
+				wechatAlert("请输入验证码！","0");
+			}else if(cardNo.length==0){
+				//document.getElementById("cardtip").innerHTML="请输入借记卡卡号";
+				wechatAlert("请输入借记卡卡号！","0");
+			}else{			
+				$.ajax({
+		    		 url:"/nb/wechat/cash/binBank.html?cardNo="+cardNo+"&random="+Math.random(),
+		    		 data:{cardNo:cardNo},
+		    		 type:"get",
+		    		 dataType:"json",
+		    		 success:function(data){
+		    			 if(data.ret_code=='0000' && data.card_type=='2'){
+		    				 if(bankcodeKey===data.bank_code){		    					 
+			    				 if(document.getElementById("cardtip")!=null){    					 
+			    				 	document.getElementById("cardtip").innerHTML=data.bank_name;
+			    				 }
+			    				 document.form1.submit();
+		    				 }else{
+		    					 if(document.getElementById("cardtip")!=null){    					 
+			    				 	document.getElementById("cardtip").innerHTML=data.bank_name+"   <span style='color:red;' id='bankPPError'>与选择银行不匹配<span>";
+			    				 }
+		    				 }
+		    			 }else if(data.card_type=='3'){
+		    				 document.getElementById("cardtip").innerHTML="不支持信用卡，请重新输入！";
+		    			 }else{
+		    				 document.getElementById("cardtip").innerHTML="卡号有误，请检查！";
+		    			 }
+		    		 }
+	    	 	})
+			}
+		}
+		
+	}
+
+	function onblurBank(){
+		var cardNo = document.getElementById("card_no").value.replace(/[ ]/g,"");
+		var bankcodeKey = document.getElementById("bankCodeKey").value;
+		$.ajax({
+   		 url:"/nb/wechat/cash/binBank.html?cardNo="+cardNo+"&random="+Math.random(),
+   		 data:{cardNo:cardNo},
+   		 type:"get",
+   		 dataType:"json",
+   		 success:function(data){
+   			 if(data.ret_code=='0000' && data.card_type=='2'){
+   				 if(bankcodeKey===data.bank_code){		    					 
+	    				 if(document.getElementById("cardtip")!=null){    					 
+	    				 	document.getElementById("cardtip").innerHTML=data.bank_name;
+	    				 }
+   				 }else{
+   					 if(document.getElementById("cardtip")!=null){    					 
+	    				 	document.getElementById("cardtip").innerHTML=data.bank_name+"   <span style='color:red;' id='bankPPError'>与选择银行不匹配<span>";
+	    				 }
+   				 }
+   			 }else if(data.card_type=='3'){
+   				 document.getElementById("cardtip").innerHTML="不支持信用卡，请重新输入！";
+   			 }else{
+   				 document.getElementById("cardtip").innerHTML="卡号有误，请检查！";
+   			 }
+   		 }
+	 	})
+	}
+
+  	function hideForm()
+  	{
+  		$("#main_info").css("display","none");
+  		$("#table_info").css("display","block");
+  	}
+  	function hideTable()
+  	{
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  	}
+  	function delHtml(obj){
+		$("#"+obj).html('');
+	}
+  	function spClean(obj){
+  		$("#"+obj).html('');
+  	}
+  </script>
+</head>
+<body>
+		<form action="/nb/wechat/recharge/doUnionPayRecharge.html" method="post" name="form1" id="J_cash" novalidate="novalidate">
+		<div class="sureUser bottom" style="height: 5px;">
+	      	<p><strong>充值金额：</strong> ${money!0}元</p>
+	      	<input type="hidden" name="money" id="money" value="${money!0}" />
+	      </div>
+	      <div id="otherbankTr">
+		      <#if bindBank?exists>
+		      	<div class="bankCard" style="width: 83%;">
+					<img src="/themes/theme_default/nb/wechat/img/setCard.png" class="bank_icon"/>
+					<div class="bank_name">${bindBank.bank!""}<span class="card_type">储蓄卡</span></div>
+					<p class="card_num">${bindBank.hideBankNo}</p>
+				</div>
+				<input type="hidden" name="bindId" id="bindId" value="${bindId!}" />
+				<input type="hidden" name="accName" id="accName" value="${bindBank.user.realName!}" />
+				<input type="hidden" name="mobile" id="mobilePhone" value="${bindBank.mobile!}" />
+				<input type="hidden" name="accId" id="accId" value="${bindBank.user.cardId!}" />
+				<input type="hidden" name="cardNo" id="card_no" value="${bindBank.bankNo!}" />
+			<#else>
+				<div class="edit">
+		        	<input name="accName" id="accName" type="text" placeholder="姓名" maxLength="12" <#if session_user_identify?? && session_user_identify.realNameStatus != 1> placeholder="真实姓名" <#else> value="${session_user.getHideRealname()!}" </#if> >
+		        	<span id="span_accName" class="fillingAmount" onclick="spClean('span_accName')"></span>
+		      	</div>
+				<div class="edit">
+		          	<input name="accId" id="accId" type="text" placeholder="身份证号"  maxLength="18"  <#if session_user_identify?? && session_user_identify.realNameStatus != 1> placeholder="身份证" <#else> value="${session_user.getHideCardId()!}" </#if>>
+		          	<span id="span_accId" class="fillingAmount" onclick="spClean('span_accId')"></span>
+		        </div>
+				<div class="edit">
+		            <input type="text" name="cardNo" id="card_no" autocomplete="off"  placeholder="卡号" maxLength="25" onpaste="return false;"  onblur="onblurBank()"/>
+		        </div>
+		      	<p id="cardtip"  style="width:92%;margin:0 auto;text-align:right;margin-bottom:1%;color:#8a8a8a;height:30px;line-height:10px;">未知卡号</p>
+		        <div class="">
+		            <span class="fillingAmount" ></span>
+		        </div>
+		  		<div class="edit">
+		            <input name="mobile" id="mobilePhone" value="${session_user.mobilePhone!}" autocomplete="off" type="tel" placeholder="银行预留手机号码">
+		            <span id="span_mobile" class="fillingAmount" onclick="spClean('span_mobile')"></span>
+		        </div>
+	        </#if>
+		      <div class="edit"  style="padding-top: 15px;">
+	            <input class="code" type="text" name="code" id="code" style="width: 55%" autocomplete="off" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" placeholder="验证码" maxlength="6">
+		        <#if isBindBank==0>
+		            <span class="getCode" id="timeval" style="width: 37%" onclick="doajax('/nb/wechat/cash/getAddBankCode.html');">点击获取</span>
+				<#else>
+					<span class="getCode" id="timeval" style="width: 37%" onclick="doajax('/nb/wechat/cash/getCashCode.html');">点击获取</span>
+				</#if>
+				<span id="span_code" class="fillingAmount" onclick="spClean('span_code')"></span>
+	        </div>
+        </div>
+	  <input type="hidden" name="wapRechargeToken" value="${wapRechargeToken!}">
+	  <input type="hidden" value="${bankCodeKey!}" id="bankCodeKey">
+	  <!-- <input type="button" id="cashBtn" value="提交" onclick="checkBankCard()" class="sureBtn" style="display:block;"/> -->
+	  <span class="sureBtn" id="cashBtn" style="display:block;" onclick="checkBankCard();">提交</span>
+	  </form>
+	  <#if msg?? && msg != "">
+		<script type="text/javascript">
+			gourl('${msg}');
+			function gourl(obj){
+				//alert('${msg}');
+				wechatAlert("${msg}","0");
+			}
+		</script>
+  	</#if>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+   	  <script type="text/javascript">
+  /**
+   * 获取手机验证码
+   */
+  function doajax(codeUrl){
+    $.ajax({
+      url:codeUrl+'?mobilePhone='+$('#mobilePhone').val(),
+      type:'post',
+      success:function(data){
+        if(data.result){
+          //$(".tip").html()
+          $(".input-error-checkTip").html();  
+          var time=60;
+          var timeFun=setInterval(function(){
+            time--;
+            if(time>0){
+              $('#timeval').html(time+"秒后重新获取").attr("disabled",true);
+              $('#timeval').css("font-size","14px");
+              $('#timeval').css("color","#fff");
+              $('#timeval').css("background","#ffae00");
+            }else{
+              time=60;
+              $('#timeval').html("点击获取").removeAttr("disabled");
+              $('#timeval').css("background","#ffae00");
+              $('#timeval').css("color","#fff");
+              clearInterval(timeFun);
+            }
+          },1000);
+        }
+        else{
+          //$(".tip").html(data.msg);
+          $(".input-error-checkTip").html(data.msg);  
+        }
+      }
+    });
+  }
+  </script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+   	  <script type="text/javascript">
+			seajs.use("${webroot}${theme_dir}/nb/wechat/js/cash/cash_checkCode")
+	  </script>
+</body>
+</html>

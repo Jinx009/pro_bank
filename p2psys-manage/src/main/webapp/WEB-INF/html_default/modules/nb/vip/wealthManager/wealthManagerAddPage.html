@@ -1,0 +1,55 @@
+<script type="text/javascript">
+	$(function()
+	{
+		$('#siteNewDialog').dialog(
+		{
+			title : '添加',
+			width : 900,
+			height : 798,
+			modal : true
+		});
+		$('#siteNewDialog').dialog("close");
+		$.fn.dataGridOptions.formSubFun("#form",'/modules/nb/vip/wealthManager/wealthManagerAdd.html'); 	
+	});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+	
+		<div class="formitm">
+			<label class="lab">财富管家姓名</label>
+			<div class="ipt">
+				<input type="text" name="name" class="w400 easyui-validatebox"
+				data-options="required: true" maxlength="30" /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">财富管家电话</label>
+			<div class="ipt">
+				<input type="text" name="phone" class="w400 easyui-validatebox"
+					data-options="required: true" maxlength="30"  /> <b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">财富管家Email</label>
+			<div class="ipt">
+				<input type="text" name="email" class="w400 easyui-validatebox"
+					data-options="required: false" maxlength="30"  />
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">描述</label>
+			<div class="ipt">
+				<input type="text" name="description" class="w400 easyui-validatebox"
+					data-options="required: false" maxlength="30"  /> 
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">头像</label>
+			<div class="ipt">
+				<input type="file" name="file" class="w400 easyui-validatebox"
+					data-options="required: false" maxlength="30"  /> 
+			</div>
+		</div>			
+	</form>
+</div>
+

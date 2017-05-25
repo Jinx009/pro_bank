@@ -1,0 +1,756 @@
+@charset "utf-8";
+
+html,
+body,
+.swiper-container {
+    height: 100%;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+    text-decoration: none;
+    cursor:pointer;
+}
+
+h2 {
+    font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;
+    font-size: 38px;  /*px*/
+    color: rgb(247, 149, 30);
+    font-weight: 600;
+    text-align: center;
+    padding-top: 18*2px;
+    padding-bottom: 10*2px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background: url(/themes/theme_default/nb/wechat/img/new/page_bg.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    box-sizing: border-box;
+    transform: rotateZ(0deg);
+    -webkit-user-select: none;
+}
+
+.slide1 {
+    background: url(/themes/theme_default/nb/wechat/img/new/page1_bg.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.slide1 .wrap {
+    position: absolute;
+    height: 394*2px;
+    width: 100%;
+    top: 47%;
+    margin-top: -394px;
+    text-align: center;
+}
+
+.slide1 .wrap .container {
+    box-sizing: border-box;
+    position: absolute;
+    border: 2px solid #fff;  /*px*/
+    height: 118*2px;
+    width: 278*2px;
+    left: 50%;
+    top: 50%;
+    margin-top: -118px;
+    margin-left: -278px;
+    padding-top: 15*2px;
+    z-index: 11;
+}
+
+.slide1 .wrap .container div {
+    font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;
+    font-size: 32*2px; /*px*/
+    font-weight: 300;
+    letter-spacing: 1px; /*px*/
+    color: #fff;
+    z-index: 13;
+}
+
+.slide1 .wrap .container p {
+    position: absolute;
+    color: #fff;
+    width: 131*2px;
+    left: 50%;
+    bottom: 15*2px;
+    margin-left: -131px;
+    text-align: center;
+    font-size: 16*2px;  /*px*/
+    font-weight: 300;
+    z-index: 13;
+}
+
+.slide1 .wrap .img1 {
+    position: absolute;
+    width: 138*2px;
+    height: 138*2px;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.slide1 .wrap .img2 {
+    position: absolute;
+    height: 63*2px;
+    width: 238*2px;
+    left: 50%;
+    top: 32*2px;
+    margin-left: -238px;
+    z-index: 12;
+}
+
+.slide1 .wrap .img3 {
+    position: absolute;
+    width: 138*2px;
+    height: 138*2px;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.slide2 .wrap {
+    position: absolute;
+    height: 450*2px;
+    width: 240*2px;
+    top: 46%;
+    left: 50%;
+    margin-top: -450px;
+    margin-left: -240px;
+}
+
+.slide2 .wrap .descp p {
+    font-size: 16*2px; /*px*/
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px; /*px*/
+    line-height: 1.5;
+}
+
+.slide2 .descp {
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+}
+
+.slide2 .descp1 {
+    top: 0;
+    right: 0;
+}
+
+.slide2 .descp2 {
+    top: 22%;
+    left: 0;
+}
+
+.slide2 .descp3 {
+    top: 45%;
+    right: 0;
+}
+
+.slide2 .descp4 {
+    top: 68%;
+    left: 0;
+}
+
+.slide2 .descp5 {
+    top: 95%;
+    right: 0;
+}
+
+.slide2 .line {
+    position: absolute;
+    height: 405*2px;
+    width: 120*2px;
+    top: 50%;
+    left: 50%;
+    margin-top: -405px;
+    margin-left: -120px;
+}
+
+.slide2 .dot {
+    position: absolute;
+    height: 405*2px;
+    width: 120*2px;
+    top: 50%;
+    left: 50%;
+    margin-top: -405px;
+    margin-left: -120px;
+}
+
+.slide2 .line img {
+    width: 120*2px;
+    height: 104*2px;
+}
+
+.slide2 .dot img {
+    position: absolute;
+    width: 60*2px;
+    height: 60*2px;
+}
+
+.slide2 .dot1 {
+    top: -60px;
+    left: -60px;
+}
+
+.slide2 .dot2 {
+    top: 25%;
+    right: -60px;
+    margin-top: -55px;
+}
+
+.slide2 .dot3 {
+    top: 50%;
+    left: -60px;
+    margin-top: -46px;
+}
+
+.slide2 .dot4 {
+    top: 75%;
+    right: -60px;
+    margin-top: -40px;
+}
+
+.slide2 .dot5 {
+    top: 100%;
+    left: -60px;
+    margin-top: -30px;
+}
+
+.slide38 {
+    text-align: center;
+}
+
+.slide38 .page38-main {
+    width: 215*1.2*2px;
+    height: 446*1.2*2px;
+}
+
+.slide3 .page3-banner {
+    position: absolute;
+    height: 144*2px;
+    width: 225*2px;
+    margin-top: 94*2px;
+    left: 50%;
+    margin-left: -225px;
+}
+
+.slide3 .page3-left {
+    position: absolute;
+    height: 69*2px;
+    width: 48*2px;
+    left: 21%;
+    margin-top: 120*2px;
+    z-index: 10;
+}
+
+.slide3 .page3-right {
+    position: absolute;
+    height: 69*2px;
+    width: 48*2px;
+    right: 21%;
+    margin-top: 120*2px;
+    z-index: 10;
+}
+
+.slide4 .page4-banner {
+    position: absolute;
+    height: 100*2px;
+    width: 228*2px;
+    left: 50%;
+    margin-top: 120*2px;
+    margin-left: -228px;
+}
+
+.slide4 #page4_down {
+    position: absolute;
+    width: 54*2px;
+    height: 54*2px;
+    left: 99*2px;
+    top: 133*2px;
+}
+
+.slide4 #page4_left {
+    position: absolute;
+    width: 44*2px;
+    height: 44*2px;
+    left: 131*2px;
+    top: 281*2px;
+}
+
+.slide5 #page5_down {
+    position: absolute;
+    height: 64*2px;
+    width: 56*2px;
+    top: 76*2px;
+    right: 82*2px;
+}
+
+.slide5 .page5-share {
+    position: absolute;
+    height: 83*2px;
+    width: 100*2px;
+    top: 130*2px;
+    right: 60*2px;
+}
+
+.slide6 .page6-invite {
+    position: absolute;
+    height: 32*2px;
+    width: 205*2px;
+    left: 50%;
+    top: 422*2px;
+    margin-left: -205px;
+}
+
+.slide7 #page7_down {
+    position: absolute;
+    height: 52*2px;
+    width: 50*2px;
+    top: 360*2px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+.slide8 .page8-invite {
+    position: absolute;
+    height: 33*2px;
+    width: 230*2px;
+    top: 360*2px;
+    left: 50%;
+    margin-left: -230px;
+}
+
+.slide9 .title {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-size: 32*2px; /*px*/
+    font-weight: 600;
+    text-align: center;
+    padding-top: 63*2px;
+}
+
+.slide9 .detail {
+    box-sizing: border-box;
+    position: absolute;
+    background-color: rgba(204, 204, 204, 0.521569);
+    color: #fff;
+    font-size: 16*2px;
+    font-weight: 500;
+    padding: 20*2px 22*2px 0;
+    height: 355*2px;
+    width: 328*2px;
+    top: 154*2px;
+    left: 50%;
+    margin-left: -328px;
+    letter-spacing: 1px;  /*px*/
+    line-height: 1.5;
+}
+
+.slide9 img {
+    position: absolute;
+    height: 64*2px;
+    width: 296*2px;
+    top: 100*2px;
+    left: 50%;
+    margin-left: -296px;
+}
+
+.slide10 .wrap {
+    position: absolute;
+    height: 282*2px;
+    line-height: 282*2px;
+    text-align: center;
+    width: 282*2px;
+    top: 90*2px;
+    left: 50%;
+    margin-left: -282px;
+    border-radius: 100%;
+    border: 5px dotted rgba(0, 0, 0, 0.3);
+}
+
+.slide10 .wrap .title {
+    font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;
+    font-size: 58*2px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.slide10 .container {
+    position: absolute;
+    height: 92*2px;
+    width: 92*2px;
+    top: 292*2px;
+    left: 45*2px;
+}
+
+.slide10 .container img {
+    position: absolute;
+}
+
+.slide10 .list {
+    position: absolute;
+    width: 200*2px;
+    height: 104*2px;
+    top: 420*2px;
+    left: 30*2px;
+}
+
+.slide10 .list ul li:nth-child(2) {
+    margin-top: 8*2px;
+    margin-bottom: 8*2px;
+}
+
+.slide10 .list ul li a {
+    display: flex;
+    align-items: center;
+    height: 35*2px;
+    font-family: 'Microsoft Yahei', Tahoma, Helvetica, Arial, sans-serif;
+    font-size: 16*2px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.slide10 .list ul li a img {
+    width: 64*2px;
+    height: 35*2px;
+}
+
+.slide10 .list ul li a span {
+    display: flex;
+    height: 35*2px;
+    // align-items: center;
+    line-height: 35*2px;
+}
+
+.slide11 .wrap {
+    position: absolute;
+    height: 414*1.2*2px;
+    width: 273*1.2*2px;
+    left: 50%;
+    top: 50%;
+    margin-top: -414*1.2px;
+    margin-left: -273*1.2px;
+}
+.slide11 #page_11_svg{
+    height: 100%;
+    z-index: 50;
+}
+.slide11 #page_11_svg_2 {
+    border-radius: 16*1.2*2px;
+    z-index: 51;
+}
+
+.slide11 .wrap .page11-logo {
+    position: absolute;
+    height: 92*1.2*2px;
+    width: 92*1.2*2px;
+    top: 36*1.2*2px;
+    left: 50%;
+    margin-left: -92*1.2px;
+    border: 4px solid #FFF;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 3px;
+    border-radius: 100%;
+    z-index: 53;
+}
+
+.slide11 .wrap .page11-logo img {
+    position: absolute;
+    height: 84*1.2*2px;
+    width: 84*1.2*2px;
+    top: 8*1.2px;
+    left: 8*1.2px;
+    border-radius: 100%;
+    z-index: 54;
+}
+
+.slide11 .wrap .page11-code {
+    // position: absolute;
+    // height: 132*1.2*2px;
+    // width: 132*1.2*2px;
+    // top: 235*1.2*2px;
+    // left: 50%;
+    // margin-left: -132*1.2px;
+    // z-index: 53;
+    position: absolute;
+    height: 132*1.2*2px;
+    width: 132*1.2*2px;
+    top: 235*1.2*2-300*2px;
+    left: 50%;
+    margin-left: -132*1.2-300*2px;
+    z-index: 53;
+    padding:300*2px;
+}
+
+.slide11 .wrap h3 {
+    display: inline-block;
+    position: absolute;
+    color: rgb(103, 103, 103);
+    font-size: 20*2px;  /*px*/
+    font-weight: normal;
+    text-align: center;
+    width: 500px;
+    top: 364px;
+    left: 50%;
+    margin-left: -250px;
+    z-index: 53;
+}
+
+.slide11 .wrap p {
+    position: absolute;
+    width: 200*1.2*2px;
+    color: rgb(103, 103, 103);
+    font-size: 16*2px; /*px*/
+    left: 50%;
+    bottom: 27*2px;
+    margin-left: -200*1.2px;
+    text-align: center;
+    z-index: 53;
+}
+
+.slide11 .wrap .page11-line {
+    position: absolute;
+    height: 62*1.2*2px;
+    width: 235*1.2*2px;
+    top: 200*2px;
+    left: 50%;
+    margin-left: -235*1.2px;
+    z-index: 52;
+}
+
+.swiper-container #page_up {
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    bottom: 30px;  /*no*/
+    margin-left: -30px;
+    animation: fadeInUp 2s ease 0s infinite both;
+}
+
+/*animation*/
+
+/*slide1*/
+.swiper-slide-active .wrap .page1_anim_img1 {
+    animation: fadeInRight 2s ease 0s 1 both;
+}
+
+.swiper-slide-active .wrap .page1_anim_img3 {
+    animation: fadeInLeft 2s ease 0s 1 both;
+}
+
+.swiper-slide-active .wrap .page1_anim_container {
+    animation: flipInX 2s ease 0s 1 both;
+}
+
+.swiper-slide-active .wrap .page1_anim_img2 {
+    animation: zoomIn 2s ease 1s 1 both;
+}
+
+.swiper-slide-active .wrap .container .page1_anim_p {
+    animation: flipInX 2s ease 1.2s 1 both;
+}
+
+/* slide2 */
+
+/* 文字动画 */
+.swiper-slide-active .wrap .descp1 {
+    animation: fadeInRight 1s ease 0.4s 1 forwards;
+}
+
+.swiper-slide-active .wrap .descp2 {
+    animation: fadeInLeft 1s ease 0.8s 1 forwards;
+}
+
+.swiper-slide-active .wrap .descp3 {
+    animation: fadeInRight 1s ease 1.2s 1 forwards;
+}
+
+.swiper-slide-active .wrap .descp4 {
+    animation: fadeInLeft 1s ease 1.6s 1 forwards;
+}
+
+.swiper-slide-active .wrap .descp5 {
+    animation: fadeInRight 1s ease 2s 1 forwards;
+}
+
+/* 点动画 */
+.swiper-slide-active .wrap .dot1 {
+    animation: fadeIn 0.6s ease 0.4s both;
+}
+
+.swiper-slide-active .wrap .dot2 {
+    animation: fadeIn 0.6s ease 0.8s both;
+}
+
+.swiper-slide-active .wrap .dot3 {
+    animation: fadeIn 0.6s ease 1.2s both;
+}
+
+.swiper-slide-active .wrap .dot4 {
+    animation: fadeIn 0.6s ease 1.6s both;
+}
+
+.swiper-slide-active .wrap .dot5 {
+    animation: fadeIn 0.6s ease 2s both;
+}
+
+/* 线条动画 */
+.swiper-slide-active .wrap .line1 {
+    animation: fadeIn 0.6s ease 0.6s both
+}
+
+.swiper-slide-active .wrap .line2 {
+    animation: fadeIn 0.6s ease 1.4s both
+}
+
+.swiper-slide-active .wrap .line3 {
+    animation: fadeIn 0.6s ease 1.6s both
+}
+
+.swiper-slide-active .wrap .line4 {
+    animation: fadeIn 0.6s ease 1.8s both
+}
+
+/* slide3 */
+.swiper-slide-active .page3-banner {
+    animation: zoomIn 2s ease 0s 1 both;
+}
+
+.swiper-slide-active .page3-left {
+    animation: fadeInRight 3s ease 0s 1 both;
+}
+
+.swiper-slide-active .page3-right {
+    animation: fadeInLeft 3s ease 0s 1 both;
+}
+
+/* slide4 */
+.swiper-slide-active .page4-banner {
+    animation: zoomIn 2s ease 0s 1 both;
+}
+
+.swiper-slide-active #page4_down {
+    animation: fadeInDown 2s ease 0s 1 both;
+}
+
+.swiper-slide-active #page4_left {
+    animation: fadeInRight 2s ease 0s 1 both;
+}
+
+/* slide5 */
+.swiper-slide-active .page5-share {
+    animation: zoomIn 4s ease 0s 1 both;
+}
+
+/* slide6 */
+.swiper-slide-active .page6-invite {
+    animation: rollIn 1s ease 0s 1 both;
+}
+
+/* slide7 */
+.swiper-slide-active #page7_down {
+    animation: fadeInDown 2s ease 0s 1 both;
+}
+
+/* slide8 */
+.swiper-slide-active .page8-invite {
+    animation: shake 1s ease 0s 1 both;
+}
+
+/* slide9 */
+.swiper-slide-active .page9_anim_title {
+    animation: fadeInDown 2s ease 0.2s 1 both;
+}
+
+.swiper-slide-active .page9_anim_line {
+    animation: zoomIn 2s ease 0.4s 1 both;
+}
+
+.swiper-slide-active .page9_anim_detail {
+    animation: fadeInUp 2s ease 0.4s 1 both;
+}
+
+/* slide10 */
+.swiper-slide-active .page10_anim_wrap {
+    animation: zoomIn 0.4s ease 0.4s 1 both;
+}
+
+.swiper-slide-active .page10_anim_title {
+    animation: zoomIn 0.6s ease 0.6s 1 both;
+}
+
+.swiper-slide-active .page10_anim_container {
+    animation: zoomInRight 0.8s ease 1.4s 1 both;
+}
+
+.swiper-slide-active .page10_anim_right {
+    animation: zoomIn 0.8s ease 1.8s 1 both;
+}
+
+.swiper-slide-active .page10_anim_listimg {
+    animation: fadeInLeft 3s ease 1.2s infinite both;
+}
+
+.swiper-slide-active .page10_anim_listspan {
+    animation: fadeIn 1s ease 1.2s 1 both;
+}
+
+/* slide11 */
+// .swiper-slide-active #page_11_svg {
+//     animation: flipInY 1s ease 0.2s 1 both;
+// }
+
+// .swiper-slide-active .page11-logo {
+//     animation: zoomIn 1s ease 0.6s 1 both;
+// }
+
+// .swiper-slide-active .page11_anim_h3 {
+//     animation: fadeInUp 1s ease 0.8s 1 both;
+// }
+
+// .swiper-slide-active .page11-line {
+//     animation: zoomIn 1s ease 1s 1 both;
+// }
+
+// .swiper-slide-active .page11-code {
+//     animation: flipInX 1s ease 1s 1 both;
+// }
+
+// .swiper-slide-active .page11_anim_p {
+//     animation: fadeIn 1s ease 1.2s 1 both;
+// }
+
+.swiper-slide-active #page_11_svg {
+    animation: flipInY 1s ease 0.2s 1 both;
+}
+
+.swiper-slide-active .page11-logo {
+    animation: zoomIn 1s ease 1.3s 1 both;
+}
+
+.swiper-slide-active .page11_anim_h3 {
+    animation: fadeInUp 1s ease 1.5s 1 both;
+}
+
+.swiper-slide-active .page11-line {
+    animation: zoomIn 1s ease 1.3s 1 both;
+}
+
+.swiper-slide-active .page11-code {
+    animation: rotateIn 1s ease 1.3s 1 both;
+}
+
+.swiper-slide-active .page11_anim_p {
+    animation: fadeIn 1s ease 1.5s 1 both;
+}

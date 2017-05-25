@@ -1,0 +1,135 @@
+
+<script type="text/javascript">
+	//验证线下充值表单
+	function checkOLForm(){
+		var money = $("#rechargeMoney2").val();
+		var accName = $("#userName2").val();
+		var accId = $("#cardId2").val();
+		var bankNo = $("#bankNo2").val();
+		var minRechargeMoney = $("#minRechargeMoney").val();
+		var flag = true;
+		
+		if(money.trim().length==0){
+			$("#trdRecharge_tips").html("请输入充值金额");
+			flag = false;
+	    }else if(parseFloat(money)<parseFloat(minRechargeMoney)){
+	    	$("#trdRecharge_tips").html("线下充值金额不能小于"+minRechargeMoney+"元");
+			flag = false;
+	    }else{
+	    	$("#trdRecharge_tips").html("");
+	    } 
+		if(accName.trim().length==0){
+			$("#trdName_tips").html("请输入您的真实姓名");
+			flag = false;
+		}else{
+			$("#trdName_tips").html("");
+		}
+		if(accId.trim().length==0){
+			$("#trdCardId_tips").html("请输入您的身份证号");
+			flag = false;
+		}else if(!isIdCardNo(accId.trim())){
+			$("#trdCardId_tips").html("身份证号格式不正确");
+			flag = false;
+		}else{
+			$("#trdCardId_tips").html("");
+		}
+		if(bankNo.trim().length==0){
+			$("#trdBankNo_tips").html("请输入您的银行卡号");
+			flag = false;
+		}else{
+			$("#trdBankNo_tips").html("");
+		}
+		if(flag){
+			document.form2.submit();
+		}
+	}
+	
+		$(function(){
+			changeLeftMenue("我要充值");
+		})
+</script>
+
+<div class="clearfix"></div>
+<p class="cashTip">完整填写如下信息后，请完成银行转账操作（网银/手机银行/银行柜台），收款信息如下：</p>
+<div class="row">
+	<form action="/nb/pc/recharge/doOfflineRecharge.html" class="col-md-6"
+		style="margin-top: 0px; margin-left: 30px;" name="form2" method="post" >
+		<div class="col-md-11">
+			<div class="form-group warmPrompt row"
+				style="padding-left: 20px; margin-top: 0px;">
+				<p>
+					开户银行：<span>建设银行 上海黄浦支行</span>
+				</p>
+				<p>
+					银行账号：<span>31001518000050031595</span>
+				</p>
+				<p>
+					账户：<span>上海仁和智本互联网金融信息服务有限公司</span>
+				</p>
+			</div>
+
+			<div class="form-group row newCash_col">
+				<label class="col-md-4 padding_col0">充值金额:</label> <input type="text"
+					class="col-md-8 rechargeForm_inp " id="rechargeMoney2"
+					name="money" placeholder="充值金额"   maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" size="10" value="${minRechargeMoney!0}" autocomplete="off">
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4 padding_col0"></div>
+				<div class="text-right forgetPayPwd" id="trdRecharge_tips"></div>
+			</div>
+
+			<div class="form-group row newCash_col">
+				<label class="col-md-4 padding_col0">转账姓名:</label> <input type="text"
+					class="col-md-8 rechargeForm_inp " id="userName2"
+					name="realName" placeholder="转账姓名" maxlength="5">
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4 padding_col0"></div>
+				<div class="text-right forgetPayPwd" id="trdName_tips"></div>
+			</div>
+			<div class="form-group row newCash_col">
+				<label class="col-md-4 padding_col0">身份证号:</label> <input type="text"
+					class="col-md-8 rechargeForm_inp" id="cardId2"
+					name="cardId" placeholder="身份证号" maxlength="18">
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4 padding_col0"></div>
+				<div class="text-right forgetPayPwd" id="trdCardId_tips"></div>
+			</div>
+			<div class="form-group row newCash_col">
+				<label class="col-md-5 padding_col0">转账银行卡号:</label> <input type="text"
+					class="col-md-7 rechargeForm_inp" id="bankNo2"
+					name="bankNo" placeholder="转账银行卡号"
+					onKeyUp="value=value.replace(/[^0-9]/g,'')"
+					onblur="getBankInfo(this,'yhcard2',2)" maxlength="25"><span id="yhcard2"></span>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4 padding_col0"></div>
+				<div class="text-right forgetPayPwd" id="trdBankNo_tips"></div>
+			</div>
+
+			<div class="form-group row" style="margin-bottom: 5px;">
+				<input type="hidden" class="paymentStatus" name="type" value="3">
+				<input type="hidden" name="minRechargeMoney" id="minRechargeMoney"
+					value="${minRechargeMoney!0}">
+				<button type="button"
+					class="col-md-offset-4 col-md-6 newChashBtn padding_col0" onclick="checkOLForm();">确认提交</button>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+		<input type="hidden"  id="xxRToken" name="nbRechargeToken" value="${nbRechargeToken!}">
+	</form>
+	
+	<div class="col-md-5 padding_col0 rightWarm">
+		<p class="cash_user_money">
+			可用余额:<span id="use_money">0</span>元
+		</p>
+		<div class="warmPrompt" style="padding: 0px 20px 20px 20px;">
+			<p class="warmPromptTitle">温馨提示：</p>
+			<p style="margin-bottom: 0px;">预计到账时间：</p>
+			<p>1.工作日上午10点前（含10点）到账的线下充值资金将于10点30分入账，下午15点前（含15点）到账的线下充值资金将于15点30分入账，遇节假日顺延。</p>
+			<p style="margin-bottom: 0px;">2.线下最低充值金额<span id="minRechargeMoneyTis">${minRechargeMoney!0}</span>元。</p>
+		</div>
+
+	</div>
+</div>

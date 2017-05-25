@@ -1,0 +1,118 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/editGoods.html');
+    });
+</script>
+<form id="form"  method="post">
+<div class="popShow" style="padding-bottom:0;">
+    <div class="showItem">
+    	<span>商品类别：</span>
+    	<select name="categoryId">
+		<#list itemList as item>
+			<option value="${item.id}" <#if item.id == category.id>selected="selected"</#if>>${item.name}</option>
+		</#list>
+		</select>
+    </div>
+    <div class="showItem">
+    	<span>商品名称：</span>
+    	<input type="text" name="name" value="${goods.name}" class="easyui-validatebox" data-options="required: true" />
+    </div>
+    <div class="showItem">
+    	<span>所需积分：</span>
+    	<input type="text" name="score" value="${goods.score}" class="easyui-validatebox" data-options="required: true" />
+    </div>
+    <div class="showItem">
+    	<span>市场价：</span>
+    	<input type="text" name="marketPrice" value="${goods.marketPrice}" class="easyui-validatebox" data-options="required: true" />
+    </div>
+    <div class="showItem">
+    	<span>商城售价：</span>
+    	<input type="text" name="cost" value="${goods.cost}" class="easyui-validatebox" data-options="required: true" />
+    </div>
+    <div class="showItem">
+    	<span>商品库存：</span>
+    	<input type="text" name="store" value="${goods.store}" class="easyui-validatebox" data-options="required: true" />
+    </div>
+</div>
+<div class="popForm" style="padding-top:0;">
+    <div class="formitm">
+		<label style="width:130px;" class="lab">商品详情：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="description" name="description" type="text/plain">${goods.description}</script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">商品属性信息：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<script id="attribute" name="attribute" type="text/plain">${goods.attribute}</script>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">备注：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<textarea name="remark" style="width:690px;" class="easyui-validatebox" maxlength="255">${goods.remark}</textarea>
+		</div>
+	</div>
+	<div class="formitm">
+		<label style="width:130px;" class="lab">资料上传：</label>
+		<div style="margin-left:140px;color:#000;" class="ipt">
+			<input type="hidden" name="uploadLoanId" id="uploadLoanId"/>
+	        <div id="tabMain" data-arr="uploadFile" style="height: auto;">
+	            <ul id="uploadPiclist" style="list-style: none; padding: 0; margin: 0;">
+	                <li class="add_btn" style="float: left;">
+	                  <i class="a"></i> <i class="b"></i>
+	                  <input type="file" name="uploadStatus" id="uploadFile" onchange="return ajaxFileUpload('uploadFile','/imageUp.jsp');" title="点击上传图片" />
+	                </li>
+	                <#if picList?? && picList.size() gt 0 >
+		                 <#list picList as item>
+		                    <li data-mum="${item.id?c}">
+		                       <img style="width: 100px; height: 100px;"src="${item.picUrl}" alt="">
+		                        <a  class="closePic" style="float:left;" href="javascript:;" title="删除图片">x</a>                     
+		                    </li>
+		                </#list>
+		            </#if>
+	            </ul>
+	       </div>
+		</div>
+	</div>
+	<input name="id" value="${goods.id}" type="hidden">
+    <input name="editToken" value="${editToken!}" type="hidden"> 
+</div>
+</form>
+<!-- 编辑器 -->
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var descriptionBox = UE.getEditor('description', {
+        autoHeight: false,
+        initialFrameWidth:710,
+        toolbars: [
+                   ['undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                    'fontsize', 'paragraph', 'customstyle','anchor', 'bold', 'indent','italic','underline', 'strikethrough', 'subscript','fontborder', 
+                    'superscript', 'formatmatch', 'source', 'blockquote', 'pasteplain', 'selectall', 'print', 'horizontal', 'removeformat', 'time', 
+                     'date', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown','deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells',
+                       'deletecaption','inserttitle','mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable','simpleupload', 'insertimage','edittable',
+                       'edittd', 'link', 'spechars', 'searchreplace','backcolor','insertorderedlist','insertunorderedlist', 'fullscreen', 'directionalityltr', 'directionalityrtl', 
+                       'rowspacingtop', 'rowspacingbottom', 'pagebreak', 'imagenone', 'imageleft', 'imageright', 'attachment','imagecenter','lineheight','edittip ', 'autotypeset', 
+                       'touppercase', 'tolowercase', 'background', 'template','inserttable', 'drafts', 'charts'
+                   ]
+               ]
+        
+    });
+    var descriptionBox = UE.getEditor('attribute', {
+        autoHeight: false,
+        initialFrameWidth:710,
+        toolbars: [
+                   ['undo', 'redo', 'justifyleft', 'justifyright','justifycenter', 'justifyjustify', 'forecolor', 'fontfamily', 
+                    'fontsize', 'paragraph', 'customstyle','anchor', 'bold', 'indent','italic','underline', 'strikethrough', 'subscript','fontborder', 
+                    'superscript', 'formatmatch', 'source', 'blockquote', 'pasteplain', 'selectall', 'print', 'horizontal', 'removeformat', 'time', 
+                     'date', 'unlink', 'insertrow', 'insertcol', 'mergeright', 'mergedown','deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells',
+                       'deletecaption','inserttitle','mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable','edittable',
+                       'edittd', 'link', 'spechars', 'searchreplace','backcolor','insertorderedlist','insertunorderedlist', 'fullscreen', 'directionalityltr', 'directionalityrtl', 
+                       'rowspacingtop', 'rowspacingbottom', 'pagebreak', 'imagenone', 'imageleft', 'imageright', 'attachment','imagecenter','lineheight','edittip ', 'autotypeset', 
+                       'touppercase', 'tolowercase', 'background', 'template','inserttable', 'drafts', 'charts'
+                   ]
+               ]
+    });
+</script>

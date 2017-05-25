@@ -1,0 +1,35 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="text/content" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+<title>我的提现卡</title>
+</head>
+<body>
+		<div class="header"><a class="backto" href="javascript:history.back(-1);"></a>我的提现卡</div>
+		<div class="bankcard">
+				<#list bankList as item>
+				<img class="bank-icon" src="${webroot}${theme_dir}/wx/static/css/images/bank.png">
+				<div class="bank-name">
+					${item.bank!""}
+					<span class="card-type">储蓄卡</span>
+				</div>
+				<div class="card-number">${item.hideBankNo}</div>
+				<a class="button button-mini" id="upd_cashCard" >修改</a>
+				</#list>
+		</div>
+		<script src="${webroot}${theme_dir}/media/js/jquery.1.11.1.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#upd_cashCard").click(function(){
+					alert("温馨提示：\n 1、为了您的账户及资金安全，如果需要更换银行卡，请直接联系客服，电话400-6366-800。"+
+							" \n 2、目前绑卡仅支持以下银行：招商银行、工商银行、农业银行、建设银行、中国银行、邮储银行、光大银行、广发银行、平安银行");
+				});	
+			});
+		</script>
+</body>
+</html>

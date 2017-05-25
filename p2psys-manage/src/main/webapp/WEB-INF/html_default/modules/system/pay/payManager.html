@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>账户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  700;
+	var winHeight = 500;
+	var addTitle = "添加接口";
+	var addUrl =  "/modules/system/pay/payAddPage.html";
+	var addWinParmeters = "'{0}','"+addTitle+"',"+winWidth+","+winHeight+",'"+addUrl+"'";
+	var editTitle = "编辑接口";
+	var editUrl =  "/modules/system/pay/payEditPage.html";
+
+	var delUrl = "/modules/system/pay/payDelete.html";	
+
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'payList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,sortable:true,fixed:true},
+			{ field: 'name', title: '接口名称'},
+			{ field: 'nid', title: '接口标识',width:100},
+			{ field: 'merchantId', title: '商户号',width:100},
+			{ field: 'rechargeFee', title: '充值费率', width: 80},
+			/*{ field: 'goodsKey', title: '商品key', width: 150},
+			{ field: 'requestUrl', title: '请求地址', width: 150},
+			{ field: 'returnUrl', title: '回调地址', width: 150},
+			{ field: 'intoAccount', title: '接口转入账户', width: 150},
+			{ field: 'chartset', title: '编码格式', width: 150},
+			{ field: 'signType', title: '加密方式', width: 150},
+			{ field: 'payStyle', title: '支付方式', width: 150},
+			{ field: 'sellerEmail', title: '卖家email', width: 150},
+			{ field: 'transport', title: '处理模式', width: 150},
+			{ field: 'orderDescription', title: '商品描述', width: 150},
+			{ field: 'gatewayUrl', title: '网关url', width: 150},
+			{ field: 'orderInquireUrl', title: '订单查询url', width: 150},
+			{ field: 'certPosition', title: '证书路径', width: 150},
+			{ field: 'terminalId', title: '终端号', width: 150},*/
+			{ field: 'sort', title: '排序', width: 40,sortable:true,fixed:true},
+			{ field: 'enable', title: '是否启用间连', width:90,formatter:function(value,row,index){
+				if(value==0){
+					return "关闭";
+				}else{
+					return "开启";
+				}
+			}},
+			{ field: 'enableDirect', title: '是否开启直连', width: 90,formatter:function(value,row,index){
+				if(value==0){
+					return "关闭";
+				}else{
+					return "开启";
+				}
+			}},
+			{field : 'action',title : '操作',width :75,fixed:true,align:'center',
+				formatter : function(value, row, index) {
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);">详情</a><i class="iconfont">&#xe639;</i></dt>' ;
+					str += '<dd>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑</a>';
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.id+',delUrl);">删除</a>';
+					str += '</dd>'
+					str +=  '</dl>'
+					return str;
+				}
+			} 
+			 ] ],
+			toolbar : '#toolbar'
+		});
+	});
+
+	
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sRight">
+				<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>	
+            </div>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

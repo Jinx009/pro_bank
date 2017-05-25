@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width; height=device-height;"
+	name="viewport">
+<link href="/themes/theme_default/media/css/zcStyle.css"
+	rel="stylesheet">
+<title>众筹支付</title>
+</head>
+<body>
+	<input value=${id} type="hidden" id="type" />
+	<input type="hidden" value="${user_id}" id="user_id">
+	<input type="hidden" value="${userName}" id="userName" />
+	<input type="hidden" value="${tel}" id="tel" />
+	<!--header	start-->
+	<div id="header">
+		<div id="head_info">
+			<div class="clearfix head_top">
+				<div class="float_left">
+					<a href="/"><div class="logo"></div></a> <span class="navChild"><a
+						href="/aboutUs/siteIntro.html">关于我们</a></span> <span class="navChild"><a
+						href="/crowdfunding/index.html?id=2">我要投资</a></span> <span
+						class="navChild"><a href="/member/main.html">我的账户</a></span> <span
+						class="navChild"><a href="/aboutUs/questionIntro.html">帮助中心</a></span>
+					<span class="navChild"><a href="/yardIndex.html">800社区</a></span>
+				</div>
+				<div class="float_right">
+					<span class="loginStatus"> <span id="login"
+						style="display: none;"> <a href="/user/login.html">登陆</a> <a
+							href="/user/register.html">注册</a>
+					</span> <span id="loginIn" style="display: none;"> <span
+							class="welcomePhone">欢迎您，131****9876</span> <a href="${webroot}/user/logout.html">退出</a>
+					</span> <a class="guide" href="/crowdfunding/index.html?id=2">在e800Bank投资</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--header	end-->
+	<!--invest	start-->
+	<div class="invest-tab">
+		<div class="invest-tab-con" id="tabs">
+			<li class="one active" id="2">权益众筹</li>
+			<li class="one " id="0">实物众筹</li>
+		</div>
+	</div>
+	<!--invest	end-->
+	<ul id="tab_conbox">
+		<dl class="tab_con" id="rights">
+			<!-- List	start -->
+			<div id="container" class="clearfix">
+				<!--list	start-->
+				<div class="investWrap clearfix">
+					<ul class="investItem">
+
+					</ul>
+				</div>
+				<!--list	end-->
+
+				<div id="kkpager">
+					<!-- <span id="left" class="kkpagerA"><</span>
+						<span id="page"></span>
+						<span id="right" class="kkpagerA">></span> -->
+
+					<!-- <span id="left">
+						</span>
+						<span id="page"></span>
+						<span id="right">
+						</span>  -->
+					<a class="kkpagerA" id="left" href="javascript:void(0);"><</a> <span
+						id="page"></span> <a class="kkpagerA" id="right"
+						href="javascript:void(0);">></a>
+				</div>
+
+			</div>
+			<!-- List	end -->
+		</dl>
+
+		<dl class="tab_con" id="raise">
+			<!-- List	start -->
+			<div id="container" class="clearfix">
+				<!--list	start-->
+				<div class="investWrap clearfix">
+					<ul class="investItem">
+
+					</ul>
+				</div>
+				<!--list	end-->
+
+				<div id="kkpager">
+					<!--  <span id="left">
+						</span>  -->
+					<a class="kkpagerA" id="left" href="javascript:void(0);"><</a> <span
+						id="page"></span> <a class="kkpagerA" id="right"
+						href="javascript:void(0);">></a>
+					<!-- <span id="right">
+						</span>  -->
+				</div>
+			</div>
+			<!-- List	end -->
+
+		</dl>
+	</ul>
+	<#include "../include/raise_footer.html">
+	<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script>
+		var user_id = $("#user_id").val();
+		if ("" == user_id || null == user_id)
+		{
+			$("#login").show();
+		} else
+		{
+			$("#loginIn").show();
+			var userName = $("#userName").val();
+			var tel = $("#tel").val();
+			var tel_l = tel.substring(0, 3);
+			var tel_r = tel.substring(7, 11);
+			$(".welcomePhone").html("欢迎您，" + tel_l + "****" + tel_r);
+		}
+
+		var type = $("#type").val();
+		if (type == 2)
+		{
+			//权益众筹
+			$("#2").addClass("active");
+			$("#0").removeClass("active");
+			$("#rights").css("display", "block");
+			$("#r").css("display", "none");
+		} else if (type == 0)
+		{
+			//实物众筹
+			$("#0").addClass("active");
+			$("#2").removeClass("active");
+			$("#raise").css("display", "block");
+			$("#rights").css("display", "none");
+		}
+		/*实物众筹*/
+		$.ajax(
+				{
+					type : 'get',
+					cache : false,
+					url : '/crowdfunding/projectInfoList.html?type=0',
+					dataType : 'json',
+					async : false,
+					success : function(data)
+					{
+						var json = eval(data.data.list);
+						var data1 = eval(data.data.page);
+						var currentPage = data1.currentPage;
+						var end = data1.end;
+						var pages = data1.pages;
+						var pernum = data1.pernum;
+						var start = data1.start;
+						var total = data1.total;
+						var type = 0;
+						var lastPage = currentPage - 1;
+						var nextPage = currentPage + 1;
+						if (pages > 0)
+						{
+							for (var i = 1; i <= pages; i++)
+							{
+								if (i == currentPage)
+								{
+									$("#raise #page")
+											.append(
+													"<a class=curr id=swC"+ i + "  href='javascript:nextPage(" + i + "," + type + ");'>" + i + "</a>");
+								} else
+								{
+									$("#raise #page").append(
+											"<a  class=kkpagerA  href='javascript:nextPage(" + i + "," + type + ");' id=swN" + i + ">" + i + "</a>");
+								}
+							}
+						} else
+						{
+							$("#raise #kkpager").html('暂无数据');
+						}
+
+						for (var i = 0; i < json.length; i++)
+						{
+							var type = json[i].type;
+							var zcProjectid = json[i].id;
+
+							//console.log(json[i].type+"--"+i+"++"+json.length)
+							/*实物众筹*/
+
+							var htmlStr = "";
+							var progress = 0;
+							var str = "";
+							var img_num = 0;
+							htmlStr += "<li class=invest-list ><div class=invest-list-top><a href=/crowdfunding/physicalRaise.html?zcProjectid="
+									+ zcProjectid + "&type=" + type + ">";
+							var topHtml = "";
+							var middleHtml = "";
+							var downHtml = "";
+							/* if(json[i].materials.length==0){
+								htmlStr="";
+							} */
+							for (var j = 0; j < json[i].materials.length; j++)
+							{
+								if (json[i].materials[j].materialCode == 2000)
+								{
+									if (0 === img_num)
+									{
+										topHtml += "<img src="+back_web_url+json[i].materials[j].materialContent+" /></a></div><div class=invest-list-down >";
+										img_num++;
+									}
+
+								}
+								if (json[i].materials[j].materialCode == 4000)
+								{
+									middleHtml += "<div class=title  >"
+											+ json[i].materials[j].materialContent
+											+ "</div>";
+
+								}
+								if (json[i].materials[j].materialCode == 5000)
+								{
+									downHtml += "<p class=desc >"
+											+ json[i].materials[j].materialContent
+											+ "</p>";
+
+								}
+
+
+								
+							}
+
+							if ("" == topHtml || null == topHtml)
+							{
+								topHtml += "<img src='/themes/theme_default/images/raise/list.jpg'/></a></div><div class=invest-list-down >";
+							}
+							if ("" == middleHtml || null == middleHtml)
+							{
+
+								middleHtml += "<div class=title>此项目暂时没有标题</div>";
+							}
+							if ("" == downHtml || null == downHtml)
+							{
+								downHtml += "<p class=desc >此项目暂时没有项目描述</p>";
+								
+							}
+							$.ajax({
+									type : 'get',
+									cache : false,
+									url : '/crowdfunding/projectTotalInfo.html?id='
+											+ zcProjectid,
+									dataType : 'json',
+									async : false,
+									success : function(data)
+									{
+										var json = eval(data.totalInfo);
+
+										progress = parseFloat(json.scale) * 100;
+										progress = progress.toFixed(2);
+										downHtml += "<div class=bottomBar ><p class=tzBar ><span class=tzBar_left >投资进度</span><span class=tzBar_right >";
+										downHtml += progress;
+										downHtml += "%</span></p><div class='bar barBottom'  ><span id=bar"+zcProjectid+"></span></div><ul class='clearfix  all'><li><dt>￥";
+										downHtml += json.toltalMoney;
+										downHtml += "</dt><dd>已筹集</dd></li><li><dt>";
+										downHtml += json.supportCount;
+										downHtml += "人</dt><dd>支持人数</dd></li><li><dt>";
+										downHtml += json.leftDays;
+										downHtml += "天</dt><dd>剩余天数</dd></li></ul></div>";
+
+									}
+							})
+							
+
+							htmlStr += topHtml;
+							htmlStr += middleHtml;
+							htmlStr += downHtml;
+
+							htmlStr += "</div></li>";
+							$("#raise .investItem").append(htmlStr);
+							$("#bar" + zcProjectid).css("width", progress + "%");
+						}
+					}
+				})
+
+		/*权益众筹*/
+		$.ajax({
+					type : 'get',
+					url : '/crowdfunding/projectInfoList.html?type=2',
+					dataType : 'json',
+					async : false,
+					success : function(data)
+					{
+						var json = eval(data.data.list);
+						var data1 = eval(data.data.page);
+						var currentPage = data1.currentPage;
+						var end = data1.end;
+						var pages = data1.pages;
+						var pernum = data1.pernum;
+						var start = data1.start;
+						var total = data1.total;
+						var type = 2;
+						if (pages > 0)
+						{
+
+							for (var i = 1; i <= pages; i++)
+							{
+								if (i == currentPage)
+								{
+									$("#rights #page").append("<a class=curr id=qyC"+ i+ "  href='javascript:nextPage("+ i + "," + type+ ");'>" + i+ "</a>");
+								} 
+								else
+								{
+									$("#rights #page").append("<a class=kkpagerA  href='javascript:nextPage("+ i + "," + type+ ");' id=qyN" + i + ">"+ i + "</a>");
+
+								}
+							}
+
+						} else
+						{
+							$("#rights #kkpager").html('暂无数据');
+						}
+
+						for (var i = 0; i < json.length; i++)
+						{
+							var type = json[i].type;
+							var zcProjectid = json[i].id;
+
+							var wanna_money = parseInt(json[i].planedMaxAmount);
+							var htmlStr = "";
+							var progress = 0;
+							var str = "";
+							var img_num = 0;
+							htmlStr += "<li class=invest-list ><div class=invest-list-top><a href=/crowdfunding/physicalRaise.html?zcProjectid="+ zcProjectid + "&type=" + type + ">";
+							var topHtml = "";
+							var middleHtml = "";
+							var downHtml = "";
+
+							for (var j = 0; j < json[i].materials.length; j++)
+							{
+								if (json[i].materials[j].materialCode == 2000)
+								{
+									if (0 === img_num)
+									{
+										topHtml = "<img src="+back_web_url+json[i].materials[j].materialContent+" /></a></div><div class=invest-list-down >";
+										img_num++;
+
+									}
+
+								}
+								if (json[i].materials[j].materialCode == 4000)
+								{
+									middleHtml = "<div class=title  >"+ json[i].materials[j].materialContent+ "</div>";
+
+								}
+								if (json[i].materials[j].materialCode == 5000)
+								{
+									downHtml = "<p class=desc >"+ json[i].materials[j].materialContent+ "</p>";
+
+								}
+
+							}
+
+							if ("" == topHtml || null == topHtml)
+							{
+								topHtml += "<img src='/themes/theme_default/images/raise/list.jpg'/></a></div><div class=invest-list-down >";
+							}
+							if ("" == middleHtml || null == middleHtml)
+							{
+								middleHtml += "<div class=title>此项目暂时没有标题</div>";
+							}
+							if ("" == downHtml || null == downHtml)
+							{
+								downHtml += "<p class=desc >此项目暂时没有项目描述</p>";
+							}
+								
+							$.ajax({
+											type : 'get',
+											url : '/crowdfunding/projectTotalInfo.html?id='+ zcProjectid,
+											dataType : 'json',
+											async : false,
+											success : function(data)
+											{
+												var json = eval(data.totalInfo);
+
+												progress = parseFloat(json.scale) * 100;
+												progress = progress.toFixed(2);
+												downHtml += "<div class=bottomBar ><p class=tzBar ><span class=tzBar_left >投资进度</span><span class=tzBar_right >";
+												downHtml += progress;
+												downHtml += "%</span></p><div class='bar barBottom'  ><span id=bar"+zcProjectid+"></span></div><ul class='clearfix  all'><li><dt>￥";
+												downHtml += json.toltalMoney;
+												downHtml += "</dt><dd>已筹集</dd></li><li><dt>";
+												downHtml += json.supportCount;
+												downHtml += "人</dt><dd>支持人数</dd></li><li><dt>";
+												downHtml += json.leftDays;
+												downHtml += "天</dt><dd>剩余天数</dd></li></ul></div>";
+
+											}
+							})
+							
+
+							htmlStr += topHtml;
+							htmlStr += middleHtml;
+							htmlStr += downHtml;
+							htmlStr += "</div></li>";
+							$("#rights .investItem").append(htmlStr);
+							$("#bar" + zcProjectid).css("width", progress + "%");
+						}
+					}
+				})
+
+		function nextPage(page, type)
+		{
+			$.ajax({
+						type : 'get',
+						cache : false,
+						url : '/crowdfunding/projectInfoList.html?type=' + type+'&page='+ page,
+						dataType : 'json',
+						async : false,
+						success : function(data)
+						{
+							var json = eval(data.data.list);
+							var data1 = eval(data.data.page);
+							var currentPage = data1.currentPage;
+							var end = data1.end;
+							var pages = data1.pages;
+							var pernum = data1.pernum;
+							var start = data1.start;
+							var total = data1.total;
+							var zcType = json[0].type;
+							if (zcType == 0)
+							{
+								$("#raise .investItem").html("");
+								if (pages > 0)
+								{
+									for (var i = 1; i <= pages; i++)
+									{
+										if (i == currentPage)
+										{
+											$("#swC" + currentPage).addClass("curr");
+											$("#swN" + currentPage).addClass("curr");
+
+										} else
+										{
+											$("#swN" + i).removeClass("curr");
+											$("#swC" + i).removeClass("curr");
+
+											$("#swN" + i).addClass("kkpagerA");
+											$("#swC" + i).addClass("kkpagerA");
+										}
+									}
+								} else
+								{
+									$("#raise #kkpager").html('暂无数据');
+								}
+
+							}
+							if (zcType == 2)
+							{
+								$("#rights .investItem").html("");
+								if (pages > 0)
+								{
+									for (var i = 1; i <= pages; i++)
+									{
+										if (i == currentPage)
+										{
+											$("#qyC" + currentPage).addClass("curr");
+											$("#qyN" + currentPage).addClass("curr");
+										} else
+										{
+											$("#qyN" + i).removeClass("curr");
+											$("#qyC" + i).removeClass("curr");
+											$("#qyN" + i).addClass("kkpagerA");
+											$("#qyC" + i).addClass("kkpagerA");
+										}
+									}
+								} else
+								{
+									$("#rights #kkpager").html('暂无数据');
+								}
+							}
+
+							for (var i = 0; i < json.length; i++)
+							{
+								var type = json[i].type;
+								var zcProjectid = json[i].id;
+
+								
+								if (type == 0)
+								{
+
+									var htmlStr = "";
+									var progress = 0;
+									var str = "";
+									var img_num = 0;
+									htmlStr += "<li class=invest-list ><div class=invest-list-top><a href=/crowdfunding/physicalRaise.html?zcProjectid="+ zcProjectid+ "&type="+ type+ ">";
+									var topHtml = "";
+									var middleHtml = "";
+									var downHtml = "";
+								
+									for (var j = 0; j < json[i].materials.length; j++)
+									{
+										if (json[i].materials[j].materialCode == 2000)
+										{
+											if (0 === img_num)
+											{
+												topHtml += "<img src="+back_web_url+json[i].materials[j].materialContent+" /></a></div><div class=invest-list-down >";
+												img_num++;
+											}
+
+										}
+										if (json[i].materials[j].materialCode == 4000)
+										{
+											middleHtml += "<div class=title  >"
+													+ json[i].materials[j].materialContent
+													+ "</div>";
+
+										}
+										if (json[i].materials[j].materialCode == 5000)
+										{
+											downHtml += "<p class=desc >"
+													+ json[i].materials[j].materialContent
+													+ "</p>";
+
+										}
+										
+									}
+
+									if ("" == topHtml || null == topHtml)
+									{
+										topHtml += "<img src='/themes/theme_default/images/raise/list.jpg'/></a></div><div class=invest-list-down >";
+									}
+									if ("" == middleHtml || null == middleHtml)
+									{
+										middleHtml += "<div class=title>此项目暂时没有标题</div>";
+									}
+									if ("" == downHtml || null == downHtml)
+									{
+										downHtml += "<p class=desc >此项目暂时没有项目描述</p>";
+									}
+									$.ajax({
+												type : 'get',
+												cache : false,
+												url : '/crowdfunding/projectTotalInfo.html?id='
+														+ zcProjectid,
+												dataType : 'json',
+												async : false,
+												success : function(data)
+												{
+													var json = eval(data.totalInfo);
+
+													progress = parseFloat(json.scale) * 100;
+													progress = progress
+															.toFixed(2);
+													downHtml += "<div class=bottomBar ><p class=tzBar ><span class=tzBar_left >投资进度</span><span class=tzBar_right >";
+													downHtml += progress;
+													downHtml += "%</span></p><div class='bar barBottom'  ><span id=bar"+zcProjectid+"></span></div><ul class='clearfix  all'><li><dt>￥";
+													downHtml += json.toltalMoney;
+													downHtml += "</dt><dd>已筹集</dd></li><li><dt>";
+													downHtml += json.supportCount;
+													downHtml += "人</dt><dd>支持人数</dd></li><li><dt>";
+													downHtml += json.leftDays;
+													downHtml += "天</dt><dd>剩余天数</dd></li></ul></div>";
+
+												}
+											})
+								
+
+									htmlStr += topHtml;
+									htmlStr += middleHtml;
+									htmlStr += downHtml;
+
+									htmlStr += "</div></li>";
+									$("#raise .investItem").append(htmlStr);
+									$("#bar" + zcProjectid).css("width",
+											progress + "%");
+								}
+							
+								if (type == 2)
+								{
+
+									var wanna_money = parseInt(json[i].planedMaxAmount);
+									var htmlStr = "";
+									var progress = 0;
+									var str = "";
+									var img_num = 0;
+									htmlStr += "<li class=invest-list ><div class=invest-list-top><a href=/crowdfunding/physicalRaise.html?zcProjectid="+ zcProjectid+ "&type="+ type+ ">";
+									var topHtml = "";
+									var middleHtml = "";
+									var downHtml = "";
+
+									for (var j = 0; j < json[i].materials.length; j++)
+									{
+										if (json[i].materials[j].materialCode == 2000)
+										{
+											if (0 === img_num)
+											{
+												topHtml += "<img src="+back_web_url+json[i].materials[j].materialContent+" /></a></div><div class=invest-list-down >";
+												img_num++;
+											}
+										}
+										if (json[i].materials[j].materialCode == 4000)
+										{
+											middleHtml += "<div class=title  >"+ json[i].materials[j].materialContent+ "</div>";
+										}
+										if (json[i].materials[j].materialCode == 5000)
+										{
+											downHtml += "<p class=desc >"+ json[i].materials[j].materialContent+ "</p>";
+
+										}
+									
+									}
+									if ("" == topHtml || null == topHtml)
+									{
+										topHtml += "<img src='/themes/theme_default/images/raise/list.jpg'/></a></div><div class=invest-list-down >";
+									}
+									if ("" == middleHtml || null == middleHtml)
+									{
+										middleHtml += "<div class=title>此项目暂时没有标题</div>";
+									}
+
+									if ("" == downHtml || null == downHtml)
+									{
+
+										downHtml += "<p class=desc >此项目暂时没有项目描述</p>";
+									}
+
+									$.ajax(
+											{
+												type : 'get',
+												cache : false,
+												url : '/crowdfunding/projectTotalInfo.html?id='
+														+ zcProjectid,
+												dataType : 'json',
+												async : false,
+												success : function(data)
+												{
+													var json = eval(data.totalInfo);
+
+													progress = parseFloat(json.scale) * 100;
+													progress = progress
+															.toFixed(2);
+													downHtml += "<div class=bottomBar ><p class=tzBar ><span class=tzBar_left >投资进度</span><span class=tzBar_right >";
+													downHtml += progress;
+													downHtml += "%</span></p><div class='bar barBottom'  ><span id=bar"+zcProjectid+"></span></div><ul class='clearfix  all'><li><dt>￥";
+													downHtml += json.toltalMoney;
+													downHtml += "</dt><dd>已筹集</dd></li><li><dt>";
+													downHtml += json.supportCount;
+													downHtml += "人</dt><dd>支持人数</dd></li><li><dt>";
+													downHtml += json.leftDays;
+													downHtml += "天</dt><dd>剩余天数</dd></li></ul></div>";
+
+												}
+											})
+									htmlStr += topHtml;
+									htmlStr += middleHtml;
+									htmlStr += downHtml;
+
+									htmlStr += "</div></li>";
+									$("#rights .investItem").append(htmlStr);
+									$("#bar" + zcProjectid).css("width",
+											progress + "%");
+								}
+
+							}
+						}
+					})
+		}
+	</script>
+	<script type="text/javascript">
+		jQuery.jqtab = function(tabtit, tab_conbox, shijian)
+		{
+
+			$(".invest-tab-con li").bind(
+					"click",
+					function()
+					{
+						if (!$(this).hasClass("active"))
+						{
+							$(this).addClass("active").siblings("li").removeClass("active");
+						}
+
+						var activeindex = $(tabtit).find("li").index(this);
+						$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+						return false;
+					});
+		};
+
+		$.jqtab("#tabs", "#tab_conbox", "click");
+	</script>
+
+</body>
+</html>

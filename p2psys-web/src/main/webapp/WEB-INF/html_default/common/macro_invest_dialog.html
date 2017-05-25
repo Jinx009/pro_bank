@@ -1,0 +1,87 @@
+<#macro investDialog account borrow user>
+	<#assign borrow_process=0 > 
+    <#assign borrow_remain=borrow.account?c?number > 
+    <#if borrow.account_yes?exists> 
+      <#assign borrow_process=(borrow.account_yes?c?number/borrow.account?c?number*100)> 
+      <#assign borrow_remain=(borrow.account?c?number-borrow.account_yes?c?number) >
+    </#if>
+    <div id="modal_dialog" style="display: none" title="${borrow.name}">
+        <div class="pop-tb-con clearfix" style="background:#fff;">
+            <div class="pop-tb-l">
+                <ul>
+                    <li>借款人：${user.username}</li>
+                    <li>借款金额：<strong>￥${borrow.account} 元</strong></li>
+                    <li>借款年利率: ${borrow.apr} %</li>
+                    <li>已经完成：${(borrow_process)?number?string("##.##")} %</li>
+                    <li>还需借款: ￥${borrow_remain?c}</li>
+                    <li>借款期限: <#if
+                    borrow.borrowTimeType??&&borrow.borrowTimeType==1>${borrow.time_limit!0}天<#else>${(borrow.time_limit)?default("0")}月</#if></li>
+                    <li>还款方式: <#if borrow.borrowTimeType??&&borrow.borrowTimeType==1>到期全额还款<#elseif
+                    borrow.type==101>系统自动还款<#elseif borrow.type==110>一次性还款
+                    <#elseif borrow.style??&&borrow.style=="2">一次性还款<#else>按月分期还款</#if>  </li>
+                </ul>
+            </div>
+            <#if userAccount??>
+                <#assign use_money=(((ceil((userAccount.useMoney)!0))?number)?c) >
+            <#else>
+                <#assign use_money=0 >
+            </#if>
+            <div class="pop-tb-r">
+                <form action="${webroot}/borrow/tender.html" name="form1" method="post" >
+                    <ul>
+                        <li>您的可用余额：${use_money}元 <a
+                            href="${webroot}/member/account/newrecharge.html" class="btn">我要充值</a>
+                        </li>
+                        <#if borrow.type==110>
+                        <li>最小流转单位：${borrow.flow_money} 元
+                        <li>已认购：${(borrow.account_yes?c!0)?number/borrow.flow_money}份&nbsp;&nbsp;
+                        还剩：<b>${((borrow.account?c!0)?number-(borrow.account_yes?c!0)?number)/borrow.flow_money}</b>份</li>
+                        <li>单次最多能投：<#if borrow.most_single_limit?? && borrow.most_single_limit gt 0><b>${((((borrow.most_single_limit?c)?number)/borrow.flow_money)?int)?c}</b>份<#else>无限制</#if></li>
+                        <li id="flow_num">购买份数：
+                            <input class="less" value="-" type="button">
+                            <input type="text"  class="nums" id="flow_count" name="flow_count" value="1" size="5">
+                            <input class="add" value="+" type="button"><span class="">最多可以认购<b class="max"><#if ((use_money?number!0?number)/(borrow.flow_money!1?number) gte 1)>
+								<#if ((use_money?number)/((borrow.flow_money?c)?number)) lte ((borrow.account!0)?c?number-(borrow.account_yes!0)?c?number)/borrow.flow_money>
+									${(((use_money?number)/((borrow.flow_money?c)?number))?int)?c}
+								<#else>
+									${(((borrow.account!0)?c?number-(borrow.account_yes!0)?c?number)/borrow.flow_money)?c}
+								</#if>
+							<#else>0</#if></b>份</span>
+                        </li>
+                        <#else>
+                        <li>最多投标总额：<#if borrow.most_account??&&borrow.most_account?number gt 0>${borrow.most_account}<#else>无限制</#if></li>
+                        <li>投标金额: <input type="text" id="money" name="money"
+                            size="11" onKeyUp="value=value.replace(/[^0-9.]/g,'')">元
+                            <input type="button" class="btn" onClick="inputAll(${borrow.lowest_account!0},${borrow.most_account!0},${use_money!0});" style="height:30px;"
+                            value="自动填入全部金额" /></li>
+                        </#if>
+                        <li>支付密码:<#if !session_user?exists> <a
+                            href="${webroot}/user/login.html"
+                            target="_blank"> <font color="red">请先登陆</font> </a> <#elseif
+                            session_user.paypassword?exists> <input type="password"
+                            name="paypassword" size="11" tabindex="2" /> <#else> <a
+                            href="${webroot}/memberSecurity/paypwd.html"
+                            target="_blank"> <font color="red">请先设一个支付交易密码</font> </a>
+                            </#if>
+                         </li>
+                         <#if borrow.pwd??&&borrow.pwd!=""><li>定向标密码：<input type="text" size="11" name="pwd" id="pwd"></li></#if>
+                    </ul>
+                    <p class="mar20">
+                        <#if borrow.type==110>
+                            <input type="submit" class="btn" value="确认投标" style="height:30px;">
+                        <#else>
+                            <a class="btn" onClick="check_form2(50,0,${use_money})" style="cursor:pointer; line-height:28px; height:25px;">确认投标</a>
+                        </#if>
+                    <p>
+                    <p>
+                        <input type="hidden" name="id" value="${((borrow.id)?default(0))?c}" />注意：点击按钮表示您将确认投标金额并同意支付.
+                        <input type="hidden" name="borrow_token"  value="${borrow_token}" />
+						<input type="checkbox" name="auto_repurchase" value="1" checked="checked" style="display: none;" />
+
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</#macro>

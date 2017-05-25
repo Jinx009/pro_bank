@@ -1,0 +1,38 @@
+
+<div class="popForm">
+		<input type="hidden" value="${banner.id}" id="id" name="id" >
+		<div class="formitm">
+			<label class="lab">名称</label>
+			<div class="ipt">
+				<input type="text" name="bannerName" id="bannerName" class="w400 easyui-validatebox" value="${banner.bannerName}" readonly="readonly"
+				data-options="required: true" maxlength="30" />
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">描述</label>
+			<div class="ipt">
+			<input type="text" name="bannerKeywords"  id="bannerKeywords" class="w400 easyui-validatebox" value="${banner.bannerKeywords}" readonly="readonly"
+			data-options="required: true" maxlength="30"/>
+			</div>
+		</div>		
+		<div class="formitm">
+			<label class="lab">链接地址</label>
+			<div class="ipt">
+			<input type="text" name="bannerLinkUrl"  id="bannerLinkUrl" class="w400 easyui-validatebox" value="${banner.bannerLinkUrl}" readonly="readonly"
+			data-options="required: true" maxlength="255"/> <b>*</b>
+			</div>
+		</div>	
+		 <div class="formitm">
+			<label class="lab">图片</label>
+			<div class="ipt">
+				<img src="${banner.bannerPicUrl!''}" name="file" id="file" alt="banner图片"  style="height:100px"/>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">备注</label>
+			<div class="ipt">
+				<textarea name="remark"  id="remark" class="w400 easyui-validatebox" data-options="required: false" readonly="readonly">${banner.remark!''}</textarea>
+			</div>
+		</div>
+</div>
+

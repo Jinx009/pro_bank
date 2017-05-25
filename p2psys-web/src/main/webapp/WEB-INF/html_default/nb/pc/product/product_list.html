@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+	<#include "../include/statistics.html"> 
+	<meta name="keywords" content="800Bank-关于我们">
+	<meta name="description" content="800Bank- 随投随享-当日起息立享收益,银行信托-精选优质信托产品,800精选-优质资产热销产品,五星专享-五星电器产品定制,美元专区-海外资产配置">
+	<script type="text/javascript" src="/themes/theme_default/nb/pc/js/product/product.js"></script>
+    <title>800Bank</title>
+    <style>
+    body {
+    	background: #fafafa; 
+    }
+    #productListPPfund{
+    	min-height: 290px;
+    }
+    </style>
+   	<script type="text/javascript">
+   	$(function(){
+   		changeHeader("产品中心");
+   	})
+   	</script>
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+<input type="hidden" value="${id}" id="id"/>
+		<div class="clearfix"></div>
+		<div class="container product_top" >
+			<div class="product_nav min-row" id="flagList"></div>
+
+			<div class="min-row">
+				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3"></div>
+				<div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 row sort">
+					<div id="sort_col1" class='col-md-4 col-xs-4 col-sm-4 col-lg-4 text sort_col' onclick="orderField('lowestRefundRate','sort_col1');">按收益排序</div>
+					<div id="sort_col2" class='col-md-4 col-xs-4 col-sm-4 col-lg-4 text sort_col' onclick="orderField('timeLimit','sort_col2');">按投资期限排序</div>
+					<div id="sort_col3" class='col-md-4 col-xs-4 col-sm-4 col-lg-4 text sort_col' onclick="orderField('lowestAccount','sort_col3');">按起投金额排序</div>
+				</div>
+				<div class="col-md-3 col-xs-3 col-sm-3 col-lg-3"></div>
+			</div>
+		</div>
+		<div class="container">
+			<div style="height: 30px;"></div>
+			<div id="productListPPfund"></div>
+		</div>
+		<div style="height: 50px;"></div>
+		<#include "../include/top_static.html"> 
+		<#include "../include/member_footer.html">
+	</body>
+</html>

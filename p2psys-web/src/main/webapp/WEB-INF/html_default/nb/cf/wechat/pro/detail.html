@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <title>800众服</title>
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/invest_detail_progress.css" />
+	    <link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/swiper.min.css" />
+	    <script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	    <script src="/themes/theme_default/cf/js/url.js" ></script>
+		<script src="/plugins/vue/vue.min.js"></script>
+		<script src="/plugins/layer/layer.js" ></script>
+		<script src="/themes/theme_default/cf/wechat/js/swiper.min.js"></script>
+		<script src="/themes/theme_default/cf/wechat/js/lib_wechat.js"></script>
+		<script src="/themes/theme_default/cf/wechat/js/pro/detail.js" ></script>
+		<script  src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+		<script>
+		wx.config({
+		    debug: false,
+		    appId: '${appId}',
+		    timestamp:${timestamp},
+		    nonceStr: '${nonceStr}',
+		    signature: '${signature}',
+		    jsApiList: [
+		      'checkJsApi',
+		      'onMenuShareTimeline',
+		      'onMenuShareAppMessage',
+		      'onMenuShareQQ',
+		      'onMenuShareWeibo',
+		      'hideMenuItems',
+		      'showMenuItems',
+		      'hideAllNonBaseMenuItem',
+		      'showAllNonBaseMenuItem',
+		      'translateVoice',
+		      'startRecord',
+		      'stopRecord',
+		      'onRecordEnd',
+		      'playVoice',
+		      'pauseVoice',
+		      'stopVoice',
+		      'uploadVoice',
+		      'downloadVoice',
+		      'chooseImage',
+		      'previewImage',
+		      'uploadImage',
+		      'downloadImage',
+		      'getNetworkType',
+		      'openLocation',
+		      'getLocation',
+		      'hideOptionMenu',
+		      'showOptionMenu',
+		      'closeWindow',
+		      'scanQRCode',
+		      'chooseWXPay',
+		      'openProductSpecificView',
+		      'addCard',
+		      'chooseCard',
+		      'openCard'
+		    ]
+		});
+		
+		wx.ready(function() {
+		    wx.checkJsApi({
+		        jsApiList: ['chooseImage'],
+		        success: function(res) {
+		            wx.showMenuItems({
+		                menuList: ['menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+		                    'menuItem:share:timeline'
+		                ]
+		            });
+		        }
+		    });
+		    wx.onMenuShareTimeline({
+		        title: '${desc}',
+		        desc: '${desc}',
+		        link: 'https://www.800zf.cn/cf/wechat/pro/index.action?id=2',
+		        imgUrl: 'https://www.800zf.cn/themes/theme_default/cf/wechat/img/menue_logo.png',
+		        success: function() {},
+		        cancel: function() {}
+		    });
+		    wx.onMenuShareAppMessage({
+		        title: '${desc}',
+		        desc: '${desc}',
+		        link: 'https://www.800zf.cn/cf/wechat/pro/index.action?id=2',
+		        imgUrl: 'https://www.800zf.cn/themes/theme_default/cf/wechat/img/menue_logo.png',
+		        success: function() {},
+		        cancel: function() {}
+		    });
+		});
+		
+		wx.error(function(res){
+		});
+		$(function(){
+		/* 	$('#dowebok').fullpage({
+				continuousVertical: true
+			}); */
+		});
+		</script>
+	</head>
+	<body class="bg">
+		<input type="hidden" id="id" value="${id}" >
+		<div class="back">
+			<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+			<span>投资详情</span>
+		</div>
+		<#include "../include/menue.html">
+		<div class="detail-top">
+			<div class="detail-title">
+				<b v-text="item.timeStatus | projectStep" ></b>
+				<h1 v-text="item.project.projectName" ></h1>
+			</div>
+			<div class="detail-invest-money">
+				<div class="detail-invest-money-left">
+					<dl>
+						<dt>募集总额</dt>
+						<dd v-text="item.project.wannaAccount | thousandFormat" ></dd>
+					</dl>
+					<dl>
+						<dt>已募集</dt>
+						<dd v-text="item.project.account | thousandFormat" ></dd>
+					</dl>
+					<dl>
+						<dt>最小支持</dt>
+						<dd v-text="item.project.minMoney" ></dd>
+					</dl>
+				</div>
+				<div class="detail-invest-money-right">
+					<div class="circle-wrap">
+					     <div class="circle-pip1"></div>
+					     <div class="circle-pip2"></div>
+					     <div class="circle-pip22"></div>
+					     <div class="circle-pip3"></div>
+				    </div>
+				</div>
+				<div class="broken-line"><img src="/themes/theme_default/cf/wechat/img/broken_line.png"/></div>
+				<div class="broken-line broken-line-two"><img src="/themes/theme_default/cf/wechat/img/broken_line_two.png"/></div>
+				<div class="broken-line broken-line-three"><img src="/themes/theme_default/cf/wechat/img/broken_line_three.png"/></div>
+			</div>
+			<div class="detail-invest-stock" v-if="2===item.project.type" >
+				<dl>
+					<dd v-text="item.project.companyMoney | thousandFormat" ></dd>
+					<dt>投后估值</dt>
+				</dl>
+				<dl>
+					<dd v-text="item.project.proportion+'%' " ></dd>
+					<dt>出让股权</dt>
+				</dl>
+				<dl>
+					<dd v-text="item.project.financing | financingText " ></dd>
+					<dt>融资轮次</dt>
+				</dl>
+			</div>
+			<div class="invest-progress" style="display: none;" >
+				<div class="progress">
+					<div class="progress-bar" style="width:{{item.step}}%" ></div>
+				</div>
+				<p class="left-time">剩余时间：<span></span></p>
+			</div>
+		</div>
+		<div class="investor">
+			<div class="invest-col">
+				<p v-text="'发起人：'+item.project.creater" ></p>
+				<p v-text="'公司名称：'+item.project.company" ></p>
+				<p>公司简介：</p>
+				<p class="company-desc none" id="address1"  v-text="item.project.address" ></p>
+			</div>
+			<div class="invest-col" id="leader"  v-if="0===item.leaderStatus" >
+					<div class="leader-btn" v-if="0===item.leaderText" onclick="beLeader()" >申请成为领投人</div>
+					<div class="leader-btn" v-if="1===item.leaderText" onclick="beLeader()" >领投人申请中</div>
+			</div>
+			<div class="invest-col"  v-if="2===item.leaderStatus" >
+				<p v-text="'领投人：'+item.orders[0].projectBaseinfo.leader.name" ></p>
+				<p v-text="'领投人简介：'+item.orders[0].projectBaseinfo.leader.info" ></p>
+				<p>领投理由：<span></span></p>
+				<p class="company-desc " v-text="item.orders[0].projectBaseinfo.leader.reason" ></p>
+			</div>
+			<div class="invest-col"  v-if="1===item.leaderStatus" >
+				<p v-text="'领投人：'+item.project.leader.name" ></p>
+				<p v-text="'领投人简介：'+item.project.leader.info" ></p>
+				<p>领投理由：<span></span></p>
+				<p class="company-desc " v-text="item.project.leader.reason" ></p>
+			</div>
+		</div>
+		<div class="detail-invest-bottom">
+			<div class="tab">
+				<a href="#" class="active">项目详情</a>
+				<a href="#">项目动态</a>
+				<a href="#">支持者</a>
+			</div>	
+			<div class="swiper-wrapper detail-invest-content">
+				<div class="swiper-slide">
+					<img v-attr="src:item.detailImg" class="detail-img"   >
+				</div>
+				<div class="swiper-slide" id="actDiv" ></div>
+				<div class="swiper-slide active"   >
+					<div class="support-content" >
+						<div class="support-col" v-if="item.orders" v-repeat="model in item.orders" >
+						
+						<!-- <img :src="order.projectPic || '/themes/theme_default/cf/wechat/img/attention_img.png'  | addPer host " width="219px" height="173px"/> -->
+							<div><img  v-attr="src:model.userPic ||  '/themes/theme_default/cf/wechat/img/attention_img.png'  "  class="small-headIcon"/></div> 
+							<div v-text="model.userName" ></div>
+							<div v-text="model.payTime | timeFormat 'yyyy年M月d日'" ></div>
+						</div>
+						<div v-if="!item.orders">
+							<div v-if="-1===item.orderStatus">
+								<div v-if="39===item.project.id" >
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>137****1338</div>
+										<div>2015年9月6日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****3999</div>
+										<div>2015年9月5日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****0818</div>
+										<div>2015年9月5日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>138****0599</div>
+										<div>2015年9月4日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>157****0288</div>
+										<div>2015年9月4日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>135****2286</div>
+										<div>2015年9月2日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****5459</div>
+										<div>2015年9月2日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>135****3338</div>
+										<div>2015年9月1日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>186****1524</div>
+										<div>2015年9月1日</div>
+									</div>
+								</div>
+								<div v-if="38===item.project.id" >
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>138****0599</div>
+										<div>2015年5月4日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>157****0288</div>
+										<div>2015年5月3日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>137****1338</div>
+										<div>2015年5月3日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****3999</div>
+										<div>2015年5月3日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****0818</div>
+										<div>2015年5月2日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>135****2286</div>
+										<div>2015年5月2日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>139****5459</div>
+										<div>2015年5月2日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>135****3338</div>
+										<div>2015年5月1日</div>
+									</div>
+									<div class="support-col" >
+										<div><img src="/themes/theme_default/cf/wechat/img/attention_img.png"  class="small-headIcon"/></div> 
+										<div>186****1524</div>
+										<div>2015年5月1日</div>
+									</div>
+								</div>
+							</div>
+							<div v-if="0===item.orderStatus">
+								&nbsp;&nbsp;该项目暂时无支持者，快成为第一个支持TA的人吧
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="blank"></div>
+		<div class="rights-btn">
+			<div class="rights-left-btn"><a href="/cf/wechat/user/rightsDetail.html?projectId=${id}"  class="support">我要支持</a></div>
+			<div class="{{item.attentionStyle}}" onclick="addAttention({{item.attentionCode}})" v-text="item.attentionText" ></div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				// tab切换
+			    var tabsSwiper = new Swiper('.detail-invest-bottom', {
+			        speed: 500,
+			        onSlideChangeStart: function() {
+			            $('.tab .active').removeClass('active');
+			            $('.tab a').eq(tabsSwiper.activeIndex).addClass('active');
+			        }
+			    });
+			    $('.tab a').on('touchstart mousedown', function(e) {
+			        e.preventDefault()
+			        $('.tab .active').removeClass('active');
+			        $(this).addClass('active');
+			        tabsSwiper.slideTo($(this).index());
+			    });
+			    $(".tab a").click(function(e) {
+			        e.preventDefault();
+			    });
+			})
+		</script>
+	</body>
+</html>

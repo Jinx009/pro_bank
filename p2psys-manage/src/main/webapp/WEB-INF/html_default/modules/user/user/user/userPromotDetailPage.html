@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>推荐人功能</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	var dataGrid;
+    $(function() {
+    	dataGrid = $('#getUserList').datagrid({
+            url : '/modules/user/user/user/userPromotDetailList.html?userPromotId='+ ${userPromotId},
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'userId',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'userId', title: '序号', sortable:false},
+			  { field: 'userName', title: '用户名', sortable:false},
+              { field: 'realName', title: '真实姓名', sortable:false},
+              { field: 'email', title: '邮箱地址', sortable:false },
+              { field: 'mobilePhone', title: '电话号码', sortable:false }
+             ]]
+        }); 
+    });
+    var getSelected = function($dialog, $input) {
+    	var selected = $('#getUserList').datagrid('getSelected');
+    	$input.val(selected.email);
+    	$dialog.dialog('destroy');
+    };
+    
+</script>
+<body>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<div data-options="region:'north',border:false,collapsible:false" id="searchBox"  style="margin-top:0;">
+		<div class="sLeft">
+         <form id="searchForm">
+         	<input type="text"  name="searchName" class="sInput" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+         </form>
+        </div>
+     </div>
+	<div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+	    <table id="getUserList"></table>
+	</div>
+</div>
+</body>
+</html>

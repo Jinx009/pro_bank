@@ -1,0 +1,106 @@
+<link href="${webroot}/plugins/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="${webroot}/plugins/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${webroot}/plugins/umeditor/umeditor.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	// UM.getEditor("pcHeadPic");
+	UM.getEditor("pcProductDetail");
+	UM.getEditor("pcProductMaterials");
+	// UM.getEditor("wechatHeadPic");
+	UM.getEditor("wechatTips");
+	// UM.getEditor("wechatProductDetail");
+	UM.getEditor("wechatRefundDetail");
+	UM.getEditor("wechatSafeguardDetail");
+	$.fn.dataGridOptions.addBorrowFormSubFun("#form", '/modules/nb/product/uploadMaterial.html');
+});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+	<div class="borrowForm" style="border-top:none;">
+		<input type="hidden" id="id" name="id" value="${id}" />
+		<h1 class="borrowFormTitle">PC素材</h1>
+		<!--
+		<div style="clear:both;">
+			<span style="height:36px;line-height:36px;font-size:14px;color:#333">PC产品头图：</span>
+			<script type="text/plain" id="pcHeadPic" name="pcHeadPic" style="width:100%;height:200px;">
+			${pcHeadPic!''}
+			</script>
+		</div>
+		-->
+		<ul>
+			<div style="clear:both;">
+				<span style="height:36px;line-height:36px;font-size:14px;color:#333">PC产品详情：</span>
+				<script type="text/plain" id="pcProductDetail" name="pcProductDetail" style="width:100%;height:200px;">
+					${pcProductDetail!''}
+				</script>
+			</div>
+			<div style="clear:both;">
+				<span style="height:36px;line-height:36px;font-size:14px;color:#333">PC产品资料：</span>
+				<script type="text/plain" id="pcProductMaterials" name="pcProductMaterials" style="width:100%;height:200px;">
+					${pcProductMaterials!''}
+				</script>
+			</div>
+		</ul>
+		<br/>
+		<hr style="height:1px;border:none;border-top:3px ridge grey;" />
+		<br/>
+		<h1 class="borrowFormTitle">微信素材</h1>
+		<ul id="borrowPagePic">
+			<!--
+		<li><span>产品亮点：</span>
+		<input type="text" id="wechatLightspot" name="wechatLightspot" value="${wechatLightspot!''}"/>
+		</li>
+		<li><span>产品概要：</span>
+		 <input type="text" id="wechatProductDigest" name="wechatProductDigest"  value="${wechatProductDigest!''}" />
+		</li>
+		-->
+			<li>
+				<span>分享标题：</span>
+				<input type="text" id="wechatShareTitle" name="wechatShareTitle" value="${wechatShareTitle!''}" maxlength="30" />
+			</li>
+			<li>
+				<span>分享描述：</span>
+				<input type="text" id="wechatShareDesc" name="wechatShareDesc" value="${wechatShareDesc!''}" maxlength="30" />
+			</li>
+			<li>
+				<span>收益时间概要：</span>
+				<input type="text" id="wechatRefundDigest" name="wechatRefundDigest" value="${wechatRefundDigest!''}" />
+			</li>
+			<li>
+				<span>安全保障概要：</span>
+				<input type="text" id="wechatSafeguardDigest" name="wechatSafeguardDigest" value="${wechatSafeguardDigest!''}" />
+			</li>
+			<!--
+		<div style="clear:both;">
+			<span style="height:36px;line-height:36px;font-size:14px;color:#333">产品头图：</span>
+			<script type="text/plain" id="wechatHeadPic" name="wechatHeadPic" style="width:100%;height:200px;">
+			${wechatHeadPic!''}
+			</script>
+		</div>
+		<div style="clear:both;">
+			<span style="height:36px;line-height:36px;font-size:14px;color:#333">产品详情：</span>
+			<script type="text/plain" id="wechatProductDetail" name="wechatProductDetail" style="width:100%;height:200px;">
+			${wechatProductDetail!''}
+			</script>
+		</div> 
+		-->
+			<div style="clear:both;">
+				<span style="height:36px;line-height:36px;font-size:14px;color:#333">小贴士：</span>
+				<script type="text/plain" id="wechatTips" name="wechatTips" style="width:100%;height:200px;">
+					${wechatTips!''}
+				</script>
+			</div>
+			<div style="clear:both;">
+				<span style="height:36px;line-height:36px;font-size:14px;color:#333">收益时间详情：</span>
+				<script type="text/plain" id="wechatRefundDetail" name="wechatRefundDetail" style="width:100%;height:200px;">
+					${wechatRefundDetail!''}
+				</script>
+			</div>
+			<div style="clear:both;">
+				<span style="height:36px;line-height:36px;font-size:14px;color:#333">安全保障详情：</span>
+				<script type="text/plain" id="wechatSafeguardDetail" name="wechatSafeguardDetail" style="width:100%;height:200px;">
+					${wechatSafeguardDetail!''}
+				</script>
+			</div>
+		</ul>
+	</div>
+</form>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/jquery.form.js" ></script>
+<script type="text/javascript" src="/themes/theme_default/dist/myjs.js" ></script>
+<script type="text/javascript" src="${theme_dir}/js/jquery-easyui-1.3.3/jquery.easyui.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" type="text/css">
+<script type="text/javascript">
+$(function()
+{
+	getManagerList();	
+	
+	$.ajax({
+		url:"/modules/nb/vip/wealthManagerUser/userList.html?start_num=1&end_num=20",
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			var data = res.list;
+			
+			
+			var htmlStr = "";
+			
+			for(var i = 0;i<data.length;i++)
+			{
+				htmlStr += "<tr><td>"+data[i][0]+"</td><td>"+data[i][4]+"</td><td>"+data[i][1]+"</td><td><input name='subBox' onclick='setSelectAll();' type='checkbox' value="+data[i][0]+"  / > </td></tr>";
+			}
+			
+			$("#userList").html(htmlStr);
+		}
+	})
+	
+	
+	
+	
+	
+
+})
+function getManagerList()
+{
+	$.ajax({
+		url:"/modules/nb/vip/wealthManagerUser/managerList.html",
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			var data = res.list;
+			
+			var htmlStr = "";
+			
+			for(var i = 0;i<data.length;i++)
+			{
+				htmlStr += "<tr><td>"+data[i].name+"</td><td><input type=checkbox name='managerName' value="+data[i].id+"  /></td></tr>";
+			}
+			
+			$("#managerList").append(htmlStr);
+		}
+	})
+}
+function getData()
+{
+	$.ajax({
+		url:"/modules/nb/vip/wealthManagerUser/userList.html?start_num="+($("#start_num").val()-1)+"&end_num="+$("#end_num").val()+"",
+		type:"GET",
+		dataType:"json",
+		success:function(res)
+		{
+			var data = res.list;
+			
+			
+			var htmlStr = "";
+			
+			for(var i = 0;i<data.length;i++)
+			{
+				htmlStr += "<tr><td>"+data[i][0]+"</td><td>"+data[i][4]+"</td><td>"+data[i][1]+"</td><td><input name='subBox' onclick='setSelectAll();' type='checkbox'  value="+data[i][0]+"  / > </td></tr>";
+			}
+			
+			$("#userList").html(htmlStr);
+		}
+	})
+}
+
+function getUserData(){
+	$.ajax({
+		url:"/modules/nb/vip/wealthManagerUser/userSearch.html",
+		type:"post",
+		data:"userName="+$("#userName").val()+"&mobilePhone="+$("#mobilePhone").val(),
+		dataType:"json",
+		success:function(res)
+		{
+		
+				var data = res.user;
+				var htmlStr="";
+				for(var i = 0;i<data.length;i++){
+					htmlStr += "<tr><td>"+data[i].userId+"</td><td>"+data[i].realName+"</td><td>"+data[i].mobilePhone+"</td><td><input name='subBox' onclick='setSelectAll();' type='checkbox'  value="+data[i].userId+"  / > </td></tr>";
+				} 
+				$("#userList").html(htmlStr); 
+			
+			
+		}
+	})
+}
+
+
+function selectAll(){
+	var strAllCheck = [];
+	  if ($("#allCheck").prop("checked")) { 
+	      $("input[type='checkbox'][name='subBox']").prop("checked", true);  
+	  } else {  
+	      $('input[type="checkbox"][name="subBox"]').prop("checked", false);  
+	  }  
+	  
+}  
+//子复选框的事件  
+function setSelectAll(){  
+	  //当没有选中某个子复选框时，SelectAll取消选中  
+	  if (!$('input[name="subBox"]').checked) { 
+	      $("#allCheck").prop("checked", false);  
+	  }  
+	  var chsub = $('input[name="subBox"]').length; //获取subcheck的个数  
+	  var checkedsub = $("input[type='checkbox'][name='subBox']:checked").length; //获取选中的subcheck的个数  
+	 	
+	  if (checkedsub == chsub) {  
+	      $("#allCheck").prop("checked", true);  
+	  }  
+	  
+	  
+} 
+	
+function sure(){
+
+	var strSubBox = [];
+	$("input[name='subBox']:checked").each(function(){
+			
+		  strSubBox.push($(this).val()); 
+	});
+
+	
+	
+	var strManagerName = [];
+	$("input[name='managerName']:checked").each(function(){
+			
+		  strManagerName.push($(this).val()); 
+		  
+	});
+	
+	
+	for(var i = 0;i<strSubBox.length;i++){
+		var newHtml = "<input name='userId' id='userId' value="+strSubBox[i]+">";
+		$("#userIdList").append(newHtml);
+				
+	}
+	
+	var allHtml ="" ;
+	for(var k = 0;k<strSubBox.length;k++){
+		allHtml += "<input name='wealthUserId' id='wealthUserId' value="+strSubBox[k]+">";
+		
+	}
+	
+	for(var j = 0;j<strManagerName.length;j++){
+		  allHtml +="<input name='wealthManagerId' id='wealthManagerId' value="+strManagerName[j]+">"
+	}
+	
+	$("#allList").append(allHtml);
+	$("#allListUser").append(allHtml);
+	$.ajax({
+		type : 'post',
+		cache : false,
+		url : '/modules/nb/vip/wealthManagerUser/wealthManagerUserAddAllList.html',
+		data : $('#allListUserForm').serialize(),
+		dataType : 'json',
+		async:false,
+		success : function(data){
+			alert(data.msg);	
+			closeMyTab("财富管家配置","/modules/nb/vip/wealthManagerUser/wealthManagerUser.html");
+		}
+	});
+}
+
+function closeMyTab(title,url)
+{
+	$("body",parent.document).find('#close_title').val("财富管家配置");
+	$("body",parent.document).find('#temp_title').val("添加管家");
+	$("body",parent.document).find('#new_title').val(title);
+	$("body",parent.document).find('#new_url').val(url);
+	
+	$("body",parent.document).find('#new_open').click();
+}
+
+
+</script>
+<style>
+body
+{
+	font-family: "Microsoft Yahei";
+}
+.btnSure{width:230px;margin:0 auto;height:30px;text-align:center;line-height:30px;border-radius:8px;border:1px solid #CCCCCC;color:#FFFFFF;background-color:#428bca;}
+</style>
+</head>
+<body>
+<div id="list"  >
+	<div style="height: 30px" ></div>
+
+	<div style="height: 30px" ></div>
+	<table  class="table table-bordered" style="width: 96%;margin-left: 2%"   >
+			<tr>
+				<td width="60%" valign="top" >
+					<table class="table table-bordered"  style="width: 100%" >
+						<tr>
+							<th width="15%" >筛选用户:</th>
+							<td width="30%" >
+								<input type="text"  id="start_num"   placeholder="用户起始序号" class="form-control"  >
+							</td>
+							<td width="5%" style="text-align:center;" >--</td>
+							<td width="30%" >
+								<input type="text"  id="end_num"   placeholder="用户结束序号" class="form-control"  >
+							</td>
+							<td width="20%" >
+								<a class="btn btn-danger" onclick="getData()" >筛选</a>
+							</td>
+						</tr>
+					</table>
+					<!-- 根据用户姓名和手机号码筛选用户信息	start -->
+					<table class="table table-bordered"  style="width: 100%" >
+						<tr>
+							<th width="15%" >筛选用户:</th>
+							<td width="30%" >
+								<input type="text"  id="userName"   placeholder="用户起姓名" class="form-control"  >
+							</td>
+							<td width="5%" style="text-align:center;" >--</td>
+							<td width="30%" >
+								<input type="text"  id="mobilePhone"   placeholder="用户手机号码" class="form-control"  >
+							</td>
+							<td width="20%" >
+								<a class="btn btn-danger" onclick="getUserData()" >筛选</a>
+							</td>
+						</tr>
+					</table>
+					<!-- 根据用户姓名和手机号码筛选用户信息	end -->
+				</td>
+				<td width="40%" valign="top" style="text-align: center;" ><h3> 管家列表</h3></td>
+			</tr>
+			<tr>
+				<td valign="top" >
+					<table style="width: 100%" class="table table-bordered" >
+						<thead>
+							<tr>
+								<th width="25%">用户ID</th><th width="25%">用户姓名</th><th  width="25%">用户手机</th><th width="25%" >全选 <input type="checkbox" id="allCheck"  name="allCheck" onclick="selectAll();">  </th>
+							</tr>
+						</thead>
+					
+						<tbody id="userList" >
+						</tbody>
+						
+					</table>
+				</td>
+				<td valign="top" >
+					<table style="width: 100%" class="table table-bordered" >
+						<thead>
+							<tr>
+								<th width="50%">管家姓名</th><th width="50%" >选中状态</th>
+							</tr>
+						</thead>
+						<tbody id="managerList" ></tbody>
+					</table>
+				</td>
+			</tr>
+	</table>
+	<div class="btnSure"  onclick="sure();">确定</div>
+	<div style="height: 100px" ></div>
+	<form method="get" id="userIdListForm" name="userIdListForm">
+		<div id="userIdList" style="display:block;">
+		</div>
+	</form>
+	<form method="get" id="allListForm" name="allListForm">
+		<div id="allList" style="display:block;">
+		</div>
+	</form>
+	<form method="get" id="allListUserForm" name="allListForm">
+		<div id="allListUser" style="display:block;">
+		</div>
+	</form>
+</div>
+
+</body>
+</html>

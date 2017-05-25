@@ -1,0 +1,178 @@
+<#macro indexListItem item>
+		<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+        <#if item.type??&&item.type==110>
+        <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+        	<!--S-流转标结构-->
+            <div class=" list clearfix">
+              	<div class=" list_img">
+                	<a href="${webroot}/invest/detail.html?id=${item.id?c}">
+                        <img src="${webroot}${theme_dir}/images/loading.gif" alt="" data-url="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" class="lazyload user_img" />
+                    </a>
+                	<p>信用等级：<img src="${webroot}/data/images/credit/${item.credit_pic}" title="${item.credit_jifen}"  /></p>
+              	</div>
+              	<ul>
+                    <li class="title">
+                        <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="biaoti">${item.name}</a>
+                        <@showBorrowIcon item=item/>
+                    </li>
+                    <li> 借款金额：<font>￥${format2(item.account)}元</font></li>
+                    <li> 年利率：<font>${item.apr}%</font> </li>
+                    <li> 借款期限：<#if item.borrowTimeType??&&item.borrowTimeType==1><font>${item.time_limit!0}</font>天
+                            <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+                            <#elseif item.type==101>满标自动还款
+                            <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+                                <#else><font>${(item.time_limit)?default("0")}</font>个月</#if>个月 </li>
+                    <li>${(((item.account?c!0)?number-(item.account_yes?c!0)?number)/item.flow_money)?string("##.##")}份 </li>
+                    <li class="schedule" >
+                    	<span>完成进度：</span> 
+                    	<span class="schedule_bar">
+                        	<span class="bgschedule_bar" style="width:<#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gt 0>
+                                    99.9%
+                                    <#else>
+                                    ${(item.scales*100)?string("##.##")}%
+                                    </#if>">
+                             </span>
+                    	</span>
+                        <span>
+                        	<font>
+                            	<#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gt 0>
+                                    99.9%
+                                    <#else>
+                                    ${(item.scales*100)?string("##.##")}%
+                                </#if>
+                            </font>
+                        </span>
+                    </li>
+                    <li>
+                    	完成笔数：<font>${((item.account_yes!0)?number/item.flow_money)?c}</font>
+                    </li>
+                    	<#if item.status==1&&((item.account_yes?c)?number lt (item.account?c)?number) >
+						<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+                        <li class="invest_btn"> 
+                            <a href="${webroot}/invest/detail.html?id=${item.id?c}"><span class="nowinvest">立即投标</span></a>
+                        </li> 
+                        <!-- v1.6.6.2 RDPROJECT-295 xx 2013-10-11 start -->
+						<#elseif item.status==8> 
+						<li class="invest_btn"> 
+                            <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="hasinvest"><span class="forbid">停止流转</span></a>
+                        </li>
+                        <!-- v1.6.6.2 RDPROJECT-295 xx 2013-10-11 end -->   
+						<#else> 
+						<li class="invest_btn"> 
+                            <a href="${webroot}/invest/detail.html?id=${item.id?c}" class="hasinvest"><span class="forbid">流转中</span></a>
+                        </li>
+                        </#if>
+              </ul>
+              <div class="bg"></div>
+        </div>
+        <#else><!--E-流转标结构-->
+        
+        <!--E-流转标结构-->
+            <#if item.borrowTimeType!=1&&item.apr gt 24>
+                <#assign ishg=1>
+            <#else>
+                <#assign ishg=0>
+            </#if>
+        <div class=" list clearfix">
+            <div class=" list_img">
+                <a href="${webroot}/invest/detail.html?id=${item.id?c}">
+                    <img src="${webroot}${theme_dir}/images/loading.gif" data-url="${webroot}/imgurl.html?userid=${item.user_id?c}&size=middle" class="lazyload user_img" >
+                </a>
+            	<p>信用等级：<img src="${webroot}/data/images/credit/${item.credit_pic}" title="${item.credit_jifen}" /></p>
+            </div>
+            <ul>
+                <li class="title"> 
+                	<a href="${webroot}/invest/detail.html?id=${item.id?c}" class="titletxt">
+                        <#if item.name?length lt 23>${item.name}<#else>${item.name[0..20]}...</#if>
+                    </a>
+                    <@showBorrowIcon item=item/>
+                </li>
+                <li>借款金额：<font>￥${format2(item.account)}元</font> </li>
+                <li>年利率：<font>${item.apr}%</font></li>
+                <li>借款期限：
+                    <#if item.borrowTimeType??&&item.borrowTimeType==1><font>${item.time_limit!0}</font>天
+                    <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+                    <#elseif item.type==101>满标自动还款
+                    <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+                    <#else><font>${(item.time_limit)?default("0")}</font>个月</#if>
+                </li>
+                <li>
+                <#if item.borrowTimeType??&&item.borrowTimeType==1&&item.style??&&item.style=="4">
+                 提前还息到期还本<#elseif item.borrowTimeType??&&item.borrowTimeType==1&&item.style??&&item.style!="4">到期全额还款
+                <!-- v1.6.7.1 RDPROJECT-170 wcw 2013-11-20 end -->
+                <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+                <#elseif item.type==101>系统自动还款
+                <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+                <#elseif item.style??&&item.style=="2">一次性还款<#elseif item.style??&&item.style=="3">每月还息到期还本<#else>按月分期还款</#if>
+                </li>
+                <li class="schedule" >
+                    <span>完成进度：</span> 
+                    <span class="schedule_bar">
+                        <span class="bgschedule_bar" style="width:<#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gt 0>
+                                99.9%
+                                <#else>
+                                ${(item.scales*100)?string("##.##")}%
+                                </#if>">
+                         </span>
+                    </span>
+                    <span>
+                        <font>
+                            <#if ((item.scales*100)?string("##.######"))?number -99.99 lte 0.01 && ((item.scales*100)?string("##.######"))?number -99.99 gt 0>
+                                99.9%
+                                <#else>
+                                ${(item.scales*100)?string("##.##")}%
+                            </#if>
+                        </font>
+                    </span>
+                </li>
+                <li>年利率：<font>${format2(item.apr)}%</font>
+                        <#if item.award??&&item.award==0>
+                        <#elseif item.award??&&item.award==1>
+                            (奖励：${(item.part_account!0)}%)
+                        <#elseif item.award??&&item.award==2>
+                            (奖励：￥${(item.funds!0)}元)
+                        <#else>
+                   		</#if>
+                </li>
+                <li class="invest_btn">
+                    <a href="${webroot}/invest/detail.html?id=${item.id?c}"><@showIndexTenderButton item /></a>
+                </li>
+            </ul>
+            <div class="bg"></div>
+        </div>
+        </#if>
+</#macro>
+
+<#macro showIndexTenderButton borrow>
+    <#assign nowTime=dateformat("now") >
+	<#if borrow.status==0>等待初审
+	<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+	<#elseif (getRemainTime(borrow.addtime,borrow.valid_time)?number lt 0)&&borrow.type!=110&&borrow.status==1>
+	<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+	 <span class="hasinvest">已经结束</span>
+	 <!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+	<#elseif borrow.status==1&&((borrow.account_yes?c)?number lt (borrow.account?c)?number) > 
+	<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 end -->
+	<span class="nowinvest">立即投标</span>
+	<#elseif borrow.status==1&&((borrow.account_yes?c)?number gt (borrow.account?c)?number || (borrow.account_yes?c)?number==(borrow.account?c)?number) > 
+	<#if borrow.type==108><span class="hasinvest">预约成功</span><#else><span class="hasinvest">等待复审</span></#if>
+	<#elseif borrow.status==2> 
+	初审失败
+	<#elseif borrow.status==3> 
+	复审通过
+	<#elseif borrow.status==5||borrow.status==-1> 
+	用户取消
+	<#elseif borrow.status==4> 
+	复审失败
+	<#elseif borrow.status==6> 
+	<span class="hasinvest">还款中</span>
+	<#elseif borrow.status==7> 
+	<span class="hasinvest">还款中</span>
+	<#elseif borrow.status==8> 
+	<span class="hasinvest">已还款</span>
+	<#elseif borrow.status==19> 
+	<span class="hasinvest">自动投标中</span>
+	<#else> 
+	用户取消
+	</#if>  
+</#macro>

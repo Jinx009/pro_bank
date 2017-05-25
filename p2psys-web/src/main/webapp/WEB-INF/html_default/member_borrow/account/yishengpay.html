@@ -1,0 +1,34 @@
+<!-- v1.6.5.5 RDPROJECT-148 xx 2013-09-23 start -->
+<!-- 新增页面 -->
+<!-- v1.6.5.5 RDPROJECT-148 xx 2013-09-23 end -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    <title>易生支付.....</title>
+  </head>
+  <body>
+    <form action="${ysp.easypay_url}" method="get" id="orderForm">
+
+			<input type='hidden' name='service' value='${ysp.service}'>
+			<input type='hidden' name='payment_type' value='${ysp.payment_type}'>
+			<input type='hidden' name='partner' value='${ysp.partner}'>
+			<input type='hidden' name='seller_email' value='${ysp.seller_email}'>
+			<input type='hidden' name='return_url' value='${ysp.return_url}'>
+			<input type='hidden' name='notify_url'  value='${ysp.notify_url}'>
+			<input type='hidden' name='out_trade_no' value='${ysp.out_trade_no}'>
+			<input type='hidden' name='subject' value='${ysp.subject}'>
+			<input type='hidden' name='body' value='${ysp.body}'>
+			<input type='hidden' name='total_fee' value='${ysp.total_fee}'>
+			<input type='hidden' name='buyer_email' value='${ysp.buyer_email}'>
+			<input type="hidden" name="_input_charset" value="${ysp._input_charset}">
+			<input type='hidden' name='paymethod' value='${ysp.paymethod}'>
+			<input type='hidden' name='defaultbank' value='${ysp.defaultbank?if_exists}'>
+			<input type='hidden' name='sign_type' value='${ysp.sign_type}'>
+			<input type='hidden' name='sign' value='${ysp.sign?if_exists}'>
+    </form>
+    <script language="javascript">
+        document.getElementById("orderForm").submit();  
+    </script>
+  </body>
+</html>

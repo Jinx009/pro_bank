@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<meta name="viewport" content="width=100%;initial-scale=1.0;maximum-scale=1.0;minimum-scale=1.0;user-scalable=no;" >
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>登录</title>
+	<style type="text/css">
+		*{margin:0;padding:0;font-size:15px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+		.h_all{width:640px;min-width:320px;height:1006px;margin:0 auto;box-shadow:0px 1px 4px 0px #666;}
+		/* b_header start */
+		.h_all .l_header{width:100%;height:90px;background-color:#2370B6;text-align:center;line-height:90px;
+		font-size:30px;color:#fff;}
+		/*end b_header*/
+
+		/* l_message start */
+		.h_all .l_message{width:100%;height:auto;}
+		.h_all .l_message ul .l_phone{margin-top:35px;border-top:1px solid #F0F2F3;}
+		.h_all .l_message ul li{width:100%;height:90px;border-bottom:1px solid #F0F2F3;display:block;list-style:none;}
+		.h_all .l_message ul li label{font-size:30px;color:#D4D4D4;float:left;margin-left:40px;line-height:90px;}
+		.h_all .l_message ul li input{float:left;display:block;margin:22px 10px;width:265px;line-height:45px;border:none;padding-left:5px;}
+		.h_all .l_message ul .l_check a{float:left;margin:0 15px;color:;border-left:1px solid #E9EDED;padding:0 18px;line-height:90px;
+											text-decoration:none;color:#5D5D5D;width:auto;overflow:hidden;display:block;font-size:30px;}
+		.h_all .l_message ul .l_check a:hover{background:#249FF1;color:#fff;}
+		/* end l_message */
+
+		/* login_btn start */
+		.h_all .login_btn{width:600px;height:85px;background:#2370B6;border-radius:5px;margin:40px auto;text-align:center;line-height:85px;}
+		.h_all .login_btn:hover{background:#249FF1;cursor:pointer;}
+		.h_all .login_btn a{text-decoration:none;color:#fff;font-size:30px;}
+		/* end login_btn */
+
+		/* reg_btn start */
+		.h_all .reg_btn{width:600px;height:85px;border:1px solid #2370B6;border-radius:5px;margin:40px auto;text-align:center;line-height:85px;}
+		.h_all .reg_btn:hover{background-color:#fff;cursor:pointer;opacity:0.8;-ms-filter:”progid:DXImageTransform.Microsoft.Alpha(Opacity=80)”;
+			filter: alpha(opacity=80); }
+		.h_all .reg_btn a{text-decoration:none;color:#2370B6;font-size:30px;}
+		/* end reg_btn */
+
+		/* l_password start */
+		.h_all .l_password{float:right;margin-right:25px;margin-top:-10px;}
+		.h_all .l_password a{text-decoration:none;color:#2789E2;font-size:24px;line-height:24px;}
+		/* end l_password */
+	</style>
+ </head>
+ <body>
+		<div class="h_all">
+			<div class="l_header">
+				登录
+			</div>
+			<!-- l_message start -->
+			<div class="l_message">
+				<ul>
+					<li class="l_phone">
+						<label>手机号</label>
+						<input type="text"/>
+					</li>
+					<li>
+						<label>密码</label>
+						<input type="password" name="password" autocomplete="off" />
+					</li>
+					<li class="l_check">
+						<label>验证码</label>
+						<input type="text"/>
+						<a href="javascript:void(0);">获取验证码</a>
+					</li>
+				</ul>
+			</div>
+			<!-- end l_message -->
+			<!-- login_btn start -->
+			<div class="login_btn">
+				<a href="javascript:void(0);">登录</a>
+			</div>
+			<!--end login_btn-->
+			<!--reg_btn start-->
+			<div class="reg_btn">
+				<a href="javascript:void(0);">新用户注册</a>
+			</div>
+			<!-- end reg_btn -->
+			<!-- l_password start -->
+			<div class="l_password">
+				<a href="javascript:void(0);">忘记密码?</a>
+			</div>
+			<!-- end l_password -->
+		</div>
+ </body>
+</html>

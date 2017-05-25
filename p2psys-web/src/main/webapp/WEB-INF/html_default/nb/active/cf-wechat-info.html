@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>800众服</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<script src="/themes/theme_default/cf/active/js/jquery.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.core.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.widget.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.scroller.js"></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/plugins/mobile_date/js/mobiscroll.util.datetime.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.datetimebase.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.widget.ios.js"></script>
+<script src="/plugins/mobile_date/js/mobiscroll.i18n.zh.js"></script>
+<link href="/themes/theme_default/cf/active/css/cf_wechat_info.css" type="text/css" rel="stylesheet">
+<link href="/plugins/mobile_date/css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+<link href="/plugins/mobile_date/css/mobiscroll.widget.css" rel="stylesheet" type="text/css" />
+<link href="/plugins/mobile_date/css/mobiscroll.widget.ios.css" rel="stylesheet" type="text/css" />
+<link href="/plugins/mobile_date/css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+<link href="/plugins/mobile_date/css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+function sendMsg(){
+	var realname = $('#realname').val();
+	var birth = $('#birth').val();
+	var tel = $('#tel').val();
+	if(''==realname||null==realname){
+		layer.msg('尊姓大名未填写！', {
+		    time: 1500
+		});
+	}else if(''==birth||null==birth){
+		layer.msg('出生吉时未填写！', {
+		    time: 1500
+		});
+	}else if(''==tel||null==tel){
+		layer.msg('手机尾号未填写！', {
+		    time: 1500
+		});
+	}else{
+		var params = 'realname='+realname+'&tel='+tel;
+		$.ajax({
+			url:'/cf/wechat/saveInviteFactrory.action',
+			type:'POST',
+			dataType:'json',
+			data:params,
+			success:function(res){
+				if(200==res.code){
+					location.href = '/active/wechat/result.action?id='+res.msg+'&r='+res.data;
+				}
+			}
+		})
+	}
+}
+$(function () {
+	var nowData=new Date();
+	var opt= { 
+		theme:'ios', //设置显示主题 
+		mode:'scroller', //设置日期选择方式，这里用滚动
+		display:'bottom', //设置控件出现方式及样式
+		preset : 'datetime', //日期:年 月 日 时 分
+		minDate: new Date(1800,1,1,0,0), 
+		maxDate:new Date(nowData.getFullYear(),nowData.getMonth(),nowData.getDate()+7,22,00),
+		stepMinute: 1, //设置分钟步长
+		yearText:'年', 
+		monthText:'月',
+		dayText:'日',
+		hourText:'时',
+		minuteText:'分',
+		lang:'zh' //设置控件语言};
+	};
+	$('#birth').mobiscroll(opt);
+});
+</script>
+</head>
+<body>
+<img alt="" src="/themes/theme_default/cf/active/images/invite_2.jpg" class="main-img" >
+<div class="main" >
+	<span class="main-span" >输入您的生辰八字，参与摇一摇获知前世今生姻缘结果</span>
+	<input type="text" class="main-name" placeholder="尊姓大名：" id="realname" />
+	<input type="text" class="main-birthday" placeholder="出生吉时" id="birth"  data-role="datebox"  />
+	<input type="text" class="main-tel" placeholder="手机号后4位" id="tel"  >
+	<div class="main-div" onclick="sendMsg()" >就差一步就能看您的姻缘了</div>
+</div>
+</body>
+</html>

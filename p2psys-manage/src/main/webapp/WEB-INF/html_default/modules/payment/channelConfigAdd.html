@@ -1,0 +1,70 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/payment/channelConfigSave.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post" >
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">支付通道</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="channelKey" >
+		     		<#list clist as nls>						
+			     		<option value="${nls.channelKey!''}">${nls.channelName!''}</option>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">WEB端充值/支付入口URL</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="webRechargeUrl" >
+		     		<#list webList as nls>						
+			     		<option value="${nls.rechargeUrl!''}">${nls.rechargeUrl!''}</option>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">WEB端提现入口URL</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="webCashUrl" >
+		     		<#list webList as nls>						
+			     		<option value="${nls.cashUrl!''}">${nls.cashUrl!''}</option>
+					</#list>
+		     	</select>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">微信端充值/支付入口URL</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="wapRechargeUrl" >
+		     		<#list wapList as nls>						
+			     		<option value="${nls.rechargeUrl!''}">${nls.rechargeUrl!''}</option>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">微信端提现入口URL</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="wapCashUrl" >
+		     		<#list wapList as nls>						
+			     		<option value="${nls.cashUrl!''}">${nls.cashUrl!''}</option>
+					</#list>
+		     	</select>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">费率</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 216px;" name="channelRate" >
+		     		<#list clist as nls>						
+			     		<option value="${nls.channelRate!''}">${nls.channelName!''}</option>
+					</#list>
+		     	</select>
+		     </div>
+		</div>
+	</form>
+</div>

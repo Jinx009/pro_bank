@@ -1,0 +1,66 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+<title>800Bank</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+<script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+<style type="text/css">
+	.showErrorTips{width:auto;line-height:20px;display:none;}
+	.showErrorTips .errorTips{width:auto;line-height:20px;font-size:12px;color:red;padding-left:18px;}
+	.login_logo{background: url(${webroot}${theme_dir}/media/css/images/wx/login_logo.png) no-repeat center 0;height:60px;width:100%;bottom: 20px;position: fixed;}
+	.input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 0px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}			
+}
+</style>
+</head>
+<body>
+		<form name="login" id="login" method="post" action="doLogin.html">
+		<input type="hidden" name="count" value="${count!}" id="count" /> 
+		<input type="hidden" name="redirectURL" value="${redirectURL!}" /> 
+		<input type="hidden" name="pwd" id="pwd" value="" /> 
+		<input type="hidden" name="encrypt" id="encrypt" value="0" />
+		<div class="header">
+			登录
+		</div>
+		<div class="input-group">
+			<div class="input-row">
+				<div class="input-row-inner">
+					<input type="tel" name="userName" id="username" class="input-text" autocomplete="off" placeholder="手机号">
+				</div>
+				<div class="input-error-tip"></div>
+			</div>
+			<div class="input-row">
+				<div class="input-row-inner">
+					<input type="password" id="password" name="password" class="input-text" autocomplete="off" placeholder="密码">
+				</div>
+				<div class="input-error-tip"></div>
+			</div>
+		</div>
+		<!--错误信息提示区 -->
+		<span class="showErrorTips"> 
+			<span class="errorTips"><b></b></span>
+		</span>
+		<input class="button button-block button-main mt25" style="width: 93%;margin:auto;" type="submit" value="登录" onclick="doEncrypt();" />
+		<a class="button button-block mt15" href="/wx/register.html" style="width: 93%;margin:auto;">新用户注册</a>
+		<a class="link fr"  style="margin: 15px 10px;" href="/wx/getpwd.html?showType=2">忘记密码?</a>
+		</form>
+		<div class="login_logo"></div>
+</body>
+<script>
+	seajs.use("${webroot}${theme_dir}/wx/js/login")
+</script>
+<#include "../common/rsa.html"> <@formEncrypt encryptId_="#password" encryptId="#pwd" />
+</html>

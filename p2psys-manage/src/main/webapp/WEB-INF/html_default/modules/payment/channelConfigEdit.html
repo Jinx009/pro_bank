@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/payment/channelConfigUpdate.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm">
+    <form id="form"  method="post" >
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">支付银行</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	${channelConfigModel.bankName!''}
+		     	<input name="bid" value="${channelConfigModel.bid!}" type="hidden"/>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">PC充值通道</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 280px;" name="webRechargeKey" >
+		     		<#list clist as nls>						
+			     		<#if nls.channelName==channelConfigModel.webRechargeKey>				
+			     			<option value="${nls.channelKey!''}" selected="selected">${nls.channelName!''}</option>
+			     		<#else>
+			     			<option value="${nls.channelKey!''}">${nls.channelName!''}</option>
+			     		</#if>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">PC提现通道</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 280px;" name="webCashKey" >
+		     		<#list clist as nls>						
+			     		<#if nls.channelName==channelConfigModel.webCashKey>				
+			     			<option value="${nls.channelKey!''}" selected="selected">${nls.channelName!''}</option>
+			     		<#else>
+			     			<option value="${nls.channelKey!''}">${nls.channelName!''}</option>
+			     		</#if>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">微信充值通道</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 280px;" name="wapRechargeKey" >
+		     		<#list clist as nls>						
+			     		<#if nls.channelName==channelConfigModel.wapRechargeKey>				
+			     			<option value="${nls.channelKey!''}" selected="selected">${nls.channelName!''}</option>
+			     		<#else>
+			     			<option value="${nls.channelKey!''}">${nls.channelName!''}</option>
+			     		</#if>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width: 180px;">微信提现通道</label>
+		     <div class="ipt" style="margin-left: 200px;">
+		     	<select  style="width: 280px;" name="wapCashKey" >
+		     		<#list clist as nls>						
+			     		<#if nls.channelName==channelConfigModel.wapCashKey>				
+			     			<option value="${nls.channelKey!''}" selected="selected">${nls.channelName!''}</option>
+			     		<#else>
+			     			<option value="${nls.channelKey!''}">${nls.channelName!''}</option>
+			     		</#if>
+					</#list>
+		     	</select>
+		     	<b></b>
+		     </div>
+		</div>
+		<input name="id" value="${channelConfigModel.id!''}" type="hidden"/>
+	</form>
+</div>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html">
+<body>
+  <#assign nid="invest"> 
+
+<#if session_user??&&session_user.userCache.userNature==1>
+<!-- 商家账户 -->
+  <#include "../include/header.html">
+  <#else>
+  <!-- 个人账户 -->
+<div id="header">
+  <!--S 头部信息显示-->
+  <div id="header_info">
+    <div  class="clearfix header_top">
+          <div class="float_left">
+            <span class="sprite home">欢迎您来${webname!}</span>
+            <span class="tel">客服热线：<em>${fuwutel!}</em></span>
+           <span class="attention">
+	        		关注我们：
+	        		<em title="微博" class="sprite i_weibo">微博<div class="topTipsWrap"><i></i><div class="topTips"><h2>官方微博：</h2><a href="http://weibo.com/u/3632830283" target="_blank">@融都科技</a></div></div></em>
+	        		<em title="微信" class="sprite i_weixin">微信<div class="topTipsWrap"><i></i><div class="topTips" style="width: 160px;height: 160px;"><img src="${webroot}${theme_dir}/images/code.jpg" /></div></div></em>
+	        		<em title="QQ" class="sprite i_qq">QQ<div class="topTipsWrap"><i></i><div class="topTips"><h2>理财QQ群：</h2><span><b>①</b>318241119</span><span><b>②</b>318241119</span><span><b>③</b>318241119</span></div></div></em>
+	        	</span>
+      </div>
+          <div class="float_right">
+            <span class="loginStatus">
+            <#if session_user?exists >
+            欢迎您，
+            <a href="${webroot}/member/main.html">${session_user.userName}</a>&nbsp;&nbsp;<a href="${webroot}/user/logout.html" title="退出登录">退出登录</a>
+        <#else>
+        <a href="${webroot}/user/login.html">立刻登录</a>&nbsp;&nbsp;<a href="${webroot}/user/register.html">免费注册</a>
+        </#if>
+        </span>
+      </div>
+      </div>
+  </div>
+    <!--E 头部信息显示-->
+  <div class="header_con_wrapper">
+    <div class="header_con clearfix">
+      <div class="logo">
+        <a href="/member/main.html"><img src="${webroot}${theme_dir}/images/logo.png"></a>
+      </div>
+      <div id="nav" class="clearfix">
+      <#if !borrowPreview?exists >
+        <a class="backAccountPage" href="/member/main.html">返回账户中心</a>
+      </#if>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</#if>
+  <div id="container" class="container">
+  <div id="loading_tip"><img src="/themes/theme_default/images/loading.gif" alt="玩命加载中,请耐心等待...">玩命加载中,请耐心等待...</div>
+    <div class="invest-main-box" id="invest-main-box">
+      <div class="invest-main-left">
+        <div class="bid_info mb20 bdr1-e6e6e6 pt40 pl40 pr40 pb30 bg-white">
+          <img src="/themes/theme_default/images/wytz_face.png" class="face mr30 mb20">
+          <dl class="clearfix float_left">
+            <dt class="c315A8B">　<span>%</span></dt>
+            <dd class="bid_type"><i class="icon float_left mt5"></i>　　　 借款编号：协议预览</dd>
+            <dd class="bid_intro">
+              <div class="first"><span><i class="icon money"></i>借款金额</span><br><b class="c315A8B f24">　</b></div>
+              <div class="second"><span><i class="icon pecent"></i>年化利率</span><br><b class="c315A8B f24"></b></div>
+              <div class="last"><span><i class="icon clock-gray"></i>借款时间</span><br><b class="c315A8B f24"></b></div>
+            </dd>
+          </dl>
+
+          <ul class="bdr1-e6e6e6 pt10 pb10 pl20 pr20">
+            <li>还款方式　<span></span></li>
+            <li>发布时间　<span></span></li>
+            <li>单笔最小投标　<span></span></li>
+            <li>当前状态　<span></span></li>
+            <li>结束时间　<span></span></li>
+            <li>单笔最大投标　<span></span></li>
+          </ul>
+        </div>
+
+        <div class="mb20 bdr1-e6e6e6 bg-white">
+          <div class="detail-menus clearfix">
+            <a href="javascript:void(0)">借款方详情</a>
+            <a href="javascript:void(0)">借款描述</a>
+            <a href="javascript:void(0)">借款资料</a>
+            <a href="javascript:void(0)">投资记录</a>
+          </div>
+          <div class="invest_detail_content">
+            <div class="borrower-info mb30">
+              <h3 class="invest-detail-h3"><i class="icon clip"></i>借款方详情</h3>
+              <h4>借款人信息</h4>
+          <ul class="clearfix">
+            <li><label for="">用户名：</label></li>
+            <li><label for="">婚姻状况：</label></li>
+            <li><label for="">收入范围：</label></li>
+            <li><label for="">年　龄：</label></li>
+            <li><label for="">户籍城市：</label></li>
+            <li><label for="">车　　产：</label></li>
+            <li><label for="">学　　历：</label></li>
+            <li><label for="">工作时间：</label></li>
+            <li><label for="">房　　产：</label></li>
+          </ul>
+          <h4 class="mt10">资料审核状态</h4>
+          <table>
+          <thead>
+            <tr>
+              <th>审核项目</th>
+              <th>状态</th>
+              <th>通过时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>信用报告</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>身份认证</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>工作认证</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>还款能力认证</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          </table>
+            </div>
+            <div class="borrow-desc mb30">
+              <h3 class="invest-detail-h3"><i class="icon clip"></i>借款描述</h3>
+              <div class="pl30 pt20">
+                <p>　</p>
+              </div>
+            </div>
+            <div class="borrow-detail mb30">
+              <h3 class="invest-detail-h3"><i class="icon clip"></i>借款资料</h3>
+              <div class="tab-content">
+                <div class="album jbxx">
+                  <ul class="img-box bdr1-e6e6e6">
+                    <li><a href="javascript:void(0)"><img src="" alt=""></a></li>
+                  </ul>
+                  <a href="javascript:void(0)" class="prev"></a>
+                  <a href="javascript:void(0)" class="next"></a>
+                  <ul class="hd">
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="invest-record">
+              <h3 class="invest-detail-h3"><i class="icon clip"></i>投资记录</h3>
+              <table id="invest-txjl-tbl">
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>投资人</th>
+                    <th>投资金额</th>
+                    <th>投资时间</th>
+                    <th>投资方式</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="invest-main-right">
+        <div class="mb20 bdr1-e6e6e6 bg-white">
+          <h3 class="invest-rightside-h3">投资金额</h3>
+          <div class="amount-form-box pt10  pl20 pr20">
+            <p class="amount-money">账户余额：<b class="c315A8B">　</b>
+            可投金额：<b class="c315A8B">　</b></p>
+            <form action="" method="post" class="amount-form" id="">
+              <div class="form-group">
+                 投标金额：<input type="text" id="money" autocomplete="off" name="money" size="11" onKeyUp="value=value.replace(/[^0-9]/g,'')" placeholder="输入投标金额" />
+                        <div class="form_group_tip form_mony_tip hide">请输入投标金额进行投标</div><i>元</i>
+              </div>
+              <div class="form-group">
+                      <a href="javascript:;" class="choiceRedPacket" title="点击选择红包">选择可用红包&nbsp;&nbsp;&nbsp;&gt;</a>
+               </div>
+              <div class="form-action">
+                <input type="button" value="立即投资" class="green-btn sub-invest-btn">
+              </div>
+            </form>
+          </div>
+        </div>
+    <div class="guarantee mb20 bdr1-e6e6e6 bg-white">
+      <h3 class="invest-rightside-h3">安全保障</h3>
+      <div class=" pt15 pb35 pl15 pr30">
+        <h4>1、业务模式</h4>
+        <p>一对多的交易机 制，充分、有效分散风险</p>
+        <h4>2、机构合作</h4>
+        <p>全面控制源头风险</p>
+        <h4>3、项目审核</h4>
+        <p>多重审核，保证每笔借款都是优质的</p>
+        <h4>4、资金保护</h4>
+        <p>本息保障制度</p>
+        <h4>5、网站建设</h4>
+        <p>银行级别的投资安全保障</p>
+        <div class="pt20">     
+          <span><i class="icon shield"></i><br>本息担保</span>
+          <span><i class="icon clock-blue"></i><br>稳定经营</span>
+          <span><i class="icon crown"></i><br>资质优良</span>
+        </div>
+      </div>
+    </div>
+        <div class="windControl bg-white bdr1-e6e6e6">
+          <h3>风控模型</h3>
+            <div class="tab-content" style="display: block;">
+              <h4>1、资信评级及尽职调查</h4>
+              <p>对借款人进行资信评级，包括借款人的资信状况，收入来源，房产情况调查；对企业尽职调查，企业基本信息，贷款卡记录，及企业资产负债，企业当前状态下的库销比；结合借款人资信情况及企业的营收能力，进行综合授信。实地调查企业经营情况，形成专业的尽职调查报告，结合前期资信评级完成对车商风险调查</p>
+              <h4>２、风险分类 </h4>
+              <p>根据借款后检查在借项目的动态性风险程度，由低至高，进行五级分类（包括正常类、关注类、次级类、可疑类、损失类）。次级类、可疑类、损失类资产为不良资产</p>
+              <h4>3、不定期巡查</h4>
+              <p>定期检查与不定期检查；线下公司自查与风控部指定专人检查；可疑情况，联合调查或独立调查、补充检查或复查</p>
+              <h4>4、风险预警</h4>
+              <p>结合第三方监管机构信息反馈，最早发现借款人风险情况，最快排除资金风险</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>seajs.use("invest/detail");</script>
+<#include "../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提现管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = false;
+</script>
+<script type="text/javascript">
+	$.canDelete = false;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = false;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  800;
+	var winHeight = 280;
+	
+	var fullVerifyTitle="财务提现审核";
+	var fullVerifyUrl="/modules/account/cash/accountcash/cwFullCashEditPage.html";
+	var fullVerifyWinParmeters = "'{0}','"+fullVerifyTitle+"',800,600,'"+fullVerifyUrl+"','确定'";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'fullAccountCashList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [[ 			
+			{ field: 'id', title: '编号', width: 50,fixed: true,sortable:true},
+			{ field: 'userName', title: '用户名', width: 60},
+			{ field: 'realName', title: '真实姓名', width: 80},
+			{ field: 'status', title: '状态', width: 80,formatter:function(value, row, index){
+// 					switch(value){
+// 					case 1:return "财务复审通过";
+// 					case 3:return "财务复审不通过";
+// 					case 4:return "用户取消提现";
+// 					case 5:return "审核中";
+// 					}
+					switch(value){
+						case 0:return "待审核";
+						case 1:return "财务复审通过";
+						case 3:return "财务复审未通过";
+						case 4:return "用户取消";
+						case 5:return "客服初审通过";
+						case 6:return "客服初审未通过";
+						case 7:return "财务初审通过";
+						case 8:return "财务初审未通过";
+					}
+				}
+			},
+			{ field: 'bankNo', title: '银行账号', width: 150},
+			{ field: 'bank', title: '所属银行', width: 60},
+			{ field: 'branch', title: '支行', width: 60},
+			{ field: 'money', title: '提现总额', width: 60,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'credited', title: '到账金额', width: 60,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'fee', title: '手续费', width: 60,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'addTime', title: '添加时间', width: 130,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			},
+			{field:'addIp', title:'添加IP',width: 100},
+			{field:'verifyUserName', title:'审核人',width: 100},
+			{field : 'action',title : '操作',width :100,formatter : function(value, row, index) {
+					var str = '';
+					if (row.status==5) {//财务提现审核
+						str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+fullVerifyWinParmeters+');" src="{1}" title="财务提现审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/key.png');
+					}
+					str += '&nbsp;';                    
+					return str;
+				}
+			} 
+			 ]],
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});
+
+	
+</script>
+</head>
+<body style="padding:0 20px;" ><form id="showAdw">
+		        <ul style="display:none;" class="showAdw">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin"></i></a>
+		        	<li><span>用户名</span><input type="text" autocomplete="off" id="userName" name="userName"></li>
+		        	<li><span>用户类型</span><select class="type" name="user.userCache.userType">
+							<option value="0">全部</option>
+							<option value="1">投资人</option>
+							<option value="2">借款人</option>
+						</select></li>
+		        	<input type="hidden" value="6" name="status">
+		       		<li><span>时间</span><input type="text" class="searchTime" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" id="startTime" name="startTime">&nbsp;-&nbsp;<input type="text" class="searchTime" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" id="endTime" name="endTime"></li>
+		       		<li><span>&nbsp;</span><a onclick="$.fn.dataGridOptions.searchFun('#showAdw');" class="searchBtn sureBtn" href="javascript:void(0);">确定</a><a onclick="$.fn.dataGridOptions.cleanFun('#searchForm');" class="searchBtn" href="javascript:void(0);">重置</a></li>
+		        </ul>
+	        </form>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		 <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            </form>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" class="type">
+							<option value="5" selected="selected">待审核</option>
+							<option value="7">初审通过</option>
+							<option value="8">初审未通过</option>
+							<option value="1">复审通过</option>
+							<option value="2">复审未通过</option>
+							<option value="4">用户取消提现</option>
+						</select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

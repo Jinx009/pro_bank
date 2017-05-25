@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<!--找回密码 开始-->
+	<#include "../include/header.html">  
+	<div id="forgetPwdWrap" class="clearfix">
+		<ul class="forgetPwdTab clearfix">
+			<li><a href="/user/getpwd.html?showType=2" title="通过【手机】找回密码"><i class="iconfont">&#xe626;</i>手机找回</a></li>
+			<li class="active" style="border-right:0;"><a href="/user/getpwd.html?showType=1" title="通过【邮箱】找回密码"><i class="iconfont">&#xe627;</i>邮箱找回</a></li>
+		</ul>
+		<form action="/user/getpwd.html" method="post" id="emailgetForm">
+		<dl class="forgetPwdForm">
+			<dt>通过邮箱找回密码</dt>
+			<dd class="showErrorTips" style="height:36px"><span class="errorTips" style="display:none"><em><i class="iconfont">&#xe60f;</i><b></b></em></span></dd>
+			<dd><label>注册邮箱</label><input type="text" name="email" class="email required" value="${user.email?if_exists}"></dd>
+			<dd><label>验证码</label><span class="codeBox"><input type="text" name="valicode" maxlength="4" class="code" /><img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" /><i class="iconfont" id="refreshCode">&#xe628;</i></span></dd>
+			<dd><label>&nbsp;</label><input type="hidden" value="1" name="getType" />
+             						<input type="hidden" value="1" name="step" />
+             						<input type="submit" value="下一步" class="nextBtn" /></dd>
+		</dl>
+		</form>
+	</div>
+	<#include "../include/loginFooter.html"> 	
+	<script>
+		seajs.use("${webroot}${theme_dir}/media/js/user/getpwd_email1")
+	</script>
+<!--找回密码 结束-->
+</body>
+</html>

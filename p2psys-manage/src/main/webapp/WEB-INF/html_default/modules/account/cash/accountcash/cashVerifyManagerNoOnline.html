@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提现管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = false;
+</script>
+<script type="text/javascript">
+	$.canDelete = false;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = false;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  800;
+	var winHeight = 280;
+	
+	var kfVerifyTitle="提现初审";
+	var kfVerifyUrl="/modules/account/cash/accountcash/kfVerifyCashEditPage.html";
+	var kfVerifyWinParmeters = "'{0}','"+kfVerifyTitle+"',800,600,'"+kfVerifyUrl+"','确定'";
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : '/modules/account/cash/accountcash/firstVerifyAccountCashList.html?type=1',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [[
+            { field: 'ids',title:'选中',width:50,align:'center',fixed:true,
+                     formatter:function(value,row,index){
+                             if( row.status=='1')
+                             {
+                                 return '-';
+                             }
+                             else
+                             {
+                                 return '<input type="checkbox" name="ids" value="'+row.id+'" />'
+                             }
+                     }
+            },
+			{ field: 'id', title: '编号', width: 50,fixed: true,sortable:true},
+			{ field: 'orderNo', title: '流水号', width: 150,fixed: true,sortable:true},
+			{ field: 'userName', title: '用户名', width: 120},
+			{ field: 'realName', title: '真实姓名', width: 80},
+			
+			{ field: 'bankNo', title: '银行卡号', width: 200},
+			{ field: 'bank', title: '所属银行', width: 100},
+			{ field: 'branch', title: '支行名称', width: 100},
+			{ field: 'province', title: '所属省', width: 100},
+			{ field: 'city', title: '所属市', width: 100},
+			{ field: 'money', title: '提现总额', width: 80,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'credited', title: '到账金额', width: 80,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'fee', title: '手续费', width: 80,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'cashFeeBear', title: '手续费承担方', width: 120,formatter:function(value, row, index){
+				if(value==1){
+					return '平台垫付';
+				}else if(value==2){
+					return '个人承担';
+				}else{
+					return '';
+				}
+			}},
+			{ field: 'addTime', title: '提现时间', width: 130,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			},
+			{ field: 'status', title: '状态', width: 100,formatter:function(value, row, index){
+					switch(value){
+					case 0:return "申请提现";
+					case 1:return "提现成功";
+					case 2:return "提现失败";
+					case 4:return "用户取消提现";
+					case 5:return "提现处理中";
+					case 6:return "初审通过";
+					case 7:return "初审不通过";
+					case 9:return "复审不通过";
+					}
+				}
+			},
+			{ field: 'transferType', title: '提现方式', width: 120,formatter:function(value, row, index){
+				if(value==1){
+					return '线下提现';
+				}else{
+					return '线上提现';
+				}
+			}},
+			{ field: 'channelName', title: '通道类型', width: 80,formatter:function(value, row, index){
+				/* if(value == "unionpay_channel_key") {
+					return "银联通道";
+				} else if(value == "llpay_channel_key") {
+					return "连连通道";
+				} */
+				return value;
+			}},
+			{ field : 'action',
+                title : '操作',
+                width :75,
+                fixed:true,
+                formatter : function(value, row, index) {
+                    var str = '';
+                    if(row.status == 0){
+                    	str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+kfVerifyWinParmeters+');" src="{1}" title="提现审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/key.png');
+                    }
+                    return str;
+                }
+			}
+			 ]],
+	        toolbar : '#toolbar'
+		});
+	});
+	function exportExcel(){
+		var url = "/modules/account/cash/accountcash/exportExcelCashVerify.html";
+		var searchName = $("#searchName").val()
+		var userName = $("#userName").val();
+		var userType = $("#userType").val();
+		//var status = $("#status").val();
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		//var bidNo = $("#bidNo").val();
+		var timeVal = $("#timeVal").val();
+		var sou = "?searchName=" + searchName + "&userName=" + userName + "&userType=" + userType+  
+				"&startTime=" + startTime + "&endTime=" + endTime +  "&timeVal=" + timeVal+"&type=1";
+		window.location.href = url + sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+            <div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询 <i class="iconfont">&#xe638;</i></a>
+	           	 	<div class="countBdTitle" id="time" style="float:left;position: relative;top: 5px;">
+						查看范围：
+						<a href="javascript:;" class="current" data-val="all" >全部</a>
+						<a href="javascript:;" data-val="today" >今日待审</a>
+						<a href="javascript:;" data-val="tomorrow" >明日待审</a>
+						<input type="hidden" name="timeVal" id="timeVal" value="all">
+						<input type="hidden" name="status" id="statusVal" value="0">
+					</div>
+					 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+					 
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe63a;</i></a>
+		        	<li><span>用户名</span><input type="text" name="userName" id="userName"  autocomplete="off"/></li>
+		        	<li><span>用户类型</span><select id="userType" name="user.userCache.userType" class="type">
+							<option value="0">全部</option>
+							<option value="1">投资人</option>
+							<option value="2">借款人</option>
+						</select></li>
+		        	<input type="hidden" name="status" value="0">
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <form id="scheduleManageForm" class="easyui-layout" data-options="fit:true,border : false">
+                <div id="toolbar">
+                        <a id="checkAll" href="javascript:void(0);" >全选</a>
+                        <a id="unCheckAll" href="javascript:void(0);" >全部取消</a>
+                        <a id="triggerButton" href="javascript:void(0);" >批量审核</a>
+                </div>
+                <table id="dataGrid"></table>
+            </form>
+        </div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+$("#time a").click(function(){
+	$(this).addClass("current").siblings().removeClass("current");
+	var timeVal = $("#time a.current").data("val");
+	$("#timeVal").val(timeVal);
+	$.fn.dataGridOptions.searchFun('#searchForm');
+});
+</script>
+<script>
+$("#checkAll").click(function(){
+    $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",true);
+    })
+})
+$("#unCheckAll").click(function(){
+     $('input[type="checkbox"]').each(function(){
+        $(this).attr("checked",false);
+    })
+})
+$("#triggerButton").click(function(){
+    var flag = false;
+    var ids = [];
+    $('input[type="checkbox"]').each(function(){
+        if($(this).attr("checked"))
+        {
+            flag = true;
+            ids.push($(this).val());
+        }
+    })
+    if(flag)
+    {
+        var url = "/modules/account/cash/accountcash/verifyBatchPage.html?ids="+ids;
+		parent.$.modalDialog({
+			title : "提现初审",
+			width : 700,
+			height : 450,
+			href : url,
+			buttons : [ {
+				text : '确定',
+				handler : function() {
+					parent.$.modalDialog.openner_dataGrid = dataGrid;//因为添加成功之后，需要刷新这个dataGrid，所以先预定义好
+					var f = parent.$.modalDialog.handler.find('#form');
+					f.submit();
+				}
+			} ]
+		});
+    }
+    else
+    {
+        $.messager.alert('提示','请选择至少选中一个');
+    }
+    
+})
+</script>
+<script src="${theme_dir}/js/search.js"></script>

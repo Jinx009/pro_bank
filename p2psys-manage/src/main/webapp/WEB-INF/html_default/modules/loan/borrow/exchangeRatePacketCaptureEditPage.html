@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrow/exchangeRatePacketCaptureEdit.html');
+	});
+</script>
+<div class="popShow" style="padding-bottom:0;">
+	<h1 class="borrowTitle"><span>标名：</span>${erpc.borrow.name}</h1>
+	<div class="showItem">
+		<span>添加时间：</span>
+		${erpc.addTime?string("yyyy-MM-dd HH:mm:ss")}
+	</div>
+</div>
+<div class="popForm" style="padding-top:0;">
+<form id="form" method="post">
+	<div class="formitm">
+		<label class="lab">汇率中间价：</label>
+		<div class="ipt">
+		   <input name="cashPurchasePrice" value="${erpc.cashPurchasePrice}"  data-options="required: true" />元
+		</div>
+	</div>
+	<input name="id" value="${erpc.id}" type="hidden"/>
+</form>
+</div>

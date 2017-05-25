@@ -1,0 +1,196 @@
+<script type="text/javascript">
+$(function() {
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/coupons/userCouponsCategoryAddConfirm.html');
+});
+
+// 限额
+function getLimit(id) {
+	for (var i = 1; i < id; i++) {
+		var invest_val_after = $("#investLimit" + (i + 1)).val();
+		var invest_val_before = $("#investLimit" + (i)).val();
+		var limit_val = $("#limitRate" + (i)).val();
+		if (invest_val_before == "" || invest_val_before == null) {
+			alert("请输入投资" + i + "限额");
+			$("#investLimit" + (i)).val('');
+		}
+		if ((invest_val_before != "" || invest_val_before != null) && (limit_val == "" || limit_val == null)) {
+			alert("请输入限额" + i + "比例");
+			$("#investLimit" + (i + 1)).val('');
+		}
+		if ((id > 1) && (invest_val_before != "" || invest_val_before != null) && (limit_val != "" || limit_val != null) && (invest_val_after <= invest_val_before)) {
+			alert("后面的限额金额要大于前面的限额金额。");
+			$("#investLimit" + (i + 1)).val('');
+		}
+	}
+}
+
+function getProductInfo(id) {
+	var productId1_val = $("#productId1").find("option:selected").text();
+	var productId2_val = $("#productId2").find("option:selected").text();
+	var productId3_val = $("#productId3").find("option:selected").text();
+	var val = $("#productId" + id).find("option:selected").text();
+	if (id == 1) {
+		if (val == productId2_val || val == productId3_val) {
+			alert("请选择其他的产品");
+			$("#productId1 option:selected").remove();
+		}
+	}
+	if (id == 2) {
+		if (val == productId1_val || val == productId3_val || productId1_val == "请选择产品限制") {
+			alert("请选择其他的产品");
+			$("#productId2 option:selected").remove();
+		}
+	}
+	if (id == 3) {
+		if (val == productId1_val || val == productId2_val || productId1_val == "请选择产品限制" || productId2_val == "请选择产品限制") {
+			alert("请选择其他的产品");
+			$("#productId3 option:selected").remove();
+		}
+	}
+}
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<div class="formitm">
+			<label class="lab">
+				名称
+			</label>
+			<div class="ipt">
+				<input type="text" id="name" name="name" class="w400 easyui-validatebox" data-options="required:true" maxlength="50" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				描述
+			</label>
+			<div class="ipt">
+				<input type="text" id="content" name="content" class="w400 easyui-validatebox" data-options="required:true" maxlength="100" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				加息比例
+			</label>
+			<div class="ipt">
+				<input type="text" id="rate" name="rate" class="easyui-validatebox" data-options="required:true" maxlength="30" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" style="width:382px;" /> %
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				推荐人奖励加息比例
+			</label>
+			<div class="ipt">
+				<input type="text" id="bonusRate" name="bonusRate" class="easyui-validatebox" data-options="required:true" maxlength="30" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" style="width:382px;" /> %
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				有效时间
+			</label>
+			<div class="ipt">
+				<input type="text" id="validFrom" name="validFrom" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'validTo\')}',readOnly:true})" style="width:174px;" data-options="required:true" />
+				<b>*</b>
+				~
+				<input type="text" id="validTo" name="validTo" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'validFrom\')}',readOnly:true})" style="width:174px;" data-options="required:true" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				发行量
+			</label>
+			<div class="ipt">
+				<input type="text" id="circulation" name="circulation" class="easyui-validatebox" data-options="required:true" maxlength="30" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" style="width:290px;" /> 张(0表示无限制)
+				<b>*</b>
+			</div>
+		</div>
+		<br/>
+		<hr/>
+		<div class="formitm">
+			<label class="lab">
+				产品限制
+			</label>
+			<div class="ipt">
+				<select id="productId1" name="productId1" style="width:130px;" onchange="getProductInfo('1');">
+					<option value="" selected="selected">请选择产品限制</option>
+					<#list productList as item>
+						<option value="${item.id}">${item.flagName}</option>
+					</#list>
+				</select>
+				&nbsp;
+				<select id="productId2" name="productId2" style="width:130px;" onchange="getProductInfo('2');">
+					<option value="" selected="selected">请选择产品限制</option>
+					<#list productList as item>
+						<option value="${item.id}">${item.flagName}</option>
+					</#list>
+				</select>
+				&nbsp;
+				<select id="productId3" name="productId3" style="width:130px;" onchange="getProductInfo('3');">
+					<option value="" selected="selected">请选择产品限制</option>
+					<#list productList as item>
+						<option value="${item.id}">${item.flagName}</option>
+					</#list>
+				</select>
+			</div>
+		</div>
+		<div id="limit">
+			<div class="formitm">
+				<label class="lab">
+					限额1
+				</label>
+				<div class="ipt">
+					<input type="text" id="investLimit1" name="investLimit1" class="easyui-validatebox" maxlength="30" style="width:180px;" onchange="getLimit('1');" onkeyup="this.value=this.value.replace(/\D/g,'')" /> 元
+					<input type="text" id="limitRate1" name="limitRate1" class="easyui-validatebox" maxlength="30" style="width:80px;margin-left:70px;" oninput="getLimit('1');" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" /> %
+				</div>
+			</div>
+			<div class="formitm">
+				<label class="lab">
+					限额2
+				</label>
+				<div class="ipt">
+					<input type="text" id="investLimit2" name="investLimit2" class="easyui-validatebox" maxlength="30" style="width:180px;" onchange="getLimit('2');" onkeyup="this.value=this.value.replace(/\D/g,'')" /> 元
+					<input type="text" id="limitRate2" name="limitRate2" class="easyui-validatebox" maxlength="30" style="width:80px;margin-left:70px;" oninput="getLimit('2');" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" /> %
+				</div>
+			</div>
+			<div class="formitm">
+				<label class="lab">
+					限额3
+				</label>
+				<div class="ipt">
+					<input type="text" id="investLimit3" name="investLimit3" class="easyui-validatebox" maxlength="30" style="width:180px;" onchange="getLimit('3');" onkeyup="this.value=this.value.replace(/\D/g,'')" /> 元
+					<input type="text" id="limitRate3" name="limitRate3" class="easyui-validatebox" maxlength="30" style="width:80px;margin-left:70px;" oninput="getLimit('3');" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" /> %
+				</div>
+			</div>
+			<div class="formitm">
+				<label class="lab">
+					限额4
+				</label>
+				<div class="ipt">
+					<input type="text" id="investLimit4" name="investLimit4" class="easyui-validatebox" maxlength="30" style="width:180px;" onchange="getLimit('4');" onkeyup="this.value=this.value.replace(/\D/g,'')" /> 元
+					<input type="text" id="limitRate4" name="limitRate4" class="easyui-validatebox" maxlength="30" style="width:80px;margin-left:70px;" oninput="getLimit('4');" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" /> %
+				</div>
+			</div>
+			<div class="formitm">
+				<label class="lab">
+					限额5
+				</label>
+				<div class="ipt">
+					<input type="text" id="investLimit5" name="investLimit5" class="easyui-validatebox" maxlength="30" style="width:180px;" onchange="getLimit('5');" onkeyup="this.value=this.value.replace(/\D/g,'')" /> 元
+					<input type="text" id="limitRate5" name="limitRate5" class="easyui-validatebox" maxlength="30" style="width:80px;margin-left:70px;" oninput="getLimit('5');" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" /> %
+				</div>
+			</div>
+			<div class="formitm" style="color:red;">
+				<label class="lab">
+					限额说明:
+				</label>
+				<div class="ipt">
+					<p style="height:30px;line-height:30px;color:red;">请按升序填写，填了限额1，才能填写限额2，依次类推。</p>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

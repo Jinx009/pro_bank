@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+<#assign nid="member">
+<#include "../../include/member_header.html">
+<!--header-end-->
+ 
+<!--用户中心的主栏目 开始-->
+<div id="container" class="clearfix" >
+<div class="usermain clearfix">
+	<!--左边的导航 开始-->
+	<div class="user_left">
+		<#include "../user_menu.html">
+	</div>
+	<!--左边的导航 结束-->
+	
+	<!--右边的内容 开始-->	
+	<div class="user_right">
+		<div class="user_right_menu">
+			<#assign backUrl="box.html" >
+			<#if type?exists&&type=="sent">
+				<#assign msg_type="sent" >
+				<#assign backUrl="sent.html" >
+			<#else>
+				<#assign msg_type="box" >
+				<#assign backUrl="box.html" >
+			</#if>
+			<#include "msg_menu.html"> 
+		</div>
+		<div class="user_right_main">
+		<div class="user_email_btn" >
+            <input type="button" onclick="history.back()" value="<<返回" class="btn" /> <!-- location.href='${backUrl}' -->
+        </div>
+			 <form method="post" action="reply.html" >
+			 <#if type?exists&&type=="sent">
+             <div class="user_email_head">
+			 	<h4>标  题：${msg.title!}</h4>
+				<p>收件人：${msg.receiveUserName!}</p>
+				<p>时间：${msg.addTime?string('yyyy-MM-dd HH:mm:ss')}</p>
+				<p>内容：${msg.content!}</p>
+             </div>   
+			 <#else>
+             <div class="user_email_head">
+                <h4>标  题：${msg.title!}</h4>
+                <p>收件人：${msg.receiveUserName!}</p>
+                <p>发件人：${msg.sentUserName!}&nbsp;&nbsp;</p>
+                <p>时间：${msg.addTime?string('yyyy-MM-dd HH:mm:ss')}</p>
+             </div>
+             
+				</#if>
+			</form>
+			<!--  -->
+			</div>
+ 	 </div>
+	<!--右边的内容 结束-->
+	</div>
+</div>
+<form action="${webroot}/member/friend/addRequest.html" method="post" title="添加好友" id="J_viw_addFriend" class="hide">
+	<ul class="viw_add_friend">
+		<li class="clearfix">
+			<span class="viw_tit">好友：</span>${msg.sentUserName!}<input name="friendName" value="${msg.sentUserName!}" type="hidden">
+		</li>
+		<li class="clearfix">
+			<span class="viw_tit">内容：</span>
+			<span><textarea rows="3" cols="45" name="content"></textarea></span>
+		</li>
+		<li>
+			<input type="submit" class="btn sub_btn" value="确认提交">
+		</li>
+	</ul>
+</form>
+<script>
+$( "#J_viw_addFriend" ).dialog({ autoOpen: false , modal: true ,height: 280,width:420});
+$('#J_addFriendBtn').click(function(){
+	$( "#J_viw_addFriend" ).dialog( "open" );
+});
+$("#J_viw_addFriend").validate({
+	rules:{
+		content:{
+			required:true
+		}
+	},
+	messages:{
+		content:{
+			required:"不能为空"
+		}
+	},
+	submitHandler:function(form,event,validator){
+		$(form).ajaxSubmit(function(data){
+			var result = data.result;
+			if(result){
+				window.location.href="/member/friend/detail.html"
+			}else{
+				layer.alert(data.msg);
+			}
+		})
+	}
+})
+
+</script>
+<#include "../../include/footer.html"> 
+</body>
+</html>

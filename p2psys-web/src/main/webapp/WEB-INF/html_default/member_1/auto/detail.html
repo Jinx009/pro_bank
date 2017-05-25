@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="my_invest"> 
+    	<#assign flag="autoDetail"> 
+	<#include "../../include/header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container">
+		<div class="usermain clearfix">
+			<div class="user_left"><#include "../trade_menu.html"></div>
+			<div class="user_right">
+				<h2 class="user_title">设置自动投标</h2>
+				<form method="post" id="autoForm" action="/member/auto/modify.html">
+					<dl class="auto_switch">
+						<dt>
+							自动投资状态：<div class="autoSwitch <#if auto.enable>autoSwitch_hover</#if> "><input type="checkbox" name="enable" style="display: none;" <#if auto.enable>checked="checked" value="true"</#if>></div> <em class="changeStatus <#if !auto.enable>hide</#if>">修改设置</em>
+						</dt>
+						<dd>
+							您的可用余额：<em> ${account.useMoney}</em><i>元</i>
+						</dd>
+					</dl>
+					<ul class="select_condition hide">
+						<li><label class="leftWidth">投资金额：</label>
+							<dl class="money">
+								<dd>
+									<label for="money1">
+									<input type="radio" name="tenderStyle" id="money1" <#if auto.tenderStyle==0||auto.tenderStyle==1>checked="checked"</#if> value="1"> 可用余额全投</label>
+								</dd>
+								<dd>
+									<label for="money2">
+									<input type="radio" name="tenderStyle" id="money2" <#if auto.tenderStyle==2>checked="checked"</#if>value="2">&nbsp;固定每次投资金额</label>　<em>
+									<input type="text" name="money" <#if auto.tenderStyle!=2>disabled="true" </#if> value="<#if auto.money!=0>${auto.money}</#if>" placeholder="不少于100元的整数"><i>元</i></em><span class="errorTip"></span>
+								</dd>
+								<dd>
+									<label for="money3">
+									<input type="radio" name="tenderStyle" id="money3" <#if auto.tenderStyle==3>checked="checked"</#if>value="3">&nbsp;投资金额区间</label>　　　<em>
+									<input type="text" name="min" placeholder="不少于100元的整数" <#if auto.tenderStyle!=3>disabled="true" </#if> value="<#if auto.min!=0>${auto.min}</#if>"><i>元</i></em> — <em>
+									<input type="text" name="max" <#if auto.tenderStyle!=3>disabled="true" </#if> value="<#if auto.max!=0>${auto.max}</#if>"><i>元</i></em><span class="errorTip"></span>
+								</dd>
+							</dl></li>
+						<li><label class="leftWidth">投资时间：</label>
+							<dl class="invest_time">
+								<dd>
+									<label for="timelimitEnable1">
+									<input type="radio" name="timelimitEnable" id="timelimitEnable1"
+										<#if auto.timelimitUp==0>checked="checked"</#if>> 不限制</label>
+								</dd>
+								<dd>
+									<label for="timelimitEnable2">
+									<input type="radio" name="timelimitEnable" id="timelimitEnable2"  <#if auto.timelimitUp!=0>checked="checked"</#if>>
+										月范围必须在 </label>　　　<select name="timelimitDown" <#if auto.timelimitUp==0> disabled="true" </#if> id="timelimitDown">
+											<#list list as item>
+											<option value="${item}" <#if auto.timelimitDown==item>selected="selected"</#if>>${item}个月</option>
+											</#list>
+									</select> — <select name="timelimitUp" id="timelimitUp" <#if auto.timelimitUp==0> disabled="true" </#if>>
+											<#list list as item>
+											<#if item!=0>
+											<option value="${item}" <#if auto.timelimitUp==item>selected="selected"</#if>>${item}个月</option>
+											</#if>
+											</#list>
+									</select><span class="errorTip"></span>
+								</dd>
+							</dl></li>
+						<li><label class="leftWidth">年华收益：</label> <label for="aprEnable1">
+						<input name="aprEnable" type="radio" id="aprEnable1"  <#if auto.aprDown==0>checked="checked"</#if> /> 不限制</label>　<label for="aprEnable2">
+						<input name="aprEnable" id="aprEnable2" type="radio"<#if auto.aprDown!=0>checked="checked"</#if>/>&nbsp;不低于 </label>&nbsp;&nbsp;<em><input type="text" name="aprDown" <#if auto.aprDown==0>disabled="true"</#if> value="<#if auto.aprDown!=0>${auto.aprDown}</#if>"><i>%</i></em><span class="errorTip"></span></li>
+						<li><label class="leftWidth">还款方式：</label> 
+						<label for="style2">
+						<input type="checkbox" id="style2" name="style" value="2" <#if !auto.style??||auto.style??&&auto.style?index_of("2")!=-1>checked="checked"</#if>>&nbsp;一次性到期还本</label> 　
+						<label for="style1"><input type="checkbox" id="style1" name="style" value="1" <#if !auto.style??||auto.style??&&auto.style?index_of("1")!=-1>checked="checked"</#if>> 等额本息</label>　 
+						<label for="style3"><input type="checkbox" id="style3" name="style" value="3" <#if !auto.style??||auto.style??&&auto.style?index_of("3")!=-1>checked="checked"</#if>> 每月付息到期还本</label><span class="errorTip "></span></li>
+						<li class="save_reset">
+						<input type="hidden" name="id" value="${auto.id}">
+						<input type="button" id="reset_button" value="返回"><input type="button" id="save_button" value="保存">
+						</li>
+					</ul>
+				</form>
+				<div id="confirmationSlip" class="hide">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>投资金额</th>
+								<th>投资期限</th>
+								<th>年化收益</th>
+								<th>还款方式</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<input class="confirmationButton" type="button" value="提交">
+				</div>
+				<div class="auto_explain">
+					<h2>注意事项：</h2>
+					<ol>
+						<li>1、开启自动投资后，自动投资功能将在5分钟内生效；</li>
+						<li>2、自动投资时不可使用红包等奖励进行投资；</li>
+						<li>3、若设定投资金额区间时，将根据账户可用余额和项目剩余可投金额执行投资，投资金额为区间值。</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		seajs.use("${webroot}${theme_dir}/media/js/member/autodetail")
+	</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,41 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrow/verifyProductSet.html');		
+	});
+</script>
+<div class="popShow" style="padding-bottom:0;">
+	<div class="showItem">
+		<span>组合名称：</span>
+		${mod.productName}
+	</div>
+	<div class="showItem">
+		<span>组合类型：</span>
+		${mod.typeDesc}
+	</div>
+	<div class="showItem">
+		<span>最高预期收益：</span>
+		${mod.highestRefundRate!0}%
+	</div>
+	<div class="showItem">
+		<span>最低预期收益：</span>
+		${mod.lowestRefundRate!0}%
+	</div>
+</div>
+<div class="popForm" style="padding-top:0;">
+<form id="form" method="post">
+<input type="hidden" name="id" value="${mod.id}" >
+	<div class="formitm">
+		<label class="lab">是否通过：</label>
+		<div class="ipt">
+		   <input type="radio" name="status" class="easyui-validatebox" value="1" data-options="required: true"/>通过
+			<input type="radio" name="status" class="easyui-validatebox" value="2" data-options="required: true" checked="checked"/>不通过
+		</div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt">
+		   <textarea name="verifyRemark" class="w400 easyui-validatebox" data-options="required: false"></textarea>
+		</div>
+	</div>
+</form>
+</div>

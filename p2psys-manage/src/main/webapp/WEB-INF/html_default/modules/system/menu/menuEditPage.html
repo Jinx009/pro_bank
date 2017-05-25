@@ -1,0 +1,25 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.treeGridOptions.formSubFun("#form",'/modules/system/menu/menuEdit.html');		
+	});
+</script>
+<form id="form"  method="post">
+<div class="borrowForm" style="border-top:none;">
+    <ul>
+    	<li><span>菜单名：</span><input type="text" name="name" value="${menuItem.name!}" class="borrowFormTxt easyui-validatebox" data-options="required: true"/><font color="red" size="4">*</font></li>
+    	<li><span>父级Id：</span><input type="text" name="parentId" value="${menuItem.parentId!}" readonly="readonly" class="borrowFormTxt easyui-validatebox" data-options="required: true"/><font color="red" size="4">*</font>	</li>
+    	<li><span>图标：</span><input type="text" id="iconCls" name="iconCls" value="${menuItem.iconCls!}" class="borrowFormTxt easyui-validatebox" onfocus="showIcons()" data-options="required: true" style="background-position:right center;"/><font color="red" size="4">*</font></li>
+    	<li><span>排序：</span><input type="text" name="sort" value="${menuItem.sort!}" class="borrowFormTxt easyui-validatebox" data-options="required: true,validType:'numeric'" /><font color="red" size="4">*</font></li>
+    	<li><span>是否菜单：</span><select name="isMenu">
+	            <option <#if isMenu?string('true','false') =='true'>selected="selected"</#if> value="true">是</option>
+	            <option <#if isMenu?string('true','false') =='false'>selected="selected"</#if> value="false">不是</option>
+            </select>
+            <font  color="red" size="4">*</font>
+        </li>
+    	<li><span>链接地址：</span><input type="text" name="href" value="${menuItem.href!}" class="borrowFormTxt easyui-validatebox" data-options="required: false"/></li>
+    </ul>
+    <div class="borrowFormMuti"><span>借款详情：</span><textarea name="remark" class="easyui-validatebox borrowFormTextarea" data-options="required: false">${menuItem.remark!}</textarea></div>
+	<input name="menuEditToken" value="${menuEditToken!}" type="hidden">
+	<input name="id" value="${menuItem.id!}" type="hidden"/>
+</div>
+</form>

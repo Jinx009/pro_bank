@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+				<#include "../user_menu.html">
+            </div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<#if msg?exists>
+				<div id="msg24">
+					<p class="ok">${msg}</p>
+				</div>
+				<#else> <#if errormsg?exists>
+				<div id="msg25">
+					<p class="error">${errormsg}</p>
+				</div>
+				</#if> </#if>
+				<div class="user_right_menu">
+					<#assign auto_type="add" >
+					<#include "auto_menu.html">
+				</div>
+				<!--自动投标 开始-->
+				<div class="user_right_main">
+				<!-- Form start -->
+				<form  method="post" name="form1"  action="auto.html" >
+				
+				<div class="user_help alert">
+				自动投标时，只有满足下面您选择的条件时系统才会为您自动投标。
+				</div>
+            <style>
+				.auto_query	.auto_query_list{ border-bottom:1px dashed #ccc; position:relative; padding-top:8px;} 
+				.auto_query .left-txt{ width:80px; float:left; text-align:left;}
+				.auto_query .right-txt{ width:400px; padding-right:10px; float:left; text-align:left; position:relative;height:26px; overflow:hidden;}
+				.auto_query .right-txt input{ height:20px; overflow:hidden;}
+				.auto_query .right-txt label,.auto_query .b-txt{ position:relative; top:-6px; padding-left:5px;}
+				.auto_query .mes-txt{ width:290px; float:right; text-align:left;}
+			</style>
+             <div  style=" width: 780px; margin:0 auto; padding-bottom:20px;" class="auto_query"> 
+            <div class="sideT" >
+                <div class="user_right_title clearfix"> 
+                    <span class=" left-txt"><strong style="color:red">生效状态</strong></span>
+                    <span class=" mes-txt"><strong style="color:red">标的信息限制</strong></span>
+                </div> 
+                
+                    <div class="auto_query">
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">状态：</span>
+	                        <div class=" right-txt">
+	                        	<input id="status" type="checkbox" name="status" value="1" <#if (ba.status)?? && (ba.status==1)>checked</#if> />
+	                        	<span class="b-txt">是否启用(如果不选中则当前规则不会生效)</span>
+	                        </div>
+                        </div>
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">金额：</span>
+                            <div class=" right-txt" style="height:70px;">
+                                <span style='display:none;'>
+                                    <input  type="radio" name="tender_type" value="1" <#if (ba.tender_type)?? && (ba.tender_type==1)>checked</#if>  />
+                                </span> 
+                                每次投标 
+                                <input name="tender_account" type="text" maxlength="5" id="tender_account"  style="width:80px;" value="${((auto.tender_account)!0)?c}" />元
+                                <span>(最少50元)</span> 
+                                <p>
+                                <b style="color:#f00; font-weight:normal">如果超过标的的最大投标额度则以标的的最大额度为准，如果小于标的的最小投标额度则不投。</b>
+                                </p>
+                            </div>
+                            <div class="mes-txt">
+                            		【当前规则满足时系统将为您自动投标的额度，投标金额和比例都只能为大于0的为整数。】
+                            </div>
+                        </div>
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">还款方式： </span>
+                            <div class=" right-txt">
+                                <input id="borrow_style_status" type="checkbox" name="borrow_style_status" value="1" <#if ba.borrow_style_status==1>checked</#if> />
+                                <span class="b-txt">启用　还款方式必须为
+                                    <select name="borrow_style" id="borrow_style" >
+                                        <option <#if ba.borrow_style??&&ba.borrow_style==0>selected="selected"</#if> >按月分期还款</option> 
+                                        <option <#if ba.borrow_style??&&ba.borrow_style==2>selected="selected"</#if> >一次性还款</option> 
+                                        <option <#if ba.borrow_style??&&ba.borrow_style==3>selected="selected"</#if> >每月还息到期还本</option> 
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="mes-txt">
+                                【不选中则没有此项限制】
+                            </div>
+                        </div>
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">借款期限：</span>
+                            <div class=" right-txt" style="height:85px;">
+                                <div>
+                                <input id="timelimit_status"  name="timelimit_status" type="radio" value="0" <#if ba.timelimit_status==0>checked</#if>/><label for="">不限定期限</label> 
+                               <input id="timelimit_status" type="radio"value="1"   name="timelimit_status" <#if ba.timelimit_status==1>checked</#if> /><label for="">按照下面规则</label> 
+                               </div>
+                               <div>
+                                月标：
+              <#if ba.timelimit_month_first??>
+              <@linkage name="timelimit_month_first" id="timelimit_month_first" nid="borrow_time_limit" default=ba.timelimit_month_first type="value"  noselect="不投月标"/>  
+              <#else>
+              <@linkage name="timelimit_month_first" id="timelimit_month_first" nid="borrow_time_limit" noselect="不投月标"/>  
+              </#if>             
+               -
+                <#if ba.timelimit_month_last??>
+              <@linkage name="timelimit_month_last" id="timelimit_month_last" nid="borrow_time_limit" default=ba.timelimit_month_last type="value"  noselect="不投月标"/>  
+              <#else>
+              <@linkage name="timelimit_month_last" id="timelimit_month_last" nid="borrow_time_limit" noselect="不投月标"/>  
+              </#if>  
+              <br/>天标：
+              <#if ba.timelimit_day_first??>
+              <@linkage name="timelimit_day_first" id="timelimit_day_first" nid="borrow_time_limit_day" default=ba.timelimit_day_first type="value"  noselect="不投天标"/>  
+              <#else>
+              <@linkage name="timelimit_day_first" id="timelimit_day_first" nid="borrow_time_limit_day" noselect="不投天标"/>  
+              </#if>               
+            -
+            <#if ba.timelimit_day_last??>
+              <@linkage name="timelimit_day_last" id="timelimit_day_last" nid="borrow_time_limit_day" default=ba.timelimit_day_last type="value"  noselect="不投天标"/>  
+              <#else>
+              <@linkage name="timelimit_day_last" id="timelimit_day_last" nid="borrow_time_limit_day" noselect="不投天标"/>  
+              </#if>  
+                               </div>
+                           </div>
+                        </div>
+                        
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">年利率：</span>
+                            <div class=" right-txt">
+                                <input id="apr_status" type="checkbox" name="apr_status" value="1"  <#if ba.apr_status==1>checked</#if> />
+                                <span class="b-txt">
+                                    启用 利率范围：
+		              <#if ba.apr_first??>
+			              <@linkage name="apr_first" id="apr_first" nid="borrow_auto_apr_first" default=ba.apr_first type="value" />  
+			              <#else>
+			              <@linkage name="apr_first" id="apr_first" nid="borrow_auto_apr_first"/>  
+		              </#if>
+		              -
+		              <#if ba.apr_last??>
+			              <@linkage name="apr_last" id="apr_last" nid="borrow_auto_apr_last" default=ba.apr_last type="value" />  
+			              <#else>
+			              <@linkage name="apr_last" id="apr_last" nid="borrow_auto_apr_last"/>  
+		              </#if>
+                                </div>
+                            </span>
+                            <div class="mes-txt">
+                                【不启用则没有此项限制】
+                            </div>
+                        </div>
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">投标奖励：</span>
+                            <div class=" right-txt">
+                                <input  type="checkbox" name="award_status"  value="1" <#if ba.award_status==1>checked</#if>  /> 
+                                <span class="b-txt">启用　奖励必须大于等于
+                                <#if ba.award_first??>
+					              <@linkage name="award_first" id="award_first" nid="borrow_auto_award" default=ba.award_first type="value" />  
+					              <#else>
+					              <@linkage name="award_first" id="award_first" nid="borrow_auto_award"/>  
+				              </#if>
+                               </span>
+                            </div>
+                            <div class="mes-txt">
+                                【不启用则没有此项限制】
+                            </div>
+                        </div>
+                        <div class="auto_query_list clearfix">
+                            <span class=" left-txt">投资标种：</span>
+                            <div class=" right-txt">
+                               <input id="fast_status" type="checkbox" name="fast_status" value="1" <#if ba.fast_status==1>checked</#if>  /><label for="fast_status">固定收益类产品</label>
+                               <input id="xin_status" type="checkbox" name="xin_status" value="1" <#if ba.xin_status==1>checked</#if> /><label for="xin_status">信用标</label>
+                               <input id="jin_status" type="checkbox" name="jin_status" value="1" <#if ba.jin_status==1>checked</#if> /><label for="jin_status">净值标</label>
+                               <input id="vouch_status" type="checkbox" name="vouch_status" value="1" <#if ba.vouch_status==1>checked</#if> /><label for="vouch_status">担保标</label>
+                               <!-- V1.6.7.1 RDPROJECT-345 liukun 2013-11-07 start -->
+                               <input id="flow_status" type="checkbox" name="flow_status" value="1" <#if ba.flow_status==1>checked</#if> /><label for="flow_status">流转标</label>
+                               <!-- V1.6.7.1 RDPROJECT-345 liukun 2013-11-07 end -->
+                            </div>
+                            <div class="mes-txt">
+                                【选择您的投资标种，可多选】
+                            </div>
+                        </div>
+                        
+                        <div style="text-align:center; clear:both; padding-top:15px;"> 
+                            <input type="hidden" name="id" value="${((auto.id)?default(0))?c}" />
+                            <input type="hidden" name="user_id" value="${((auto.user_id)?default(0))?c}" />
+                            
+                            <#assign _type="add">
+                            <#if type?exists&&(type=="add")>
+                                <#assign _type=type>
+                            </#if>
+                            <#if type?exists&&(type=="showAuto")>
+                                <#assign _type="modify">
+                            </#if>
+                            <input type="hidden" name="type" value="${_type}" />
+                            <input type="submit" class="btn sub_btn" name="" value="保存" id=""  /> 
+                            <input type="reset" class="btn sub_btn" name="" value="取消" id=""  /> 
+                        </div>
+                        
+                        
+                    </div>
+                 
+                </div> 
+            </div> 
+         
+			</form>
+				<!-- Form end -->
+				</div>
+			<!--右边的内容 结束-->
+		</div>
+	</div>
+	<!--用户中心的主栏目 结束-->
+
+	<script
+		src="${webroot}${theme_dir}/media/js/modal.js"></script>
+
+	<#include "../../include/footer.html">
+</body>
+</html>

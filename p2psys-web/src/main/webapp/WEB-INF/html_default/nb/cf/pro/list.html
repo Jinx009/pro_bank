@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/pro/list.css" />
+<script src="/themes/theme_default/cf/js/url.js" ></script>
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/pro/list.js"  ></script>
+</head>
+<body>
+<input type="hidden" id="type" value="${type}" >
+<div class="main">
+	<#include "../include/header.html">
+	<div class="product-nav-bg">
+		<ul class="middle-content product-nav">
+			<li class="col-md-2 text-center col-no-padding active" id="type2" ><a href="/pro/list.html?id=2" >股权众筹</a></li>
+			<li class="col-md-2 text-center col-no-padding" id="type1" ><a href="/pro/list.html?id=1" >实物众筹</a></li>
+			<li class="col-md-2 text-center col-no-padding" id="type4" ><a href="/pro/list.html?id=4" >公益众筹</a></li>
+		</ul>
+	</div>
+	
+	<div class="product-list-content" id="container"></div>
+	<div class="clearfix"></div>
+	<div id="loadMore">
+		<div class="loadMore none text-center"><a href="#">加载更多</a></div>
+	</div>
+</div>
+<#include "../include/footer.html"> 
+<script type="text/javascript">
+	showLi("project_li");
+</script>
+</body>
+</html>

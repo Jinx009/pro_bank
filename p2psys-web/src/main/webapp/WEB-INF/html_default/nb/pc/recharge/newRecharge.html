@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/statistics.html"> 
+  <head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="800Bank">
+	<meta name="description" content="800Bank-有温度的互联网投资平台 ">
+    <title>800Bank</title>
+	<script type="text/javascript" src="${webroot}${theme_dir}/nb/pc/js/recharge/recharge_newRecharge.js"></script>
+   <style>
+    	body {background: #fafafa; }
+    	.recharge>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{display:block;color: #FFFFFF;background-color: #3c94d1;text-decoration: none;}
+    	a{color: #a1a1a1;text-decoration: none;}
+    	a:hover{color: #a1a1a1;}
+    	.nav-tabs>li>a{margin-right: 0px;}
+    	.infoError{font-size: 0.9em;padding-left: 5px;color: red;}
+    	.recharge li a{display:block;}
+    </style>
+    <script type="text/javascript">
+		    
+    		//下一步事件
+			function nextPage(){
+    			var rcMoney = $("#oneRCMoney").val();
+    			var webChannelKey = $("#webChannelKey").val();
+    			if(rcMoney.length>0 && parseFloat(rcMoney)>=10){
+    				document.getElementById("home1").style.display="none";
+    				document.getElementById("home2").style.display="block";
+					if(webChannelKey==="银联支付"){							
+						document.getElementById("addYLBank").style.display="block";
+						//document.addBankForm.action = "/nb/pc/cash/addBank.html";
+					}else{
+						document.getElementById("addYLBank").style.display="none";
+					}
+    				$("#rechMoney2").html(rcMoney+"元");
+    				$("#money_order").val(rcMoney);
+    				$("#moneyError").html("");
+    			}else{
+    				$("#moneyError").html("充值金额不能小于10元");
+    				//alert("请输入充值金额！");
+    			}
+    		}
+			
+			//验证在线充值表单
+			function checkForm(){
+				var webChannelKey = $("#webChannelKey").val();
+				var accName = $("#accName").val();
+				var accId = $("#accId").val();
+				var bankNo = $("#infoyhzh").val();
+				var mobile = $("#mobilePhone").val();
+				var code = $("#code").val();
+				var xycbox = document.getElementById("xycbox");
+				var flag = true;
+				
+				if(accName.trim().length==0){
+					//showAlertDiv("请输入您的真实姓名！",null);
+					$("#accNameError").html("请输入您的真实姓名");
+					flag = false;
+				}else{
+					$("#accNameError").html("");
+				}
+				if(accId.trim().length==0){
+					$("#accIdError").html("请输入您的身份证号");
+					flag = false;
+				}else if(!isIdCardNo(accId.trim())){
+					$("#accIdError").html("身份证号格式不正确");
+					flag = false;
+				}else{
+					$("#accIdError").html("");
+				}
+				if(bankNo.trim().length==0){
+					$("#cardNoError").html("请输入您的银行卡号");
+					flag = false;
+				}else if($("#bankPPError")!=null && $("#bankPPError").html()!=undefined){
+					$("#cardNoError").html($("#bankPPError").html());
+					flag = false;
+				}else{
+					$("#cardNoError").html("");
+				}
+				if(mobile.trim().length==0){
+					if(webChannelKey==="银联支付"){
+						$("#mobileError").html("请输入您的银行预留手机");
+						flag = false;
+					}else{
+						$("#mobileError").html("");
+					}
+				}else{
+					$("#mobileError").html("");
+				}
+				if(code.trim().length==0){
+					if(webChannelKey==="银联支付"){
+						$("#codeError").html("请输入手机验证码");
+						flag = false;
+					}else{
+						$("#codeError").html("");
+					}
+				}else{
+					$("#codeError").html("");
+				}
+				if(!xycbox.checked){
+					showAlertDiv("您还未接受委托协议！",null);
+					flag = false;
+				}
+				if(flag){
+					document.addBankForm.submit();
+				}
+			}
+			
+			//协议勾选事件
+			function checkAll(Xelement){
+			    var button=document.getElementById("paySubmit");
+			    if(Xelement.checked){			    	
+			        $("#paySubmit").attr("disabled",false);
+			    }else{			    	
+			        $("#paySubmit").attr("disabled",true);
+			    }
+			}
+    </script>
+    <script type="text/javascript">
+   		$(function(){
+   			changeLeftMenue("我要充值");
+   		})
+   </script>
+    
+  </head>
+  <body>
+<!-- header begin -->
+<#include "../include/member_header.html"> 
+<!-- header  end -->
+
+<div class="container-fluid">
+	<div class="container main_top">
+	<div class="row">
+	<!-- 用户中心左导航菜单 begin -->
+			<div class="col-md-3 main_left padding_col0">
+					<#include "../include/member_menu.html">
+			</div>
+     <!-- 用户中心左导航菜单 end -->		
+		  <div class="col-md-9 main_right col-lg-9 col-xs-9">
+		 
+		  	<p class="space-div-3" ></p>
+   	  		<p class="account_title " >我要充值</p>
+		  
+				  <ul class="row recharge" role="tablist">
+				    <li role="presentation" class="col-md-3 padding_col0 text active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">在线充值</a></li>
+				    <li role="presentation" class="col-md-3 padding_col0 text "><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">线下充值</a></li>
+				  </ul>
+
+				 <div class="tab-content">
+				 	 <!-- 线上充值开始 -->
+				 	 <div id="home" class="tab-pane active" role="tabpanel">
+					  		<!-- 已绑卡开始 -->
+						 	 <div id="home0"  class="row margin_col0" style="margin-top: 28px;">
+								
+							</div>
+							<!-- 已绑卡结束 -->
+							
+							<!-- 未绑卡第一步开始 -->
+						 	<div id="home1" >
+						    	<div style="margin-top: 28px;">
+						    		 <div class="row margin_col0">
+							    		<p class="col-md-10 padding_col0 recharge_marginleft">选择银行:</p>
+							    		<div class="col-md-1"></div>
+						    		</div>
+						    		<div class="row margin_col0">
+						    			<div class="col-md-10 bank-list recharge_marginleft" id="bankListInfo" >
+						    				
+						    			</div>
+						    		</div>
+							  		<div class="form-group row newCash_col margin_col0 " >
+									   
+									    <div class="col-md-10 padding_col0 recharge_marginleft">
+										    <label class=" col-md-2 padding_col0 ">所选银行:</label>
+										    <div class="col-md-10 padding_col0" id="bankTips" style="float:right;"> 
+										    	<p class="col-md-3 padding_col0 bank_name"  id="choosBankInfo"></p>
+										    	<div class="col-md-9 padding_col0 bankDetails" >
+										    		<li>支付限额(元)</li>
+										    		<li class="otherLi">单笔限额：<span id="danbi">5000</span></li>
+										    		<li class="otherLi">每日限额：<span id="danri">500万</span></li>
+										    		<li>每月限额：<span id="danyue">200万</span></li>
+										    	</div>
+										    </div>
+									    </div>
+							  		</div>
+							  		
+						    		<div class="form-group row newCash_col margin_col0">	
+											<div class="col-md-10 padding_col0 recharge_paddingleft">
+												<label class=" col-md-2 padding_col0 ">充值金额:</label>
+						    				<input type="text" class="col-md-4 rechargeForm_inp" id="oneRCMoney" name="oneRCMoney" placeholder="充值金额"  maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')" size="10" value="" autocomplete="off">		
+											<span class="infoError" id="moneyError"></span>
+											</div>
+											<div class="col-md-1 padding_col0"></div>
+						    		</div>
+						    		
+										<div class="form-group row newCash_col margin_col0">
+											 <div class="col-md-1 padding_col0"></div>
+											 <div class="col-md-10 padding_col0">
+								   		 	<button class="col-md-offset-2 col-md-3 newChashBtn padding_col0" type="button" onclick="nextPage()">下一步</button>
+								   		 </div>
+								  	</div>
+								</div>
+								<div class="row leftPadding" style="margin-top: 45px;">
+							  		<div class="bankTip">
+							  		    <p class="bankWarmTip">温馨提示：</p>
+										<p>限额表仅供参考，实际以支付界面提示为准。</p>
+									</div>
+							  	</div>
+					    </div>
+					    <!-- 未绑卡第一步结束 -->
+					    
+					    <!-- 未绑卡第二步开始 -->
+					    <div  id="home2" style="display: none;">
+					    	<div class="row margin_col0" style="margin-top: 28px;">
+							  	<form action=""  id="addBankForm"  name="addBankForm" method="post" class="rechargeForm col-md-9">
+							  		  <div id="xzBankDiv"></div>
+							  		  <div id="addBankDiv">
+							  		  <div class="form-group row rechargeForm_col margin_col0">
+									    <label  class="col-md-2 text-left padding_col0">充值金额:</label>
+									    <p  class="col-md-6 " id="rechMoney2">${money!0}元</p>
+									    <input type="hidden"  name="money" id="money_order" value="${money!0}">
+									  </div>
+									  <div class="form-group row rechargeForm_col margin_col0">
+									    <label  class="col-md-2 text-left padding_col0">开户姓名:</label>
+									    <input type="text" class="col-md-6 rechargeForm_inp" name="accName" id="accName"  value="${accName!}"  placeholder="开户姓名" maxlength="5">
+									  	<span class="infoError" id="accNameError"></span>
+									  </div>
+									  <div class="form-group row rechargeForm_col margin_col0">
+									    <label  class="col-md-2 text-left padding_col0">身份证号:</label>
+									    <input type="text" class="col-md-6 rechargeForm_inp" name="accId" id="accId"  value="${accId!}"  placeholder="身份证号" maxlength="18">
+									  	<span class="infoError" id="accIdError"></span>
+									  </div>
+									  <div class="form-group row rechargeForm_col margin_col0">
+									    <label  class="col-md-2 text-left padding_col0">银行名称:</label>
+									    <p class="col-md-6 padding_col0"  id="yhcard">未知银行</p>
+									  </div>
+									  <div class="form-group row rechargeForm_col margin_col0" >
+									    <label  class="col-md-2 text-left padding_col0">银行卡号：</label>
+									    <input type="text" class="col-md-6 rechargeForm_inp"  name="cardNo" id="infoyhzh" value="${cardNo!}"  placeholder="银行卡号" onKeyUp="value=value.replace(/[^0-9]/g,'')" onblur="getBankInfo(this,'yhcard',1)" maxlength="25">
+									  	<span class="infoError" id="cardNoError"></span>
+									  </div>
+									  <span id="addYLBank" style="display: none;">							  
+										  <div class="form-group row rechargeForm_col margin_col0" >
+										    <label  class="col-md-2 text-left padding_col0">手机号码：</label>
+										    <input type="text" class="col-md-6 rechargeForm_inp"  name="mobile" id="mobilePhone" readonly="readonly"   value="${mobile!}"  placeholder="银行预留手机号">
+										  	<span class="infoError" id="mobileError"></span>
+										  </div>
+										  <div class="form-group row rechargeForm_col margin_col0" style="margin-bottom: 0px;">
+										    <label  class="col-md-2 text-left padding_col0">验证码：</label>
+										    <input type="text" class="col-md-6 rechargeForm_inp"  name="code" id="code" autocomplete="off" placeholder="验证码" maxlength="6" style="float:left;margin-right:10px;">
+										    <input name="timeval" value="获取验证码" type="button" id="timeval" onclick="doajax()"  class="getCode" style="width: 160px;float:left;">
+										  </div>
+										  <div class="form-group row margin_col0" style="width: 432px;">
+												<div class="col-md-4"></div>
+												<div class="text-right forgetPayPwd" id="codeError" ></div>
+											</div>
+									  </span>
+									  
+									  <div class="form-group row rechargeForm_p margin_col0">
+									    <div  class="col-md-2 text-left padding_col0"></div>
+									    <p class="col-md-6 padding_col0">此银行卡将成为提现的唯一银行卡。</p>	
+									  </div>
+									  <div class="form-group row rechargeForm_p margin_col0">
+									    <div  class="col-md-2 text-left padding_col0"></div>
+									    <p class="col-md-6 padding_col0">成功添加银行卡后不能随意更改，请谨慎操作。</p>	
+									  </div>
+					
+										<div class="form-group row rechargeForm_p margin_col0">
+									    <div  class="col-md-2 text-left padding_col0"></div>
+									   <div  class="col-md-6 padding_col0">
+										   	<input type="checkbox" checked="checked" id="xycbox"  onclick="checkAll(this);">同意
+										   	<span class="agreement" onclick="showAgreeMent('agreementEntrust')">《委托协议》</span>
+									   	</div>
+									  </div>
+									  
+										<div class="form-group row rechargeForm_col margin_col0">
+									    <div  class="col-md-2 text-left padding_col0"></div>
+									    <input type="hidden"  id="webChannelKey"  name="webChannelKey"  value="${webChannelKey!}" />
+									    <input type="hidden" id="bankCodeKey"  name="bankCodeKey" value="${bankCodeKey!}" >
+									    <input type="hidden"  id="xsRToken" name="nbRechargeToken" value="${nbRechargeToken!}">
+									    <input type="hidden"  id="isSecond" name="isSecond" value="${isSecond!0}">
+									    <!-- <button type="submit" class="col-md-3 paySure" id="paySubmit">确认支付</button> -->
+									    <input type="button"  class="col-md-6 paySure" id="paySubmit" value="确认支付" onclick="checkForm();">
+									  </div>
+								   </div>
+								</form>
+									
+									<!-- <div class="col-md-5 padding_col0" style="float: right;">
+										<p style="margin-top: 10px;">可用余额:<span style="color: #f47e3d;margin-left: 10px;font-size: 24px;">1000</span>元</p>
+										<div class="warmPrompt"  style="padding: 20px;">
+											<p class="warmPromptTitle">温馨提示：</p>
+											<p style="margin-bottom: 0px;">
+												充值期间，请勿关闭浏览器，待充值成功并返回后，可在800Bank系统中查看充值金额。
+											</p>
+										</div>
+										
+									</div> -->
+									</div>
+					    </div>
+					    <!-- 未绑卡第二步结束 -->
+					</div>
+				 	 <!-- 线上充值结束 -->
+			    
+			    <!-- 线下充值开始 -->
+			    <div role="tabpanel" class="tab-pane" id="profile">
+			    		<#include "offLineRecharge.html"> 
+			    </div>
+			    <!-- 线下充值结束 -->
+  			</div>
+		  	
+		  </div>	
+	</div>
+</div>
+	
+	<div class="clearfix"></div>
+	
+</div>
+<div style="height: 80px;">	
+</div>
+<script type="text/javascript">
+	/**
+	 * 获取手机验证码
+	 */
+	function doajax(){
+		$.ajax({
+			url:'/nb/pc/cash/getAddBankCode.html?mobilePhone='+$('#mobilePhone').val(),
+			type:'post',
+			success:function(data){
+				if(data.result){
+					$(".tip").html()
+					var time=60;
+					var timeFun=setInterval(function(){
+						time--;
+							if(time>0){
+								$('#timeval').val(time+"秒后重新获取").attr("disabled",true);
+	                            $('#timeval').css("color","#333");
+	                            $('#timeval').css("background","#ccc");
+							}else{
+								time=60;
+								$('#timeval').val("获取验证码").removeAttr("disabled");
+								$('#timeval').css("background","#2370b6");
+								$('#timeval').css("color","#fff");
+								clearInterval(timeFun);
+						}
+					},1000);
+				}
+				else{
+					$(".tip").html(data.msg)
+				}
+			}
+		});
+	}
+	
+	$(function(){
+				var info = '${prompt!}';
+				var msg = "${msg!}";
+				var msg2 = "${msgInfo!}";
+				var result = "${isLogin!}";
+				if("no_login"===result){
+					showDiv("util_login");
+				}
+				//console.log(info);
+				if(null!==info&&""!==info){
+					showAlertDiv(false,info,msg2,null);
+					msgAlert(info);
+				}
+				if(null!==msg&&""!==msg){
+					if(msg==="充值成功"){
+						showAlertDiv(true,msg,"","/user/center.html");
+					}else{
+						showAlertDiv(false,null,msg,null);
+					}
+				}
+			})
+				
+			function msgAlert(obj){
+				if(obj!=null && obj!=""){
+					var isSecond = $("#isSecond").val();
+					if(isSecond==1){
+		    			var webChannelKey = $("#webChannelKey").val();
+		   				document.getElementById("home1").style.display="none";
+		   				document.getElementById("home2").style.display="block";
+						if(webChannelKey==="银联支付"){
+							document.getElementById("addYLBank").style.display="block";
+							document.addBankForm.action = "/nb/pc/recharge/doUnionPayRecharge.html";
+						}else{
+							document.getElementById("addYLBank").style.display="none";
+							document.addBankForm.action = "/nb/pc/recharge/dollPayRecharge.html";
+						}
+					}else if(isSecond==2){
+		   				document.getElementById("home0").style.display="block";
+						document.getElementById("home1").style.display="none";
+		   				document.getElementById("home2").style.display="none";
+					}else{
+						//模拟点击线下充值标签，显示线下充值页面
+					}
+				}
+			}
+	</script>
+
+	<script type="text/javascript">
+	
+	</script>
+ 
+<#include "../include/top_static.html"> 
+<#include "../include/member_footer.html"> 
+  </body>
+</html>

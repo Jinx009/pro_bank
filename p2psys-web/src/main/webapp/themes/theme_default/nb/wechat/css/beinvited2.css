@@ -1,0 +1,294 @@
+body
+{
+	font-family: "Microsoft Yahei";
+	background: rgb(246,246,246);
+	width: 100%;
+	height: 100%;
+}
+.bind-image
+{
+	width:80px;
+	margin-top: 15px;
+}
+.right-btn
+{
+	width: 96%;
+	margin-left: 2%;
+	text-align: right;
+}
+.space-div
+{
+	height: 15px;
+}
+.bind-h
+{
+	font-size:22px;
+	letter-spacing:2px;
+	color: rgb(50,110,173);
+	margin-left:3%;;
+}
+.bind-p
+{
+	margin-left:3%;
+	color: rgb(126,126,126);
+}
+.color-span
+{
+	color: rgb(50,110,173);
+}
+.bind-input
+{
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	background: rgb(218,227,236);
+	height: 40px;
+}
+.bind-form
+{
+	width: 94%;
+	margin-left: 3%;
+}
+.bind-image-div
+{
+	background: rgb(51,110,176);
+	border-radius:0px;
+}
+.bind-group
+{
+	width: 100%;
+}
+.bind-right-div
+{
+	color: white;
+	background: rgb(179,188,197);
+	border-radius:0px;
+}
+.btn-div
+{
+	background: rgb(51,110,176);
+	height: 32px;
+	font-size: 18px;
+	border-radius:16px;
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+	color: white;
+	line-height: 32px;
+	z-index: 99;
+}
+.inner-div
+{
+	position:relative;
+	background:rgb(129,164,204);
+	height: 28px;
+	font-size: 18px;
+	top:2px;
+	padding-bottom:2px;
+	border-radius:16px;
+	width: 98%;
+	margin-left:1%;
+	text-align: center;
+	color: white;
+	line-height: 28px;
+	z-index: 999;
+	border: 1px solid white;
+}
+#main
+{
+	display: none;
+}
+.red-div
+{
+	color: red;
+}
+.success-div
+{
+	text-align: center;
+}
+.big-well
+{
+	z-index: 99;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	top: 0;
+	filter: Alpha(Opacity=30);
+	-moz-opacity:0.3; 
+    opacity:0.3; 
+    background: black;
+    display: none;
+}
+.success-alert
+{
+	z-index: 999;	
+	position:fixed;
+	top: 25%;
+	width: 96%;
+	left: 2%;
+	border:1px solid rgb(51,111,173);
+	border-radius:10px;
+	display: none;
+	text-align: center;
+	background: rgb(247,247,247);
+}
+.loading
+{
+	position: fixed;
+	z-index: 9999;
+	top: 40%;
+	display: none;
+	text-align: center;
+	width: 100%;
+}
+.content_circle
+{
+    width:22px;
+    height:22px;
+    border-radius:22px;
+    border:1px solid rgb(50,110,175);
+    position: fixed;
+    top: 20px;
+    right: 10%;
+    color: rgb(50,110,175);
+    font-size: 16px;
+}
+.error-p
+{
+	text-align: center;
+	font-size: 20px;
+	color: rgb(140,140,140);
+	letter-spacing: 2px;
+}
+.error-btn
+{
+	margin-left:5%;
+	width: 90%;
+	border-radius:5px;
+	background: rgb(51,110,176);
+	color: white;
+	border: 2px solid rgb(51,110,176);
+	letter-spacing: 2px;
+	height: 40px;
+	line-height: 40px;
+}
+.error-other-btn
+{
+	margin-left:4%;
+	width: 92%;
+	border-radius:5px;
+	background: rgb(239,73,0);
+	color: white;
+	border: 2px solid rgb(239,73,0);
+	letter-spacing: 2px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+.agree
+{
+	position: fixed;
+	top:0px;
+	width: 100%;
+	z-index: 1000;
+	background: white;
+	height: 100%;
+	display: none;
+}
+.agree-div
+{
+	width:96%;
+	height:100%;
+	overflow-x:hidden;
+	overflow-y:auto;
+	margin-left: 2%;
+	padding-top: 15px;
+}
+.agree-btn
+{
+	float: right;
+	border: 0 solid white;
+}
+.register-input
+{
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	height: 40px;
+	background-color:expression(this.readOnly==true?"#eee":"#fff");
+}
+.space-div
+{
+	height: 15px;
+}
+.red-div
+{
+	color: red;
+	text-indent: 2em;
+	letter-spacing: 2px;
+}
+.login-form
+{
+	width: 96%;
+	margin-left: 2%;
+}
+.register-span
+{
+	height: 40px;
+	background: white;
+	border-radius:0px;
+	border-bottom: 1px solid rgb(204,204,204);
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	width: 25%;
+}
+.register-span img
+{
+	height:100%;
+	vertical-align: middle;
+}
+.register-group
+{
+	width: 100%;
+}
+.register-input-inner
+{
+	width: 75%;
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	height: 40px;
+}
+.register-span-btn
+{
+	height: 40px;
+	background: rgb(35,112,182);
+	border-radius:0px;
+	border-bottom: 1px solid rgb(204,204,204);
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	width: 25%;
+	color: white;
+	letter-spacing: 1px;
+}
+.register-green
+{
+	border: 0 solid white;
+	color: rgb(129,216,208);
+}
+.form-control:focus 
+{
+ 	border-color:rgb(204,204,204);
+  	outline: 0;
+  	-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.0),0 0px 0px rgba(0,0,0,.0);
+            box-shadow: inset 0 0px 0px rgba(0,0,0,.0),0 0px 0px rgba(0,0,0,.0);
+}

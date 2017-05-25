@@ -1,0 +1,39 @@
+<#macro trunct name>
+  <#assign length=name?length>
+  <#if length&gt;15>
+    ${name[0..15]}
+  <#else>
+    ${name}
+  </#if>
+</#macro>
+
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+<div class="schloolview">
+	<div class="view-banner">
+		 <div class="view-banner-word">
+		 	<div class="view-banner-left">800社区</div>
+		 	<div class="view-banner-right clearfix">
+		 		<h3>栏目介绍</h3>
+		 		<p>独家观点，资讯分享，以互联网+方式展现宏观金融及商业真相。</p>
+		 	</div>
+		 </div>
+	</div>
+	<div class="view-tab">
+		<span>观点</span><a href="/lcschool/expert.html" id="expertIntro">简介</a>
+	</div>
+	<ul class="view-con clearfix">
+		
+	</ul>
+	  <div id="kkpager"></div>
+</div>
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/viewList");
+</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>800Bank</title>
+    <!-- <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/normalize.css"> -->
+    <link href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.min.css"> -->
+    <link href="//cdn.bootcss.com/Swiper/3.1.7/css/swiper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/800bank.css">
+    <!-- <script src="/themes/theme_default/dist/jquery.js"></script> -->
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script src="/plugins/swiper_jquery_3.1.7/swiper.3.1.7.jquery.min.js"></script> -->
+    <script src="/plugins/layer.mobile-v1.6/layer.m.js"></script>
+    <script src="//cdn.bootcss.com/Swiper/3.1.7/js/swiper.jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/1.0.4/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/800bank.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?8ed4547d64b13d365d0b73967f9cec38";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    wx.config({
+        debug: false,
+        appId: '${appId}',
+        timestamp: ${timestamp},
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'hideMenuItems',
+            'hideAllNonBaseMenuItem',
+            'hideOptionMenu'
+        ]
+    });
+
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage'],
+            success: function(res) {
+                wx.hideMenuItems({
+                    menuList: ['menuItem:share:qq', 'menuItem:share:QZone', 'menuItem:share:weiboApp',
+                        'menuItem:copyUrl', 'menuItem:openWithQQBrowser', 'menuItem:originPage',
+                        'menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                        'menuItem:share:timeline'
+                    ]
+                });
+            }
+        });
+    });
+
+    wx.error(function(res) {});
+    </script>
+    <style>
+    .profit span {
+        margin-top: 4px;
+        font-size: 20px;
+        color: #ff7e00;
+        font-weight: bold;
+    }
+    
+    .profit span.profit-interest:after {
+        content: "%";
+        font-size: 20px;
+        color: #ff7e00;
+    }
+    
+    .profit div {
+        font-size: 47px;
+        color: #ff7e00;
+        font-weight: bold;
+        display: inline-block;
+    }
+    
+    .profit div:after {
+        content: "%";
+        font-size: 20px;
+        color: #ff7e00;
+    }
+     /*layer弹出框样式begin*/
+    
+    .layermchild .layermbtn {
+        border-top: none;
+    }
+    
+    .layermchild .layermbtn span {
+        background: #31b0d5;
+        color: #fff;
+        height: 27px;
+        width: 72px;
+        line-height: 27px;
+        font-size: 11px;
+        font-weight: 400;
+        border-radius: 13px;
+        box-sizing: border-box;
+    }
+    
+    .layermchild .layermbtn span:first-child {
+            height: 29px;
+    width: 209px;
+    line-height: 29px;
+    border-radius: 6px;
+    background: #ffae00;
+    color: #fff;
+    }
+    
+    .layermchild .layermbtn:before {
+        content: none;
+    }
+    /*layer弹出框样式end*/
+    </style>
+</head>
+
+<body>
+    <input type="hidden" value="${product.id!''}" id="product_id">
+    <input type="hidden" value="2" id="category_id">
+    <!-- 轮播图开始 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图结束 -->
+    <!-- 黄色条状物 -->
+    <div class="yellow-bar">
+        <a href="javascript:;">
+            <img src="/themes/theme_default/nb/wechat/images/800bank_white.png" alt="">
+            <span>专业的互联网财富管理平台</span>
+        </a>
+    </div>
+    <div class="wrap">
+        <div class="more">
+            <a href="${url}">了解详情&nbsp;&gt;</a>
+        </div>
+        <div class="main">
+            <div class="recommend">
+                <h3>${product.productName!''}</h3>
+                <a href="${url}">
+                    <!-- <p class="indexYield">${product.highestRefundRate!''} <span>%</span></p> -->
+                     <div class="profit">
+                        <div v-text="product.highestRefundRate"></div>
+                        <span v-if='product.interestRateValue'>+</span>
+                        <span v-if='product.interestRateValue' v-text='product.interestRateValue' class="profit-interest"></span>
+                    </div>
+                    <p class="detail-p">预期年化收益率</p>
+                    <div class="hr-sep"></div>
+                </a>
+            </div>
+            <div class="detail">
+                <div class="detail-item">
+                    <h3>${product.timeLimit!''}天</h3>
+                    <p class="detail-p">投资期限</p>
+                </div>
+                <div class="detail-item">
+                    <h3>￥${product.lowestAccount!''}</h3>
+                    <p class="detail-p">起投金额</p>
+                </div>
+            </div>
+            <div id="feature_detail" style="display:none" featureDetail1="${recommendProp1!''}" featureDetail2="${recommendProp2!''}" featureDetail3="${recommendProp3!''}"></div>
+            <div class="feature">
+                <!--                 <div class="feature-detail">
+                    <span class="feature-icon">优</span>
+                    <span class="feature-desc">优资典当标</span>
+                </div>
+                <div class="feature-detail">
+                    <span class="feature-icon">稳</span>
+                    <span class="feature-desc">稳健高收益</span>
+                </div>
+                <div class="feature-detail">
+                    <span class="feature-icon">本</span>
+                    <span class="feature-desc">本息保护</span>
+                </div> -->
+            </div>
+            <div class="btn">
+                <a href="/nb/wechat/product/product_menue.action">查看更多产品</a>
+            </div>
+        </div>
+    </div>
+    <!--底部导航-->
+    <div class="foot-blank"></div>
+    <div class="footer">
+        <div class="nav">
+            <ul>
+                <li>
+                        <a href="/nb/wechat/account/800bank.action" id="foot_nav_home_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_home"></use>
+                                </svg>
+                            </div>
+                            <span>首页</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/product/product_menue.html" id="foot_nav_list_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_list"></use>
+                                </svg>
+                            </div>
+                            <span>产品系列</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/main.html" id="foot_nav_my_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_my"></use>
+                                </svg>
+                            </div>
+                            <span>我的账户</span>   
+                        </a>
+                    </li>
+                <li>
+                        <a href="/nb/wechat/account/setting.action" id="foot_nav_set_a">
+                            <div class="foot-nav-svgwrap">
+                                <svg class="foot-nav-icon">
+                                     <use xlink:href="/themes/theme_default/nb/wechat/css/svg/foot-nav-icon.svg#foot_nav_set"></use>
+                                </svg>
+                            </div>
+                            <span>设置</span>   
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 底部导航 -->
+</body>
+
+</html>

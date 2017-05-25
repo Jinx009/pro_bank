@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>800众服</title>
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/base.css" />
+	<link rel="stylesheet" href="/themes/theme_default/cf/wechat/css/cf_wx.css" />
+	<script src="/themes/theme_default/cf/js/url.js" ></script>
+	<script src="/themes/theme_default/cf/wechat/js/jquery.js" ></script>
+	<script src="/plugins/vue/vue.min.js"></script>
+	<script src="/themes/theme_default/cf/wechat/js/user/attention.js" ></script>
+</head>
+<body class="bg">
+	<div class="back">
+		<div class="back-left" id="menue"><img src="/themes/theme_default/cf/wechat/img/menue.png"/></div>
+		<span>我关注的项目</span>
+	</div>
+	<#include "../include/menue.html">
+	<div class="attention-content" id="content" >
+		<div class="attention-col" v-repeat="item in items" >
+			<a href="/wechat/pro/detail.html?id={{item.projectId}}" >
+				<div class="invest-top" >
+					<div class="attention-col-left"><img v-attr="src:item.img" v-style="css.img" /></div>
+					<div class="attention-col-right">
+						<h1>{{item.projectName}}</h1>
+						<div class="attention-state">
+							<span v-if="1===item.timeStatus" >预热中</span>
+							<span v-if="2===item.timeStatus" >众筹中</span>
+							<span v-if="3===item.timeStatus" >已失败</span>
+							<span v-if="4===item.timeStatus" >已完成</span>
+							<span v-if="1===item.type" >实物众筹</span>
+							<span v-if="2===item.type" >股权众筹</span>
+							<span v-if="4===item.type" >公益众筹</span>
+							<div class="attention-img"><img src="/themes/theme_default/cf/wechat/img/attention_active.png"/></div>
+						</div>
+					</div>	
+				</div>
+			</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+@charset:'utf-8';
+.section{background:#f3f3f3;text-align: center;}
+.page-img{position: relative;z-index: 1}
+.page-one-1{position: absolute;z-index: 2;left: 11%;bottom: 21%;}
+.page-one-2{position: absolute;z-index: 2;right: 5%;top: 25%;}
+.page-two-1{position: absolute;z-index: 2;right: 7%;top: 29%;}
+.page-three-1{position: absolute;z-index: 2;left: 5%;top: 33%;}
+.page-three-2{position: absolute;z-index: 2;right: 14%;bottom: 34%;}
+.page-four-1{position: absolute;z-index: 2;left: 8%;top: 42%;}
+.page-five-1{position: absolute;z-index: 2;right:5%;top: 36%}
+.page-six-1{position: absolute;z-index: 2;left: 8%;bottom: 28%;}
+.page-seven-1{position: absolute;z-index: 2;left: 5%;bottom: 30%;}
+.page-eight-1{position: absolute;z-index: 2;left: 5%;bottom: 30%;}
+.page-eight-2{position: absolute;z-index: 2;right:6%;top: 40%; }
+.page-nine-1{position: absolute;z-index: 2;left: 12%;top: 37%;}
+.page-ten-1{position: absolute;z-index: 2;right: 2%;bottom: 23%;}
+
+.active  .page-one-1{animation:shake 4s ease infinite forwards;-webkit-animation:shake 4s ease infinite forwards;}
+.active .page-one-2{animation:rubberBand 1s ease 1 forwards;-webkit-animation:rubberBand 1s ease 1 forwards;}
+.active .page-two-1{animation:rubberBand 1s ease  1 forwards;-webkit-animation:rubberBand 1s ease  1 forwards;}
+.active .page-three-1{animation:fadeInLeft 1s ease  1 forwards;-webkit-animation:fadeInLeft 1s ease  1 forwards;}
+.active .page-three-2{animation:shake 2s ease infinite forwards;-webkit-animation:shake 2s ease infinite forwards;}
+.active .page-four-1{animation:rubberBand 1s ease  1 forwards;-webkit-animation:rubberBand 1s ease  1 forwards;}
+.active .page-five-1{animation:rubberBand 1s ease  1 forwards;-webkit-animation:rubberBand 1s ease  1 forwards;}
+.active .page-six-1{animation:rubberBand 1s ease  1 forwards;-webkit-animation:rubberBand 1s ease  1 forwards;}
+.active .page-seven-1{animation:shake 2s ease infinite forwards;-webkit-animation:shake 2s ease infinite forwards;}
+.active .page-eight-1{animation:shake 2s ease infinite forwards;-webkit-animation:shake 2s ease infinite forwards;}
+.active .page-eight-2{animation:rubberBand 1s ease  1 forwards;-webkit-animation:rubberBand 1s ease  1 forwards;}
+.active .page-nine-1{animation: zoomInDown 1s ease 0s 1 both;-webkit-animation: zoomInDown 1s ease 0s 1 both;}
+.active .page-ten-1{animation:shake 4s ease infinite forwards;-webkit-animation:shake 4s ease infinite forwards;}

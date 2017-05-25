@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	<title>修改交易密码</title>
+	<script src="/themes/theme_default/dist/jquery.js" ></script>
+	<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/wechat_alert.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/account/changePayPwd.js" ></script>
+	
+	<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/account/payPwdSetting.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+	<style type="text/css">
+	.success-alert
+	{
+		z-index: 999;	
+		position:fixed;
+		top: 25%;
+		width: 96%;
+		left: 2%;
+		border:1px solid rgb(51,111,173);
+		border-radius:10px;
+		display: none;
+		text-align: center;
+		background: rgb(247,247,247);
+	}
+	</style>
+</head>
+<body>
+<input type="hidden" value="${redirectURL}" id="redirectURL"  >
+ <div id="main_info" >
+	<div class="right-btn" ><img src="/themes/theme_default/nb/wechat/images/logo.png" class="bind-image" ></div>
+	<div class="space-div" ></div>
+	<div class="space-div" ></div>
+	<p class="bind-h" >修改交易密码</p>
+	<div class="space-div" ></div>
+	<form class="bind-form " >
+		<div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/lock.png" height="20px" width="18px" > </div>
+		      <input type="password" class="form-control bind-input "      onkeyup="this.value=this.value.replace(/\D/g,'')"   onafterpaste="this.value=this.value.replace(/\D/g,'')"  id="pwd" placeholder="原始交易密码"  />
+		    </div>
+	    </div>
+	    
+	    <div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/lock.png" height="20px" width="18px" > </div>
+		      <input type="password" class="form-control bind-input "    onkeyup="this.value=this.value.replace(/\D/g,'')"   onafterpaste="this.value=this.value.replace(/\D/g,'')"  id="newpwd" placeholder="新交易密码">
+		    </div>
+	    </div>
+	    
+	    <div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/lock.png" height="20px" width="18px" > </div>
+		      <input type="password" class="form-control bind-input "    onkeyup="this.value=this.value.replace(/\D/g,'')"   onafterpaste="this.value=this.value.replace(/\D/g,'')"  id="renewpwd" placeholder="确认新交易密码">
+		    </div>
+	    </div>
+	  
+	     <div class="space-div" ></div>
+	     <div class="space-div" ></div>
+	     <div class="space-div red-div" id="error_msg"  ></div>
+	     <div class="space-div" ></div>
+	     <div class="btn-div" onclick="changePayPwd()" >确认</div>
+	     <div class="space-div" ></div>
+	     <div class="space-div" ></div>
+	     <div class="space-div" ></div>
+	</form>
+</div>
+	
+</body>
+</html>

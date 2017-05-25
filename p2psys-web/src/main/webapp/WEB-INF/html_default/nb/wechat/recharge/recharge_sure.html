@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>充值确认</title>
+		<link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  		<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+	</head>
+	<body>
+		<form action="/nb/wechat/recharge/doUnionPayRecharge.html" method="post" name="form1" id="J_cash" novalidate="novalidate">
+			<div class="sureContent">
+				<div class="sureCard">
+					<input type="hidden" name="money" id="money" value="${money!0}" />
+					<p>银行卡号：${cardNo!} </p>
+					<p>所属银行：${bankName!} </p>
+				</div>
+				<div class="sureUser">
+					<p>用户名：${accName!} </p>
+					<p>手机号：${mobile!}</p>
+					<p>充值金额：￥${money!0}</p>
+				</div>
+			</div>
+			<input type="submit" id="cashBtn" value="确认充值" class="sureBtn" style="display:block;"/>
+		</form>
+	</body>
+</html>

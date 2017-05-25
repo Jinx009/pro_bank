@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script type="text/javascript">
+
+$(function(){
+	$.ajax({
+		url:'/esign/login.action',
+		type:'GET',
+		dataType:'json',
+		success:function(res){
+			console.log(res);
+			var data = res.result.sealData;
+			data = JSON.parse(data);
+			console.log(data);
+		}
+	})
+})
+</script>
+</head>
+<body>
+</body>
+</html>

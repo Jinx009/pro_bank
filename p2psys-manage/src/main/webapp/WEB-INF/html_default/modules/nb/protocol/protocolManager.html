@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>标信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	//$.fn.iframeWidthResize(640);//页面最小宽度设置
+	var dataGrid;
+	var winWidth = 300;
+	var winHeight = 400;
+	var editContentUrl = "/modules/nb/protocol/protocolContentEditPage.html";
+	var editTitle = "协议编辑";
+	var editUrl = "/modules/nb/protocol/protocolEditPage.html";
+	
+	
+	var addTitle = "协议编辑";
+	var addUrl = "/modules/nb/protocol/protocolAddPage.html";
+	
+	
+	var contentWinWidth = 900;
+	var contentWinHeight = 500;
+	
+	var isHideUrl = "/modules/loan/borrow/hideBorrow.html"; 
+	var isHideWinParmeters = "'{0}','"+isHideUrl+"','确定要隐藏该借款标吗？'";
+	var isHideTitle = "确定要隐藏该借款标吗？";
+	
+	var isShowUrl = "/modules/loan/borrow/showBorrow.html"; 
+    var isShowWinParmeters = "'{0}','"+isShowUrl+"','确定要显示该借款标吗？'";
+	var isShowTitle = "确定要显示该借款标吗？";
+
+	
+	$(function () {
+		dataGrid = $('#protocolList').datagrid({
+			url : 'protocolList.html',
+			fit : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums : 1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect : true,
+			frozenColumns : [ [
+				{
+					field : 'id',
+					title : '编号',
+					fixed : true,
+					sortable : false
+				}
+				] ],
+			columns : [ [
+				{
+					field : 'protocolType',
+					title : '协议编码',
+					fixed : true,
+					sortable : false
+				},
+				{
+					field : 'protocolName',
+					title : '协议名称',
+					fixed : true,
+					sortable : false
+				},
+				{
+					field : 'typeName',
+					title : '产品类型',
+					width : 200,
+					sortable : false
+				}, 
+				{
+					field : 'status',
+					title : '状态',
+					width : 80,
+					fixed : true,
+					sortable : false,
+					formatter : function (value, row, index) {
+						if (row.status == 0) {
+							return '启用中';
+						} else if (row.status == 1) {
+							return '未启用';
+						} else {
+							return value;
+						}
+					}  
+				},
+				{
+					field : 'nid',
+					title : '内容编辑',
+					width : 130,
+					sortable : false,
+					formatter : function (value, row, index) {
+						var str = '';
+		                str += "<a  onclick=openMyUrl('/modules/nb/protocol/protocolContentEditPage.html?id="+row.id+"','编辑协议') ><font color='red'>内容编辑</font></red></a>";
+		                //str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,contentWinWidth,contentWinHeight,editContentUrl);" title="'+editTitle+'">编辑协议</a>';
+		                return str;
+					}
+				},
+				{
+					field : 'action',
+					title : '操作',
+					width : 75,
+					fixed : true,
+					align : 'center',
+					formatter : function (value, row, index) {
+						var str = '';
+		                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">编辑协议</a>';
+		                return str;
+					}
+				}
+			] ]
+		});
+	});
+
+	
+	function openMyUrl(url,title)
+	{
+		$("body",parent.document).find('#new_title').val(title);
+		$("body",parent.document).find('#new_url').val(url);
+		
+		$("body",parent.document).find('#new_test').click();
+	}
+</script>
+<script src="${theme_dir}/js/search.js"></script>
+<style>
+.my_dd a
+{
+	width:78px;
+	background: white;
+}
+</style>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入借款公司名称/标名进行搜索"/>
+	            		<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+                        <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+		        <a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);"
+					href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+            </div>
+           
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="protocolList"></table>
+        </div>
+    </div>
+</body>
+</html>

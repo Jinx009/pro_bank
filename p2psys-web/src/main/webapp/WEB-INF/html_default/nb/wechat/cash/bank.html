@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="text/content" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+<title>我的银行卡</title>
+</head>
+<body>
+	<p class="title">我的银行卡</p>
+	<#if bankList?exists && bankList?size gt 0>
+		<#list bankList as item>
+			<div class="bankCard">
+				<img src="/themes/theme_default/nb/wechat/img/setCard.png" class="bank_icon"/>
+				<div class="bank_name">${item.bank!""}<span class="card_type">储蓄卡</span></div>
+				<p class="card_num">${item.hideBankNo}</p>
+			</div>
+		</#list>
+	</#if>
+	
+	<!-- <p class="bankTip"><span>*</span>如需更改或删除卡片信息，请联系微信客服</p>
+	<p class="bankTip">客服电话：400-6366-800</p> -->
+	<p class="banktips" style="line-height: 25px;margin-top: 7px;"><span style="padding-left: 18px;">* 如需更改或删除卡片信息，请联系微信客服</span></p>
+	<p class="banktips" style="line-height: 25px;"><span style="padding-left: 18px;"> 客服电话：400-6366-800</span></p>
+	<div class="sureBtn"><a href="/nb/wechat/account/setting.html" >返回</a></div>
+	
+</body>
+</html>

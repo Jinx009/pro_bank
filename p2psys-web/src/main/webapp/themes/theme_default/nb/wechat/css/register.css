@@ -1,0 +1,180 @@
+body
+{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: "Microsoft Yahei";
+}
+.land-a
+{
+	width: 100%;
+	border-radius:0px;
+	letter-spacing: 3px;
+	font-size: 18px;
+}
+.register-input
+{
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	height: 40px;
+	background-color:expression(this.readOnly==true?"#eee":"#fff");
+}
+.space-div
+{
+	height: 15px;
+}
+.red-div
+{
+	color: red;
+	text-indent: 2em;
+	letter-spacing: 2px;
+}
+.login-form
+{
+	width: 96%;
+	margin-left: 2%;
+}
+.register-span
+{
+	height: 40px;
+	background: white;
+	border-radius:0px;
+	border-bottom: 1px solid rgb(204,204,204);
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	width: 25%;
+}
+.register-span img
+{
+	height:100%;
+	vertical-align: middle;
+}
+.register-group
+{
+	width: 100%;
+}
+.register-input-inner
+{
+	width: 75%;
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	height: 40px;
+}
+.register-span-btn
+{
+	height: 40px;
+	background: rgb(35,112,182);
+	border-radius:0px;
+	border-bottom: 1px solid rgb(204,204,204);
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	width: 25%;
+	color: white;
+	letter-spacing: 1px;
+}
+.register-check
+{
+	background: white;
+	border: 0 solid white;
+	width: 5%;
+}
+.register-black
+{
+	background: white;
+	border: 0 solid white;
+	width: 95%;
+	text-align: left;
+	font-size: 14px;
+}
+.register-green
+{
+	background: white;
+	border: 0 solid white;
+	color: rgb(129,216,208);
+}
+.form-control:focus 
+{
+ 	border-color:rgb(204,204,204);
+  	outline: 0;
+  	-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.0),0 0px 0px rgba(0,0,0,.0);
+            box-shadow: inset 0 0px 0px rgba(0,0,0,.0),0 0px 0px rgba(0,0,0,.0);
+}
+.rigister-btn
+{
+	width: 94%;
+	margin-left:3%;
+	border-radius:4px;
+	letter-spacing: 3px;
+	font-size: 18px;
+}
+#tel_error
+{
+	font-size: 12px;
+}
+#repwd_error
+{
+	font-size: 12px;
+}
+.success-btn
+{
+	letter-spacing: 2px;
+}
+.success-div
+{
+	text-align: center;
+}
+.big-well
+{
+	z-index: 99;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	top: 0;
+	filter: Alpha(Opacity=30);
+	-moz-opacity:0.3; 
+    opacity:0.3; 
+    background: black;
+    display: none;
+}
+.success-alert
+{
+	z-index: 999;	
+	position:fixed;
+	top: 25%;
+	width: 96%;
+	left: 2%;
+	display: none;
+}
+.agree
+{
+	position: fixed;
+	top:0px;
+	width: 100%;
+	z-index: 1000;
+	background: white;
+	height: 100%;
+	display: none;
+}
+.agree-div
+{
+	width:96%;
+	height:100%;
+	overflow-x:hidden;
+	overflow-y:auto;
+	margin-left: 2%;
+	padding-top: 15px;
+}
+.agree-btn
+{
+	float: right;
+	border: 0 solid white;
+}

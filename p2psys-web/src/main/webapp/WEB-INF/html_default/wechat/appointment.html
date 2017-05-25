@@ -1,0 +1,43 @@
+<#include "../include/statistics.html">
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>预约时间</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/plugins/laydate-v1.1/need/laydate.css">
+  <link type="text/css" rel="stylesheet" href="/plugins/laydate-v1.1/skins/default/laydate.css" id="LayDateSkin">
+</head>
+<body>
+	  <div class="header nonebottom">预约时间</div>
+	  <form method="post" action="" name="form1" id="appointment_time">
+	  <div class="input-group m10">
+			  <div class="input-row input-title-row nonetop">
+					<div class="input-row-inner">请输入您方便的时间</div>
+			  </div>
+			  <div class="input-row">
+				  <div class="input-row-inner">
+						<input class="input-text" type="text" name="timeFirst" id="startTime" placeholder="预约时间一" />
+				  </div>
+			  </div>
+			  <div class="input-row">
+				  <div class="input-row-inner">
+						<input class="input-text" type="text" name="timeSecond" id="endTime" placeholder="预约时间二" />
+				  </div>
+			  </div>
+	  </div>
+	 
+	  <input class="button button-block button-main mt25" style="width: 93%;margin:auto;" type="button" value="确定"  id="private_appointment"/>
+	  <input type="hidden" name="consultant_id" value="${consultant_id}" class="idval"/>
+	  </form>
+	  <script src="${webroot}${theme_dir}/wx/js/jquery.min.js"></script>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	  <script src="/plugins/laydate-v1.1/laydate.js"></script>
+	  <script src="${webroot}${theme_dir}/wx/js/wx_date.js"></script>
+	  <script type="text/javascript">
+			seajs.use("${webroot}${theme_dir}/wx/js/appointment");
+	  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<#include "base_top.html">
+<#if status?exists>
+	<#if status==0><#assign invest_type="notcollect"></#if>
+	<#if status==1><#assign invest_type="hascollect"></#if>
+</#if>
+    <div class="menu-info">
+        <#if status==0>
+        <a class="current" href="/wx/infocollect.html?status=0">待收记录</a>
+        <a href="/wx/infocollect.html?status=1" >已收记录</a>
+        </#if>
+        <#if status==1>
+        <a href="/wx/infocollect.html?status=0">待收记录</a>
+        <a class="current" href="/wx/infocollect.html?status=1" >已收记录</a>
+        </#if>
+    </div>
+<#include "base_bottom.html">

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html">
+<body>
+  <#assign nid="my_invest"> 
+  <#assign flag="bond"> 
+ <#include "../../include/member_header.html">
+  <div id="container" class="clearfix">
+    <div class="usermain clearfix">
+      <div class="user_left"> 
+         <#assign mid="m_invest">
+         <#include "../member/trade_menu.html">
+      </div>
+      <div class="user_right">
+        <h2 class="item_title">现金管理产品</h2>
+          <ul class="memberSearch">
+            <li id="status">
+                    <a href="javascript:;" data-val="1" class="current">我的购买</a>
+                    <a href="javascript:;" data-val="2">我的转出</a>
+            </li>
+          </ul>
+          <table class="table_content"></table>
+          <div id="kkpager" class="kkpager"></div>
+        </div>
+      </div>
+    </div>
+    <form action="" id="transfer" style="display:none">
+        <ul class="transferContent">
+          
+        </ul>
+    </form>
+  <div id="time" class="hide" style="width:300px;">
+  
+      <div class="tipsWrap" style="padding-left:30px;">转出时间：<input type="text" class="dateInput" name="outTime" id="startTime" value=""></div>   
+      <input id="itemid" value="" name="id" type="hidden" >
+      <input id="searchBtn" value="确定" type="button" class="searchBtn">
+      <div class="content" style="color:#FF3E3E;text-align:center"></div>
+ 
+  </div>
+
+  <script>seajs.use('ppfund/ppfund');</script>
+
+ 
+  <#include "../../include/footer.html">
+</body>
+</html>

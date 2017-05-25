@@ -1,0 +1,378 @@
+<#assign webroot=request.getContextPath()>
+
+<#macro rewardType type_id>
+	<#if type_id==1>
+		充值奖励
+	<#elseif type_id==2>
+		邀请人奖励
+	<#elseif type_id==3>
+		被邀请人奖励
+	<#elseif type_id==4>
+		投标奖励
+	<#elseif type_id==5>
+		回款续投奖励
+	<#elseif type_id==6>
+		第一次投标奖励
+	<#elseif type_id==7>
+		推广费
+	<#elseif type_id==8>
+		推广奖励
+	</#if>
+</#macro>
+
+<#macro receiveStatus status>
+	<#if status==1>
+		未返现
+	<#elseif status==2>
+		已返现
+	<#elseif status==3>
+		返现审核不通过
+	<#elseif status==7>
+		返现失败
+	<#elseif status==3>
+		无用数据
+	</#if>
+</#macro>
+
+<#macro back_type type_id>
+	<#if type_id==1>
+		定时返现
+	<#elseif type_id==2>
+		自动返现
+	<#elseif type_id==3>
+		人工返现
+	</#if>
+</#macro>
+
+
+<#macro displayUserType type_id>
+	<#if type_id==1>
+		超级管理员
+	<#elseif type_id==2>
+		普通用户
+	<#elseif type_id==3>
+		客服
+	<#elseif type_id==7>
+		兼职客服
+	<#elseif type_id==3>
+		信贷审核
+	<#elseif type_id==3>
+		白银会员
+	<#elseif type_id==3>
+		黄金会员
+	<#elseif type_id==15>
+		财务
+	<#else>
+		其他
+	</#if>
+</#macro>
+<!-- v1.6.6.7 RDPROJECT-428 lhm 2013-11-06 start -->
+<#macro borrowTypeName item>
+	<#if item.type==101>
+		秒标
+	<#elseif item.type==104>
+		净值标
+	<#elseif item.type==103>
+		固定收益类产品
+	<#elseif item.type==106>
+		文化艺术区
+	<#elseif item.type==107>
+		慈善标
+	<#elseif item.type==109>
+		项目标
+	<#elseif item.type==110>
+		流转标
+	<#elseif item.type==111>
+		学信标
+	<#elseif item.type==112>
+		担保标
+    <#elseif item.type==102>
+		信用标
+	<#elseif item.type==108>
+		预约标
+	<#elseif item.type==113>
+		质押标
+	<#elseif item.type==115>
+		实业标
+	<#elseif item.type==116>
+		联名担保标
+	</#if>
+</#macro>
+
+<#macro statusTypeName status item>
+	<#if status==-1>
+		已撤回
+	<#elseif status==0>
+		等待初审
+	<#elseif status==1>
+		初审通过
+	<#elseif status==2>
+		初审未通过
+	<#elseif status==3>
+		复审通过
+	<#elseif status==4 ||status==49>
+		复审未通过
+	<#elseif status==5 ||status==59>
+		用户取消
+	<#elseif status==6>
+		还款中
+	<#elseif status==7>
+		部分还款
+	<#elseif status==8>
+		<#if item.type ==110 >
+			停止流转
+		<#else>
+			还款成功
+		</#if>
+	<#elseif status==19>
+		自动投标中
+	<#else>
+		错误状态
+	</#if>
+</#macro>
+
+<#function borrowStatusTypeName borrow>
+	<#if borrow.status??>
+	   <#return "等待初审"> 
+	<#elseif status==-1>
+		<#return "审核失败"> 
+	<#elseif status==0>
+		<#return "等待初审">
+	<#elseif status==1>
+		<#return "初审通过"> 
+	<#elseif status==2>
+		<#return "初审未通过"> 
+	<#elseif status==3>
+		<#return "复审通过"> 
+	<#elseif status==4||status==49>
+		<#return "复审未通过"> 
+	<#elseif status==5||status==59>
+		<#return "用户取消"> 
+	<#elseif status==6>
+		<#return "还款中"> 
+	<#elseif status==7>
+		<#return "部分还款"> 
+	<#elseif status==8>
+		<#return "还款成功"> 
+	<#elseif status==19>
+		自动投标中
+	<#else>
+		<#return "错误状态"> 
+	</#if>
+</#function>
+
+<#function borrowTenderText borrow>
+	<#if borrow.status??>
+	   <#if borrow.status==1>
+	   	<#return "立即投标"> 
+	   </#if>
+	   <#return borrowStatusTypeName(borrow)> 
+	<#else>
+	   <#return "">
+	</#if>
+</#function>
+
+<#macro showTenderButton borrow>
+    <#assign nowTime=dateformat("now") >
+	<#if borrow.status==0> 
+		<a class="btn-action">等待初审</a>
+	<#elseif borrow.status==1&&(getRemainTime(borrow.verify_time,borrow.valid_time)?number lt 0)&&borrow.type!=110>
+		<a class="btn-action">已经结束</a>
+	<#elseif borrow.status==1&&((borrow.account_yes) lt (borrow.account)) > 
+		<#if borrow.type==110><#if borrow.flow_status==0><a id="invest_dialog" class="btn-action" href="#">立即购买</a><#else><a class="btn-action">流转中</a></#if><#else><a id="invest_dialog"  class="btn-action" >立即投标</a></#if>
+	<#elseif borrow.status==1&&((borrow.account_yes) gt (borrow.account) || (borrow.account_yes)==(borrow.account)) > 
+		<#if borrow.type==110><a class="btn-action">流转中</a><#elseif borrow.type==108><a class="btn-action">认购成功</a><#else><a class="btn-action">等待复审</a></#if>
+	<#elseif borrow.status==2> 
+		<a class="btn-action">初审失败</a>
+	<#elseif borrow.status==3> 
+		<a class="btn-action">复审通过</a>
+	<#elseif borrow.status==5||borrow.status==-1> 
+		<a class="btn-action">用户取消</a>
+	<#elseif borrow.status==4> 
+		<a class="btn-action">复审失败
+	<#elseif borrow.status==6> 
+		<a class="btn-action">还款中</a>
+	<#elseif borrow.status==7> 
+		<a class="btn-action">还款中</a>
+    <#elseif borrow.type==110&&borrow.status==8> 
+		<a class="btn-action">停止流转</a>    
+	<#elseif borrow.status==8> 
+		<a class="btn-action">已还款</a>
+    
+    <#elseif borrow.status==19> 
+    	<a class="btn-action">自动投标</a>
+	<#else> 
+		<a class="btn-action">用户取消</a> 
+	</#if> 
+	<#if borrow.is_day??&&borrow.is_day==1> 
+		<#assign time_limit=(borrow.time_limit_day!0)+"天" > 
+		<#assign income=interest(100,borrow.apr/100,borrow.time_limit_day,"end")-100>
+	<#elseif borrow.type==110>
+	<#assign time_limit=(borrow.time_limit!0)+"月" >
+	<#assign income=interest(100,borrow.apr/100,borrow.time_limit,"monthEnd")-100 > 
+	<#elseif borrow.style??&&borrow.style==2> 
+		<#assign time_limit=(borrow.time_limit!0)+"月" >
+		<#assign income=interest(100,borrow.apr/100,borrow.time_limit,"monthEnd")-100 >
+	<#elseif borrow.style??&&borrow.style==3> 
+	<#assign time_limit=(borrow.time_limit!0)+"月" >
+	<#assign income=interest(100,borrow.apr/100,borrow.time_limit,"monthEnd")-100 >
+	<#else>
+ 		<#assign time_limit=(borrow.time_limit!0)+"月" >
+		<#assign income=interest(100,borrow.apr/100,borrow.time_limit,"month")-100 > 
+	</#if>
+	<#if borrow.type??&&borrow.type==108>
+	
+	<#elseif borrow.is_day??&&borrow.is_day!=1&&borrow.apr gt 24>
+	<p>投标100元,溢价月收益${borrow.apr/12}%，期限${time_limit},可获得利息收益￥${income}元</p>
+	<#else>
+	<p>投标100元,年利率${borrow.apr}%，期限${time_limit},可获得利息收益￥${income}元</p>
+	</#if>
+</#macro>
+<#macro getInterest borrow >
+<#if borrow.is_day??&&borrow.is_day==1> 
+<#assign income=interest(borrow.account?c,borrow.apr/100,borrow.time_limit_day,"end")-borrow.account?c?number> 
+<#else> 
+<#assign income=interest(borrow.account?c,borrow.apr/100,borrow.time_limit,"month")-borrow.account?c?number > 
+</#if>
+${income}
+</#macro>
+
+<#macro showBorrowIcon item>
+   <#if item.type??&&item.type==101>	
+    <a 
+        rel="tooltip" title="秒标满额系统自动还款" class="aimg">
+           <img src="${webroot}${theme_dir}/images/miao.png" border="0" />
+        </a></#if>	
+     <#if item.type??&&item.type==103>
+        <a 
+        rel="tooltip" title="小微企业现场审核固定收益类产品" class="aimg">
+         <img src="${webroot}${theme_dir}/images/pledge.png" border="0" alt="点击查看详情" />
+        </a></#if> 
+    <#if item.type??&&item.type==102>
+      <a 
+        rel="tooltip" title="网站给予的信用额度借款标" class="aimg">
+          <img src="${webroot}${theme_dir}/images/xin.png" border="0" alt="点击查看详情" />
+       </a> </#if> 
+	<#if item.type??&&item.type==110>
+        <a 
+        rel="tooltip" title="网站内流转的借款标" class="aimg">
+         <img src="${webroot}${theme_dir}/images/flow.png" border="0" alt="点击查看详情" />
+          </a></#if>
+    <#if item.type??&&item.type==104>
+        <a 
+        rel="tooltip" title="借款者在网站内资产做保障的借款标" class="aimg">
+         <img src="${webroot}${theme_dir}/images/jing.png" border="0" alt="点击查看详情" />
+           </a></#if> 
+    <#if item.type??&&item.type==108>
+        <a 
+        rel="tooltip" title="预约标" class="aimg">
+         <img src="${webroot}${theme_dir}/images/yuyue.png" border="0" alt="点击查看详情" />
+          </a></#if> 
+    <#if item.borrowTimeType??&&item.borrowTimeType==1>
+        <a 
+        rel="tooltip" title="天标是按天借款标" class="aimg">
+         <img src="${webroot}${theme_dir}/images/day.png" border="0" alt="点击查看详情" />
+        </a></#if>
+     <#if item.type??&&item.type==112>
+        <a 
+        rel="tooltip" title="定向标需要密码" class="aimg">
+         <img src="${webroot}${theme_dir}/images/offvouch.png" border="0" alt="点击查看详情" />
+      </a></#if> 
+     <#if item.type??&&item.type==113>
+	    <a 
+	    rel="tooltip" title="借款者在网站内资产做保障的借款标" class="aimg">
+	     <img src="${webroot}${theme_dir}/images/bao.png" border="0" alt="点击查看详情" />
+	      </a></#if> 
+     <#if item.type??&&item.type==115>
+	    <a rel="tooltip" title="借款者在网站内资产做保障的借款标" class="aimg">
+	     <img src="${webroot}${theme_dir}/images/shi.png" border="0" alt="点击查看详情" />
+	      </a></#if>   
+     <#if item.type??&&item.type==116>
+	    <a rel="tooltip" title="借款者在网站内资产做保障的借款标" class="aimg">
+	     <img src="${webroot}${theme_dir}/images/lian.png" border="0" alt="点击查看详情" />
+	      </a></#if>
+     <#if item.award??&&item.award!=0>
+        <a 
+        rel="tooltip" title="投资该借款标除利息外有额外的奖励" class="aimg">
+         <img src="${webroot}${theme_dir}/images/award.png" border="0" alt="点击查看详情" />
+        </a></#if> 
+	 <#if item.pwd??&&item.pwd!="">
+        <a 
+        rel="tooltip" title="定向标需要密码" class="aimg">
+         <img src="${webroot}${theme_dir}/images/lock.png" border="0" alt="点击查看详情" />
+        </a>
+   </#if> 						
+</#macro>
+<#macro showRemainTime addtime valid_time>
+<span id="endtime" class="endtime" data-time="${getRemainTime(addtime,valid_time)!0}"></span>
+</#macro>
+
+<#function getRemainTime addtime valid_time>
+<#assign l=valid_time >
+<#if l??>
+	<#assign day=(l)?number>
+	<#assign remainTime=(addtime?number+day*24*60*60-(dateformat("now"))?number)?c >
+	<#return remainTime>
+</#if>
+<#return -1>
+</#function>
+
+
+<#function getInterest borrow >
+<#if borrow.borrowTimeType??&&borrow.borrowTimeType==1> 
+<#assign income=interest(borrow.account?c,borrow.apr/100,borrow.time_limit_day,"end")-borrow.account?c?number> 
+<#else> 
+<#assign income=interest(borrow.account?c,borrow.apr/100,borrow.time_limit,"month")-borrow.account?c?number > 
+</#if>
+<#return income>
+</#function>
+
+<#function getRepaytime borrow >
+<#if borrow.borrowTimeType??&&borrow.borrowTimeType==1> 
+<#assign repaytime=dateroll(borrow.verify_time!0,0,0,borrow.time_limit_day,"yyyy-MM-dd") > 
+<#else> 
+<#assign repaytime=dateroll(borrow.verify_time!0,0,borrow.time_limit,0,"yyyy-MM-dd") > 
+</#if>
+<#return repaytime>
+</#function>
+
+<#function format4 num >
+<#assign temp=((((num)!0)?number)/10000) >
+<#if temp gt 1>
+<#return temp?string("#")+"万" >
+</#if>
+<#return num >
+</#function>
+
+<#function format2 num>
+<#if num?is_number>
+<#return (num?c?number)?string("##.##")>
+<#elseif num?is_string>
+<#return (num?number)?string("##.##")>
+</#if> 
+</#function>
+<#function ceil num>
+<#assign temp=((num)?c) >
+<#assign len=(temp?index_of("."))>
+<#if (len+3 gt (temp?length))||(len lt 0)>
+	<#assign len=(temp?length)>
+<#else>
+	<#assign len=len+3 >
+</#if>
+<#assign temp=temp?substring(0,len) >
+<#return (temp?number)?c>
+</#function>
+
+<#function xin a>
+<#if a?exists>
+<#assign temp=((((a)!0)?number)?c) >
+<#assign len=(temp?length)>
+   <#if len gt 9>
+   <#assign temp=temp?substring(3,len-4) >
+   <#assign b="****" >
+       <#return b+((((temp)!0)?number)?c)+b>
+   </#if>
+   <#else>
+   <#return (((temp)!0)?number)?c>
+    </#if>
+</#function>

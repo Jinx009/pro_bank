@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>账户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = true;
+</script>
+<script type="text/javascript">
+	$.canDelete = true;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = true;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  420;
+	var winHeight = 460;
+	var showTitle = "查看用户汇付资金";
+	var showUrl =  "/modules/account/account/queryBalance.html";
+	var showWinParmeters = "'{0}','"+showTitle+"',"+winWidth+","+winHeight+",'"+showUrl+"'";
+	var orderUrl = '/modules/crowdfunding/order/user.action';
+	
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [ [ 			
+			{ field: 'id', title: '编号', width: 50,sortable:true},
+			{ field: 'username', title: '用户名', width: 100},
+			{ field: 'realname', title: '真实姓名', width: 100},
+			{ field: 'total', title: '账户总额', width: 100,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'useMoney', title: '可用金额', width: 120, sortable:true,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'noUseMoney', title: '冻结总额', width: 120,formatter:function(value, row, index){
+				return value+"元";
+			}},
+			{ field: 'collection', title: '投资总额', width: 220, sortable:true,formatter:function(value, row, index){
+				if(null!=row.realname&&''!=row.realname){
+					return "<a onclick=openMyUrl('"+orderUrl+"?id="+row.user.userId+"','"+row.realname+"','"+row.id+"') >"+value+"元</a>";
+				}else{
+					return "<a onclick=openMyUrl('"+orderUrl+"?id="+row.user.userId+"','','"+row.id+"') >"+value+"元</a>";
+				}
+			}}
+			 ] ],
+	            toolbar : '#toolbar'
+		});
+	});
+	function exportExcel(){
+		var url = "/modules/account/account/exportExcelAccount.html";
+		var searchName = $("#searchName").val()
+		var userName = $("#username").val();
+		var realName = $("#realname").val();
+		var sou = "?searchName=" + searchName +"&userName=" + userName + "&realname=" + realName;
+		window.location.href = url + sou;
+	}
+	
+	
+	/**
+	 * 弹出新窗口
+	 */
+	function openMyUrl(url, title, projectId) {
+		$("body", parent.document).find('#new_title').val(title+"   ——投资记录");
+		$("body", parent.document).find('#new_url').val(url);
+		$("body", parent.document).find('#new_test').click();
+	}
+
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            	 <a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新" ><i class="iconfont">&#xe603;</i></a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		        	<li><span>用户名</span><input type="text" name="username" id="username" autocomplete="off"/></li>
+		        	<li><span>真实姓名</span><input type="text" name="realname" id="realname" autocomplete="off"/></li>
+		        	<li><span>用户类型</span><select name="user.userCache.userType" class="type">
+							<option value="0">全部</option>
+							<option value="1">投资人</option>
+							<option value="2">借款人</option>
+						</select></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

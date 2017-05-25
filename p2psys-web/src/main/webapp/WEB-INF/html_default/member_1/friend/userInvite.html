@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			<#assign mid="m_invest">
+			   <#include "../account_menu.html"></div>
+			<!--左边的导航 结束-->
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">好友邀请</h2>
+				<div class="user_right_main">
+				<div class="copyLink">
+					邀请好友：<input type="text" id="fe_text" value="${weburl}/user/register.html?ui=${ui}" readonly="true"><button id="d_clip_button"  data-clipboard-target="fe_text">复　制</button><br/><br/>
+				</div>
+					<table id="member_table" class="table_content">
+					</table>
+					<div id="kkpager"></div>
+				</div>	
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/friend_userInvite');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

@@ -1,0 +1,83 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>提现验证码</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+  </style>
+</head>
+<body>
+		<form action="/member/cash/doylCash.html" method="post" name="form1" id="J_cash" novalidate="novalidate">
+		<div class="sureUser bottom">
+	      	<p><strong>提现金额：</strong> ${money!0}元</p>
+	      	<input type="hidden" name="money" id="money" value="${money!0}" />
+	      	<input type="hidden" name="mobile" id="mobilePhone" value="${session_user.mobilePhone!}" />
+	      </div>
+	      <div class="edit">
+            <input class="code" type="text" name="code" id="code" style="width: 60%" autocomplete="off" placeholder="验证码" maxlength="6">
+            <span class="getCode" id="timeval" style="width: 37%" onclick="doajax();">点击获取</span>
+        </div>
+		
+	  <input type="hidden" name="cashToken" value="${cashToken!}">
+	  <input type="submit" id="cashBtn" value="提交" class="sureBtn" style="display:block;"/>
+	  </form>
+	  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+   	  <script type="text/javascript">
+  /**
+   * 获取手机验证码
+   */
+  function doajax(){
+    $.ajax({
+      url:'/nb/wechat/cash/getCashCode.html?mobilePhone='+$('#mobilePhone').val(),
+      type:'post',
+      success:function(data){
+        if(data.result){
+          //$(".tip").html()
+          $(".input-error-checkTip").html();  
+          var time=60;
+          var timeFun=setInterval(function(){
+            time--;
+            if(time>0){
+              $('#timeval').html(time+"秒后重新获取").attr("disabled",true);
+              $('#timeval').css("font-size","14px");
+              $('#timeval').css("color","#fff");
+              $('#timeval').css("background","#249FF1");
+            }else{
+              time=60;
+              $('#timeval').html("点击获取").removeAttr("disabled");
+              $('#timeval').css("background","#2370b6");
+              $('#timeval').css("color","#fff");
+              clearInterval(timeFun);
+            }
+          },1000);
+        }
+        else{
+          //$(".tip").html(data.msg);
+          $(".input-error-checkTip").html(data.msg);  
+        }
+      }
+    });
+  }
+  </script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+   	  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+   	  <script type="text/javascript">
+			seajs.use("${webroot}${theme_dir}/wx/js/cash_checkCode")
+	  </script>
+</body>
+</html>

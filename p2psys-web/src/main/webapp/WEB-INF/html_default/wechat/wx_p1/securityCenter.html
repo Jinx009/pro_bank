@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+	<meta http-equiv="text/content" charset="UTF-8">
+	<meta name="viewport" content="width=100%;initial-scale=1.0;maximum-scale=1.0;minimum-scale=1.0;user-scalable=no;" >
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>安全中心</title>
+	<style type="text/css">
+		*{margin:0;padding:0;font-size:15px;font-family:Microsoft YaHei, Helvetica, Heiti SC, Droid Sans;}
+		.h_all{width:640px;min-width:320px;height:1006px;margin:0 auto;box-shadow:0px 1px 4px 0px #666;}
+		a{text-decoration:none;}
+		ul li{display:block;list-style:none;}
+		/* s_header start */
+		.h_all .s_header{width:100%;height:70px;background-color:#2370B6;text-align:center;line-height:70px;padding:0 0;font-size:30px;color:#fff;}
+		/*end s_header*/
+
+		/* s_detail start*/
+		.h_all .s_detail ul li{list-style:none;border-bottom:1px solid #EFF2F2;height:60px;display: block;padding: 10px 0 10px 10px;}
+		.h_all .s_detail ul li .img_first{display:inline-block;float:left;margin-top:10px;margin-right:15px;}
+		.h_all .s_detail ul li span{float:left;font-size:28px;font-family:Microsoft YaHei;color:#333;line-height:60px;}
+		.h_all .s_detail ul li .img_second{float:right;margin:20px 13px 0 0;}
+		.h_all .s_detail ul li input{float:left;width:200px;line-height:30px;margin:16px 0 0 20px;padding-left:10px;border:none;}
+		.h_all .s_detail .detail_identity{margin-top:25px;border-top:1px solid #EFF2F2;line-height:60px;}
+		.h_all .s_detail .detail_identity .img_identity{display:inline-block;float:left;margin-top:10px;margin-right:15px;}
+		.h_all .s_detail .detail_identity label{float:right;font-size:23px;font-family:Microsoft YaHei;color:#666;margin-right:40px;}
+		
+		.h_all .s_detail .detail_identity .img_verified{display:inline-block;float:right;margin:20px -95px 0 0;}
+		
+		.h_all .s_detail .detail_updatePassword{margin-top:30px;border-top:1px solid #EFF2F2;}
+		/* end s_detail */
+
+		/* s_exitCurrentUser start*/
+		.h_all .s_exitCurrentUser{width:600px;height:82px;background:#2370B6;border-radius:5px;margin:52px auto;text-align:center;}
+		.h_all .s_exitCurrentUser:hover{background:#249FF1;cursor:pointer;}
+		.h_all .s_exitCurrentUser a{text-decoration:none;color:#fff;font-family:Microsoft YaHei;font-size:30px;line-height:82px;}
+		/* end s_exitCurrentUser*/
+
+		/*s_bottom start*/
+		.h_all .s_bottom{width:640px;height:92px;background:#363D3F;bottom:0;position:fixed;float:left;}
+		.h_all .s_bottom ul li{height:92px;width:80px;display: inline-block;padding: 6px 0 0 65px;color:#fff;}
+		.h_all .s_bottom ul li:hover{cursor:pointer;}
+		.h_all .s_bottom ul li a{color:#fff;}
+		.h_all .s_bottom ul li a:hover{color:#81D8D0;}
+		.h_all .s_bottom ul li a i{display:block;width:52px;height:52px;}
+		.h_all .s_bottom ul .s_home a .icon_home{background:url(images/home.png) no-repeat;}
+		.h_all .s_bottom ul .s_home a .icon_home:hover{background-position:0 -54px;}
+		.h_all .s_bottom ul .s_home a p{padding: 5px 10px;}
+
+		.h_all .s_bottom ul .s_lise a .icon_lise{background:url(images/lise.png) no-repeat;margin-left: 13px;}
+		.h_all .s_bottom ul .s_lise a .icon_lise:hover{background-position:0 -54px;}
+		.h_all .s_bottom ul .s_lise a p{padding: 5px 10px;}
+
+		.h_all .s_bottom ul .s_account a .icon_account{background:url(images/account.png) no-repeat;margin-left:12px;}
+		.h_all .s_bottom ul .s_account a .icon_account:hover{background-position:0 -54px;}
+		.h_all .s_bottom ul .s_account a p{padding: 5px 10px;}
+
+		.h_all .s_bottom ul .s_more a .icon_more{background:url(images/more.png) no-repeat;}
+		.h_all .s_bottom ul .s_more a .icon_more:hover{background-position:0 -54px;}
+		.h_all .s_bottom ul .s_more a p{padding: 5px 10px;}
+		/* end s_bottom */
+	</style>
+ </head>
+ <body>
+		<div class="h_all">
+				<div class="s_header">
+					安全中心
+				</div>
+				<!-- s_detail start -->
+				<div class="s_detail">
+					<ul>
+						<li class="detail_identity">
+							<img class="img_identity" src="images/identity.png" width="40" height="40"  alt="身份证" />
+							<span>身份认证</span>
+							<input type="text" />
+							<label>已认证</label><img class="img_verified" src="images/R_arrow.png" width="12" height="23" alt="已认证" />
+						</li>
+						<li>
+							<img class="img_first" src="images/bankcard.png" width="40" height="40" alt="绑定提现卡" />
+							<span>我的银行卡</span>
+							<input type="text" />
+							<img class="img_second" src="images/R_arrow.png" width="12" height="23" />
+						</li>
+						<li class="detail_updatePassword" >
+							<img  class="img_first"  src="images/lock.png" width="40" height="40" alt="绑定支付卡" />
+							<span>修改登录密码</span>
+							<input type="password"  name="password" autocomplete="off" />
+							<img class="img_second" src="images/R_arrow.png" width="12" height="23" />
+						</li>
+						<li >
+							<img class="img_first" src="images/lock.png" width="40" height="40" alt="修改登录密码" />
+							<span>修改支付密码</span>
+							<input type="password" name="password" autocomplete="off" />
+							<img class="img_second" src="images/R_arrow.png" width="12" height="23" />
+						</li>
+					</ul>
+				</div>
+				<!-- end s_detail -->
+				<!-- s_exitCurrentUser start -->
+				<div class="s_exitCurrentUser" >
+					<a href="javascript:void(0);" >
+					退出当前用户
+					</a>
+				</div>
+				<!-- end s_exitCurrentUser -->
+				<!-- s_bottom start-->
+				<div class="s_bottom">
+					<ul>
+						<li class="s_home">
+							<a href="javascript:void(0);" >
+								<i class="icon_home"></i>
+								<p >首页</p>
+							</a>
+						</li>
+						<li class="s_lise">
+							<a href="javascript:void(0);" >
+								<i class="icon_lise"></i>
+								<p >产品系列</p>
+							</a>
+						</li>
+						<li class="s_account">
+							<a href="javascript:void(0);" >
+								<i class="icon_account"></i>
+								<p >我的账户</p>
+							</a>
+						</li>
+						<li class="s_more">
+							<a href="javascript:void(0);" >
+								<i class="icon_more"></i>
+								<p >更多</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- end s_bottom -->
+		</div>
+ </body>
+</html>

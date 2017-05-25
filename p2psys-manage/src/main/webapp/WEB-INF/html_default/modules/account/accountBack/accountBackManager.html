@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>线下扣款管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = true;
+</script>
+<script type="text/javascript">
+	$.canDelete = true;
+</script>
+<script type="text/javascript">
+	$.canAdd = true;
+</script>
+<script type="text/javascript">
+	$.canGrant = true;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  700;
+	var winHeight = 450;
+	var addTitle = "添加线下扣款";
+	var addUrl =  "/modules/account/accountBack/accountBackAddPage.html";
+	var editTitle="扣款审核";
+	var editUrl="/modules/account/accountBack/accountBackEditPage.html";
+	var editWinParmeters = "'{0}','"+editTitle+"',700,480,'"+editUrl+"','确定'";
+	$(function() {
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountBackList.html',
+			fit : true,
+			fitColumns : false,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			frozenColumns:[[
+				{ field: 'id', title: '编号', width: 50,fixed: true,sortable:true},
+				{ field: 'tradeNo', title: '流水号', width: 150},
+				{ field: 'userName', title: '用户名', width: 75},
+				{ field: 'realName', title: '真实姓名', width: 100}
+			]],
+			columns : [[ 		
+				{ field: 'type', title: '类型', width: 100,formatter:function(value,row,index){
+					if(value==2){
+						return "账户扣款";
+					}
+				}},
+				{ field: 'money', title: '扣款金额', width: 100,formatter:function(value,row,index){
+					return value+"元";
+				}},
+				{field:'remark',title:'备注',width:150},
+				{ field: 'addTime', title: '扣款时间', width: 150,formatter:function(value,row,index){
+					return getLocalTime(value,4);
+				}},
+				{ field: 'status', title: '状态', width: 100,formatter:function(value, row, index){
+					if(value==1){
+						return '扣款成功';
+					}else if(value==2){
+						return '扣款失败';
+					}else{
+						return '<font color="red">待审核</font>';
+					}
+				}},
+				{field:'verifyUserName', title: '审核人', width: 100},
+				{field:'action',title : '操作',width :70,fixed: true,
+					formatter : function(value, row, index) {
+						var str = '';
+						if (row.status==0) {
+							str += $.formatString('<img onclick="$.fn.dataGridOptions.editFun('+editWinParmeters+');" src="{1}" title="扣款审核"/>', row.id, '${theme_dir}/css/images/extjs_icons/key.png');
+						}
+						str += '&nbsp;';
+						return str;
+					}
+				} 
+			]],
+			toolbar : '#toolbar',
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+// 			loadfilter: function(data){
+// 				$.each(data.rows,function(index, row){
+// 					if(row.username){
+// 						row.username = row.user.username;
+// 					}
+// 				}); 
+// 				return data;
+// 			}
+		});	
+	});
+		
+	function exportExcel(){
+		var url = '/modules/account/accountBack/exportExcelAccountBack.html?type=export';
+		var sou = "";
+		var userName = $("#userName").val();
+		if (userName != ""){
+		    sou += "&userName=" + userName;
+		}
+		var realName = $("#realName").val();
+		if (realName != ""){
+		    sou += "&realName=" + realName;
+		}
+		var status = $("#status").val();
+		if (status != ""){
+		    sou += "&status=" + status;
+		}
+		sou += "&order=desc";
+		if (sou != ""){
+			window.location.href = url + sou;
+		}else{
+			window.location.href = url;
+		}
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		 <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" class="sInput" placeholder="输入用户名/真实姓名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a onclick="$.fn.dataGridOptions.addFun(-1,addTitle,winWidth,winHeight,addUrl);" href="javascript:void(0);" class="addBtn"><i class="iconfont">&#xe629;</i>添加线下扣款</a>
+            	<a href="javascript:void(0);" onclick="exportExcel();">导出Excel</a>
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		       		<li><span>用户名</span><input type="text" name="userName" autocomplete="off"/></li>
+		       		<li><span>真实姓名</span><input type="text" name="realName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" id="status" class="type">
+		       				
+							<option value=0 selected="selected">待审核</option>
+							<option value=99>全部</option>
+							<option value=1>扣款成功</option>
+							<option value=2>扣款失败</option>
+						</select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

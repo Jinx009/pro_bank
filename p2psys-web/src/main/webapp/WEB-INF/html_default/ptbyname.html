@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<#include "include/resource.html"> 
+<body>
+<#assign nid="member" >
+<div id="login_head">
+       <div class="login_head_con">
+          <div class="con_left">
+              <a href="/"><span class="con_left_bg"></span></a>欢迎登录
+           </div>
+          <div class="con_right"><a href="/">回到首页</a></div>
+       </div>
+    </div>
+	
+<div id="container">
+    <div class="loginhtml ptbyname">
+        <div class="logindiv">
+            <div class="login-content clearfix">
+            <!-- v1.6.6.2 区分交易密码和支付密码找回 zza 2013-10-30 start -->
+            <#if getpwdtype == 'pwd'>
+            <form action="/user/getpwdByEmail.html" method="post" name="formUser" class="js-formdata">
+	            <input type="hidden" name="tokenList" value="${tokenList}" />
+				<ul class="getpwdul">
+					<#if (tokenList?exists)&&(tokenList?size>0)>
+	                	<#list tokenList as item>
+							<li class="clearfix">
+			                    <label for="">问题：</label>
+			                    ${item.question}
+								<input type="hidden" name="question" value="${item.question}" />
+		                    </li>
+			                <li class="clearfix">
+			                    <label for="">答案：</label>
+			                    <input type="text" name="answer" />
+		                    </li>
+	    				</#list>
+	                </#if>
+	                    <li class="clearfix">
+						 <input type="submit" value="找回密码" class="getpwdbtn" />
+						 <input type="hidden" name="getpwdtype" value="${getpwdtype}">
+						 <input type="hidden" value="getpwd" name="htmlType"/>
+						 <input type="hidden" value="${username}" name="username"/>
+	                    </li>
+	           	</ul>
+            </form>
+            <#elseif getpwdtype == 'paypwd'>
+                <form action="/user/getpaypwdByEmail.html" method="post" name="formUser" class="js-formdata">
+                 <input type="hidden" name="tokenList" value="${tokenList}" />
+				<ul class="getpwdul" style="padding-top:140px;">
+					<#if (tokenList?exists)&&(tokenList?size>0)>
+	                	<#list tokenList as item>
+							<li class="clearfix">
+			                    <label for="">问题：</label>
+			                    ${item.question}
+								<input type="hidden" name="question" value="${item.question}" />
+		                    </li>
+			                <li class="clearfix">
+			                    <label for="">答案：</label>
+			                    <input type="text" name="answer" />
+		                    </li>
+	    				</#list>
+	                </#if>
+	                    <li class="clearfix">
+						 <input type="submit" value="找回密码" class="denglubtn" />
+						 <input type="hidden" name="getpwdtype" value="${getpwdtype}">
+						 <input type="hidden" value="getpaypwd" name="htmlType"/>
+						 <input type="hidden" value="${username}" name="username"/>
+	                    </li>
+	           	</ul>
+            </form>
+            </#if>
+            <!-- v1.6.6.2 区分交易密码和支付密码找回 zza 2013-10-30 end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--用户注册 结束-->
+<#include "include/footer.html"> 
+</body>
+</html>

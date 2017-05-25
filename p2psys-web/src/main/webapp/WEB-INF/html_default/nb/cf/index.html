@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />
+<link rel="stylesheet" href="/plugins/owl/owl.css" />
+<link rel="stylesheet" href="/plugins/owl/owl.theme.css" />
+<link rel="stylesheet" href="/plugins/scollIt/css/csshello.css" />
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/url.js" ></script>
+<script src="/plugins/vue/vue.min.js"></script>
+<script src="/plugins/owl/owl.min.js"></script>
+<script src="/plugins/scollIt/js/scollIt.js" ></script>
+<script src="/plugins/scollIt/js/index.js" ></script>
+<script src="/themes/theme_default/cf/js/index.js" ></script>
+<script type="text/javascript">
+window.onload = function() {
+	var carousel = $(window).height()-85;
+	$('.banner-content').css('height',carousel+'px');
+}
+window.onresize = function() {
+	var carousel = $(window).height()-85;
+	$('.banner-content').css('height',carousel+'px');
+}
+</script>
+</head>
+<body class="bg">
+	<input type="hidden" value="${session_username}" id="userName" />
+	<div class="main">
+		<#include "include/header.html">
+		<div class="banner-bg">
+			<a class="banner-float" target="_blank" href="http://www.800bank.com.cn/"></a>
+			<div class="banner-content">
+				<div class="banner-wrap">
+					<div class="banner-txt">
+						<img src="/themes/theme_default/cf/img/banner_txt.png"/>
+					</div>
+					<div class="btn_all" id="login_btn" >
+						<button class="login-btn" onclick="openUrl('/cf/user/index.html')"  >登录</button>
+						<button class="login-btn" onclick="openUrl('/cf/user/index.html')"   >注册</button>
+					</div>
+					<div class="btn_all" id="all_btn"  style="display: none;" >
+						<button class="login-all-btn" onclick="openUrl('/pro/list.html?id=2')"  >了解更多</button>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 热门推荐	start-->
+		<div class="popular">
+			<div class="middle-content">
+				<div class="popular-title col-md-4">
+					<div class="popular-title-wrap">
+						<span>热门推荐</span>
+						<p>What's&nbsp;&nbsp;popular</p>
+					</div>
+				</div>	
+				<div class="popular-list"></div>
+				<div class="scroll-outer" >
+					<div id="scroll" class="owl-carousel"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--领投人介绍		start-->
+	<div class="middle-content">
+		<div class="classify-recommend-title">
+			<div class="classify-recommend-title-top"><div class="left"></div><div class="right">领投人介绍</div></div>
+			<p class="classify-recommend-title-bottom">Key&nbsp;&nbsp;Opinion&nbsp;&nbsp;Leaders</p>
+
+		</div>
+		<div class="index_tree">
+        <div class="contain">
+            <ul class="category">
+                <li>
+                    <div class="cate foo-title"  v-text="item[0].name" ></div>
+                    <div class="cate_content cate_cate" style="display: none;" >
+                        <p class="ptit" v-text="item[0].name" ></p>
+                        <div class="cate_cate_img" >
+                            <div>
+                                <img class="fl" v-attr="src:item[0].img" >
+                                <div class="fr">
+                                    <p><strong  >历史领投：</strong></p>
+                                    <p v-text="item[0].history" ></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+	                                <p><strong >个人简介：</strong></p>
+	                                <p class="full" style="width: 200px;" v-text="item[0].info" ></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="grow foo-title"  v-text="item[1].name" ></div>
+                    <div class="cate_content cate_grow" style="display: none;">
+                   	  <p class="ptit" v-text="item[1].name" ></p>
+                       <div class="cate_cate_img">
+                            <div>
+                                <img class="fl" v-attr="src:item[1].img" >
+                                <div class="fr">
+                                    <p><strong  >历史领投：</strong></p>
+                                    <p v-text="item[1].history" ></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+	                                <p><strong >个人简介：</strong></p>
+	                                <p class="full" style="width: 200px;" v-text="item[1].info" ></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li >
+                    <div class="size foo-title"  v-text="item[2].name" ></div>
+                    <div class="cate_content cate_size">
+                    	<p class="ptit" v-text="item[2].name" ></p>
+                          <div class="cate_cate_img"  >
+                            <div>
+                                <img class="fl" v-attr="src:item[2].img" >
+                                <div class="fr">
+                                    <p><strong  >历史领投：</strong></p>
+                                    <p v-text="item[2].history" ></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+	                                <p><strong >个人简介：</strong></p>
+	                                <p class="full" style="width: 200px;" v-text="item[2].info" ></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                  <!--  <li >
+                    <div class="add foo-title"  v-text="item[3].name" ></div>
+                    <div class="cate_content cate_add">
+                    	<p class="ptit" v-text="item[3].name" ></p>
+                          <div class="cate_cate_img"  onclick="goFactory()">
+                            <div>
+                                <img class="fl" v-attr="src:item[3].img" >
+                                <div class="fr">
+                                    <p><strong  >历史领投：</strong></p>
+                                    <p v-text="item[3].history" ></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+	                                <p><strong >个人简介：</strong></p>
+	                                <p class="full" style="width: 200px;" v-text="item[3].info" ></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="height: 80px;" ></div>
+<!--领投人介绍		end-->
+<#include "include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,216 @@
+@charset "utf-8";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,label
+{font-family: "微软雅黑","Microsoft YaHei" ,Helvetica, sans-serif, Verdana, Arial;font-size: 0.95em;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;font-size: 14px;}
+body{line-height:1;}
+ol, ul{list-style:none;}
+blockquote, q{quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+*{
+	margin:0px;
+	padding:0px;
+	outline:none;
+	
+}
+img{border: 0;}
+a{text-decoration: none;color: inherit;}
+a:hover{text-decoration: none;color: inherit;}
+a:link{text-decoration: none;color: inherit;}
+a:active{text-decoration: none;color: inherit;}
+input{border:0px;}
+select{border: 0px;}
+html{overflow-x: hidden;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {background: transparent;border: 0;margin: 0;padding: 0;list-style-type: none;}
+.red_bg{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	
+	
+}
+.red_bg_one{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.result{
+	width: 100%;
+	display: none;
+}
+.result_edit{
+	width: 100%;
+	display: none;
+}
+.rule{
+	width: 90%;
+	position: absolute;
+	left: 5%;
+	top: 5%;
+	height: 95%;
+	color: #FFFFFF;
+	font-size: 20px;
+	display: none;
+}
+.share{
+	width: 100%;
+	display: none;
+}
+.again{
+	width: 100%;
+	display: none;
+}
+.playAgain{
+	width: 100%;
+	display: none;
+}
+.sure{
+	width: 100%;
+	display: none;
+}
+
+.code{
+	width: 100%;
+	display: none;
+}
+.code_bg{
+	position: absolute;
+	width: 60%;
+	top: 20%;
+	left: 20%;
+}
+.code-text{
+	position: absolute;
+	width: 80%;
+	left: 10%;
+	bottom: 25%;
+}
+.text-msg{
+	position: absolute;
+	width: 80%;
+	top: 45%;
+	left: 10%;
+	color: #FFFFFF;
+}
+.red_p_bottom{
+	padding-bottom: 3%;
+}
+.text-msg{
+	line-height: 2.5em;
+}
+.rule p{
+	line-height: 20px;
+}
+.rule h3{
+	padding-bottom: 3%;
+}
+.tip{
+	padding-top: 3%;
+}
+.red_index{
+	position: absolute;
+	width: 100%;
+	top: 10%;
+	left:0px;
+	height:80%;
+}
+.red_msg{
+	position: absolute;
+	width: 80%;
+	top: 35%;
+	left:10%;
+}
+.red_msg1{
+	position: absolute;
+	width: 80%;
+	top: 45%;
+	left:10%;
+}
+.red_msg2{
+	position: absolute;
+	width: 80%;
+	top: 55%;
+	left:11%;
+}
+.red_h1{
+	font-size: 3em;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.red_h2{
+	font-size: 2.3em;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.red_h3{
+	font-size: 1.6em;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.red_p{
+	font-size: 1.3em;
+	letter-spacing: 1px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.red_btn{
+	position: absolute;
+	width: 60%;
+	left: 21%;
+	top: 65%;
+}
+.red_btn img{
+	width: 100%;
+}
+.red_btns{
+	position: absolute;
+	width: 40%;
+	left: 30%;
+	top: 55%;
+}
+.sure_btns{
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 45%;
+}
+.sure_btns img{
+	width: 100%;
+}
+.red_btns img{
+	width: 100%;
+}
+.phone_edit{
+	width: 90%;
+	height: 35px;
+	padding: 5%;
+	background:url(/themes/theme_default/nb/wechat/images/card/phone_edit.png) no-repeat;
+	background-size: 100% 100%;
+	color: #bcbcbc;
+	margin-bottom: 5%;
+}
+.getRedBtn{
+	position: absolute;
+	width: 60%;
+	left: 20%;
+	bottom: 10%;
+}

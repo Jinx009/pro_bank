@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/role/roleAdd.html',"添加成功！","添加失败！");
+        var treeObj = $('#menuTree');		
+        treeObj.tree({
+			url : "/modules/system/menu/menuList.html",
+			parentField : 'pid',
+			checkbox:true,
+			loadFilter: function(rows){return $.fn.treeConvert.menu(rows.rows); },
+			onCheck:function(node){
+			    $("#menuId").val($.fn.treeGridOptions.doNode());
+			}
+        });		
+	});
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">角色名称：</label>
+		     <div class="ipt">
+		     	<input type="text" name="name" class="w300 easyui-validatebox" data-options="required: true,validType:'chinese'" maxlength="10"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea  name="remark" class="w300 easyui-validatebox"></textarea>
+		     </div>
+		</div>
+		<div class="formitm">
+			 <input type="hidden" name="menuId" id="menuId">
+		     <label class="lab">选择菜单：</label>
+		     <div class="ipt">
+		     	<ul id="menuTree"></ul>
+		     </div>
+		</div>
+	</form>
+</div>

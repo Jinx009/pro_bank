@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>调度信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    var dataGrid;
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : 'ipsPayList.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            nowrap:false,
+            idField : 'id',
+            sortName : 'id',
+            sortOrder : 'asc',            
+            pagination : true,
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            columns : [ [
+              { field:'id',checkbox:true},
+              { field: 'type', title: '类型', width: 120, sortable:false },
+              { field: 'status', title: '状态', width: 150, sortable:false }  
+             ] ],
+             toolbar : '#toolbar'
+        });
+    });
+    function getSelections(){    	
+    	var ids = [];
+    	var rows = $('#dataGrid').datagrid('getSelections');
+    	for(var i=0;i<rows.length;i++){
+    		ids.push(rows[i].id);
+    	}
+    	 $('#dataGrid').datagrid('reload');
+    	
+    }
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<h2 class="searchTitle">查询条件</h2>
+            <form id="searchForm">
+              <ul>
+            		<li>时间：<input type="text" name="startTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="searchTime"/></li>
+            		<li><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a></li>
+            	</ul>
+            </form>
+        </div>
+       
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+       
+    </div>
+     <div id="toolbar" style="display: none;">		
+     	<a href="javascript:void(0);" onclick="getSelections();" class="addBtn">重新触发</a>	
+	</div>
+</body>
+</html>

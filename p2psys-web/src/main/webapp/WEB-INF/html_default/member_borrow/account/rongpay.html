@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    <title>ddd.....</title>
+  </head>
+  <body>
+    <form action="${rp.rongpay_url}" method="get" id="orderForm">
+
+			<input type='hidden' name='service' value='${rp.service}'>
+			<input type='hidden' name='payment_type' value='${rp.payment_type}'>
+			<input type='hidden' name='merchant_ID'   value='${rp.merchant_ID}'>
+			<input type='hidden' name='seller_email'   value='${rp.seller_email}'>
+			<input type='hidden' name='return_url'   value='${rp.return_url}'>
+			<input type='hidden' name='notify_url'  value='${rp.notify_url}'>
+			<input type='hidden' name='order_no' value='${rp.order_no}'>
+			<input type='hidden' name='title'   value='${rp.title}'>
+			<input type='hidden' name='body'   value='${rp.body}'>
+			<input type='hidden' name='total_fee'    value='${rp.total_fee}'>
+			<input type='hidden' name='buyer_email' value='${rp.buyer_email}'>
+			<input type="hidden" name="charset"  value="${rp.charset}">
+			<input type='hidden' name='paymethod'     value='${rp.paymethod}'>
+			<input type='hidden' name='defaultbank'   value='<#if rp.defaultbank??>${rp.defaultbank}</#if>'>
+			<input type='hidden' name='sign_type'   value='${rp.sign_type}'>
+			<input type='hidden' name='sign'   value='${rp.sign!""}'>
+    </form>
+    <script language="javascript">
+        document.getElementById("orderForm").submit();  
+    </script>
+  </body>
+</html>

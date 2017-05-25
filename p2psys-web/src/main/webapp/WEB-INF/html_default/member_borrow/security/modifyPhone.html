@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../user_menu.html">
+			</div>
+			
+            
+			<#include "../../common/function.html" />
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul class="user_right_menu clearfix">
+						<li class="h_menu_li">修改手机</li>
+					</ul>
+				</div>
+			<form action="/member/security/doModifyPhone.html" method="post" id="J_modifyPhone">	
+				<div class="user_right_main border_gray">
+					<div class="user_right_border">
+					<#-- 
+					<div class="l">修改方式：</div>
+						<div class="c">
+						<font color="red">【密保】</font> + 【手机校验码】绑定手机
+						</div>
+					</div>-->
+					<div class="user_right_border">
+						<div class="l">登陆密码：</div>
+						<div class="c">
+							<input type="password" size="15"  id="pwd" name="pwd">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">密保问题：</div>
+						<div class="c">
+							<select name="question" id="question">
+								<#list pwdQuestionList as item>
+									<option value="${item.id}">${item.question}</option>
+								</#list>
+							</select>
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l">密保答案：</div>
+						<div class="c">
+							<input type="text" size="15" id="answer" name="answer">
+						</div>
+					</div>
+					<div class="user_right_border">
+						<div class="l"></div>
+						<div class="c">
+							<input type="submit" value="下一步" class="btn sub_btn">
+						</div>
+					</div>
+					</form>
+				</div>
+			<#if session_user.mobile_phone?? && session_user_identify.mobilePhoneStatus=1 >
+				<div class="user_help alert">
+					<h3><b class="user_help_tip"></b>温馨提示</h3>
+						您已绑定手机：${session_user.hideMobile_phone}
+					</div>
+			</#if>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+		</div>
+<script type="text/javascript">
+$(function(){
+	$('#J_modifyPhone').validate({
+		rules:{
+			pwd:"required",
+			answer:"required"
+		},
+		messages:{
+			pwd:"请输入登陆密码",
+			answer:"请输入密保答案"
+		}
+	});
+	
+})
+</script>		
+	<!--用户中心的主栏目 结束-->
+	<#include "../../include/footer.html">
+</body>
+</html>

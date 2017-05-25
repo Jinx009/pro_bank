@@ -1,0 +1,26 @@
+<script type="text/javascript" src="${webroot}/plugins/rsa/RSA.js"></script>
+<script type="text/javascript" src="${webroot}/plugins/rsa/BigInt.js"></script>
+<script type="text/javascript" src="${webroot}/plugins/rsa/Barrett.js"></script>
+
+<!-- RSA表单加密  -->
+<#macro formEncrypt encryptId_ encryptId >
+	<#assign enableRsaFormEncrypt=false>
+	<#if rsaFormEncrypt?? && rsaFormEncrypt.enable_formEncrypt?? && rsaFormEncrypt.enable_formEncrypt==true>
+		<#assign enableRsaFormEncrypt=true>
+	</#if>
+	
+	<script type="text/javascript">
+		function doEncrypt(){
+			var result = $("${encryptId_}").val();
+			<#if enableRsaFormEncrypt>
+				setMaxDigits(130);
+				<#if e?? && m??>
+				   	key = new RSAKeyPair("${e}","","${m}");
+					result = encryptedString(key, encodeURIComponent(result));
+			   	</#if>
+			   	$("#encrypt").attr("value", 1);
+			</#if>
+		   	$("${encryptId}").attr("value", result);
+		}
+	</script>
+</#macro>

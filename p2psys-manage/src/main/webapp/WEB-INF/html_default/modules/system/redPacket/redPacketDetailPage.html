@@ -1,0 +1,118 @@
+<style>
+.hide{display:none;}
+.sForm .ipt{margin-left:155px;}
+.sForm .ipt1{margin-bottom:20px;margin-left:155px;}
+.sForm .lab{width:139px;}
+</style>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+        
+    	<div class="formitm">
+		     <label class="lab">红包名称：</label>
+		     <div class="ipt">
+		     	${redPacket.name!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用：</label>
+		     <div class="ipt">
+		     	<#if redPacket.status == 1>
+		     		启用
+		     	<#elseif redPacket.status == 0>
+		     		不启用
+		     	</#if>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包类型：</label>
+		     <div class="ipt">
+		     	<#if redPacket.type == 1>
+		     		现金红包
+		     	<#elseif redPacket.type == 2> 
+		     		虚拟红包
+		     	</#if>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">发放方式：</label>
+		     <div class="ipt">
+		     	<#if redPacket.paymentType == 1> 
+		     		固定金额
+		     	<#elseif redPacket.paymentType == 2> 
+		     		固定比率
+		     	<#elseif redPacket.paymentType == 3> 
+		     		浮动金额
+		     	</#if>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包金额：</label>
+		     <div class="ipt">
+		     	${redPacket.money!}元
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">浮动方式：</label>
+		     <div class="ipt">
+		     	<#if redPacket.floatType == 1>
+		     		区间金额
+		     	<#elseif redPacket.floatType == 2>
+		     		区间比率
+		     	</#if>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">金额比率：</label>
+		     <div class="ipt">
+		     	${redPacket.rate!}%
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">有效期：</label>
+		     <div class="ipt">
+		     	${redPacket.day!}天
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">提醒天数：</label>
+		     <div class="ipt">
+		     	${redPacket.dueTimeLimit!}天
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">红包总数：</label>
+		     <div class="ipt">
+		     	${redPacket.totalNum!}个
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">最大金额：</label>
+		     <div class="ipt">
+		     	${redPacket.maxMoney!}元
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">最小金额：</label>
+		     <div class="ipt">
+		     	${redPacket.minMoney!}元
+		     </div>
+		</div>
+		<div class="formitm">
+		     <#if redPacket.paymentType == 3 && redPacket.floatType == 1 && detail?? && detail?size gt 0>
+		     <label class="lab">金额区间：</label>
+				<#list detail as item>
+						<br/>${item.min!0}&lt;= 投标/充值金额 &lt;${item.max!0} 时，红包金额${item.money!0}元
+				</#list>
+			</#if>
+		</div>
+		<div class="formitm">
+			<#if redPacket.paymentType == 3 && redPacket.floatType == 2 && detail?? && detail?size gt 0>
+			<label class="lab">金额区间：</label>
+				<#list detail as item>
+					<br/>${item.min!0}&lt;= 投标/充值金额 &lt; ${item.max!0}时，红包金额兑换比率${item.rate!0}%
+				</#list>
+			</#if>
+		</div>
+	</form>
+</div>
+

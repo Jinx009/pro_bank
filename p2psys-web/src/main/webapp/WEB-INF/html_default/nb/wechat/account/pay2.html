@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <title>800Bank</title>
+    <script src="/themes/theme_default/dist/jquery.js"></script>
+    <script src="//cdn.bootcss.com/vue/1.0.4/vue.min.js"></script>
+    <script src="/themes/theme_default/nb/wechat/js/account/pay.js"></script>
+    <link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_bind.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css">
+    <link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css">
+    <style type="text/css">
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+    
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    .coupons-name{
+        position: relative;
+    }
+    .coupons-name .tips {
+  position: absolute;
+  left: 5px;
+  bottom: -16px;
+  font-size: 10px;
+  width: 180px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #09F;
+  background-color: #FFF;
+  z-index: 199; }
+
+.coupons-name .tips:before,
+.coupons-name .tips:after {
+  content: "";
+  display: block;
+  border-width: 6px;
+  position: absolute;
+  top: -13px;
+  left: 34px;
+  border-style: dashed dashed solid;
+  border-color: transparent transparent #09F;
+  font-size: 0;
+  line-height: 0; }
+
+.coupons-name .tips:after {
+  top: -12px;
+  border-color: transparent transparent #FFF; }
+    </style>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    wx.config({
+        debug: false,
+        appId: '${appId}',
+        timestamp: ${timestamp},
+        // timestamp: ${timestamp},
+        nonceStr: '${nonceStr}',
+        signature: '${signature}',
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage'],
+            success: function(res) {}
+        });
+        wx.onMenuShareTimeline({
+            title: '800bank,注册即送8000元体验金',
+            desc: "优质投资产品，灵活投资方式，尽在800bank",
+            link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.html?product_id=${productBasicId}',
+            imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg',
+            success: function() {},
+            cancel: function() {}
+        });
+        wx.onMenuShareAppMessage({
+            title: '800bank,注册即送8000元体验金',
+            desc: "优质投资产品，灵活投资方式，尽在800bank",
+            link: 'http://www.800bank.com.cn/nb/wechat/product/productDetail.html?product_id=${productBasicId}',
+            imgUrl: 'http://www.800bank.com.cn/themes/theme_default/nb/wechat/images/logo.jpg',
+            success: function() {},
+            cancel: function() {}
+        });
+    });
+
+    wx.error(function(res) {});
+    </script>
+</head>
+
+<body>
+    <input type="hidden" value="${leftAccountMoney}" id="leftAccountMoney">
+    <input type="hidden" value="${payPwd}" id="payPwd">
+    <input type="hidden" value="${borrow}" id="borrow">
+    <input type="hidden" id="productBasicId" name="productBasicId" value="${productBasicId}">
+    <input type="hidden" value="{{ cid }}" id="coupons-id">
+    <div id="main" style="display: block;">
+        <div class="pay_bg">
+            <p class="pay_title">投资</p>
+            <div class="sureUser" style="background:#ecf5fc;">
+                <div style="float:left;width:50%;">
+                    <p><strong>账户余额：</strong>
+                        <font id="leftMoney">${leftMoney!0}</font>元</p>
+                    <p><strong>实际支付：</strong>
+                        <font id="subMoney">0</font>元&nbsp;</p>
+                    <p id="pRedMoney"><strong>红包金额：</strong>
+                        <font id="redPacketMoney">0</font>元</p>
+                        <p id="pCouponsMoney"><strong>加息券&nbsp;&nbsp;：</strong>
+                        <font id="couponsMoney" class="couRateChek" >0</font>%</p>
+                    <!--  <p><strong class="red-strong" onclick="showRedPacketDiv()" id="myRedPacket" >使用红包</strong></p> -->
+                </div>
+                <div style="float:right;width:25%;" onclick="showRedPacketDiv()" id="myRedPacket">
+                    <img src="/themes/theme_default/nb/wechat/img/redPacket.png" style="height:75px;" />
+                    <p style="text-align: left;padding-left:5px;">使用红包</p>
+                </div>
+                <div style="float:right;width:25%;" onclick="showCouponsDiv()" id="myCoupons">
+                    <img src="/themes/theme_default/nb/wechat/img/redPacket.png" style="height:75px;" />
+                    <p style="text-align: left;padding-left:5px;">使用加息券</p>
+                </div>
+                <div class="payClear"></div>
+            </div>
+            <!-- 判断该标是否为体验标且为投过 -->
+            <#if isEGold?exists>
+                <p class="pay">体验金投资金额</p>
+                <div class="edit">
+                    <input type="text" id="goldMoney" name="goldMoney" value="${goldMoney!0}" readonly="readonly" style="width:100%;background:url('/themes/theme_default/nb/wechat/img/investMoney_bg.png') no-repeat 5px center;background-size:25px 25px;background-color: #fff;padding-left:16%;color:#ff5757;" />
+                    <input type="hidden" id="isBindC" name="isBindC" value="${isBindC!0}" style="width:100%" />
+                    <input type="hidden" id="money" name="money" value="0" oninput="changeInputMoney()" style="width:100%" />
+                </div>
+                <#else>
+                    <p class="pay">投资金额</p>
+                    <div class="edit">
+                        <input type="text" id="money" name="money" oninput="changeInputMoney()" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" style="width:100%;background:url('/themes/theme_default/nb/wechat/img/investMoney_bg.png') no-repeat 5px center;background-size:25px 25px;background-color: #fff;padding-left:16%;color:#ff5757;" />
+                        <input type="hidden" id="goldMoney" name="goldMoney" value="0" readonly="readonly" style="width:100%" />
+                    </div>
+            </#if>
+            <div class="pay_userMoney">
+                <div class="pay_userMoney_left" id="userMoney">可投余额：<span></span></div>
+                <div class="pay_userMoney_right" id="expected_return" style="display:none;">预期收益：<span></span></div>
+            </div>
+            <div class="payClear"></div>
+            <p class="pay">交易密码</p>
+            <div class="edit">
+                <input type="password" id="key" name="key" style="width:100%;background:url('/themes/theme_default/nb/wechat/img/payPwd_bg.png') no-repeat 5px center;background-size:25px 25px;background-color: #fff;padding-left:16%;" />
+            </div>
+            <p class="rechargeAmount" style="color:#3d70a9;display: none;" id="pwdP">定向标密码</p>
+            <div class="edit" id="pwdDiv" style="display: none;">
+                <input type="password" id="pwd" placeholder="定向标密码" name="pwd" style="width:100%;background:url('/themes/theme_default/nb/wechat/img/payPwd_bg.png') no-repeat 5px center;background-size:25px 25px;background-color: #fff;padding-left:16%;" />
+            </div>
+            <input type="hidden" value="${pwd}" id="pwdType" style="width:100%">
+        </div>
+        <#if isBindC??>
+            <#if isBindC gt 0>
+                <div class="sureBtn" onclick="checkKeys()">确定</div>
+                <div class="space-div"></div>
+                <#else>
+                    <!-- 提示用户没绑卡，去充值绑卡 -->
+                    <div class="sureBtn" onclick="errorBind()">确定</div>
+                    <div class="space-div"></div>
+                    <div class="space-div"></div>
+                    <script type="text/javascript">
+                    function errorBind() {
+                        $("#loading").hide();
+                        $("#errorMsg").html("您未绑卡，请先充值绑卡后体验！");
+                        $("#divText").html("去充值");
+                        $("#success_div").click(function() {
+                            location.href = "/nb/wechat/recharge/newRecharge.html";
+                        })
+                        showError();
+                    }
+                    </script>
+            </#if>
+            <#else>
+                <div class="sureBtn" onclick="checkKeys()">确定</div>
+                <div class="space-div"></div>
+        </#if>
+        <div onclick="goRecharge()" class="payBtn">去充值</div>
+    </div>
+    <!-- 红包弹出层begin -->
+    <div id="redPacket" class="red-packet">
+        <p>&nbsp;</p>
+        <strong class="red-strong" id="notRecommendStrong">投资红包(多选)</strong>
+        <p>&nbsp;</p>
+        <div class="red-packet-div" id="notRecommendDiv">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>红包名称</th>
+                        <th>失效时间</th>
+                        <th>面值</th>
+                        <th>选中</th>
+                    </tr>
+                </thead>
+                <tbody id="notRecommend"></tbody>
+            </table>
+        </div>
+        <strong class="red-strong" id="recommendStrong">推荐红包(单选),优先使用您即将过期的推荐红包</strong>
+        <p>&nbsp;</p>
+        <div class="red-packet-div" id="recommendDiv">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>红包名称</th>
+                        <th>失效时间</th>
+                        <th>面值</th>
+                        <th>选中</th>
+                    </tr>
+                </thead>
+                <tbody id="recommend"></tbody>
+            </table>
+        </div>
+        <strong class="red-strong">已选择<strong class="red-red-strong" id="sumRedPacketMoney" >0</strong>元</strong>
+        <p>&nbsp;</p>
+        <p><strong class="red-red-strong" id="redPacketErrorMsg"></strong></p>
+        <p>&nbsp;</p>
+        <div class="sureBtn" onclick="closeRedPacket()" style="margin-left: 2%;width: 96%;">确定</div>
+    </div>
+    <!-- 红包弹出层end -->
+    <!-- 加息券弹出层begin -->
+    <div id="coupons" class="red-packet">
+        <p>&nbsp;</p>
+        <strong class="red-strong">加息券(单选),优先使用您即将过期的加息券</strong>
+        <p>&nbsp;</p>
+        <div class="red-packet-div">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>加息券名称</th>
+                        <th>失效时间</th>
+                        <th>面值</th>
+                        <th>选中</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div v-if="unusedList.length">
+                    <tr>
+                            <td>不使用加息券</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="radio" class="my-ceheckbox couNo" name="pick" v-model="cid" value="" >
+                            </td>
+                        </tr>
+                        <tr v-for="unused in unusedList" class="coupons-detail">
+                            <input type="hidden" value="{{ unused.id }}" class="coupons-id">
+                            <input type="hidden" value="{{ unused.toMobile }}" class="coupons-userto-mobile">
+                            <td class="coupons-name">
+                                <span v-text="unused.couponCategoryName"></span>
+                                <b class="tips" style="display:none" tip_toggle="0">{{ unused.fromMobile | telMosaics }}赠送给您的加息券</b>
+                            </td>
+                            <td v-text="unused.couponValidTo | dateFormat"></td>
+                            <td class="couRate" v-text="unused.toRateAdjust"></td>
+                            <td>
+                                <input type="radio" class="my-ceheckbox" name="pick" v-model="cid" value="{{ unused.id }}" >
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+        <strong class="red-strong">已选择面值：<strong class="red-red-strong couRateChek">0</strong>%</strong>
+        <p>&nbsp;</p>
+        <p><strong class="red-red-strong"></strong></p>
+        <p>&nbsp;</p>
+        <div class="sureBtn" onclick="closeRedPacket()" style="margin-left: 2%;width: 96%;">确定</div>
+    </div>
+    <!-- 加息券弹出层end -->
+    <div class="success-alert" id="success_div" onclick="hideError()">
+        <div class="space-div"></div>
+        <img src="/themes/theme_default/nb/wechat/images/close.png" width="45px" id="pic">
+        <div class="space-div"></div>
+        <p class="error-p" id="errorMsg"></p>
+        <div class="space-div"></div>
+        <div class="space-div"></div>
+        <div class="error-btn" id="divText">确定</div>
+        <div class="space-div"></div>
+        <div class="space-div"></div>
+        <div class="space-div"></div>
+    </div>
+    <div id="loading" class="loading">
+        <img src="/themes/theme_default/nb/wechat/images/loading.gif" height="20px">
+    </div>
+    <div class="well big-well" id="mask_div"></div>
+</body>
+
+</html>

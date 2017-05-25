@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>环讯标登记...</title>
+    <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <div>环讯标登记跳转中...,请您不要关闭页面</div>
+    <form action="${ips.submitUrl}" method="post" id="frm1" style="display: none">
+    	<input id="pMerCode" name="pMerCode" value="${ips.merCode}"  />
+    	<input id="p3DesXmlPara" name="p3DesXmlPara" value="${ips.desXmlPara}"  />
+    	<input id="pSign" name="pSign" value="${ips.sign}"  />
+		<#--<input type="submit" value="提交" />-->
+    </form>
+    <script type="text/javascript">
+    	document.getElementById("frm1").submit();  
+    </script>
+   
+  </body>
+</html>

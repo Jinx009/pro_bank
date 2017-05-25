@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<#assign nid="reserveBorrow" >
+<#include "../include/resource1.html"> 
+<#include "../include/header.html">
+<!-- S Banner -->
+<div class="bespeakBanner clearfix">
+	<div class="bespeakBannerBd"><img src="${webroot}${theme_dir}/media/bg/bespeakBanner.png" alt="" /></div>
+</div>
+<!-- E Banner -->
+<!-- S 导航 -->
+<div class="bespeakNav clearfix">
+	<div class="bespeakNavBd" id="bespeakNavBdTop">
+		<ul>
+			<li class="active"><a href="#jkcszz" title="借款车商资质">借款车商资质</a></li>
+			<li><a href="#jksqlc" title="借款申请流程">借款申请流程</a></li>
+			<li><a href="#zxsqjk" title="在线申请借款">在线申请借款</a></li>
+		</ul>
+		<a href="javascript:;" title="立即借款" class="bespeakNavBdBtn">立即借款</a>
+	</div>
+</div>
+<!-- E 导航 -->
+<!-- S 内容 -->
+<div class="bespeakStep bespeakStepBg clearfix" id="bespeakStep1">
+	<div class="bespeakStepBd">
+		<a id="jkcszz"></a>
+		<dl class="bespeakStepBar">
+			<dt><em>01</em>借款车商资质</dt>
+			<dd class="line"></dd>
+		</dl>
+		<div class="bespeakIntro clearfix">
+			<p>${webname!}网站的性质属于为投资人与借款方搭建提供保障服务的平台，其核心竞争力还是控制风险的能力，为让自身的本金保障承诺具备可行性，更好的控制资金风险，我们将对借款车商进行严格的要求，需要满足以下资质才能进行借款：</p>
+			<ul>
+				<li>注册资金在50万元以上</li>
+				<li>有属于企业的车源作为资产包进行抵押</li>
+				<li>经营年限超过2年</li>
+				<li>借款额不超过企业总资产的40%</li>
+				<li>有实体经营场馆</li>
+				<li>借款抵押利率不超过评估值的70%</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="bespeakStep clearfix" id="bespeakStep2">
+	<div class="bespeakStepBd">
+		<a id="jksqlc"></a>
+		<dl class="bespeakStepBar">
+			<dt><em>02</em>借款申请流程</dt>
+			<dd class="line"></dd>
+		</dl>
+		<div class="bespeakFlow clearfix">
+			<dl class="flow2">
+				<dt>意向确认</dt>
+				<dd>网站审核部门在收到意向后，会对您的资料进行初审。</dd>
+			</dl>
+			<dl class="flow4">
+				<dt>开通商户</dt>
+				<dd>若您达到我们对于商户资质的要求，会及时线上为您开通账户。</dd>
+			</dl>
+			<div class="bespeakFlowPic clearfix"><img src="${webroot}${theme_dir}/media/bg/bespeakFlowBg.png" alt="" /></div>
+			<dl class="flow1">
+				<dt>在线申请</dt>
+				<dd>在线填写您公司的资料与借款需求，并提交给我们。</dd>
+			</dl>
+			<dl class="flow3">
+				<dt>线下评估</dt>
+				<dd>若通过初审后，会及时与您联系，并线下评估您的借款能力。</dd>
+			</dl>
+			<dl class="flow5">
+				<dt>发布借款</dt>
+				<dd>开通商户后，会根据您的借款需求，及时为您发布借款标。</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="bespeakStep bespeakStepBg clearfix" id="bespeakFormBox">
+	<div class="bespeakStepBd">
+		<a id="zxsqjk"></a>
+		<dl class="bespeakStepBar">
+			<dt><em>03</em>在线申请借款</dt>
+			<dd class="line"></dd>
+		</dl>
+		<div class="bespeakForm">
+			<form action="/borrowBespeak/doBespeak.html" id="bespeakForm">
+			<dl class="step1">
+				<dt>1、填写车商资料</dt>
+				<dd>
+					<label for="companyName">公司名称<em>*</em></label>
+					<input name="companyName" id="companyName" class="commonTxt txtInput" autocomplete="off"/>
+				</dd>
+				<dd>
+					<label for="name">联系人<em>*</em></label>
+					<input name="name" id="name" class="commonTxt txtInput" autocomplete="off"/>
+				</dd>
+				<dd>
+					<label for="telephone">联系电话<em>*</em></label>
+					<input name="telephone" id="telephone" class="commonTxt txtInput" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'').trim();"/>
+				</dd>
+			</dl>
+			<dl class="step2">
+				<dt>2、填写借款需求</dt>
+				<dd>
+					<label for="money">借款金额</label>
+					<input name="money" id="money" class="txtInput1" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')"/><span>元</span>
+				</dd>
+				<dd>
+					<label for="limitTime">借款期限</label>
+					<input name="limitTime" id="limitTime" class="txtInput1" autocomplete="off" onkeyup="value=value.replace(/[^0-9]/g,'')"/><span>天</span>
+				</dd>
+				<dd>
+					<label for="borrowUse">借款用途</label>
+					<input name="borrowUse" id="borrowUse" autocomplete="off" class="commonTxt txtInput"/>
+				</dd>
+			</dl>
+			<dl class="step3">
+				<dt>3、填写其他资料</dt>
+				<dd>
+					<label for="description">借款描述</label>
+					<textarea name="description" id="description" class="commonTxt txtInput2"></textarea>
+				</dd>
+				<dd>
+					<label for="collateralDescription">抵押物描述</label>
+					<textarea name="collateralDescription" id="collateralDescription" class="commonTxt txtInput2"></textarea>
+				</dd>
+			</dl>
+			<p><input type="submit" value="提交申请" class="bespeakBtn"/></p>
+		</form>
+		</div>
+	</div>
+</div>
+
+<div class="bespeakNav clearfix" id="scrollTop">
+	<div class="bespeakNavBd" id="bespeakNavBd">
+		<ul>
+			<ul>
+				<li class="active"><a href="#jkcszz" title="借款车商资质">借款车商资质</a></li>
+				<li><a href="#jksqlc" title="借款申请流程">借款申请流程</a></li>
+				<li><a href="#zxsqjk" title="在线申请借款">在线申请借款</a></li>
+			</ul>
+		</ul>
+		<a href="javascript:;" title="立即借款" class="bespeakNavBdBtn">立即借款</a>
+	</div>
+</div>
+
+<!-- E 内容 -->
+<script>
+	seajs.use("${webroot}${theme_dir}/media/js/borrowBespeak/bespeak");
+</script>
+<#include "../include/footer.html">
+</body>
+</html>

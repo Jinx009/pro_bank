@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>提现</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+	.border{
+			border: 1px solid red;
+		}
+  </style>
+  <script type="text/javascript">
+  	function checkMoney(num){
+		$("#cashType").val(num);
+  		var money = document.getElementById("money").value;
+  		var useMoney = document.getElementById("useMoney").value;
+  		if(money.length!=0 && useMoney.length!=0 && parseFloat(money)>0){
+  			
+	  		if(parseFloat(useMoney) >= parseFloat(money)){	
+	  			if(num==2&&parseFloat(money)<${minCashMoney!0})
+	  			{
+	  				$(".fillingAmount").html('线下提现金额不能小于'+${minCashMoney!0}+'元');
+			    	$("#money").addClass("border");
+	  			}else
+  				{
+  					document.form1.submit();
+  				}
+  			
+	  		}else{
+	  			$(".fillingAmount").html('提现金额不足');
+		    	$("#money").addClass("border");
+	  		}
+  		}else if(parseFloat(money)==0){
+  			$(".fillingAmount").html('提现金额必须大于0');
+			$("#money").addClass("border");
+  		}else{
+  			$(".fillingAmount").html('请输入金额');
+			$("#money").addClass("border");
+  		}
+  	}
+
+	function delClass(){
+		$("#money").removeClass("border");
+		$(".fillingAmount").html('');
+	}
+  </script>
+</head>
+<body>
+	<form action="${wapCashUrl}" method="post" name="form1" id="J_cash" novalidate="novalidate">
+		<div class="sureUser bottom">
+	      	<p><strong>可提现金额：</strong> ${userMoney!0}元</p>
+	      	<input type="hidden" name="useMoney" id="useMoney" value="${userMoney!0}">
+	     </div>
+	     <div class="edit">
+           	<input type="text" name="money" id="money" class="input-text" autocomplete="off" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" onfocus="delClass()" placeholder="提现金额" maxlength="10"/>
+        	<span class="fillingAmount"></span>
+      	</div>
+      	<input type="hidden" value="1" id="cashType" name="cashType">
+	  	<input type="hidden" name="cashToken" value="${cashToken!}">
+	  	<span id="cashBtn"  class="sureBtn" style="display:block;" onclick="checkMoney(1)">提现到我的银行卡</span>
+		<span id="cashBtn2"  class="sureBtn" style="display:block;" onclick="checkMoney(2)">线下提现</span>
+	</form>
+	<div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;line-height: 20px;"><h3><b class="user_help_tip"></b>温馨提示</h3>到账时间：工作日15:00之前申请提现，预计T+1个工作日到账；工作日15:00以后申请提现，预计T+2个工作日到账； 遇双休日或法定节假日顺延，实际到账时间根据账户托管方（第三方支付平台）及提现银行而有所差异。
+  <div style="height: 30px" ></div>
+  </div>
+</body>
+</html>

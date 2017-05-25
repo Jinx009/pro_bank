@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			<#assign mid="m_invest">
+			   <#include "../account_menu.html"></div>
+			<!--左边的导航 结束-->
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<h2 class="user_title">我的红包</h2>
+				 <li id="status" class="tab-status">
+                    <a href="javascript:;" data-val="1" class="current">未使用</a>
+                    <a href="javascript:;" data-val="2">已使用</a>
+                    <a href="javascript:;" data-val="3">已过期</a>
+            	</li>
+				<div class="user_right_main">
+					<div id="choiceRedPacket" class="choiceRedPacketBox layer_pageContent" style="padding:0;">
+						<ul id="member_table" class="table_content" style="width:898px;">
+						</ul>
+					</div>
+					<div id="kkpager"></div>
+				</div>	
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member/redpacket_availableRedPacket');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

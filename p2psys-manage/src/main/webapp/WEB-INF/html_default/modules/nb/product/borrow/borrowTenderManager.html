@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>投标管理</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<#include "../../../../include/resources.html">
+</head>
+
+<body style="padding: 0 20px;">
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div id="searchBox" data-options="region:'north',border:false,collapsible:false">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" id="searchName" name="searchName" class="sInput" placeholder="输入 [ 产品信息 ] 或 [ 用户信息 ] 进行模糊查询" autocomplete="off" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" class="advBtn" title="精确查询">
+						精确查询
+						<i class="iconfont">
+							&#xe638;
+						</i>
+					</a>
+					<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<div class="sRight">
+				<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">
+					导出Excel
+				</a>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe63a;
+						</i>
+					</a>
+					<li>
+						<span>
+							用户名
+						</span>
+						<input type="text" name="userName" id="userName" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							真实姓名
+						</span>
+						<input type="text" name="realName" id="realName" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称
+						</span>
+						<input type="text" name="borrowName" id="borrowName" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品编码
+						</span>
+						<input type="text" name="bidNo" id="bidNo" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							时间
+						</span>
+						<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime" />&nbsp;-&nbsp;
+						<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime" />
+					</li>
+					<li>
+						<span>
+							&nbsp;
+						</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+$(function() {
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'borrowTenderList.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'asc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		columns: [
+			[{
+				field: 'id',
+				title: '编号',
+				width: 50
+			}, {
+				field: 'userName',
+				title: '用户名'
+			}, {
+				field: 'realName',
+				title: '真实姓名'
+			}, {
+				field: 'bidNo',
+				title: '产品编码',
+				width: 150
+			}, {
+				field: 'borrowName',
+				title: '标名',
+				width: 150
+			}, {
+				field: 'status',
+				title: '状态',
+				width: 60,
+				formatter: function(value, row, index) {
+					if (value == 1) {
+						return "成功";
+					} else {
+						return "失败";
+					}
+				}
+			}, {
+				field: 'account',
+				title: '投标金额',
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'addTime',
+				title: '投标时间',
+				width: 180,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}]
+		],
+		onLoadSuccess: function() {
+			$('#searchForm table').show();
+			parent.$.messager.progress('close');
+		}
+	});
+
+});
+
+function exportExcel() {
+	var url = "/modules/nb/product/borrow/exportExcelBidList.html";
+	var searchName = $("#searchName").val()
+	var realName = $("#realName").val();
+	var userName = $("#userName").val();
+	var borrowName = $("#borrowName").val();
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	var bidNo = $("#bidNo").val();
+	var sou = "?searchName=" + searchName + "&realName=" + realName + "&userName=" + userName + "&borrowName=" + borrowName + "&startTime=" + startTime + "&endTime=" + endTime + "&bidNo=" + bidNo;
+	window.location.href = url + sou;
+}
+</script>
+<script src="${theme_dir}/js/search.js"></script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource1.html">
+<body>
+	<#assign nid="my_account">  
+	<#include "../../include/member_borrow_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+				<#assign mid="m_identify" >
+				<#include "../account_menu.html"></div>
+			<div class="user_right">
+				<div class="user_title">证明资料</div>
+				<div class="user_filesList clearfix">
+					<ul class="user_filesList_tab"></ul>
+					<div class="user_filesListshow clearfix">
+						<div class="user_filesList_content">
+							<ul>
+								<li class="addFile"><a href="javascript:;">+</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="user_help">
+					<h3><b class="user_help_tip"></b>温馨提示：</h3>
+					<p>1、上传的资料必须是您本人的真实、有效资料。</p>
+					<p>2、上传图片大小不能超过500k。</p>
+				</div>
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	</div>
+
+	<!--用户中心的主栏目 结束-->
+	<script>seajs.use('member_borrow/usercertification_files');</script>
+	<#include "../../include/footer.html">
+</body>
+</html>

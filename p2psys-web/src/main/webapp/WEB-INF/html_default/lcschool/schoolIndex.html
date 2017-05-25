@@ -1,0 +1,38 @@
+<#macro trunct name>
+  <#assign length=name?length>
+  <#if length&gt;15>
+    ${name[0..15]}
+  <#else>
+    ${name}
+  </#if>
+</#macro>
+
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+<#assign nid="invest">
+<#include "../include/header.html">
+<div class="lcschool">
+  <div class="lcschool-banner">
+    <div class="lcschool-title">
+      <h1>聚集仁脉，打造贵圈</h1>
+      <p>800Bank为您精选最靠谱的理财信息，只为给您创造最理想的投资环境。</p>
+    </div>
+    <div class="lcschool-line">了解我们提供的服务</div>
+    <div class="lcschool-tab">
+      <ul class="clearfix" id="schooltab">
+   
+      </ul>
+    </div>
+    
+  </div>
+
+
+</div>
+  <script>
+  seajs.use("${webroot}${theme_dir}/media/js/lcschool");
+  </script>
+  <#include "../include/footer.html"> 
+</body>
+</html>

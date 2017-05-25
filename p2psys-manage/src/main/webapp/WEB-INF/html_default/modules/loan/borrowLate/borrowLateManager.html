@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>逾期记录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../include/resources.html">
+<script type="text/javascript">
+    //$.fn.iframeWidthResize(640);//页面最小宽度设置
+    var dataGrid;
+    var winWidth =  420;
+    var winHeight = 300;
+    var editTitle = "逾期管理";
+	var editUrl =  "/modules/loan/borrowLate/borrowLateEditPage.html";
+    var editWinParmeters = "'{0}','"+editTitle+"',"+winWidth+","+winHeight+",'"+editUrl+"'";
+    $(function() {
+        dataGrid = $('#dataGrid').datagrid({
+            url : ' borrowLateList.html',
+            fit : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+		singleSelect:true,
+            frozenColumns:[[
+              { field: 'id', title: '编号', width: 50,fixed: true, sortable:false },              
+              { field: 'userName', title: '用户名', width: 80,fixed: true, sortable:false },
+              { field: 'realName', title: '借款人姓名', width: 80,fixed: true, sortable:false },
+              { field: 'borrowName', title: '标名', width: 150, sortable:false }
+            ]],
+            columns : [ [
+              { field: 'period', title: '期数', width: 50,fixed: true, sortable:false, 
+            	  	formatter: function(value,row,index){
+  						return row.period+1;
+				  	}
+              },
+              { field: 'repaymentTime', title: '预计还款时间', width: 120, sortable:false, 
+            	  	formatter: function(value,row,index){
+	  					if (row.repaymentTime){
+	  						return getLocalTime(value,4);
+	  					} else {
+	  						return value;
+	  					}
+  				  	}  
+              },
+              { field: 'repaymentYesTime', title: '实际还款时间', width: 120, sortable:false, 
+          	  	formatter: function(value,row,index){
+	  					if (row.repaymentYesTime){
+	  						return getLocalTime(value,4);
+	  					} else {
+	  						return value;
+	  					}
+				  	}  
+              },
+              { field: 'repaymentAccount', title: '预还金额', width: 80, sortable:false },
+              { field: 'repaymentYesAccount', title: '已还金额', width: 80, sortable:false },
+              { field: 'capital', title: '本金', width: 80, sortable:false },
+              { field: 'interest', title: '利息', width: 80, sortable:false },
+              { field: 'lateDays', title: '逾期天数', width: 80, sortable:false },
+              { field: 'lateInterest', title: '罚息', width: 80, sortable:false },
+              { field: 'status', title: '状态', width: 80,fixed: true, sortable:false , 
+					formatter: function(value,row,index){
+  					if (row.status == 0){
+  						return '未还款';
+  					} else if (row.status == 1){
+  						return '已还款';
+  					} else if (row.status == 2){
+  						return '网站垫付';
+  					} else if (row.status == 3){
+  						return '还款处理中';
+  					} else {
+  						return value;
+  					}
+  				}  
+              },
+              
+              {	field : 'action',
+  				title : '操作',
+  				width :100,
+  				fixed: true,
+  				formatter : function(value, row, index) {
+     					str = '&nbsp;';
+     					if (row.status == 0) {
+      					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="'+editTitle+'">网站垫付</a>';
+      					str += '&nbsp;';
+     					} else {
+     						str +="已经付款";
+     					}
+      				return str;
+  				}
+  				}
+              
+              ] ],
+            onLoadSuccess : function() {
+                $('#searchForm table').show();
+                parent.$.messager.progress('close');
+
+            }
+        });
+    });
+    function exportExcel(){
+		var url = "/modules/loan/borrowLate/exportExcelBorrowLate.html";
+		var searchName = $("#searchName").val()
+		var realName = $("#realName").val();
+		var userName = $("#userName").val();
+		var status = $("#status").val();
+		var startTime = $("#startTime").val();
+		var endTime = $("#endTime").val();
+		var sou = "?searchName=" + searchName + "&realName=" + realName + "&userName=" + userName+ "&status=" + status + "&startTime=" + startTime + "&endTime=" + endTime;
+		window.location.href = url + sou;
+	}
+</script>
+</head>
+<body style="padding:0 20px;" >
+    <div class="easyui-layout" data-options="fit : true,border : false">
+        <div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+        	<div class="sLeft">
+	            <form id="searchForm">
+	            	<input type="text"  name="searchName" id="searchName" class="sInput" placeholder="输入借款人姓名/用户/标名进行搜索" /><a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a><a href="javascript:;" class="advBtn" title="条件查询">条件查询</a>
+	            </form>
+            </div>
+            <div class="sRight">
+            	<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">导出excel</a>	
+            </div>
+            <form id="showAdw">
+		        <ul class="showAdw" style="display:none;">
+		        	<a href="javascript:void(0);"><i class="iconfont closeWin">&#xe628;</i></a>
+		       		<li><span>借款人姓名</span><input type="text" name="realName" id="realName" autocomplete="off"/></li>
+		       		<li><span>用户名</span><input type="text" name="userName" id="userName" autocomplete="off"/></li>
+		       		<li><span>状态</span><select name="status" id="status" class="status">
+		                  <option value="99" selected="selected">全部</option>
+		                  <option value="0">未还款</option>
+		                  <option value="1">已还款</option>
+		                  <option value="3">还款处理中</option>
+		                </select></li>
+		       		<li><span>时间</span><input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime"/>&nbsp;-&nbsp;<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime"/></li>
+		       		<li><span>&nbsp;</span><a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">确定</a><a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">重置</a></li>
+		        </ul>
+	        </form>
+        </div>
+        <div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+            <table id="dataGrid"></table>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="${theme_dir}/js/search.js"></script>

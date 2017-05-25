@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/finance/consultant/editConsultant.html',"添加成功！","添加失败！");
+	});
+</script>
+<form id="form" method="post" enctype="multipart/form-data">
+<div class="borrowForm" style="border-top:none;">
+	<h1 class="borrowFormTitle">顾问信息</h1>
+	<div class="borrowFormMuti">
+	     <span>顾问姓名：</span>
+	     	<input type="text" name="name" class="borrowFormTxt easyui-validatebox" value="${consultant.name!}" data-options="required: true" maxlength="10"/>
+	     	<b>*</b>
+	</div>
+	<div class="borrowFormMuti">
+	     <span>顾问职位：</span>
+	     	<input type="text" name="position" class="borrowFormTxt easyui-validatebox" value="${consultant.position!}" data-options="required: true" maxlength="10"/>
+	     	<b>*</b>
+	</div>
+	<div class="borrowFormMuti"><span>顾问头像：</span><input type="file" name="file" title="点击上传图片" /></div>
+	<div class="borrowFormMuti"><span></span><#if consultant.avatar??><input type="hidden" name="avatar" value="${consultant.avatar!}"> <a href="${consultant.avatar}" class="fileshow" rel="guaranteePic"><img src="${consultant.avatar}" width="100px" height="100px"/></a></#if></div>
+	<div class="borrowFormMuti"><span>顾问介绍：</span><textarea id="introduction" name="introduction" class="easyui-validatebox borrowFormTextarea" data-options="required: true">${consultant.introduction!}</textarea></div>
+	<input type="hidden" name="id" value="${consultant.id!0}">
+	<input type="hidden" name="addTime" value="${consultant.addTime?string('yyyy-MM-dd hh:mm:ss')}">
+	<input type="hidden" name="addIp" value="${consultant.addIp!}">
+	<input type="hidden" name="isDelete" value="${consultant.isDelete!}">
+</div>
+</form>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");seajs.use("${theme_dir}/js/upload");</script>

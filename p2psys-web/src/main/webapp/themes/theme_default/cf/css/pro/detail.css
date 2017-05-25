@@ -1,0 +1,29 @@
+.space-4{
+	height: 40px;
+}
+.detail-img{
+	width: 96%;
+	margin-left: 2%;
+}
+.detail-table{
+	width: 96%;
+	margin-left: 2%;
+	text-align: center;
+}
+.none{
+	display: none;
+}
+#detailli1{
+	cursor: pointer;
+}
+#detailli2{
+	cursor: pointer;
+}
+.dialog-close{
+	float: right;
+	margin-right: 15px;
+	margin-top: 15px;
+}
+.dialog-close img{
+	width: 40px;
+}

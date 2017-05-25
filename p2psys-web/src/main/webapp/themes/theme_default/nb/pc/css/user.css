@@ -1,0 +1,149 @@
+/**by Chris**/
+.account_s {
+	margin-right:30px;
+	margin-left: 30px;
+}
+
+.clow_title {
+	background-color: rgb(233, 247, 255);
+}
+
+.col {
+	color: red;
+}
+
+.sel {
+	width: 80px;
+}
+
+.content_title {
+	height: 80px;
+	line-height: 80px;
+	font-size: 16px;
+	margin: 0px;
+	color: black;
+	letter-spacing: 1px;
+}
+
+tr {
+	font-size: 15px;
+}
+
+td{
+	font-size:12px;
+}
+
+.fd{
+	text-align: center;
+}
+
+.bg-white {
+	background: white;
+}
+.table-hover th{
+	text-align: left;
+}
+
+.expectProfit {
+	color: rgb(155, 193, 226);
+}
+
+input {
+	border: none;
+	background-color: rgb(245, 245, 245);
+	height: 35px;
+	line-height: 35px;
+}
+
+#sub {
+	margin-top: 0px;
+}
+
+.dateInput {
+	border: 1px solid #eee;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background: url(/themes/theme_default/nb/pc/img/dataIco.jpg) 8px 6px #f5f5f5 no-repeat;
+	color: #666;
+	padding-left: 34px;
+}
+
+.serchInput {
+	margin-top: 0px;
+	background: rgb(60,149,209);
+}
+.state1 {
+	color: #aaa;
+}
+
+.state2 {
+	color: #000;
+}
+
+.state3 {
+	color: red;
+}
+
+.state4 {
+	color: green;
+}
+
+body {
+	background: #fafafa;
+}
+.margin0{
+	margin: 0px;
+}
+.margin5p{
+	margin-left: 30px;
+	font-size: 22px;
+}
+.margin5pp{
+	margin-left: 30px;
+}
+.font15{
+	font-size: 15px;
+	color: black;
+	font-weight: 400;
+	letter-spacing: 1px;
+}
+.less-p span{
+	font-size: 32px;
+}
+.less-p{
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+.left{
+	width: 98%;
+	background: rgb(60,149,209);
+	border-radius:3px;
+	letter-spacing: 3px;
+}
+.left:hover{
+	background: rgb(60,149,209);
+}
+.right{
+	width: 98%;
+	background: white;
+	border-radius:3px;
+	border:1px solid rgb(60,149,209);
+	color:  rgb(60,149,209);
+	letter-spacing: 3px;
+}
+.right:hover{
+	background: white;
+	color:  rgb(60,149,209);
+}
+.hr{
+	border: 1px dashed #f1f5f7;
+	margin-top: 3px;
+}
+#recharge{
+	text-align: left;
+	padding-left: 0px;
+}
+#frost{
+	text-align: left;
+}

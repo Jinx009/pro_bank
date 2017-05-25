@@ -1,0 +1,37 @@
+<div class="menue">
+	<div class="menue-logo"><img src="/themes/theme_default/cf/wechat/img/menue_logo.png"/></div>
+	<ul>
+		<li><a href="/cf/wechat/pro/index.action?id=2"><img src="/themes/theme_default/cf/wechat/img/small_menue_1.png"/>项目宝库</a></li>
+<!-- 		<li><a href="/cf/wechat/leaderRights.html"><img src="/themes/theme_default/cf/wechat/img/small_menue_2.png"/>众筹大咖</a></li> -->
+		<li><a href="/cf/wechat/user/index.action"><img src="/themes/theme_default/cf/wechat/img/small_menue_3.png"/>我的众筹</a></li>
+	</ul>
+</div>
+<script>
+var menuStatus = 1;
+$(function(){
+	$('#menue').bind('click',function(){
+		toggleMenu();
+	});
+})
+function toggleMenu(){
+	if(1==menuStatus){
+		$('.menue').show();
+		document.ontouchmove = function(e){
+		    e.preventDefault();
+		}
+		document.onmousemove = function(e){
+		    e.preventDefault();
+		}
+		menuStatus = 2;
+	}else{
+		$('.menue').hide();
+		document.ontouchmove = function(e){
+			initEvent();
+		}
+		document.onmousemove = function(e){
+			initEvent();
+		}
+		menuStatus = 1;
+	}
+}
+</script>

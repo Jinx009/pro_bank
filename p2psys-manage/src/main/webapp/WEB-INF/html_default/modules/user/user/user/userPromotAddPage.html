@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userPromotAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab" style="width:150px;">用户名：</label>
+		     <div class="ipt" style="margin-left:160px;">
+		     	<input type="text" name="userName" class="easyui-validatebox" data-options="required: true" maxlength="20"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width:150px;">设置优惠码使用次数：</label>
+		     <div class="ipt" style="margin-left:160px;">
+		     	<input type="text" name="canUseTimes" class="easyui-validatebox" data-options="required: true" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab" style="width:150px;">设置收益比例： </label>
+		     <div class="ipt" style="margin-left:160px;">
+		     	<input type="text" name="rate" class="easyui-validatebox" data-options="required: true" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+	</form>
+</div>

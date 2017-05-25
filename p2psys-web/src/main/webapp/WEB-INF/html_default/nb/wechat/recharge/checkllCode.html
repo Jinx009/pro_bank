@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>账户充值</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+  <script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+  <script type="text/javascript" src="${webroot}${theme_dir}/nb/wechat/js/wechat_alert.js" ></script>
+<script type="text/javascript">
+	window.onload=function()
+	{
+		var oT=document.getElementById('card_no');
+		oT.onkeydown=function(ev)
+		{   
+			var oW=oT.value;
+			var oEvent=ev||event;
+			if(oEvent.keyCode==8)
+			{
+				if(oW)
+				{
+					for(var i=0;i<oW.length;i++)
+					{
+						var newStr=oW.replace(/\s$/g,'');
+					}
+					oT.value=newStr
+				}
+			}else{
+				for(var i=0;i<oW.length;i++)
+				{
+					var arr=oW.split('');
+	
+					if((i+1)%5==0)
+					{
+						arr.splice(i,0,' ');
+					}
+				}
+				oT.value=arr.join('');
+			}
+		}
+	}
+	
+	 /**
+	   * 验证身份证号
+	   * @param num
+	   * @returns {Boolean}
+	   */
+	  function isIdCardNo(num) 
+	  {
+	      var factorArr = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1);
+	      var parityBit = new Array("1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2");
+	      var varArray = new Array();
+	      var intValue;
+	      var lngProduct = 0;
+	      var intCheckDigit;
+	      var intStrLen = num.length;
+	      var idNumber = num;
+	    
+	      if ((intStrLen != 15) && (intStrLen != 18)) 
+	      {
+	          return false;
+	      }
+	      for (i = 0; i < intStrLen; i++) 
+	      {
+	          varArray[i] = idNumber.charAt(i);
+	          if ((varArray[i] < '0' || varArray[i] > '9') && (i != 17)) 
+	          {
+	              return false;
+	          } 
+	          else if (i < 17) 
+	          {
+	              varArray[i] = varArray[i] * factorArr[i];
+	          }
+	      }
+	      if (intStrLen == 18) 
+	      {
+	         
+	          var date8 = idNumber.substring(6, 14);
+	          if (isDate8(date8) == false) 
+	          {
+	              return false;
+	          }
+	          for (i = 0; i < 17; i++) 
+	          {
+	              lngProduct = lngProduct + varArray[i];
+	          }
+	          intCheckDigit = parityBit[lngProduct % 11];
+	          if (varArray[17] != intCheckDigit) 
+	          {
+	              return false;
+	          }
+	      }
+	      else 
+	      {        
+	          var date6 = idNumber.substring(6, 12);
+	          if (isDate6(date6) == false) 
+	          {
+	              return false;
+	          }
+	      }
+	      return true;
+	  }
+
+	  function isDate6(sDate) 
+	  {
+	      if (!/^[0-9]{6}$/.test(sDate)) 
+	      {
+	          return false;
+	      }
+	      var year, month, day;
+	      year = sDate.substring(0, 4);
+	      month = sDate.substring(4, 6);
+	      if (year < 1700 || year > 2500) return false
+	      if (month < 1 || month > 12) return false
+	      return true;
+	  }
+
+	  function isDate8(sDate) 
+	  {
+	      if (!/^[0-9]{8}$/.test(sDate)) 
+	      {
+	          return false;
+	      }
+	      var year, month, day;
+	      year = sDate.substring(0, 4);
+	      month = sDate.substring(4, 6);
+	      day = sDate.substring(6, 8);
+	      var iaMonthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	      if (year < 1700 || year > 2500) return false
+	      if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) iaMonthDays[1] = 29;
+	      if (month < 1 || month > 12) return false
+	      if (day < 1 || day > iaMonthDays[month - 1]) return false
+	      return true;
+	  }
+
+	function checkBankCard(){
+		var accName = document.getElementById("accName").value;
+		var accId = document.getElementById("accId").value;
+		var mobile = document.getElementById("mobile").value;
+		var cardNo = document.getElementById("card_no").value.replace(/[ ]/g,"");
+		var bankcodeKey = document.getElementById("bankCodeKey").value;
+		var obj = $("#no_agree").val();
+		if(obj!=undefined){
+			document.payForm.submit();
+		}else{			
+			if(accName.length==0){
+				//document.getElementById("span_accName").innerHTML="请输入真是姓名";
+				wechatAlert("请输入真实姓名！","0");
+			}else if(accId.length==0){
+				//document.getElementById("span_accId").innerHTML="请输入身份证号码";
+				wechatAlert("请输入身份证号码！","0");
+			}else if(!isIdCardNo(accId.trim())){
+  	  	  		wechatAlert("身份证号格式不正确！","0");
+  			}else if(mobile.length!=11){
+				//document.getElementById("span_mobile").innerHTML="请输入银行预留号码";
+				wechatAlert("请输入正确的银行预留号码！","0");
+			}else if(cardNo.length==0){
+				//document.getElementById("cardtip").innerHTML="请输入借记卡卡号";
+				wechatAlert("请输入借记卡卡号！","0");
+			}else{			
+				$.ajax({
+		    		 url:"/nb/wechat/cash/binBank.html?cardNo="+cardNo+"&random="+Math.random(),
+		    		 data:{cardNo:cardNo},
+		    		 type:"get",
+		    		 dataType:"json",
+		    		 success:function(data){
+		    			 if(data.ret_code=='0000' && data.card_type=='2'){
+		    				 if(bankcodeKey===data.bank_code){		    					 
+			    				 if(document.getElementById("cardtip")!=null){    					 
+			    				 	document.getElementById("cardtip").innerHTML="<img src='/data/bank/llmini/"+data.bank_code+".png'>"+data.bank_name;
+			    				 }
+			    				 document.payForm.submit();
+		    				 }else{
+		    					 if(document.getElementById("cardtip")!=null){    					 
+			    				 	document.getElementById("cardtip").innerHTML="<img src='/data/bank/llmini/"+data.bank_code+".png'>"+data.bank_name+"   <span style='color:red;' id='bankPPError'>与选择银行不匹配<span>";
+			    				 }
+		    				 }
+		    			 }else if(data.card_type=='3'){
+		    				 document.getElementById("cardtip").innerHTML="不支持信用卡，请重新输入！";
+		    			 }else{
+		    				 document.getElementById("cardtip").innerHTML="卡号有误，请检查！";
+		    			 }
+		    		 }
+	    	 	})
+			}
+		}
+		
+	}
+
+  	function hideForm()
+  	{
+  		$("#main_info").css("display","none");
+  		$("#table_info").css("display","block");
+  	}
+  	function hideTable()
+  	{
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  	}
+  	function delHtml(obj){
+		$("#"+obj).html('');
+	}
+  	function spClean(obj){
+  		$("#"+obj).html('');
+  	}
+  </script>
+</head>
+<body>
+<div id="main_info" >
+<form id="payForm" method="post" action="${webroot}/nb/wechat/recharge/dollPayRecharge.html" name="payForm">
+      <div class="sureUser bottom" style="height: 5px;">
+      	<p><strong>充值金额：</strong> ${money!0}元</p>
+      </div>
+    <span id="cardlist"></span>
+	<div id="otherbankTr">
+		<#if bindBank?exists>
+			<div class="bankCard"  style="width: 83%;">
+				<img src="/themes/theme_default/nb/wechat/img/setCard.png" class="bank_icon"/>
+				<div class="bank_name">${bindBank.bank!""}<span class="card_type">储蓄卡</span></div>
+				<p class="card_num">${bindBank.hideBankNo}</p>
+			</div>
+			<input type="hidden" name="no_agree" id="no_agree" value="${noAgree!}" />
+			<input type="hidden" name="accName" id="accName" value="${bindBank.user.realName!}" />
+			<input type="hidden" name="mobile" id="mobile" value="${bindBank.mobile!}" />
+			<input type="hidden" name="accId" id="accId" value="${bindBank.user.cardId!}" />
+			<input type="hidden" name="card_no" id="card_no" value="${bindBank.bankNo!}" />
+		<#else>
+	
+		  <p class="sureUser" style="height: 30px;">请输入以下信息，进行充值操作</p>
+	      <div class="edit">
+	      	<input class="input-text" type="text" name="accName" id="accName" autocomplete="off"  placeholder="姓名" onpaste="return false;" maxLength="12" <#if session_user_identify?? && session_user_identify.realNameStatus == 1> value="${session_user.getRealName()!''}"  readonly="readonly"  <#else> placeholder="真实姓名" </#if>  onfocus="delHtml('span_accName')" />
+	      	<span id="span_accName" class="fillingAmount" onclick="spClean('span_accName')"></span>
+	      </div>
+	      <!-- <div class="edit">
+	      	<input class="input-text" type="text" name="mobile" id="mobile" value="" autocomplete="off"  placeholder="预留电话" onpaste="return false;" maxLength="11" />
+	      </div> -->
+	      <#if nb_user.mobilePhone??>
+		  		<div class="edit">
+		            <input name="mobile" id="mobile" value="${nb_user.mobilePhone!}" autocomplete="off" type="tel" readOnly="readonly" placeholder="银行预留手机号码">
+		        </div>
+	   	  <#else>
+	   			<div class="edit">
+		   			<input name="mobile" id="mobile" value="" autocomplete="off" type="tel" placeholder="银行预留手机号码" maxLength="11" onfocus="delHtml('span_mobile')" />
+		   			<span id="span_mobile" class="fillingAmount" onclick="spClean('span_mobile')"></span>
+		      	</div>
+	   	  </#if>
+	      <div class="edit">
+	      	<input class="input-text" type="text" name="accId" id="accId" autocomplete="off"  placeholder="身份证号" onpaste="return false;" maxLength="18" <#if session_user_identify?? && session_user_identify.realNameStatus == 1> value="${session_user.getCardId()!''}" readonly="readonly"  <#else> placeholder="身份证" </#if> onfocus="delHtml('span_accId')"/>
+	      	<span id="span_accId" class="fillingAmount" onclick="spClean('span_accId')"></span>
+	      </div>
+	      <div class="edit">
+	          <input class="input-text" type="tel" name="card_no" id="card_no" autocomplete="off"  placeholder="银行卡号" onpaste="return false;" maxLength="25"  value="" />
+	      </div>
+	      <div  style="color:#898989;margin-top:1%;margin-left:4%;">
+		      <!-- <img  id="bank_img_url" src="/data/bank/mini/工商银行.png" style="vertical-align: middle;display: inline-block;"/> -->
+		      <span id="cardtip"></span>
+	      </div>
+		</#if>
+  </div>
+	<input type="hidden" class="paymentStatus" name="type" value="1"/>
+	<input type="hidden" name="channelType" id="channelType" value="1" />
+	<input type="hidden" value="preposit" name="paymod">
+    <input type="hidden" value="${money!0}" name="money_order">
+    <input type="hidden" value="微信连连充值" name="name_goods">
+    <input type="hidden" value="${payType!}" name="payType">
+    <input type="hidden" value="${bankCodeKey!}" id="bankCodeKey">
+    <input type="hidden" name="wapRechargeToken" value="${wapRechargeToken!}">
+	<span class="sureBtn" style="display:block;" onclick="checkBankCard()" id="recPayBtn2" >确认去充值</span>
+</form>
+<!-- <div style="width:90%;margin-left:5%;bttom:0;margin-top:20px;color:#C09853;">支持银行包括：农业银行、工商银行、招商银行、中国银行、建设银行、光大银行、华夏银行、中信银行、兴业银行、邮储银行、平安银行、浦发银行、广发银行及民生银行。每张银行卡额度，单笔/单日5万，单月最高20万/月。
+<br><span style="color: red;"><b style="margin-right: 3px;vertical-align: middle;">*</b>经招商银行通知，临时调整每日充值限额为5000元</span>
+  <div style="height: 30px" ></div>
+  </div> -->
+  </div>
+  <script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+  <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+  <script type="text/javascript">
+    seajs.use("${webroot}${theme_dir}/nb/wechat/js/recharge/recharge_subRecharge")
+  </script>
+  <div id="table_info" style="display: none" onclick="hideTable()" >
+  		<table style="width:96%;margin-left: 2%" >
+  			<tr height="25px" ></tr>
+			<tr><td></td><td>单笔限额</td><td>单日限额</td></tr>
+			<tr><td><img src="/data/bank/ICBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/yz.jpg"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CMB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td valign="top" ><img src="/data/bank/ABC_OUT.gif"/></td><td valign="top" >5万</td><td  valign="top" >5万</td></tr>
+			<tr><td><img src="/data/bank/CIB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/COMM_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/pf.jpg"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/hx.jpg"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CITIC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CMBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr height="25px" ></tr>
+			<tr><td colspan="3" style="color: red" >备注:以上月限额20万，点击表格即可关闭此页。</td></tr>
+		</table>
+  </div>
+</body>
+</html>

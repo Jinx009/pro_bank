@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html"> 
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix" >
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left">
+            	<#assign mid="m_security" >
+				<#include "../user_menu.html">
+			</div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<div class="user_right_menu">
+					<ul id="" class="list-tab clearfix">
+						<li class="active">登录密码</li>
+					</ul>
+				</div>
+				<div class="user_right_main">
+				<!--修改登录密码 开始-->
+				<form action="/member/security/modifyPwd.html" name="form1" method="post" onsubmit="" >
+				<div class="user_right_border">
+					<div class="e">原密码：</div>
+					<div class="c">
+						<input type="password" name="pwd" id="oldpassword" />
+					</div>
+				</div>
+				<div class="user_right_border">
+					<div class="e">新密码：</div>
+					<div class="c clearfix">
+						<input type="password" name="new_pwd" id="password" style="float:left; margin-right:5px" /><span class="firstpwdb" style="float:left;"></span>
+					</div>
+				</div>
+				<div class="user_right_border">
+					<div class="e">确认密码：</div>
+					<div class="c">
+						<input type="password" name="confirm_new_pwd" id="confirm_password" /><span class="checkpwdb"></span>
+					</div>
+				</div>
+				<div class="user_right_border">
+					<div class="e"></div>
+					<div class="c">
+						<input type="submit" name="name" class="btn sub_btn" value="确认提交" size="30" /> 
+					</div>
+				</div>
+				</form>
+				
+				<script>
+				</script>
+			</div>
+			<!--右边的内容 结束-->
+			</div>
+		</div>
+	</div>
+    
+	<script src="${webroot}${theme_dir}/media/js/modal.js"></script>
+
+	<#include "../../include/footer.html">
+</body>
+</html>

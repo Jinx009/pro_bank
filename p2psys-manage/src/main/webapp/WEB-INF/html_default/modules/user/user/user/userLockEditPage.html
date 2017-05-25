@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/user/user/userLockEdit.html');	
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+		<div class="formitm">
+		     <label class="lab">锁定状态： </label>
+		     <div class="ipt">用户锁定:${ (userCache.status==1) ?string('锁定','解锁')}  
+		     	<input type="radio" name="status" value="1" <#if userCache.status == 1>checked="checked"</#if>/>&nbsp;&nbsp;锁定 
+				<input type="radio" name="status" value="0" <#if userCache.status == 0>checked="checked"</#if>/>&nbsp;&nbsp;解锁
+		     </div>
+		     <div class="ipt">交易锁定:
+		     	<input type="radio" name="payPwdStatus" value="1" <#if userCache.payPwdStatus == 1>checked="checked"</#if>/>&nbsp;&nbsp;锁定  
+				<input type="radio" name="payPwdStatus" value="0" <#if userCache.payPwdStatus == 0>checked="checked"</#if>/>&nbsp;&nbsp;解锁
+		     </div>
+		     <div class="ipt">登录锁定:
+		     	<input type="radio" name="loginPwdStatus" value="1" <#if userCache.loginPwdStatus == 1>checked="checked"</#if>/>&nbsp;&nbsp;锁定  
+				<input type="radio" name="loginPwdStatus" value="0" <#if userCache.loginPwdStatus == 0>checked="checked"</#if>/>&nbsp;&nbsp;解锁
+		     </div>
+		</div>
+		<#if userCache.status==0>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea class="w300 easyui-validatebox" name="remark"></textarea>	
+		     </div>
+		</div>
+		<#else>
+		<div class="formitm">
+		     <label class="lab">锁定时间：</label>
+		     <div class="ipt">
+		     ${userCache.lockTime?string("yyyy-MM-dd HH:mm:ss")!}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">锁定原因：</label>
+		     <div class="ipt">
+		     ${userCache.remark!}
+		     </div>
+		</div>
+		</#if>
+		<input name="id" value="${userCache.id}" type="hidden"/>
+</div>
+</form>

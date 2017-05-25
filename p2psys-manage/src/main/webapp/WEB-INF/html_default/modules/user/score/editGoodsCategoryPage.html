@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    $(function() {
+        $.fn.dataGridOptions.formSubFun("#form",'/modules/user/score/editGoodsCategory.html');
+    });
+</script>
+<form id="form"  method="post">
+<div class="popForm sForm">
+	<div class="formitm">
+		<label class="lab">名称：</label>
+		<div class="ipt"><input type="text" name="name" value="${category.name}" class="easyui-validatebox" data-options="required: true" /></div>
+	</div>
+	<div class="formitm">
+		<label class="lab">排序：</label>
+		<div class="ipt"><input type="text" name="sort" value="${category.sort}" class="easyui-validatebox" data-options="required: true" /></div>
+	</div>
+	<div class="formitm">
+		<label class="lab">备注：</label>
+		<div class="ipt"><textarea name="remark" class="easyui-validatebox" maxlength="255">${category.remark!''}</textarea></div>
+	</div>
+	<input name="id" value="${category.id}" type="hidden">
+        	<input name="addTime" value="${category.addTime}" type="hidden">
+            <input name="editToken" value="${editToken!}" type="hidden">
+</div>
+</form>

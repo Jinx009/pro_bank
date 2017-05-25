@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>系统图标显示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "./include/resources.html">
+</head>
+<body class="p-icons">
+<ul  class="g-iconTable"></ul>
+</body>
+<script type="text/javascript">
+var selectIcon = function($dialog, $input) {
+	$input.val($(':radio:checked').val()).attr('class', $(':radio:checked').val());
+	$dialog.dialog('destroy');
+};
+$(function(){
+	var url = "${theme_dir}/data/icons.json";
+	var iconTable = $(".g-iconTable");	   
+	var str = "";
+	$.ajax({
+		url:url,
+		dataType:"json",
+		success:function(data){	   
+		   $(data).each(function(i,icon){
+		   	str += "<li class='g-iconDiv'><input name='icon' value='"+icon.name+"' type='radio'><i class='iconfont "+icon.name+"'></i></li>";
+		   });
+		   iconTable.html(str);
+           $(".g-iconDiv>img").bind("click",function(){//点击图片选中单选框
+		       $(this).prev(":radio").attr('checked', 'checked');
+		   });
+           $(".g-iconDiv").bind("click",function(){//点击li选中单选框
+		       $(this).find(":radio").attr('checked', 'checked');
+		   });		   
+		}
+	});	
+});
+</script>
+</html>

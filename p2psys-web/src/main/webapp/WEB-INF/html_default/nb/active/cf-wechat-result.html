@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>800众服</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<script src="/themes/theme_default/cf/active/js/jquery.js"></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+wx.config({
+    debug: false,
+    appId: '${appId}',
+    timestamp: ${timestamp},
+    nonceStr: '${nonceStr}',
+    signature: '${signature}',
+    jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+    ]
+});
+
+wx.ready(function() {
+    wx.checkJsApi({
+        jsApiList: ['chooseImage'],
+        success: function(res) {
+            wx.showMenuItems({
+                menuList: ['menuItem:readMode', 'menuItem:openWithSafari', 'menuItem:share:appMessage',
+                    'menuItem:share:timeline'
+                ]
+            });
+        }
+    });
+    wx.onMenuShareTimeline({
+        title: '800众服，专注于泛消费领域的股权众筹平台。我是800众服第XX号投资人，遥遥领先于你哦！',
+        desc: '800众服，专注于泛消费领域的股权众筹平台。我是800众服第XX号投资人，遥遥领先于你哦！',
+        link: 'http://www.800zf.cn/active/wechat/invite.action',
+        imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+        success: function() {},
+        cancel: function() {}
+    });
+    wx.onMenuShareAppMessage({
+        title: '800众服，专注于泛消费领域的股权众筹平台。我是800众服第XX号投资人，遥遥领先于你哦！',
+        desc: '800众服，专注于泛消费领域的股权众筹平台。我是800众服第XX号投资人，遥遥领先于你哦！',
+        link: 'http://www.800zf.cn/active/wechat/invite.action',
+        imgUrl: 'http://www.800zf.cn/themes/theme_default/cf/active/images/wechat.jpg',
+        success: function() {},
+        cancel: function() {}
+    });
+});
+
+wx.error(function(res) {}); 
+$(function(){
+	var r = parseInt($('#r').val());
+	var name,info;
+	if(1==r){
+		name = '普通合伙人';
+		info = '找一个陪800众服喝雪花的人很容易，却很难遇到一个像你一样能陪800众服勇闯天涯的人。';
+	}else if(2==r){
+		name = '有限合伙人';
+		info = '陪你把沿路感想活出了答案，陪你把未来写出了情节，陪伴是800众服对你最长情的告白。';
+	}
+	else if(3==r){
+		name = '隐名合伙人';
+		info = '给你的爱一直很安静， 800众服愿用一只彩笔为你画出一幅投资蓝图，安静的拿给你。';
+	}
+	else if(4==r){
+		name = '天使投资人';
+		info = '我看见天空很蓝，就像你在我身边的温暖。你在我的天空飞，我知道你会在我身边。';
+	}
+	else if(5==r){
+		name = '潜在投资人';
+		info = '在朋友里面，数你最特别，总让800众服觉得很亲很贴。友达以上，恋人未满，迫不及待想让你走进800众服。';
+	}
+	$('.name').html(name);
+	$('.info').html(info);
+})
+</script>
+<style type="text/css">
+body{
+/* 	background: url('/themes/theme_default/cf/active/images/invite_4.jpg');
+	color: #ffffff;
+	text-align: center;
+	background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+    width: 100%;
+    height: 100%;
+    font-family: "Microsoft Yahei"; */
+}
+.name{
+	position: absolute;
+	top: 30%;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	color: white;
+	z-index: 9999;
+	font-family: "Microsoft Yahei"; */
+}
+.info{
+	position: absolute;
+	top: 55%;
+	left: 10%;
+	width: 80%;
+	text-align:left;
+	color: white;
+	z-index: 9999;
+	font-family: "Microsoft Yahei"; */
+}
+.main{
+	color: white;
+	z-index: 9999;
+}
+.main-img{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 888;
+}
+</style>
+</head>
+<body>
+<img alt="" src="/themes/theme_default/cf/active/images/invite_4.jpg" class="main-img" >
+<input type="hidden" id="r" value="${r}" >
+<div class="main" >
+	<h3 class="name" ></h3>
+	<span class="info" ></span>
+</div>
+</body>
+</html>

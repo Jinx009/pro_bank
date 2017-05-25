@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<#include "../include/statistics.html">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="800Bank-关于我们">
+        <meta name="description" content="800Bank- 随投随享-当日起息立享收益,银行信托-精选优质信托产品,800精选-优质资产热销产品,五星专享-五星电器产品定制,美元专区-海外资产配置">
+        <link rel="stylesheet" href="/themes/theme_default/nb/pc/css/product/productDetail.css">
+        <script src="//cdn.bootcss.com/vue/1.0.4/vue.min.js"></script>
+        <script type="text/javascript" src="/themes/theme_default/nb/pc/js/product/productDetail.js"></script>
+        <script type="text/javascript" src="/themes/theme_default/nb/pc/js/product/productDetailCommon.js"></script>
+        <title>800Bank</title>
+    </head>
+
+    <body>
+        <!-- header begin -->
+        <#include "../include/member_header.html">
+            <!-- header  end -->
+            <input type="hidden" value="${flagId}" id="flagId" />
+            <input type="hidden" value="${prodId}" id="productId" />
+            <input type="hidden" value="${investId}" id="investId" />
+            <div class="container  product_top">
+                <div class="productDetail">
+                    <a href="/nb/pc/product/product_list.html?id=${flagId}">
+                        <div class="productDetailTitle1" id="productTitle">银行1号</div>
+                    </a>
+                    <div class="productDetail_box1 row padding_col0">
+                        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 row">
+                            <div style="margin-top: 36px;">
+                                <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 text">
+                                    <p class="productDetail_rate" id="rate"></p>
+                                    <p>预期年化收益</p>
+                                </div>
+                                <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 text">
+                                    <p class="productDetail_top" id="startMoney"></p>
+                                    <p>起投金额</p>
+                                </div>
+                                <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 text">
+                                    <p class="productDetail_top" id="timeLimit"></p>
+                                    <p>投资期限</p>
+                                </div>
+                                <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 text">
+                                    <p class="productDetail_top" id="mostAccount"></p>
+                                    <p>投资规模</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3  progress_text">投资进度</div>
+                            <div class="progress col-md-7 col-xs-7 col-sm-7 col-lg-7 padding_col0 progress-height">
+                                <div class="progress-bar progress-bar-color" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" id="progress">
+                                    <span class="sr-only" id="progressComplete"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 progress_complete" id="scale"></div>
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 investForm">
+                            <form class="invest_bg">
+                                <div class="row form-group investForm_col">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0" id="remainingTime">剩余时间：</label>
+                                    <label class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0" style="text-align: left;" id="expirationTime"></label>
+                                </div>
+                                <div class="row form-group investForm_col">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">账户余额：</label>
+                                    <label class="col-md-5 col-xs-5 col-sm-5 col-lg-5 padding_col0" id="useMoney" style="text-align: left;">&yen;</label>
+                                    <label class="col-md-3 col-xs-3 col-sm-3 col-lg-3 padding_col0" style="text-align: right;"><a href="/nb/pc/recharge/newRecharge.html">充值</a></label>
+                                </div>
+                                <div class="row form-group investForm_col">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">可投金额：</label>
+                                    <label class="col-md-5 col-xs-5 col-sm-5 col-lg-5 padding_col0" style="text-align: left;" id="amount_yes"></label>
+                                    <label class="col-md-3 col-xs-3 col-sm-3 col-lg-3 padding_col0"></label>
+                                </div>
+                                <div class="row form-group investForm_col" id="unUnitAmount">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">投资金额：</label>
+                                    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0">
+                                        <input type="tel" class="form-control invest-input" id="money" placeholder="请输入投资金额" oninput="changeMoneyText()" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;">
+                                    </div>
+                                </div>
+                                <!-- 需要显示投资份数 -->
+                                <div id="unitAmount" style="display:none;">
+                                    <div class="row form-group investForm_col">
+                                        <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">投资份额：</label>
+                                        <input id="investNumInp" type="hidden" value="" />
+                                        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0 " id="investNum">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group investForm_col">
+                                        <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0 copies">投资份数：</label>
+                                        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0 ">
+                                            <div class="col-md-1 sub padding_col0 text" onclick="sub();" id="sub">-</div>
+                                            <input value="1" type="text" class="col-md-2 num " id='num' onkeyup="this.value=this.value.replace(/\D/g,'')" />
+                                            <div class="col-md-1 add padding_col0 text" onclick="add();" id="add">+</div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group investForm_col">
+                                        <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">投资金额：</label>
+                                        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0 " id="investMoney">
+                                        </div>
+                                        <input id="investMoneyInp" type="hidden" value="" />
+                                    </div>
+                                </div>
+                                <!-- 不需要显示投资份数 -->
+                                <div class="row form-group investForm_col none " id="pwd">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 invest-label padding_col0">定向密码：</label>
+                                    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 padding_col0">
+                                        <input type="password" class="form-control invest-input" id="inputpwd" placeholder="请输入定向密码" value="">
+                                    </div>
+                                </div>
+                                <div class="row form-group investForm_col">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 invest-label padding_col0">交易密码：</label>
+                                    <div class="col-md-8  col-xs-8 col-sm-8 col-lg-8 padding_col0">
+                                        <input type="password" class="form-control invest-input" id="payPwd" placeholder="请输入交易密码">
+                                    </div>
+                                </div>
+                                <div class="row form-group investForm_col" id="expected_return" style="display:none;">
+                                    <label class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding_col0">预期收益：</label>
+                                    <label class="col-md-5 col-xs-5 col-sm-5 col-lg-5 padding_col0" style="text-align: left;" id="expected_return_label"></label>
+                                </div>
+                                <div class="row form-group investForm_col1">
+                                    <label class="col-md-12 col-xs-12 col-sm-12 col-lg-12 invest-label padding_col0"><a id="userRedPacketBtn" onclick="showRedPacketDiv()">使用红包</a></label>
+                                    <label v-if="unusedList.length" class="col-md-12 col-xs-12 col-sm-12 col-lg-12 invest-label padding_col0"><a id="userCouponsBtn" onclick="showCouponsDiv()">使用加息券</a></label>
+                                </div>
+                                <div class="row form-group investForm_col">
+                                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 padding_col0">
+                                        <button type="button" onclick="addInvest()" id="invest_btn" class="btn btn-primary btn-lg " style="margin-right: 1.5%;width: 48%;border-radius: 0px;background-color: #3c95d1;border:0px solid #FFFFFF;">立刻投资</button>
+                                        <a href="/nb/pc/recharge/newRecharge.html">
+                                            <button type="button" class="btn btn-primary btn-lg " style="width: 48%;border-radius: 0px;background-color: #7fc5f5;border:0px solid #FFFFFF;">充值</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row form-group product_label investForm_col">
+                                    <label class="col-md-1 col-xs-1 col-sm-1 col-lg-1 padding_col0">
+                                        <input type="checkbox" checked="checked" onclick="return false;">
+                                    </label>
+                                    <div class="col-md-11 col-xs-11 col-sm-11 col-lg-11 padding_col0">同意
+                                        <span onclick="showAgreeMent('agreementOne')">《金融平台服务协议》</span>
+                                        <span onclick="showAgreeMent('agreementTwo')">《风险提示条款》</span>
+                                    </div>
+                                </div>
+                                <!-- <img src="/themes/theme_default/nb/pc/img/appoint_bg.png" id="appoint_bg" class="img-responsive center-block invest_img"/>
+					<img src="/themes/theme_default/nb/pc/img/endInvest_bg.png" id="endInvest_bg" class="img-responsive center-block invest_img"/>
+					<img src="/themes/theme_default/nb/pc/img/sack_bg.png" id="sack_bg" class="img-responsive center-block invest_img"/> -->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="detail-menus clearfix row">
+                        <div class="col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-2 col-xs-2 col-sm-2 col-lg-2 text detail-menus-col detail-menus-actived" onclick="onChange('产品详情')">产品详情</div>
+                        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 text detail-menus-col" onclick="onChange('产品资料')">产品资料</div>
+                        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 text detail-menus-col" onclick="onChange('安全保障')">安全保障</div>
+                        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 text detail-menus-col" onclick="onChange('投资记录')">投资记录</div>
+                    </div>
+                    <div class="invest-detail-col1 invest-detail" id="detail-menus1">
+                    </div>
+                    <div class="invest-detail-col1 invest-detail" id="detail-menus2">
+                    </div>
+                    <#include "../include/safetyControl.html">
+                        <div class="invest-detail-col3 invest-detail" id="detail-menus4">
+                            <p class="investTitle">投资记录</p>
+                            <table class="investTable">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>投资人</th>
+                                        <th>投资金额</th>
+                                        <th>投资时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="record"></tbody>
+                            </table>
+                            <div id="kkpager" class="text-center"></div>
+                        </div>
+                </div>
+            </div>
+            <!-- 选择红包弹层begin -->
+            <div class="class-div" id="show_red_packet_div">
+                <a class="top-title">请选择可用红包</a>
+                <div class="top-div">
+                    <div class="row margin0 width100 height80" id="redPacketDataDiv"></div>
+                    <div class="row margin0 width100 height1"></div>
+                    <div class="row margin0 width100 height19">
+                        <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1 padding0"></div>
+                        <div class="col-md-7 col-xs-7 col-sm-7 col-lg-7 padding0">
+                            <div class="space-div-4"></div>
+                            <p class="inner-p">选择红包总额：&nbsp;<span id="selectRedPacketMoney">0</span>&nbsp;元</p>
+                            <p class="inner-p">实际支付金额：&nbsp;<span id="realMoney">0</span>&nbsp;元</p>
+                            <p class="inner-gray-p">*温馨提示：推荐红包和其他类型投资红包最多只能各选一个。</p>
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding0 center line-height100">
+                            <a class="btn btn-info inner-a" onclick="closeRedPacket()">确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 选择红包弹层end -->
+            <!-- 选择加息券弹层begin -->
+            <div class="class-div" id="show_coupons_div">
+            <input type="hidden" value="" id="coupons-id">
+                <a class="top-title">请选择可用加息券</a>
+                <div class="top-div">
+                    <div class="row margin0 width100 height80" id="couponsDataDiv">
+                        <div v-if="unusedList.length" class="couponslist">
+                        <!-- 单个加息券详情begin -->
+                        <div v-for="unused in unusedList" class="col-md-3 col-xs-3 col-sm-3 col-lg-3 padding1 center coulist" biaoji="0">
+                            <div class="space-div-05"></div>
+                            <div class="inner-div" style="background: none;">
+                            	<input type="hidden" class="couRate" value="{{ unused.toRateAdjust }}">
+                            	<input type="hidden" value="{{ unused.id }}" class="coupons-id">
+                                <div class="space-div-2"></div>
+                                <img src="/themes/theme_default/nb/pc/images/coupons.png" class="inner-img2">
+                                <p class="red-money red-money2"><span>+</span>{{ unused.toRateAdjust }}<span>%</span></p>
+                                <p class="white-name white-name2">有效期</p>
+                                <p class="red-time red-time2" v-text="unused.couponValidTo | dateFormat | addPer '' '过期' "></p>
+                                <div class="space-div-2"></div>
+                            </div>
+                            <div class="space-div-05" style="margin-bottom: 70px;"></div>
+                        </div>
+                        <!-- 单个加息券详情end -->
+                        </div>
+                    </div>
+                    <div class="row margin0 width100 height1"></div>
+                    <div class="row margin0 width100 height19">
+                        <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1 padding0"></div>
+                        <div class="col-md-7 col-xs-7 col-sm-7 col-lg-7 padding0">
+                            <div class="space-div-4"></div>
+                            <p class="inner-p">选择加息券总额：&nbsp;<span id="selectCoupons">0</span>&nbsp;%</p>
+                            <p class="inner-gray-p">*温馨提示：投资加息券最多只能各选一个。</p>
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 padding0 center line-height100">
+                            <a class="btn btn-info inner-a" onclick="closeCoupons()">确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 选择加息券弹层end -->
+            <div style="height: 50px;"></div>
+            <script type="text/javascript">
+            seajs.use("/themes/theme_default/media/js/product/invest_record")
+            </script>
+            <#include "../include/top_static.html">
+                <#include "../include/member_footer.html">
+    </body>
+
+</html>

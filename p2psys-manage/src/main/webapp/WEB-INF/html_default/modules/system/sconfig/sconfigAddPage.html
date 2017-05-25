@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/sconfig/sconfigAdd.html',"添加成功！","添加失败！");
+	});
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		    <label class="lab">状态：</label>
+		    <div class="ipt">
+				<select name="status">
+					<option value="1">启用</option>
+					<option value="0">禁用</option>
+				</select>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">类型：</label>
+		    <div class="ipt">
+				<select name="type">
+					<option value="1">基础数据</option>
+					<option value="2">统计数据</option>
+				</select>
+			</div>
+		</div>
+	    <div class="formitm">
+			<label class="lab">标识：</label>
+			<div class="ipt">
+				<input type="text" name="nid" class="w300 easyui-validatebox" data-options="required: true" maxlength="30"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">名称：</label>
+		    <div class="ipt">
+				<input type="text" name="name" class="w300 easyui-validatebox" data-options="required: true" maxlength="50"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+		    <label class="lab">值：</label>
+		    <div class="ipt">
+				<input type="text" name="value" class="w300 easyui-validatebox" data-options="required: true"/>
+				<b>*</b>
+			</div>
+		</div>
+		<div class="g-btn">
+            <input name="configAddToken" value="${configAddToken}" type="hidden">
+        </div>
+	</form>
+</div>

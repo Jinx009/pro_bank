@@ -1,0 +1,36 @@
+<script type="text/javascript">
+$(function() {
+	$.fn.dataGridOptions.formSubFun("#form", '/modules/nb/coupons/productCouponsModifyConfirm.html');
+});
+</script>
+<div class="popForm">
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="id" name="id" value="${interestRate.id}">
+		<div class="formitm">
+			<div class="ipt">
+			</div>
+		</div>
+		<div class="formitm">
+			<div class="ipt">
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				名称
+			</label>
+			<div class="ipt">
+				<input type="text" id="name" name="name" class="easyui-validatebox" style="width:200px;" data-options="required:true" maxlength="30" value="${interestRate.name}" />
+				<b>*</b>
+			</div>
+		</div>
+		<div class="formitm">
+			<label class="lab">
+				加息比例
+			</label>
+			<div class="ipt">
+				<input type="text" id="rate" name="rate" class="easyui-validatebox" style="width:180px;margin-right:8px;" data-options="required:true" maxlength="30" value="${interestRate.rate}" onkeyup="if(this.value==this.value2);if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" />%
+				<b>*</b>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$(function(){
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/account/compCash/compCashAdd.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+});
+</script>
+<div class="popForm">
+    <form id="form"  method="post" enctype="multipart/form-data">
+    	<div class="formitm">
+		     <label class="lab">入账商户备付金：</label>
+		     <div class="ipt">
+		     	${inProvAmount/100}元
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">出账商户备付金：</label>
+		     <div class="ipt">
+		     	${outProvAmount/100}元
+		     </div>
+		</div>
+    	<div class="formitm">
+		     <label class="lab">对公银行：</label>
+		     <div class="ipt">
+		     	<select name="bankId" class="bankId">
+	                  <#if bankList ??>
+	                  	<#list bankList as item>
+	                  		<option value="${item.id}">${item.cardNo!} ${item.bankName!}</option>
+	                  	</#list>
+	                  </#if>
+	            </select><i>*</i>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">金   额：</label>
+		     <div class="ipt">
+		     	<input type="text" name="amount" class="w200 easyui-validatebox" onkeyup="value=value.replace(/[^0-9]/g,'')" data-options="required: true" maxlength="50"/>
+		     	<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备   注：</label>
+		     <div class="ipt">
+		     	<textarea name="remark" class="w400 easyui-validatebox" data-options="required: true"></textarea>
+		     	<b>*</b>
+		     </div>
+		</div>
+	</form>
+</div>

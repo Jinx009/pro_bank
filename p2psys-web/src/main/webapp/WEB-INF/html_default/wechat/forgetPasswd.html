@@ -1,0 +1,96 @@
+<#include "../include/statistics.html">
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="text/content" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" >
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>忘记登录密码</title>
+<link href="${webroot}${theme_dir}/wx/static/css/main.css" rel="stylesheet" />
+<style type="text/css">
+.input-row .input-row-inner .input_valid
+{
+  height: 36px;
+  line-height: 36px;
+  padding: 0px 0;
+  border: none;
+  width: 60%;
+  outline: none;
+  //-webkit-appearance: none;
+}
+.noBtn
+{
+  background:#2370B6;
+  color:#fff;
+  line-height: 40px;
+  height:40px;
+  border: none;
+  width: 40%;
+  outline: none;
+  //-webkit-appearance: none;
+  position: absolute;
+  top: 1px;
+  right: 0px;
+  padding-right: 0px;
+}
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}
+</style>
+</head>
+<body>
+		<form action="/wx/getpwd.html" method="post" name="form1" id="mobile_phonegetForm" novalidate="novalidate">
+		<div class="header">忘记登录密码</div>
+		<div class="input-group m10">
+			<div class="input-row" id="input-row">
+				  <div class="input-row-inner">
+						<input onkeyup="value=value.replace(/[^0-9]/g,'')" type="tel" name="mobilePhone" id="mobilePhone" maxlength="11" class="input-text" placeholder="手机号" />
+				  </div>
+				  <div class="input-error-tip" id="phone_error"></div>
+			</div>
+			<div class="input-row">
+				  <div class="input-row-inner">
+						<input type="text" name="validCode" class="input_valid" placeholder="请输入验证码" />
+						<input class="noBtn"  id="resetPhoneCode" value="获取验证码" type="button"/>
+				  </div>
+			</div>
+		</div>
+		<div class="input-group m10">
+			<div class="input-row">
+				<div class="input-row-inner">
+						<input type="password" id="password" name="pwd" class="input-text" placeholder="新登录密码" />
+				</div>
+				<div class="input-error-tip"></div>
+			</div>
+			<div class="input-row">
+				<div class="input-row-inner">
+						<input type="password" name="confirmNewPwd" class="input-text" placeholder="重复新登录密码" />
+				</div>
+				<div class="input-error-tip"></div>
+			</div>
+		</div>
+		<input type="hidden" value="2" name="getType" />
+		<input type="hidden" name="userName" id="username"/>
+		<input type="hidden" value="3" name="step" id="step"/>
+		<!--
+		<a class="button button-block button-main" onclick="form1.submit();">重置</a>
+		-->
+		<input class="button button-block button-main mt25" style="width: 93%;margin:auto;" type="submit" value="重置" />
+		</form>
+		<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+		<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+		
+		<script type="text/javascript">
+			seajs.use("/themes/theme_default/wx/js/getpwd_checked")
+		</script>
+		
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>800Bank</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/newWTZ.css" />
+<link rel="stylesheet" href="${webroot}${theme_dir}/wx/css/pure.min.css">
+<!-- <link href="${webroot}${theme_dir}/wx/css/index.css" rel="stylesheet"> -->
+<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+<!-- <script type="text/javascript" src="${webroot}${theme_dir}/nb/wechat/js/wechat_alert.js" ></script>
+ -->
+  <style type="text/css">
+  .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 0px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+	.table_info
+	{
+		width: 100%;
+		height: 100%;
+		font-family: "Microsoft YaHei";
+		background: #000;
+		position:absolute;
+		left:0px;
+		top:0px;
+		z-index: 4;
+	}
+/* 	#table_info{
+		position:absolute;
+		width:100%;
+		left:0px;
+		top:0px;
+		display:none;
+		z-index: 44444;
+	}
+	#table_info tr td{height:36px;line-height: 36px;width:33%;text-align: center;}
+	#table_info tr td img{vertical-align: middle;} */
+	.table_info td
+	{
+		border: 1px solid black;
+		text-align: center;
+		 margin:0px; 
+	}
+	body
+	{
+		height: 100%;
+		margin: 0px;
+	}
+	.border{
+			border: 1px solid red;
+		}
+	#qianjin{display: none;position: absolute;left: 0;top: 0;z-index: 222;opacity: 0.3;filter: alpha(opacity=30);}
+	
+	.wrap {
+  padding: 10px; }
+
+.wrap .main {
+  border: 1px solid #cbcbcb;
+  border-radius: 6px;
+  overflow: hidden; }
+
+.wrap table {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 6px; }
+
+.wrap table thead {
+  background: #326eaf;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff; }
+
+.wrap table tbody tr {
+  line-height: 2; }
+
+	
+  </style>
+  <script type="text/javascript">
+  	function hideForm()
+  	{
+  		var width = $(window).width();
+		var height = $(document).height();
+		$("#qianjin").css("width",width+"px");
+		$("#qianjin").css("height",height+"px");
+		$("#qianjin").show();
+  		$("#table_info").css("display","block");
+  		$("#main_info").css("display","none");
+  		$("#rechargeMain").css("display","none");
+  		
+  	}
+  	function hideTable()
+  	{
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  		$("#qianjin").hide();
+  		$("#rechargeMain").css("display","block");
+  	}
+  	
+  	function back(){
+  		$("#table_info").css("display","none");
+  		$("#main_info").css("display","block");
+  		$("#qianjin").hide();
+  		$("#rechargeMain").css("display","block");
+  	}
+  
+  </script>
+<script type="text/javascript">
+  	function updateType(num){
+  		$("#rechargeType").val(num);
+  		var selBank = $("#bank_code").val();
+  		//alert('${minRechargeMoney!0}');
+  		var money = document.getElementById("money").value;
+  		if(num==2){
+  			if(money.length==0 || parseFloat(money)<${minRechargeMoney!100}){
+		    	//wechatAlert("线下充值金额不能小于${minRechargeMoney!0}元！","0");
+		    	$(".fillingAmount").html('线下充值金额不能小于'+${minRechargeMoney!100}+'元');
+		    	$("#money").addClass("border");
+			}else{
+				document.form1.submit();
+			}
+		}else{
+			if(money.length==0 || parseFloat(money)<10){
+	  			//wechatAlert("充值金额必须大于0元！","0");
+	  			$(".fillingAmount").html('充值金额必须不小于10元');
+				$("#money").addClass("border");
+  			}else if(selBank.length==0){
+  				alert("请选择支持的银行！");
+  			}else{	
+				document.form1.submit();
+	  		}
+		}
+  	}
+  	function delClass(){
+		$("#money").removeClass("border");
+		$(".fillingAmount").html('');
+	}
+  	function getOneBankInfo(bank_code){
+  		if(bank_code!=""){
+	  		$.ajax({
+	  			url:"/nb/wechat/recharge/querySupportBank.html?bank_code="+bank_code+"&random="+Math.random(),
+	  			type:"get",
+	  			dataType:"json",
+	  			success:function(data){
+	  				    if(data.ret_code==='0000'){
+	  				      	var length = data.support_banklist.length;
+	  				        if(length>0){
+	  				        	var numInput0 = 0;
+	  				        	var numInput1 = 0;
+	  				        	var numInput2 = 0;
+	  				        	var llbank_name = "";
+	  				        	if(bank_code.length>0 && bank_code!=""){	
+	  					        	numInput0 = parseFloat(data.support_banklist[0].single_amt);
+	  					        	numInput1 = parseFloat(data.support_banklist[0].day_amt);
+	  					        	numInput2 = parseFloat(data.support_banklist[0].month_amt);
+	  					        	llbank_name = data.support_banklist[0].bank_name;
+	  				        	}
+	  				        	$("#danbi").html(numInput0/10000 + "万");
+	  				        	$("#danri").html(numInput1/10000 + "万");
+	  				        	$("#danyue").html(numInput2/10000 + "万");
+	  				        	$("#bankTbl2").css("display","block");
+	  				        }
+	  				    }
+	  			}
+	  		})
+  		}else{
+  			$("#bankTbl2").css("display","none");
+  		}
+  	}
+</script>
+</head>
+<body>
+<div id="rechargeMain" style="position: relative;display:block;z-index: 11;">
+
+	<form action="/nb/wechat/recharge/sureRecharge.html" method="post" name="form1" id="form1">
+		<div class="editMoney"><img src="${webroot}${theme_dir}/wx/img/editMoney.png"/></div>
+		<p class="rechargeAmount">输入充值金额</p>
+		<div class="edit" style="width: 85%;float: left;margin-left: 4%;">
+			<!-- <input class="input-text" type="text" name="money" id="money" placeholder="充值金额" onkeyup="value=value.replace(/[^0-9.]/g,'').trim();" onfocus="delClass()"> -->
+			<input type="text" name="money" id="money" class="input-text" autocomplete="off" onkeyup="value=value.replace(/[^\d]/g,'')" onfocus="delClass()" placeholder="充值金额" maxlength="8"/>
+        	<span class="fillingAmount"></span>
+		</div>
+		<div  style="float: right;width: 4%;margin-right: 4%;height: 45px;line-height: 45px;color: #898989;">元</div>
+		
+		<#if accountBank??>
+			<table style="clear:both;text-align: left;font-size: 12px;margin-left: 3%;display: none;" id="bankTbl">
+				<tr>
+					<td style="color: red;text-align: right;" >&nbsp;</td>
+					<td style="text-align: left;" ><img alt="" id="bank_img_url"  src="/data/bank/mini/工商银行.png" style="vertical-align: middle;"></td>
+					<td>${bank_name!}每日充值限额:<span id="day_money" ></span>,每次充值限额:<span id="time_money" ></span></td>
+					<!-- <#if wapChannelKey?? && wapChannelKey != "" && wapChannelKey=='unionpay_channel_key'>
+					<#else>
+						<td>${bank_name}每日充值限额:<span>5万</span>,每次充值限额:<span>5万</span></td>
+					</#if> -->
+				</tr>
+			</table>
+			<input type="hidden" value="${bank_code!}" id="bank_code"  name="bankCodeKey"/>
+		<#else>
+			<div class="edit" style="width: 85%;float: left;margin-left: 4%;">
+			     	<select  id="bank_code"  name="bankCodeKey"  onchange="getOneBankInfo(this.value);" class="form-control" style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;">
+	                	<option value="" selected="selected">---请选择支持银行---</option>
+		                <#list ccList as cc>
+				     		<option value="${cc.sb.bankCode}">${cc.sb.bankName!''}</option>
+						</#list>
+              		</select>
+			</div>
+			<table style="clear:both;text-align: left;font-size: 12px;margin-left: 3%;display: none;" id="bankTbl2">
+					<tr>
+						<td style="color: red;text-align: right;" >&nbsp;</td>
+						<td>单笔限额:<span id="danbi" ></span>,单日限额:<span id="danri" ></span>单月限额:<span id="danyue" ></td>
+					</tr>
+			</table>
+		</#if>
+		<input type="hidden" value="1" id="rechargeType" name="rechargeType">
+		<input type="hidden" name="rechargeToken" value="${rechargeToken!}" />
+		<input type="hidden" value="${bank_name!}" id="bank_name" />
+		<input type="hidden" class="paymentStatus" name="type" value="1"/>
+	    <input type="hidden" name="channelType" id="channelType" value="1" />
+	    <input type="hidden" name="operType" id="operType" value="${operType!'recharge'}" />
+	    <input type="hidden" value="1" name="payType"/>
+		<input type="button" id="cashBtn" value="在线充值" class="sureBtn" style="display:block;" onclick="updateType(1)"/>
+		<p style="padding-left:20px;padding-top: 8px;"><a style="text-decoration: underline;font-size: 15px;color: blue;" onclick="hideForm()">查看银行充值限额 </a></p>
+		<p style="font-size: 12px;line-height: 25px;white-space:nowrap;padding-left:20px;padding-top: 8px;"><span style="font-size:13px;">若您线上充值遇到限额问题，可选择</span>
+		<a style="text-decoration: underline;font-size: 15px;color: blue;" onclick="updateType(2)"> 线下充值 </a></p>
+		<!-- <input type="submit" id="cashBtn2" value="线下充值" class="sureBtn" style="display:block;" onclick="updateType(2)"/> -->
+	</form>
+	</div>
+	<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	<script>  
+		seajs.use("${webroot}${theme_dir}/nb/wechat/js/recharge/recharge_newRecharge");
+    </script>
+     
+      <div id="table_info"   class="wrap" style="display: none" onclick="hideTable()" >
+  		<table class="pure-table" style="width:96%;margin-left: 2%;" id="bankTable">
+  			<!-- <tr height="25px" ></tr>
+			<tr><td></td><td>单笔限额</td><td>单日限额</td></tr>
+			<tr><td><img src="/data/bank/ICBC_OUT.gif" style="border: 1px solid #ddd;width: 118px;"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CCB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/BOC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/yz.jpg"/></td><td>1万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CMB_OUT.gif" style="border: 1px solid #ddd;width: 118px;"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CEB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/GDB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/SPABANK_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td valign="top" ><img src="/data/bank/ABC_OUT.gif"/></td><td valign="top" >5万</td><td  valign="top" >5万</td></tr>
+			<tr><td><img src="/data/bank/CIB_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/COMM_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/pf.jpg"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/hx.jpg"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CITIC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr><td><img src="/data/bank/CMBC_OUT.gif"/></td><td>5万</td><td>5万</td></tr>
+			<tr height="25px" ></tr>
+			<tr><td colspan="3" style="color: red;height:20px;line-height:20px;width:100%;text-align: left;" >备注：以上月限额20万，点击表格即可关闭此页。</td></tr>
+			<tr><td colspan="3" style="color: red;height:20px;line-height:20px;width:100%;text-align: left;" ><b style="margin-right: 3px;vertical-align: middle;">*</b>经招商银行通知，临时调整每日充值限额为5000元。</td></tr> -->
+		</table>
+		<div onclick="back()" class="sureBtn" style="width:96%;">返回</div>
+  </div>
+		 <i id="qianjin"></i>
+</body>
+</html>

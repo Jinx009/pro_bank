@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<link href="/themes/theme_default/wx/static/css/main.css" rel="stylesheet">
+<style type="text/css">
+    *{word-break:break-all;overflow: hidden;font-size: 12px;}
+    .input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+</style>
+
+</head>
+<body>
+<div id="reg_content" >
+	<form action="${webroot}/user/doRegister.html" method="post" name="formUser" id="signupForm">
+	<input type="hidden" value="1" name="userType" class="user-type">
+	<div class="header nonebottom">注册</div>
+	<div class="input-group">
+		<div class="input-row" id="input-row">
+			<div class="input-row-inner">
+				<input id="mobilePhone" class="input-text" name="mobilePhone"
+					placeholder="手机号码" type="tel" maxlength="11"
+					onkeyup="replaceAndSetPos(this,/[^\d]/g,'')" value="" />
+			</div>
+			<div class="input-error-tip" id="phone_error"></div>
+		</div>
+		<div class="input-row">
+			<div class="input-row-inner">
+				<input class="input-text" id="password" name="pwd" type="password" maxlength="16" placeholder="密码" />
+			</div>
+			<div class="input-error-tip"  ></div>
+		</div>
+		<div class="input-row">
+			<div class="input-row-inner">
+				<input class="input-text" type="password" name="confirmPassword" maxlength="16" id="checkpwd" placeholder="确认密码" />
+			</div>
+			<div class="input-error-tip"></div>
+		</div>
+		<div class="input-row">
+			<div class="input-row-inner">
+				<input class="input-text" type="text" placeholder="邀请码(选填)" id="invite_username" name="ui" value="${ui}" />
+			</div>
+		</div>
+		<div class="input-row" id="input_row_valid" >
+			<div class="input-row-inner">
+				<input name="validCode" id="validCode" type="text" maxlength="16" tabindex="3" class="input-text" placeholder="请输入右侧所有字母" />
+			</div>
+			<div class="input-error-tip-one" id="valid_error"  ></div>
+			<img src="${webroot}/validimg.html" alt="点击刷新" id="valicode_img" class="input-button" onclick="this.src='${webroot}/validimg.html?t=' + Math.random();"  align="absmiddle" />
+		</div>
+		<!--
+		<div class="input-row">
+			<span class="zym-tip"></span>
+		</div>
+		-->
+		<div class="input-row">
+			<div class="input-row-inner">
+				<input id="phonepassword" name="code" type="text"
+					maxlength="16" aria-required="true" class="input-text" placeholder="手机验证码"/>
+			</div>
+			<input class="input-button" id="timeval" type="button" style="border:none;outline:none;background:#2370B6;color:#fff;z-index: 999" value="获取验证码" onclick="doajax();" />
+		</div>
+	</div>
+	<div class="lay-row mini-row">
+		<label class="check-box"><input type="checkbox" id="dianji"  value="1" name="agree" />
+			已阅读并同意<a class="txt-success" href="javascript:void(0);" id="service_contract" >&lt;&lt;服务协议&gt;&gt;</a>
+						<a class="txt-success" id="service_contract1" href="javascript:void(0);">&lt;&lt;风险条款&gt;&gt;<a>
+		</label>
+	</div>
+	<span id="pro_msg" style="margin-left:20px;color:red;"></span>
+	<input type="hidden" name="openLoginId"  value="${openLoginId!}" />
+    <input type="submit" id="zhuce" value="立即注册" class="button button-main button-block mt15" style="width:93%;margin:0 auto;"/>
+	<div class="lay-row mini-row m10" style="padding:0 3.5%;">
+		<span>已有账号？</span><a class="link" href="/wx/login.html" >马上登录</a>
+	</div>
+	</form>
+</div>
+	<!-- 产品协议 -->
+	<#include "xieyi.html">
+	<#include "xieyi1.html">
+	
+
+	<script src="${webroot}${theme_dir}/media/js/jquery.js"></script>
+	<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+  	<script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+  	<script src="${webroot}${theme_dir}/media/js/common.js"></script>
+	<script type="text/javascript">
+		seajs.use('${webroot}${theme_dir}/wx/js/register');
+	</script>
+<script type="text/javascript">
+function doajax()
+{
+    if($("#phone_error").text()!="")
+    {
+    	$("#input-row").addClass("input-error").find("#phone_error").html("手机号错误或不存在");
+    	return false;
+    }
+    else if($("#mobilePhone").val()=="")
+    {
+        $("#mobilePhone").blur();
+        $("#mobilePhone").focus();
+        $("#input-row").addClass("input-error").find("#phone_error").html("请输入手机号码");
+    }
+    else if($("#validCode").val()=="")
+    {
+        $("#validCode").blur();
+        $("#validCode").focus();
+        $("#pro_msg").html("点击验证码刷新，重新输入验证码！");
+    }
+    else
+    {
+		 $.ajax(
+		 {
+				url:'/user/getPhoneCode.html?mobilePhone='+$('#mobilePhone').val(),
+				type:'post',
+				data:{validCode:$('#validCode').val()},
+				success:function(data)
+				{
+					if(data.result)
+					{
+							var time=60;
+							var timeFun=setInterval(function()
+							{
+								time--;
+				 				if(time>0)
+				 				{
+				 					$('#timeval').val(time+"秒后重新获取").attr("disabled",true);
+				                    $('#timeval').css("color","#fff");
+				                    $('#timeval').css("background","#249FF1");
+				 				}
+				 				else
+				 				{
+				 					time=60;
+				 					$('#timeval').val("获取验证码").removeAttr("disabled");
+				 					clearInterval(timeFun);
+								}
+							},1000);
+					 }
+					 else
+					 {
+						 $("#validCode").val("");
+						 $("#pro_msg").html("点击验证码刷新，重新输入验证码！");
+		                 
+					 }
+			     }
+		    })
+		 }
+
+}
+$("#validCode").focus(function()
+{
+	 $("#pro_msg").html("");
+});
+</script>
+</body>
+</html>

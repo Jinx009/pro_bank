@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提现管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+<script type="text/javascript">
+	$.canEdit = false;
+</script>
+<script type="text/javascript">
+	$.canDelete = false;
+</script>
+<script type="text/javascript">
+	$.canAdd = false;
+</script>
+<script type="text/javascript">
+	$.canGrant = false;
+</script>
+<script type="text/javascript">
+	var dataGrid;
+	var winWidth =  800;
+	var winHeight = 280;
+	$(function() {
+		dataGrid = $('#dataGrid').datagrid({
+			url : 'accountCashList.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums :1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'desc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect:true,
+			columns : [[ 			
+			{ field: 'id', title: '编号', width: 50,fixed: true,sortable:true},
+			{ field: 'userName', title: '用户名', width: 100},
+			{ field: 'status', title: '状态', width: 90,
+				formatter:function(value, row, index){
+					switch(value){
+					case 0:return "申请提现";
+					case 5:return "客服初审通过";
+					case 6:return "客服初审不通过";
+					case 7:return "财务初审通过";
+					case 8:return "财务初审不通过";
+					case 1:return "财务复审通过";
+					case 3:return "财务复审不通过";
+					case 4:return "用户取消提现";
+					}
+				}
+			},
+			{ field: 'account', title: '银行账号', width: 150},
+			{ field: 'bank', title: '所属银行', width: 60},
+			{ field: 'branch', title: '支行', width: 60},
+			{ field: 'money', title: '提现总额', width: 60},
+			{ field: 'credited', title: '到账金额', width: 60},
+			
+			{ field: 'fee', title: '手续费', width: 60},
+			{ field: 'addTime', title: '添加时间', width: 130,
+				formatter: function(value,row,index){
+					if (value){
+						return getLocalTime(value,4);
+					} else {
+						return "";
+					}
+				}
+			},
+			{field:'addIp', title:'添加IP',width: 80},
+			{ field: 'channelName', title: '通道类型', width: 80,formatter:function(value, row, index){
+				/* if(value == "unionpay_channel_key") {
+					return "银联通道";
+				} else if(value == "llpay_channel_key") {
+					return "连连通道";
+				} */
+				return value;
+			}},
+			{field : 'action',title : '操作',width :100,
+				formatter : function(value, row, index) {
+					var str = '';
+					if ($.canAdd) {
+						str += $.formatString('<img onclick="$.fn.dataGridOptions.addFun('+editWinParmeters+');" src="{1}" title="添加线下充值"/>', row.id, '${theme_dir}/css/images/extjs_icons/pencil.png');
+					}
+					str += '&nbsp;';                    
+					return str;
+				}
+			} 
+			 ]],
+			toolbar : '#toolbar',
+			onLoadSuccess : function() {
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu : function(e, rowIndex, rowData) {
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show', {
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});
+
+	
+</script>
+</head>
+<body>
+	<div class="easyui-layout" data-options="fit : true,border : false">
+		<div data-options="region:'north',title:'查询条件',border:false,collapsed:false" style="height: 140px; overflow: hidden;">
+			<form id="searchForm">
+				<table class="table table-hover table-condensed" style="display: none;">
+					<tr>
+						<th>用户名：</th>
+						<td><input type="text" name="userName"/></td>
+						<th>状态：</th>
+						<td><select name="status" class="type">
+							<option value=-1>全部</option>
+							<option value=0 selected="selected">申请提现</option>
+							<option value=5>客服初审通过</option>
+							<option value=6>客服初审不通过</option>
+							<option value=7>财务初审通过</option>
+							<option value=8>财务初审不通过</option>
+							<option value=1>财务复审通过</option>
+							<option value=3>财务复审不通过</option>
+							<option value=4>用户取消提现</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:100px;">开始时间：</th>
+						<td><input type="text" name="startTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></td>
+						<th style="width:100px;">结束时间：</th>
+						<td><input type="text" name="endTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></td>
+						<td class="tdBtn">
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">清空</a>
+					    </td>
+					</tr>				
+				</table>
+			</form>
+		</div>
+		<div data-options="region:'center',border:false">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+</html>

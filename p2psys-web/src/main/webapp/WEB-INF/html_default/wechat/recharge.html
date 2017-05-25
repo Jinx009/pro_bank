@@ -1,0 +1,86 @@
+<#include "../include/statistics.html">
+<!DOCTYPE html>
+<html>
+<head>
+<title>800Bank</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="/themes/theme_default/wx/static/css/main.css">
+<style type="text/css">
+.input-row .input-text 
+	{
+	  height: 24px;
+	  //line-height: 24px;
+	  padding: 20px 0;
+	  border: none;
+	  width: 100%;
+	  outline: none;
+	  -webkit-appearance: none;
+	}	
+</style>
+<script type="text/javascript" src="${webroot}${theme_dir}/wx/js/jquery.js" ></script>
+</head>
+<body>
+	<!-- <form action="/member/recharge/doUnionPayRecharge.html" method="post" name="form1" id="form1">
+		<div class="editMoney"><img src="${webroot}${theme_dir}/wx/img/editMoney.png"/></div>
+		<p class="rechargeAmount">输入充值金额</p>
+		<div class="edit"><input class="input-text" type="text" name="money" id="money" placeholder="充值金额" onkeyup="value=value.replace(/[^0-9.]/g,'').trim();">
+			<span class="fillingAmount">填写金额</span><span class="yuan">元</span></div>
+		<table style="text-align: left;font-size: 12px;margin-left: 3%">
+			<tr>
+				<td style="color: red;text-align: right;" >&nbsp;*</td>
+				<td style="text-align: left;" ><img alt="" id="bank_img_url"  src="/data/bank/mini/工商银行.png"></td>
+				<td>${bank_name}每日充值限额:<span id="day_money" ></span>,每次充值限额:<span id="time_money" ></span></td>
+			</tr>
+		</table>
+		<input type="hidden" name="rechargeToken" value="${rechargeToken!}" />
+		<input type="hidden" value="${bank_name}" id="bank_name" />
+		<input type="hidden" class="paymentStatus" name="type" value="1"/>
+	    <input type="hidden" name="channelType" id="channelType" value="1" />
+	    <input type="hidden" value="1" name="payType"/>
+		<input type="submit" id="cashBtn" value="确认充值" class="sureBtn" style="display:block;"/>
+	</form> -->
+	
+	<form id="form1" name="form1" method="post" action="/member/recharge/doUnionPayRecharge.html" novalidate="novalidate">
+	<div class="header"><a href="javascript:history.back(-1);" class="backto"></a>充值</div>
+	<div class="input-row">
+		<div style="left:10px;" class="input-row-inner">
+			  <input type="text" onkeyup="value=value.replace(/[^0-9.]/g,'').trim();" style="width:300px;" placeholder="充值金额" id="money" name="money" class="input-text">
+			  <input type="hidden" value="1" name="type" class="paymentStatus">
+			  <input type="hidden" value="1" id="channelType" name="channelType">
+		</div>
+		<div class="input-error-tip"></div>
+	</div>
+	<input type="hidden" id="bank_name" value="${bank_name}">
+	<div class="input-row m10">
+			<div class="input-row-inner">
+				<#if session_user?? && session_user.payPwd ?? && session_user.payPwd != ''>
+				<input class="input-text" type="password" name="payPwd" id="payPwd" placeholder="输入交易密码">
+				<#else>
+				<a href="/wx/account/modifyPaypwd.html">请先设置交易密码</a>
+				</#if>
+			</div>
+			<div class="input-error-tip"></div>
+	</div>
+	<input type="hidden" name="rechargeToken" value="${rechargeToken!}" />
+	<!--
+	<a class="button button-main button-block mt25" id="cashBtn" >下一步</a>
+	
+	-->
+	<table style="text-align: left;font-size: 12px;margin-left: 3%">
+			<tr>
+				<td style="color: red;text-align: right;" >&nbsp;*</td>
+				<td style="text-align: left;" ><img alt="" id="bank_img_url"  src="/data/bank/mini/工商银行.png"></td>
+				<td>${bank_name}每日充值限额:<span id="day_money" ></span>,每次充值限额:<span id="time_money" ></span></td>
+			</tr>
+		</table>
+	
+	<input type="submit" style="width:93%;margin:0 auto;" class="button button-main button-block mt15" value="下一步" id="cashBtn">
+	</form>
+	<script src="${webroot}${theme_dir}/media/js/sea.js"></script>
+    <script src="${webroot}${theme_dir}/media/js/seajs-text.js"></script>
+	<script>  
+		seajs.use("${webroot}${theme_dir}/wx/js/recharge_newRecharge");
+    </script>
+</body>
+</html>

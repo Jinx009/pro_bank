@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />		
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/cf/js/pro/address.js" ></script>
+</head>
+<body class="bg">
+<input type="hidden" value="${orderId}" id="orderId" >
+<div class="main">
+	<#include "../include/header.html">
+	<div class="middle-content">
+		<div class="order-content">
+			<h1 class="order-title">收货地址：${projectBaseinfo.projectName}</h1>	
+			<form class="form-horizontal order-form">
+			     <div class="form-group" >
+			    	<label class="col-sm-2 control-label">收货人姓名:</label>
+			    	<div class="col-sm-6" >
+			    		<input class="col-sm-12 form-control"  id="realName" />
+			    	</div>
+			    	<label class="col-sm-6 control-label"></label>
+			    </div>
+			    <div class="form-group" >
+			    	<label class="col-sm-2 control-label">收货地址:</label>
+			    	<div class="col-sm-6" >
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="address" ></textarea>
+			    	</div>
+			    	<label class="col-sm-6 control-label"></label>
+			    </div>
+			    <div class="form-group">
+			    	<label class="col-sm-2 control-label">联系方式:</label>
+			    	<div class="col-sm-6">
+			    		<input class="col-sm-12 form-control"  id="mobilePhone" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+			    	</div>
+			    	<label class="col-sm-6 control-label"></label>
+			    </div>
+			    <div class="form-group">
+			    	<label class="col-sm-2 control-label">邮政编码:</label>
+			    	<div class="col-sm-6">
+			    		<input class="col-sm-12 form-control"  id="postNum" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+			    	</div>
+			    	<label class="col-sm-6 control-label"></label>
+			    </div>
+			    <div class="form-btn">
+				  	<span class="product-detail-btn none" id="successBtn"  onclick="saveAddress()" >保存</span>
+				  	<span class="product-detail-btn disable-btn none" id="backBtn" onclick="goBack()" >返回</span>
+			    </div>	
+			</form>
+		</div>
+	</div>
+</div>
+
+<#include "../include/footer.html">
+<script type="text/javascript">
+	showLi('project_li');
+</script> 
+</body>
+</html>

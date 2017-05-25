@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+	
+	<script src="/themes/theme_default/dist/jquery.js" ></script>
+	<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+	<script src="/themes/theme_default/nb/wechat/js/wechat_bind.js" ></script>
+	
+	<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+	<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_bind.css" >
+	
+	<title>身份绑定</title>
+
+	<script type="text/javascript">
+	
+	</script>
+</head>
+<body>
+<input type="hidden" value="${redirectURL}" id="redirectURL"  >
+<input type="hidden" value="${listSize}" id="list" >
+<div id="main"  >
+	<div class="right-btn" ><img src="/themes/theme_default/nb/wechat/images/logo.png" class="bind-image" ></div>
+	<div class="space-div" ></div>
+	<div class="space-div" ></div>
+	<p class="bind-h" >验证手机号</p>
+	<p class="bind-p" ><span class="color-span" >*&nbsp;&nbsp;</span>验证通过后可在网页上通过手机号+密码方式登陆;</p>
+	<div class="space-div" ></div>
+	<form class="bind-form " >
+		<div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/tel.png" height="20px" width="18px" > </div>
+		      <input type="tel" class="form-control bind-input "      onkeyup="this.value=this.value.replace(/\D/g,'')"   onafterpaste="this.value=this.value.replace(/\D/g,'')"  id="tel" placeholder="手机号" onfocus="inputFocus()" maxlength="11" />
+		    </div>
+	    </div>
+	    
+	    <div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/lock.png" height="20px" width="18px" > </div>
+		      <input type="password" class="form-control bind-input " id="pwd" placeholder="密码">
+		    </div>
+	    </div>
+	    
+	     <div class="space-div" ></div>
+	     <p class="color-span" >*&nbsp;设置密码后可在网页登陆</p>
+	     
+	     <div class="space-div" ></div>
+	     
+	     <div class="form-group">
+		    <div class="input-group bind-group">
+		      <div class="input-group-addon bind-image-div " ><img src="/themes/theme_default/nb/wechat/images/edit.png" height="20px" width="18px" > </div>
+		      <input type="tel" class="form-control bind-input " id="yzm" placeholder="验证码" onfocus="inputFocus()" >
+		       <div class="input-group-addon bind-right-div " onclick="sendMsg()" id="tel_msg" >发送验证码</div>
+		    </div>
+	    </div>
+	    
+	     <div class="space-div" ></div>
+	     <div class="space-div" ></div>
+	     <div class="space-div red-div" id="error_msg"  ></div>
+	     <div class="space-div" ></div>
+	     
+	     <div class="btn-div" onclick="bindAccount()" >确认绑定</div>
+	     
+	     <div class="space-div" ></div>
+	     <div class="space-div" ></div>
+	     
+	     <div class="btn-div" >
+	     	 <div class="inner-div"  onclick="openUrl()" >下次再说</div>
+	     </div>
+	     
+	     <div class="space-div" ></div>
+	</form>
+</div>
+
+	<div class="list-group success-alert"  id="success_div" >
+	  <a href="#" class="list-group-item active">
+	    恭喜您，绑定成功!
+	  </a>
+	 <a href="#" class="list-group-item" onclick="successUrl()" >点击此处为您跳转...</a>
+	</div>
+	
+	<div class="well big-well" id="mask_div"></div>
+</body>
+</html>

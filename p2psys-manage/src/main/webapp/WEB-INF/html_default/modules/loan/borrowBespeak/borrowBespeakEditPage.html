@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	$(function() {
+	    $.fn.dataGridOptions.formSubFun("#form",'/modules/loan/borrowBespeak/borrowBespeakEdit.html');
+	});
+</script>
+<div class="borrowForm">
+<form id="form"  method="post">
+	<ul>
+		<li>
+			<span>用户名称：</span>
+			${borrowBespeak.user.userName}
+		</li>
+		<li>
+			<span>真实姓名：</span>
+			${borrowBespeak.user.realName}
+		</li>
+		<li>
+			<span>月均收入：</span>
+			${borrowBespeak.averageMoney}元
+		</li>
+		<li><span>婚姻状况：</span>
+			<#if borrowBespeak.marryStatus==1>未婚
+				<#elseif borrowBespeak.marryStatus==2>已婚
+			</#if>
+		</li>
+		<li>
+			<span>借款金额：</span>
+			${borrowBespeak.money}元
+		</li>
+		<li>
+			<span>借款期限：</span>
+			${borrowBespeak.timeLimit}个月
+		</li>
+		<li><span>申请贷款种类：</span>
+			<#if borrowBespeak.loanType==102>信用标
+				<#elseif borrowBespeak.loanType==103>固定收益类产品
+				<#elseif borrowBespeak.loanType==112>担保标
+			</#if>
+		</li>
+		<li>
+			<span>添加时间：</span>
+			${borrowBespeak.addTime?string('yyyy-MM-dd HH:mm:ss')}
+		</li>
+		<li>
+			<span>添加IP：</span>
+			${borrowBespeak.addIp}
+		</li>
+		<li><span>状态：</span>
+			<select name="status">
+				<option value="1">已处理</option>
+				<option value="2">不处理</option>
+			</select>
+		</li>
+	</ul>
+	<div class="borrowFormMuti">
+		<span>借款用途：</span>
+		<textarea rows="10" cols="30" readonly><#if (borrowBespeak.borrowUse)?length lt 1>暂无借款用途 <#else> ${borrowBespeak.borrowUse} </#if> </textarea>
+	</div>
+	<div class="borrowFormMuti"><span>还款来源：</span>
+			<#if borrowBespeak.repaySource==1>工资、薪金所得
+				<#elseif borrowBespeak.repaySource==2>个体工商户的生产、经营所得
+				<#elseif borrowBespeak.repaySource==3>对企事业单位的承包经营、承租经营所得
+				<#elseif borrowBespeak.repaySource==4>利息、股息、红利所得月
+				<#elseif borrowBespeak.repaySource==5>财产租赁所得
+				<#elseif borrowBespeak.repaySource==6>财产转让所得
+			</#if>
+	</div>
+	<div class="borrowFormMuti">
+		<span>备注：</span>
+		<textarea rows="10" cols="30" name="remark"></textarea>
+	</div>
+	<div class="borrowFormMuti">
+		<span>相关资料：</span>
+		<#list bbpList as pic>
+           <a href="${weburl}${pic.picPath}" class="fileshow"><img src="${weburl}${pic.picPath}" width="100" height="100"/></a>
+       	</#list>
+	</div>
+	<input type="hidden" name="id" value="${borrowBespeak.id}"/>
+</form>
+</div>
+<script type="text/javascript">
+	$(".fileshow").fancybox();
+</script>
+

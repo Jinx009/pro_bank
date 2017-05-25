@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#assign nid="member">
+     <div id="loginWrap" class="clearfix">
+		<div class="loginBd clearfix">
+			<div class="memberLogo"><a href="/" title="账户注册"><span>账户注册</span></a></div>
+			<a href="/" title="返回首页" class="backHomePage">返回首页</a>
+		</div>
+	</div> 
+    <div class="reg_wrap">
+    	<ul class="reg_process clearfix">
+    		<li class="hover"><i>1</i>填写账户信息</li>
+    		<li><i>2</i>账户注册成功</li>
+    	</ul>
+        <!--S-注册-->
+    	<div class="reg_content" style="display:block">
+        	<div class="reg_content_title">
+               <div class="reg-tab">
+                    <span class="reg-tabhover">投资者</span>
+                    <span><a href="/user/borrowRegister.html">借款人</a></span>
+               </div>
+               <p>低门槛，高收益，灵活投资，首次充值送充值金额的5‰！</p>
+            </div>
+            <form action="${webroot}/user/doRegister.html" method="post" name="formUser" id="signupForm" >
+            <input type="hidden" value="1" name="userType" class="user-type">
+            <div class="select-type">
+                <span class="active gr-type">个人投资者</span>
+                <span class="qy-type"><a href="/user/register.html">机构投资者</a></span>
+            </div>
+            <ul class="reg_table">
+                <li>
+                    <label class="reg_l_title">手机号码：</label>
+                    <input id="mobilePhone" name="mobilePhone" type="text" size="25" maxlength="11" onkeyup="replaceAndSetPos(this,/[^\d]/g,'')" value="" placeholder="请填写常用手机号">
+                    <input name="timeval" value="获取验证码" type="button" id="timeval" onclick="doajax()" style="width: 100px;">
+                    <span class="msg_tip"></span>
+                </li>
+                <li>
+                    <label class="reg_l_title">手机验证：</label>
+                    <input id="phonepassword" class="required"  name="code"  size="25" type="text" maxlength="16" placeholder="请输入您的手机收到的验证码">
+                    <span class="msg_tip"></span>
+                </li>
+                <li>
+                    <label class="reg_l_title">登录密码：</label>
+                    <input id="password" class="required"  name="pwd"  size="25" type="password" maxlength="16" placeholder="至少8个字符，包含字母和数字">
+                    <span class="msg_tip"></span>
+                </li>
+                 <li class="p_message">   	 
+                     <div class="passwordStrength clearfix ">	
+                        <span class="bar">
+                            <span class="process"></span>
+                        </span>
+                        <span class="strength low">弱</span>
+                        <span class="strength good">中</span>
+                        <span class="strength best">强</span>
+                     </div>
+                </li>
+                
+               	<li>
+                	<label class="reg_l_title">确认密码：</label>
+                    <input type="password" name="confirmPassword" size="25" maxlength="16" id="checkpwd" placeholder="请再次输入密码">
+                    <span class="msg_tip"></span>
+                </li>
+                <li>
+                	<label class="reg_l_title">验证码：</label>
+                    <input name="validCode" type="text"  maxlength="4" tabindex="3" style=" width: 108px; *margin-left:3px;" placeholder="请输入验证码" />
+                    <img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" style="cursor:pointer;margin-left:10px; height:30px;" />
+                    <span class="msg_tip"></span>
+                </li>
+                <li class="contract"><input type="checkbox" id="dianji"  name="agree" value="1">&nbsp;&nbsp;我已阅读并且同意<a id="service_contract" href="javascript:;">
+                &lt;&lt;${webname!}服务条款协议&gt;&gt;
+                </a><span class="msg_tip"></span></li>
+                <li class="reg_li">
+                    <input type="hidden" name="openLoginId"  value="${openLoginId!}" />
+                    <input id="invite_username" name="ui" type="hidden" value="${ui!}">
+                	<input class="reg_btn2" type="submit" id="zhuce" value="立即注册"/>
+                </li>
+            </ul>
+            </form>
+        </div>
+        <!--E-注册-->
+
+        <!--S-成功注册 -->
+        <div class="success_reg_con" style="display:none">
+            恭喜您，注册成功,您的果果是<font class="js_sucUsername" style="font-size:42px; color:red;"></font>。<br/>
+            请牢记您的帐号，您也可以通过您的手机号进行登录。<br/>
+            为了保障您的账号安全，请去<a href="/member/main.html" class="reg-gg-btn"  style="color:#fff;">账户中心</a>进行相关的认证！
+        </div>
+
+    <#include "xieyi.html"> 
+    <#include "../include/loginFooter.html">
+    <script type="text/javascript">seajs.use('register');</script>
+    <script type="text/javascript">
+    	function doajax(){
+    		$.ajax({
+				url:'/user/getPhoneCode.html?mobilePhone='+$('#mobilePhone').val(),
+				type:'post',
+				success:function(data){
+					if(data.result){
+						var time=60;
+						var timeFun=setInterval(function(){
+							time--;
+ 							if(time>0){
+ 								$('#timeval').val(time+"秒后重新获取").attr("disabled",true);
+                                $('#timeval').css("color","#333");
+                                $('#timeval').css("background","#ccc");
+ 							}else{
+ 								time=60;
+ 								$('#timeval').val("获取验证码").removeAttr("disabled");
+ 								clearInterval(timeFun);
+							}
+						},1000);
+					}
+				}
+			});
+    	}
+    </script>
+</body>
+</html>

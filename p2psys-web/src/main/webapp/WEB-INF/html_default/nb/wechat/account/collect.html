@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+		<title>800Bank</title>
+		<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/main.css" >
+		<link rel="stylesheet" href="/themes/theme_default/nb/wechat/css/wechat_footer.css" >
+		<script src="/themes/theme_default/dist/jquery.js" ></script>
+		<script src="/plugins/layer.mobile-v1.6/layer.m.js"></script>
+		<script src="/themes/theme_default/nb/wechat/js/agents.js" ></script>
+		<script src="/themes/theme_default/nb/wechat/js/wechat_alert.js" ></script>
+		<script src="/themes/theme_default/dist/js/bootstrap.js" ></script>
+		<link href="/plugins/pager/pager.css" rel="stylesheet"/>
+        <script type="text/javascript" src="/plugins/pager/pager.js"></script>
+        <script type="text/javascript" src="/themes/theme_default/nb/wechat/js/account/collectCash.js"></script>
+        <style>
+    /*layer弹出框样式begin*/
+    
+    .layermchild .layermbtn {
+        border-top: none;
+    }
+    
+    .layermchild .layermbtn span {
+        background: #ffae00;
+        color: #fff;
+        height: 27px;
+        width: 100px;
+        line-height: 27px;
+        font-size: 11px;
+        font-weight: 400;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+    
+    .layermchild .layermbtn span:first-child {
+            height: 29px;
+    line-height: 29px;
+    background: #fff;
+    color: #ffae00;
+    border: 1px #ffae00 solid;
+        border-radius: 6px;
+        margin-right: 20px
+    }
+    
+    .layermchild .layermbtn:before {
+        content: none;
+    }
+    /*layer弹出框样式end*/
+    </style>
+	</head>
+	<body>
+		<p class="title"><span><a href="main.html">&lt;</a></span>待收金额明细</p>
+
+		<div class="fix_income" id="fix_income" style="display: block;">
+			<div class="fix_header">
+				<ul>
+					<li style="color: #3B77B0;">固定收益类</li>
+					<li>浮动收益类</li>
+				</ul>
+			</div>
+			<div class="fix_navw">
+			<div class="fix_navw_first">
+				产品名/投资额
+			</div>
+			<div class="fix_navw_second">
+				收益率/投标日
+			</div>
+			<div class="fix_navw_third">
+				预期收益/到期日
+			</div>
+			</div>
+			<div class="investItem">
+				
+			</div>
+			
+		</div>
+		<div>
+		</div>
+		
+		
+		<div class="fix_income" id="float_income" style="display: none;">
+			
+			<div class="fix_header">
+				<ul>
+					<li>固定收益类</li>
+					<li style="color: #3B77B0;">浮动收益类</li>
+				</ul>
+			</div>
+			<div class="fix_navw">
+				<div class="fix_navw_first">
+				 产品名/投资额
+			    </div>
+			<div class="fix_navw_second">
+				收益率/投标日
+			</div>
+			<div class="fix_navw_third">
+				到期收益/到期日
+			</div>
+			</div>
+           <div class="investItems">
+				
+			</div>
+			
+	     
+		</div>
+		<div>
+		</div>
+		<div id="kkpager">
+			
+	     </div>
+	     
+	<div class="success-alert"  id="success_div" >
+			<div class="space-div" ></div>
+		    <img src="/themes/theme_default/nb/wechat/images/point.png" width="45px" id="pic"  >
+		   	<div class="space-div" ></div>
+		   	<p class="error-p" id="errorMsg" >确定赎回?</p>
+		   	<div class="space-div" ></div>
+		   	<div class="space-div" ></div>
+		   	<div class="error-btn"  id="right_btn" >确定</div>
+		   	<div class="space-div" ></div>
+		   	<div class="error-btn-btn" onclick="hideError();" id="wrong_btn" >取消</div>
+		   	<div class="space-div" ></div>
+		</div>
+	</body>
+</html>
+

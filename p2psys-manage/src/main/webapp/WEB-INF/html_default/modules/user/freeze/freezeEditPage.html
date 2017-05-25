@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/user/freeze/freezeEdit.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<div class="popForm sForm">
+    <form id="form"  method="post">
+    	<div class="formitm">
+		     <label class="lab">用户名：</label>
+		     <div class="ipt">
+		     	<input type="hidden" name="userName" />${name}
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">是否启用：</label>
+		     <div class="ipt">
+		     	<input type="radio" name="status" value="0" <#if freeze.status==0 >checked="checked"</#if>/>&nbsp;&nbsp;不启用
+				<input type="radio" name="status" value="1" <#if freeze.status==1 >checked="checked"</#if>/>&nbsp;&nbsp;启用
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">冻结点：</label>
+		     <div class="ipt">
+		     	<#-- <input type="checkbox" name="mark" value="login" <#if freeze.mark?contains("login")>checked="checked"</#if>/>登录 -->
+				<input type="checkbox" name="mark"  value="recharge" <#if freeze.mark?contains("recharge")>checked="checked"</#if>/>充值
+				<input type="checkbox" name="mark" value="cash" <#if freeze.mark?contains("cash")>checked="checked"</#if>/>提现
+				<input type="checkbox" name="mark" value="tender" <#if freeze.mark?contains("tender")>checked="checked"</#if>/>投标
+				<#-- <input type="checkbox" name="mark" value="borrow" <#if freeze.mark?contains("borrow")>checked="checked"</#if>/>发标 -->
+				<b>*</b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">备注：</label>
+		     <div class="ipt">
+		     	<textarea type="areatext"  id="content" name="remark" class="easyui-validatebox borrowFormTextarea w300" data-options="required: true,validType:'maxLength[100]'">${freeze.remark!''}</textarea>	
+		     </div>
+		</div>
+		<input name="id" value="${freeze.id}" type="hidden"/>
+	</form>
+</div>

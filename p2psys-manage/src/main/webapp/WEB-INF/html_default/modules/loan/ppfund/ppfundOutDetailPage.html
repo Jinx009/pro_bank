@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    $(function() {
+        $('#tenderListGrid').datagrid({
+            url : '/modules/loan/ppfund/ppfundOutList.html?id=${id}',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'id',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            columns : [ [
+              { field: 'userName', title: '转出人', width: 80, sortable:false },
+              { field: 'money', title: '转出金额', width: 80, sortable:false,formatter:function(value,row,index){
+            	  return value+"元";
+              }},  
+             
+              { field: 'addTime', title: '转出时间', width: 150, sortable:false,fixed:true,formatter: function(value,row,index){
+            	  return getLocalTime(value,4);
+              	} 
+              }, 
+              { field: 'addIp', title: '转出IP', width: 120, sortable:false }
+             ]]
+        }); 
+        
+    });
+</script>
+
+<table id="tenderListGrid"></table>
+

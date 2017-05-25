@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/payment/channelSave.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+</script>
+<script type="text/javascript">seajs.use("${theme_dir}/js/ajaxfileupload");</script>
+<script type="text/javascript">
+
+//微信素材
+function ajaxWechat(sId, _url,name,type) {
+	$.ajaxFileUpload({
+		url: _url,
+		secureuri: false,
+		fileElementId: sId,
+		dataType: 'json',
+		data:{typeCode:'aaa'},
+		success: function(data) {
+			if(data.state=="SUCCESS"){
+				$("#"+name).val(data.url);
+			}else{
+				alert("上传文件失败，请重试!");
+			}
+		},
+		error: function(data,status, e) {
+			alert("上传文件失败，请重试!");
+		}
+	});
+}
+</script>
+<div class="popForm">
+    <form id="form"  method="post"  enctype="multipart/form-data">
+		<div class="formitm">
+		     <label class="lab">通道名称</label>
+		     <div class="ipt">
+		     	<input type="text" name="channelName" class="w400 easyui-validatebox" data-options="required: true,validType:'chinese'" maxlength="8"/>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">通道KEY</label>
+		     <div class="ipt">
+		     	<input type="text" name="channelKey" class="w400 easyui-validatebox"  maxlength="25"/>
+		     	<b></b>
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">通道费率</label>
+		     <div class="ipt">
+		     	<input type="text" name="channelRate" class="w400 easyui-validatebox" />	
+		     </div>
+		</div>
+		<div class="formitm">
+		     <label class="lab">通道图标</label>
+		     <div class="ipt">
+		     	<!-- <input type="file" name="upload" class="w400 easyui-validatebox" />		 -->
+		     	<input type="file" name="zlfile" id="detail" onchange="return ajaxWechat('detail','/imageUp.jsp','logo');" title="点击上传图片"  >
+		     </div>
+		</div>
+		<input type="hidden" name="channelLogo" id="logo" />
+	</form>
+</div>

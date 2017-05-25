@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource.html"> 
+<body>
+
+<#assign nid="member">
+    <style type="text/css">
+		.reg_table .ajaxmes{ padding-left:140px; line-height:35px;}
+    </style>
+     <div id="login_head">
+       <div class="login_head_con">
+          <a href="/">
+	          <div class="con_left">
+	              <span class="con_left_bg"></span>欢迎注册
+	           </div>
+           </a>
+          <div class="con_right"><a href="/">回到首页</a></div>
+       </div>
+    </div>
+    
+    
+    <div class="bgcolor">
+	    <div id="reg_container" class="doRegister">
+	        <div class="currentPath">当前位置：<a href="#">注册</a></div>
+	        	<div class="reg_content">
+	            	<div class="reg_content_title">
+	                	<span class="reg_table_title">注册成为融都科技会员！</span>
+	                    <span class="reg_table_login">注册帐户可加入融都科技。如果您已经注册，可在此<a href="/user/login.html?openId=${openId!}&openType=${openType!}">关联</a>已有账户!</span>
+	                </div>
+	                <form action="${webroot}/user/doQQRegister.html" method="post" name="formUser" id="signupForm" >
+	                <ul class="reg_table">
+	                    <li>
+	                        <label class="reg_l_title">用户名：</label>
+	                        <input id="username" name="userName" type="text" size="25" maxlength="16" value="" onKeyUp="value=value.replace(' ','')">
+	                    </li>
+	                    <li class="p_message">
+	                    	请输入4-16位字符,支持中文、英文字母、数字、下划线组成,且不能为纯数字
+	                    </li>
+	                    <li class="emailbox">
+	                        <label class="reg_l_title">Email：</label>
+	                        <input id="customTest" name="email" type="text"  size="25" maxlength="25" value="">
+	
+	                    </li>
+	                    <li class="p_message">
+	                    	请输入您的常用邮箱
+	                    </li>
+	                    <li>
+	                    	<label class="reg_l_title">验证码：</label>
+	                        <input name="validCode" type="text" class="ignore_cls" maxlength="4" tabindex="3" style=" width:80px; *margin-left:3px;" />
+	                        <img src="${webroot}/validimg.html" alt="点击刷新" class="valicode_img" onClick="this.src='${webroot}/validimg.html?t=' + Math.random();" align="absmiddle" style="cursor:pointer;margin-left:10px; height:30px;" />
+	                    </li>
+	                    <li class="reg_li">
+	                             <div class="float_left pr10">
+	                            	<input class="reg_btn2" type="submit" id="zhuce" value="立即注册"/>
+	                             </div>
+	                             <span class="float_left">
+	                                
+	                                <input type="checkbox" id="dianji" checked="checked" class="requied" >我已阅读并且同意<a id="" href="#" onclick='readXieYi()'>协议</a>
+	                             </span>
+	                                <input type="hidden" name="actionType"  value="register" />
+	                                <input type="hidden" name="openId"  value="${openId!}" />
+	                                <input type="hidden" name="openType"  value="${openType!''}" />
+	                                <input type="hidden" value="register">
+	                                <input id="invite_username" name="invite_username" type="hidden" size="22" maxlength="60" value="">
+	                    </li>
+	                    <li class="ajaxmes"></li>
+	                </ul>
+	                </form>
+	            </div>
+	            <div class="register_bottom"></div>
+	        </div> 
+	    </div>     
+    <!--注册开始-->
+    <!--S-成功注册 -->
+    <div class="bgcolor">
+	    <div id="container" class="successRegister" style="display:none">
+	         
+	             <div class="currentPath">当前位置：<a href="#">注册成功</a></div>
+	             <div class="success_reg_con clearfix">
+	                  <div class="reg_con_left"><img src="${webroot}${theme_dir}/images/success-reg-con-left.jpg" alt="" /></div>
+	                  <div class="reg_con_right">
+	                     <div  class="right_title"> 注册成功！激活邮件已发送，请立即激活！</div>
+	                     <div  class="right_btn clearfix">
+	                     	<a href="" id="loginEmail" target="_blank">查看邮件</a>
+	                     	<input id="reset_email" class="reset_email btn_back" type="button" value="重新发送">
+	                     	
+	                     	<p class="reset_email_txt">
+	                     	</p>
+	                     	<form>
+	                     		<input type="hidden" name="email" class="js_resetEmail"> 
+	                     		<input type="hidden" name="userid" class="js_userid">
+	                     	</form>
+	                     </div>
+	                     <div  class="right_word">
+	                       <p>您的注册邮箱：<font color="#D71317" class="js_sucEmail"></font></p>
+	                       <p>激活邮件已经发送，建议您立即登录邮箱激活！</p>
+	                       <p>激活邮箱可以帮助您快速找回密码，消息提醒</p>
+	                       <p>如果没有接收到邮件请点击<font color="#f60">"重新发送"</font>按钮</p>
+	                     </div>
+	                  </div>
+	             </div>
+	    </div>
+    </div>
+    <#include "xieyi.html"> 
+    <!--E-成功注册 -->
+    
+    <script type="text/javascript">
+   		seajs.use('${webroot}${theme_dir}/media/js/register');
+   			function readXieYi(){
+   	   			var i = $.layer({
+   	   				type :1,
+   	   				title : "协议内容",
+   	   				closeBtn :[0,true],
+   	   				border : [10 , 0.3 , '#000', true],
+   	   				area :['auto','550px'],
+   	   				page : {dom :'#modal_dialog'}
+   	   				});
+   			}	 		
+	</script>
+<#include "../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,5 @@
+<ul class="user_right_menu clearfix">
+	<li class="h_menu_li">充值</li>
+	<li <#if account_type?exists&&account_type=="newrecharge">class="active"</#if>><a href="${webroot}/member/recharge/newRecharge.html">充值</a></li>
+    <li <#if account_type?exists&&account_type=="recharge">class="active"</#if>><a href="${webroot}/member/recharge/log.html">充值记录</a></li>
+</ul>

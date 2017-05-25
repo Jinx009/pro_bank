@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<#include "../../include/resource.html">
+<body>
+	<#assign nid="member"> 
+	<#include "../../include/member_header.html">
+	<!--header-end-->
+	<!--用户中心的主栏目 开始-->
+	<div id="container" class="clearfix">
+		<div class="usermain clearfix">
+			<!--左边的导航 开始-->
+			<div class="user_left"> 
+			<#assign mid="m_invest">
+			   <#include "../user_menu.html"></div>
+			<!--左边的导航 结束-->
+
+			<!--右边的内容 开始-->
+			<div class="user_right">
+				<!--S- 2.0我的借款导航 -->
+					<div class="user_right_menu">
+						<ul class="user_right_menu clearfix">
+							<li class="h_menu_li">积分兑换记录</li>
+						</ul>
+					</div>
+				<!--E- 2.0我的借款导航 -->
+				<!-- S-2.0我要投资数据 -->
+				<div class="user_right_main">
+					<div class="user_main_title">
+						记录时间：
+						<input type="text" name="startTime" id="startTime" value="${startTime?default('')}" size="15" onclick="change_picktime()" /> 到 
+						<input type="text" name="endTime" value="${endTime?default('')}" id="endTime" size="15" onclick="change_picktime()" /> 
+						<input value="搜索" type="button"  class="btn sub_btn"  id="searchBtn" />
+					</div>
+					
+					<table id="convertList" class="loglist"></table>
+						<div class="page" id="js_page">
+	                        <span class="first" title="首页"><<</span>
+	                        <span class="front" title="上一页"><</span>
+	                        <div class="pageBox">
+	                            <div class="pageList">
+	                                <b class="pagenum"></b>
+	                            </div>
+	                        </div>
+		                    <span class="next" title="下一页">></span>
+		                    <span class="last" title="未页">>></span>
+	                        <div class="pageDes">
+	                            <b class="total">共<font></font>页</b>	
+	                            <b class="gopage">
+	                              		  跳转至
+	                                <input type="text" class="gopage_val">
+	                              		  页
+	                                <input type="button" class="gopage_btn" value="确定">
+	                            </b>	
+	                        </div>	                  	
+		                </div>
+						<script id="json_data"  type="text/x-handlebars-template">
+							<tr class="t_head">
+								<td>类型名</td>
+								<td>操作积分</td>
+                                <td>剩余有效积分</td>
+                                <td>剩余冻结积分</td>
+								<td>记录时间</td>
+                                <td>备注信息</td>
+							</tr>
+							{{#each data.list}}
+								<tr class="data_item">
+									<td>{{scoreTypeName}}</td>
+									<td>{{score}}</td>
+									<td>{{validScore}}</td>
+									<td>{{freezeScore}}</td>
+									<td>{{addTime}}</td>
+									<td>{{{remark}}}</td>
+								</tr>	
+							{{/each}}
+						</script>
+						
+						<script>
+						$("#convertList").usePage({URL:"/member/score/scoreLogList.html",
+							colModel:[{
+								field:'scoreTypeName'
+							},{
+								field:'score'
+							},{
+								field:'validScore'
+							},{
+								field:'freezeScore'
+							},{
+								field:'addTime',
+								formatter:addTimeFun
+							},{
+								field:'remark'
+							}],callBack:function(){
+								memberMenu();//计算用户中心右侧高度，代码在common.js
+							}
+						})
+					</script>
+				</div>	
+					
+				</div>
+				<!-- E-2.0我要投资数据 -->
+				
+			</div>
+			<!--右边的内容 结束-->
+		</div>
+	<!--用户中心的主栏目 结束-->
+<script type="text/javascript">
+$(function(){
+	$('#searchBtn').click(function(){
+		var search='search=true';
+		if($('#startTime').val()!=''){
+			search+='&startTime='+$('#startTime').val();
+		}
+		if($('#endTime').val()!=''){
+			search+='&endTime='+$('#endTime').val();
+		}
+		$("#convertList").usePage({URL:"/member/score/scoreLogList.html?"+search,
+			colModel:[{
+				field:'scoreTypeName'
+			},{
+				field:'score'
+			},{
+				field:'validScore'
+			},{
+				field:'freezeScore'
+			},{
+				field:'addTime',
+				formatter:addTimeFun
+			},{
+				field:'remark'
+			}],callBack:function(){
+				memberMenu();//计算用户中心右侧高度，代码在common.js
+			}
+		})
+	});
+	
+})
+</script>	
+	<#include "../../include/footer.html">
+</body>
+</html>

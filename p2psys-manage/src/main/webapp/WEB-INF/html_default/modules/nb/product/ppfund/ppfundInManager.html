@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		现金管理购买记录
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<#include "../../../../include/resources.html">
+</head>
+
+<body style="padding:0 20px;">
+	<div class="easyui-layout" data-options="fit:true,border:false">
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">
+				<form id="searchForm">
+					<input type="text" name="searchName" id="searchName" class="sInput" placeholder="输入 [ 产品信息 ] 或 [ 用户信息 ] 进行模糊查询" autocomplete="off" />
+					<a href="javascript:;" title="模糊查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">
+						模糊查询
+					</a>
+					<a href="javascript:;" class="advBtn" title="精确查询">
+						精确查询
+					</a>
+					<a href="javascript:void(0);" class="reloadIcon" onclick="dataGrid.datagrid('reload');" title="刷新">
+						<i class="iconfont">
+							&#xe603;
+						</i>
+					</a>
+				</form>
+			</div>
+			<div class="sRight">
+				<a id="a" onclick="exportExcel();" href="javascript:void(0);" class="addBtn">
+					导出Excel
+				</a>
+			</div>
+			<form id="showAdw">
+				<ul class="showAdw" style="display:none;">
+					<a href="javascript:void(0);">
+						<i class="iconfont closeWin">
+							&#xe628;
+						</i>
+					</a>
+					<li>
+						<span>
+							用户名
+						</span>
+						<input type="text" name="username" id="username" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							真实姓名
+						</span>
+						<input type="text" name="realname" id="realname" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品名称
+						</span>
+						<input type="text" name="ppfundName" id="ppfundName" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							产品编码
+						</span>
+						<input type="text" name="pidNo" id="pidNo" autocomplete="off" />
+					</li>
+					<li>
+						<span>
+							时间
+						</span>
+						<input type="text" name="startTime" id="startTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime" /> &nbsp;-&nbsp;
+						<input type="text" name="endTime" id="endTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime" />
+					</li>
+					<li>
+						<span>
+							转出时间
+						</span>
+						<input type="text" name="startOutTime" id="startOutTime" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\')}',readOnly:true})" class="searchTime" /> &nbsp;-&nbsp;
+						<input type="text" name="endOutTime" id="endOutTime" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'startTime\')}',readOnly:true})" class="searchTime" />
+					</li>
+					<li>
+						<span>
+							&nbsp;
+						</span>
+						<a href="javascript:void(0);" class="searchBtn sureBtn" onclick="$.fn.dataGridOptions.searchFun('#showAdw');">
+							确定
+						</a>
+						<a href="javascript:void(0);" class="searchBtn" onclick="$.fn.dataGridOptions.cleanFun('#searchForm');">
+							重置
+						</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div data-options="region:'center'" style="margin-top:30px;padding-bottom:30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+var dataGrid;
+
+$(function() {
+	var editIndex = undefined;
+	dataGrid = $('#dataGrid').datagrid({
+		url: 'ppfundInAllList.html',
+		fit: true,
+		border: false,
+		pagination: true,
+		idField: 'id',
+		pageSize: pageSize,
+		pageNums: 1,
+		pageList: pageList,
+		sortName: 'id',
+		sortOrder: 'desc',
+		checkOnSelect: false,
+		selectOnCheck: false,
+		nowrap: false,
+		singleSelect: true,
+		columns: [
+			[{
+				field: 'id',
+				title: '编号',
+				width: 50
+			}, {
+				field: 'userName',
+				title: '用户名',
+				width: 100
+			}, {
+				field: 'realName',
+				title: '真实姓名',
+				width: 100
+			}, {
+				field: 'pidNo',
+				title: '产品编码',
+				width: 100
+			}, {
+				field: 'ppfundName',
+				title: '产品名称',
+				width: 100
+			}, {
+				field: 'money',
+				title: '购买金额',
+				width: 80,
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'account',
+				title: '有效投标金额',
+				width: 110,
+				formatter: function(value, row, index) {
+					return value + "元";
+				}
+			}, {
+				field: 'addTime',
+				title: '购买时间',
+				width: 150,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}, {
+				field: 'outTime',
+				title: '预约转出时间',
+				width: 150,
+				formatter: function(value, row, index) {
+					return getLocalTime(value, 4);
+				}
+			}, {
+				field: 'outStr',
+				title: '是否转出',
+				width: 100
+			}]
+		],
+		toolbar: '#toolbar'
+	});
+});
+
+function exportExcel() {
+	var url = "/modules/nb/product/ppfund/exportExcelPpfundInAllList.html";
+	var searchName = $("#searchName").val()
+	var userName = $("#username").val();
+	var realName = $("#realname").val();
+	var pidNo = $("#pidNo").val();
+	var ppfundName = $("#ppfundName").val();
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	var startOutTime = $("#startOutTime").val();
+	var endOutTime = $("#endOutTime").val();
+	var sou = "?searchName=" + searchName + "&userName=" + userName + "&realname=" + realName +
+		"&pidNo=" + pidNo + "&ppfundName=" + ppfundName + "&startTime=" + startTime + "&endTime=" + endTime
+		+ "&startOutTime=" + startOutTime + "&endOuTime=" + endOutTime;
+	alert(sou);
+	window.location.href = url + sou;
+}
+</script>
+<script src="${theme_dir}/js/search.js"></script>

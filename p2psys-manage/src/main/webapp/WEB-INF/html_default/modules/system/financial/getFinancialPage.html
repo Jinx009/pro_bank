@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>分配用户</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#include "../../../../include/resources.html">
+
+<body>
+<script type="text/javascript">
+	var dataGrid;
+    $(function() {
+    	dataGrid = $('#dataGrid').datagrid({
+            url : '/modules/system/financial/getFinancial.html',
+            fit : true,
+            fitColumns : true,
+            border : false,
+            pagination : true,
+            idField : 'userId',
+            pageSize : pageSize,
+            pageNums :1,
+            pageList : pageList,
+            sortName : 'id',
+            sortOrder : 'asc',
+            checkOnSelect : false,
+            selectOnCheck : false,
+            nowrap : false,
+			singleSelect:true,
+            columns : [ [
+			  { field: 'operator.id', title: '序号', sortable:false,width:20},
+              { field: 'operator.name', title: '理财顾问', sortable:false,width:20},
+			  {	field : 'action',
+					title : '操作',
+					width :75,
+					fixed: true,
+					align:'center',
+					formatter : function(value, row, index) {
+						var str="";
+						str += '<dl>';
+						<#if financialManager??>
+							var fid = ${financialManager.id};
+							if(fid == row.operator.id){
+								str += '<dt><input type="radio" class="choose-btn" name="pid" value="'+row.operator.id+'" checked="checked"></dt>' ;
+							}else{
+								str += '<dt><input type="radio" class="choose-btn" value="'+row.operator.id+'" name="pid"></dt>' ;
+							}
+						<#else>
+							str += '<dt><input type="radio" class="choose-btn" value="'+row.operator.id+'" name="pid"></dt>' ;
+						</#if>
+						str +=  '</dl>'
+						return str;
+					}
+			  }
+             ]]
+        }); 
+    });
+</script>
+<div class="easyui-layout" data-options="fit : true,border : false">
+	<script type="text/javascript">
+    $.fn.dataGridOptions.formSubFun("#form",'/modules/system/financial/addFinancial.html'); //表单提交  参数1：表单id 参数2：表单action地址		
+	</script>
+    <form id="form" method="post" enctype="multipart/form-data">
+    <!-- 隐藏域：理财顾问用户id -->
+    <input type="hidden" value="${idStr!}" name='ids'>
+	 <div data-options="region:'center'" style="margin-top:10px;padding-bottom:10px;">
+		  <table id="dataGrid"></table>
+	 </div>
+	</form>
+</div>
+</body>
+</html>
+
+

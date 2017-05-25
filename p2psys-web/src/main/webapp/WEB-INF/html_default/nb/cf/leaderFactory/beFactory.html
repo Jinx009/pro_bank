@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>800众服</title>
+<link rel="stylesheet" href="/themes/theme_default/cf/css/base.css" />
+<link rel="stylesheet" href="/themes/theme_default/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="/themes/theme_default/cf/css/cf.css" />		
+<script src="/themes/theme_default/cf/js/url.js" ></script>
+<script src="/themes/theme_default/cf/js/jquery.js" ></script>
+<script src="/plugins/vue/vue.min.js"></script>
+<script src="/plugins/layer/layer.js" ></script>
+<script src="/themes/theme_default/dist/jquery.form.js"></script>
+<script src="/themes/theme_default/cf/js/bootstrap.min.js" ></script>
+<script src="/themes/theme_default/cf/js/leaderFactory/beFactory.js" ></script>
+<style type="text/css">
+.user-headIcon{
+	text-align: left;
+	width: 200px;
+	background:white;
+	padding: 0px;
+	cursor: pointer;
+}
+</style>
+</head>
+<body class="bg">
+<div class="main">
+	<input type="hidden" value="${isStatus}" id="status" >
+	<input type="hidden" value="${redirectUrl}" id="redirectUrl" >
+	<#include "../include/header.html">
+		<div class="product-detail-top-title">
+		<ol class="breadcrumb">
+		  <li><a href="/cf/aboutUs.html" >关于我们</a></li>
+		  <li><a href="/leaderFactory.html" >优秀领投人</a></li>
+		  <li class="active" >我的优秀领投人</li>
+		</ol> 
+	</div>
+	<div class="middle-content">
+		<div class="order-content">
+			<h1 class="order-title">申请优秀领投人</h1>	
+			<div class="form-horizontal order-form"  >
+				<div class="form-group">
+				    <label class="col-sm-2 control-label">优秀领投人:</label>
+				    <div class="col-sm-10 sm-inp">
+				    	<p class="form-control-static start-money" id="goodStatus" >未申请</p>
+				    </div>
+			    </div>
+			     <div class="form-group" >
+			    	<label class="col-sm-2 control-label">姓名:</label>
+			    	<div class="col-sm-8" >
+			    		<input class="col-sm-12 form-control"  id="name" />
+			    	</div>
+			    </div>
+			    <form id="form"  method="post" enctype="multipart/form-data" action="/cf/upload.action" >
+			     <div class="form-group" >
+			    	<label class="col-sm-2 control-label">头像:</label>
+			    	<div class="col-sm-8" style="text-align: left;" >
+						<div class="user-headIcon" >   
+							<div class="user-headIcon-top"><img id="headerImg" src="/themes/theme_default/cf/img/team_icon.jpg" onclick="getSub()"  /></div>
+							<input type="file" name ="file" id="file" onchange="subForm()" style="display: none;" >
+						</div>
+			    	</div>
+			    </div>
+			    </form>
+			    <div class="form-group" >
+			    	<label class="col-sm-2 control-label">个人简介:</label>
+			    	<div class="col-sm-8" >
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="info" ></textarea>
+			    	</div>
+			    </div>
+			    <div class="form-group" id="minMoneyDiv" >
+			    	<label class="col-sm-2 control-label">领投理由:</label>
+			    	<div class="col-sm-8">
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="reason" ></textarea>
+			    	</div>
+			    </div>
+			     <div class="form-group" id="minMoneyDiv" >
+			    	<label class="col-sm-2 control-label">擅投行业:</label>
+			    	<div class="col-sm-8" id="flagData" style="margin-left: 2%" ></div>
+			    </div>
+			       <div class="form-group" id="minMoneyDiv" >
+			    	<label class="col-sm-2 control-label">历史领投:</label>
+			    	<div class="col-sm-8">
+			    		<textarea class="col-sm-12 form-control" rows="3"  id="history" ></textarea>
+			    	</div>
+			    </div>
+			    <div class="form-btn">
+				  	<span class="product-detail-btn " id="beBtn"  onclick="doBe()" >申请</span>
+				  	<span class="product-detail-btn disable-btn" onclick="goBack()" >返回</span>
+			    </div>	
+			    
+			</div>
+		</div>
+	</div>
+</div>
+<#include "../include/footer.html"> 
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<#include "../include/resource1.html"> 
+<body>
+<#assign nid="member" >
+<!--找回密码 开始-->
+	 <#include "../include/header.html">
+    <div id="forgetPwdWrap" class="clearfix">
+    	<ul class="forgetPwdTab clearfix">
+            <li><a href="/user/getPayPwd.html?showType=2" title="通过【手机】找回密码"><i class="iconfont">&#xe626;</i>手机找回</a></li>
+            <#if userInfo.email??>
+			<li class="active" style="border-right:0;"><a href="/user/getPayPwd.html?showType=1" title="通过【邮箱】找回密码"><i class="iconfont">&#xe627;</i>邮箱找回</a></li>
+            <#else>
+            <li class="active" style="border-right:0;"><a href="javascript:void(0)" title="通过【邮箱】找回密码" style="color:#ccc;"><i class="iconfont">&#xe627;</i>邮箱找回</a></li>
+            </#if>
+		</ul>
+    	<form action="/user/getPayPwd.html" method="post" id="emailgetForm">
+    	<dl class="forgetPwdForm">
+    		<dt>通过邮箱找回密码</dt>
+    		<dd class="postMsg">
+    			<p>校验码已发送至您的邮箱：<em>${user.email!"您的邮箱"}，</em></p>
+    			<p>请输入校验码完成密码重置</p>
+    			<p>若没有收到，请尝试在垃圾箱中找回或<input type="button" value="重新发送" class="noBtn" id="resetEmailCode"></p>
+    		</dd>
+    		<dd><label>校验码</label>
+    			<input type="text" name="code" class="userName" maxlength="6">
+             </dd>
+            <dd class="error" style="display: none;"><label></label></dd>
+            <dd><label>&nbsp;</label>
+				<input type="hidden" value="${user.email?if_exists}" name="email">
+             	<input type="hidden" value="1" name="getType" />
+             	<input type="hidden" value="1" name="step" />
+             	<input type="submit" value="下一步" class="nextBtn" />
+             </dd>
+    	</dl>
+    	</form>
+    </div>
+    <script>
+        seajs.use("${webroot}${theme_dir}/media/js/user/getpaypwd_email")
+    </script>
+    <#include "../include/loginFooter.html">
+<!--找回密码 结束-->
+</body>
+</html>

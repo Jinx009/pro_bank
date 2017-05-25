@@ -1,0 +1,35 @@
+.buy-select{
+	margin-left: 2%;
+	width: 45%;
+	border: 1px solid #d0d0d0;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 3px;
+	color: #939393;
+}
+.add-big{
+	color: #FFFFFF;
+	background: #dcdcdc;
+	float: '';
+	width: 80px;
+	text-align: center;
+}
+.sub-big{
+	background: #ff0c3f;
+	float: '';
+	margin-right: 2%;
+	width: 80px;
+	text-align: center;
+}
+.invest-pre-big span{
+	border-radius: 4px;
+	text-align: center;
+	line-height: 33px;
+	font-size: 15px;
+	display: inline-block;
+}
+.invest-pre-big{
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>后台管理系统</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<#include "./include/resources.html">
+</head>
+
+<body class="loginBg">
+	<div class="loginBox">
+		<h1></h1>
+		<div class="loginBd">
+			<h2></h2>
+			<form>
+				<ul>
+					<li class="msgTip" style="display:none;"></li>
+					<li>
+						<span class="userIco"></span>
+						<input type="text" id="userName" name="userName" value="" autocomplete="off" placeholder="用户名" class="loginTxt" />
+					</li>
+					<li>
+						<span class="pwdIco"></span>
+						<input type="password" id="password" name="password" value="" autocomplete="off" placeholder="密码" class="loginTxt" />
+					</li>
+					<li>
+						<span class="pwdIco"></span>
+						<input type="text" id="uchoncode" name="uchoncode" value="" autocomplete="off" placeholder="动态口令" class="loginVeriCode" />
+						<input type="button" id="uchonCodeBtn" value="发送动态口令" onclick="getUchonCode()" class="veriCodeBtn" />
+					</li>
+					<li>
+						<input type="button" value="立即登录" class="loginBtn" />
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+function loginFun(type) {
+	$.ajax({
+		type: "post",
+		url: "/modules/login.html",
+		dataType: 'json',
+		data: "userName=" + $("#userName").val() + "&password=" + $("#password").val() + "&uchoncode=" + $("#uchoncode").val(),
+		success: function(data) {
+			if (data.result) {
+				location.href = "/home.html";
+			} else {
+				$(".msgTip").show().html(data.msg);
+			}
+		}
+	});
+}
+/**
+ * 获取动态口令
+ */
+function getUchonCode()
+{
+	 $("#uchoncode").val("");
+	$.ajax({
+		url:"/generateUchonCode.html",
+		type:"POST",
+		data:"userName=" + $("#userName").val(),
+		dataType:"json",
+		success:function(res)
+		{
+			if("success"==res.result)
+			{
+				$("#msgTip").html("");
+				changeGetCodeBtn('uchonCodeBtn','getUchonCode()');
+			}else {
+				$(".msgTip").show().html(res.errorMsg);
+			}
+		}
+	});
+}
+
+/**
+ * 更改获取邀请码按钮
+ * @param btnId
+ */
+function changeGetCodeBtn(btnId,functionName)
+{
+	var time=180;
+	
+	var timeFun=setInterval(function()
+	{
+		time--;
+		
+		if(time>0)
+		{
+			$("#"+btnId).val(time+"秒后重发").attr("onclick","");
+		}
+		else
+		{
+			time=60;
+				
+			$("#"+btnId).val("发送动态口令").attr("onclick",functionName);
+				
+			clearInterval(timeFun);
+		}
+	},1000)
+}
+$(document).keydown(function(event) {
+	if (event.keyCode == 13) {
+		loginFun();
+	}
+});
+
+$(document).on({
+	click: function() {
+		loginFun();
+	}
+}, ".loginBtn");
+
+// 解决超时登陆界面在iframe框里和panel框里
+if (window != top) {
+	parent.window.location.href = location.href;
+}
+
+if ($("#nav").length > 0) {
+	window.location.reload();
+}
+</script>
+
+</html>

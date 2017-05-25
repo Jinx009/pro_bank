@@ -1,0 +1,61 @@
+body
+{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: "Microsoft Yahei";
+}
+.land-a
+{
+	width: 100%;
+	border-radius:0px;
+	letter-spacing: 3px;
+	font-size: 18px;
+}
+.land-input
+{
+	border-radius:0px;
+	border-left: 0 solid white;
+	border-right: 0 solid white;
+	border-top: 0 solid white;
+	border-bottom: 1px solid rgb(204,204,204);
+	height: 40px;
+}
+.space-div
+{
+	height: 15px;
+}
+.land-login
+{
+	width: 94%;
+	margin-left:3%;
+	border-radius:4px;
+	letter-spacing: 3px;
+	font-size: 18px;
+}
+.right-btn
+{
+	width: 96%;
+	margin-left: 2%;
+	text-align: right;
+}
+.login-image
+{
+	width:40%;
+	margin-left:30%;
+	margin-bottom: 75px;
+}
+.red-div
+{
+	color: red;
+	text-indent: 2em;
+	letter-spacing: 2px;
+}
+.success-btn
+{
+	letter-spacing: 2px;
+}
+.success-div
+{
+	text-align: center;
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../../../../include/resources.html">
+<title>众筹基础</title>
+ <script type="text/javascript">
+
+	var dataGrid;
+	var winWidth = 900;
+	var winHeight = 500;
+	var addTitle = "新增数据";
+	var addUrl = "/modules/nb/vip/wealthManagerUser/wealthManagerUserAddPage.html";
+	
+	 var editTitle = "编辑";
+	var editUrl = "/modules/nb/vip/wealthManagerUser/wealthManagerUserEditPage.html"; 
+	
+	var deleteTitle = "您是否要删除当前记录?";
+	var deleteUrl = "/modules/nb/vip/wealthManagerUser/wealthManagerUserDelete.html"; 
+	
+	var addWinParmeters = "'{0}','" + addTitle + "'," + winWidth + ","
+			+ winHeight + ",'" + addUrl + "'";
+
+	var deleteWinParmeters = "'{0}','" + deleteUrl + "'";
+	$(function()
+	{
+		var editIndex = undefined;
+		dataGrid = $('#dataGrid').datagrid(
+		{
+			url : '/modules/nb/vip/wealthManagerUser/wealthUserJson.html',
+			fit : true,
+			fitColumns : true,
+			border : false,
+			pagination : true,
+			idField : 'id',
+			pageSize : pageSize,
+			pageNums : 1,
+			pageList : pageList,
+			sortName : 'id',
+			sortOrder : 'asc',
+			checkOnSelect : false,
+			selectOnCheck : false,
+			nowrap : false,
+			singleSelect : true,
+			columns :
+			[
+			[
+			{
+				field : 'id',
+				title : 'ID',
+				width : 100,
+				fixed : true,
+				checkbox : false
+			},
+			{
+				field : 'user.realName',
+				title : '用户姓名',
+				width : 100,
+				fixed : false,
+				sortable : false
+			},
+			{
+				field : 'user.userName',
+				title : '用户手机',
+				width : 100,
+				fixed : false,
+				sortable : false
+			},
+			{
+				field : 'test',
+				title : '财富管家列表',
+				width : 100,
+				fixed : false,
+				sortable : false,
+				formatter : function(value, row, index) 
+				{
+					var str = '';
+					for(var i = 0;i<row.list.length;i++)
+					{
+						str += "<p>管家姓名:"+row.list[i].split("|")[1]+"</p>";
+					}
+					
+					return str;
+				}
+			},
+			{	
+				field : 'action',
+				title : '操作',
+				fixed: true,
+				width :100,
+				sortable : false,
+				formatter : function(value, row, index) 
+				{
+					var str = '';
+					str += '<dl>';
+					str += '<dt><a href="javascript:void(0);">详情</a><i class="iconfont">&#xe639;</i></dt>' ;
+					str += '<dd>';
+				 	str += "<a href='javascript:void(0);' onclick=openMyUrl('/modules/nb/vip/wealthManagerUser/wealthManagerUserEditPage.html?userid="+row.id+"','编辑管家')>编辑</a>";
+					str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.deleteFun('+row.user.id+',deleteUrl,deleteTitle);">删除</a>';
+					str += '</dd>'
+					str +=  '</dl>'
+					return str;
+				}
+			}
+			] ],
+			toolbar : '#toolbar',
+			onLoadSuccess : function()
+			{
+				$('#searchForm table').show();
+				parent.$.messager.progress('close');
+			},
+			onRowContextMenu : function(e, rowIndex, rowData)
+			{
+				e.preventDefault();
+				$(this).datagrid('unselectAll').datagrid('uncheckAll');
+				$(this).datagrid('selectRow', rowIndex);
+				$('#menu').menu('show',
+				{
+					left : e.pageX,
+					top : e.pageY
+				});
+			}
+		});
+	});
+	
+
+	
+	function openMyUrl(url,title)
+	{
+		$("body",parent.document).find('#new_title').val(title);
+		$("body",parent.document).find('#new_url').val(url);
+		
+		$("body",parent.document).find('#new_test').click();
+	}
+	function openMyUrl(url,title,id)
+	{
+		$("body",parent.document).find('#new_title').val(title);
+		$("body",parent.document).find('#new_url').val(url);
+		
+		$("body",parent.document).find('#new_test').click();
+	}
+	
+	
+	
+
+</script>
+
+</head>
+<body>
+
+
+
+	<div class="easyui-layout" data-options="fit : true,border : false">
+	
+		<div data-options="region:'north',border:false,collapsible:false" id="searchBox">
+			<div class="sLeft">			
+	            <form id="searchForm">
+	            	<input type="text"  name="realName" id="realName" class="sInput" placeholder="输入用户名" />
+	            	<input type="text" name="userName" id="userName" class="sInput" placeholder="输入用户手机号码"/>
+	            	<a href="javascript:;" title="查询" class="sBtn" onclick="$.fn.dataGridOptions.searchFun('#searchForm');">查询</a>
+	            </form>
+	        </div>
+			<div class="sRight">
+				<a onclick="openMyUrl('/modules/nb/vip/wealthManagerUser/wealthManagerUserAddPage.html','添加管家')" class="addBtn"><i class="iconfont">&#xe629;</i>添加</a>
+			</div>
+		</div>
+		
+		<div data-options="region:'center'"
+			style="margin-top: 30px; padding-bottom: 30px;">
+			<table id="dataGrid"></table>
+		</div>
+	</div>
+	
+</body>
+</html>
